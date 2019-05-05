@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.write.product.OrderReceiptWriteDao">
+	<resultMap id="OrderReceiptResult" type="com.ejavashop.entity.product.OrderReceipt">
+			<result property="id" column="id" />
+			<result property="ordersId" column="orders_id" />
+			<result property="sellerId" column="seller_id" />
+			<result property="SPU" column="SPU" />
+			<result property="totalAmount" column="total_amount" />
+			<result property="dateProbaby" column="date_probaby" />
+			<result property="createtime" column="create_time" />
+			<result property="systemId" column="system_id" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="OrderReceiptResult">
+		select
+		   *
+		from `order_receipt`
+		where `id` = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.ejavashop.entity.product.OrderReceipt">
+        update `order_receipt` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="ordersId != null">`orders_id`= #{ordersId},</if>
+			<if test="sellerId != null">`seller_id`= #{sellerId},</if>
+			<if test="SPU != null">`SPU`= #{SPU},</if>
+			<if test="totalAmount != null">`total_amount`= #{totalAmount},</if>
+			<if test="dateProbaby != null">`date_probaby`= #{dateProbaby},</if>
+			<if test="createtime != null">`create_time`= #{createtime},</if>
+			<if test="systemId != null">`system_id`= #{systemId}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.product.OrderReceipt" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`order_receipt`
+		(
+			
+			`orders_id`,
+			`seller_id`,
+			`SPU`,
+			`total_amount`,
+			`date_probaby`,
+			`create_time`,
+			`system_id`,
+			`status`
+		)
+		values
+		(
+			
+			#{ordersId},
+			#{sellerId},
+			#{SPU},
+			#{totalAmount},
+			#{dateProbaby},
+			now(),
+			#{systemId},
+			#{status}
+		)
+	</insert>
+	
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `order_receipt` 
+		<include refid="getOrderReceipt" />
+	</select>
+	
+	<select id="page"  parameterType="java.util.Map"  resultType="com.ejavashop.entity.product.OrderReceipt">
+		select * from `order_receipt`
+		<include refid="getOrderReceipt" />
+		order by `id` desc, `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="getOrderReceipt">
+		<where>
+			<if test="q_orders_id != null and q_orders_id != '' ">
+			   and `orders_id` = #{q_orders_id}
+			</if>
+			<if test="q_seller_id != null  and q_seller_id != ''">
+			   and `seller_id` = #{q_seller_id}
+			</if>
+			<if test="q_date_probaby != null and q_date_probaby != ''">  
+			    and `date_probaby` = CONCAT('%',#{q_date_probaby},'%')
+			</if>
+			 
+		</where>
+	</sql>
+	
+	<select id="getReceiptProductDetailByOrdersId" parameterType="String" resultType="com.ejavashop.entity.product.OrderReceiptDetail">
+		select
+		   *
+		from `order_receipt_detail`
+		where `orders_id` = #{ordersId}
+	</select>
+	
+	<update id="auditSendGoods" parameterType="java.util.Map">
+	   update `order_receipt` 
+    	<set>
+	    	  `status` = #{status},
+	    	  `update_time` = now(),
+    	</set>
+    	where `orders_id` = #{ordersId}
+	</update>
+	<select id="getByOrdersId" parameterType="String"  resultType="com.ejavashop.entity.product.OrderReceipt">
+	     select * from `order_receipt` where `orders_id` = #{ordersId}
+	</select>
+</mapper>

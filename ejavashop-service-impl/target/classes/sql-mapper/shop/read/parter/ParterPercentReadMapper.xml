@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.parter.ParterPercentReadDao">
+	<resultMap id="ParterPercentResult" type="com.ejavashop.entity.parter.ParterPercent">
+			<result property="id" column="id" />
+			<result property="type" column="type" />
+			<result property="startTime" column="start_time" />
+			<result property="endTime" column="end_time" />
+			<result property="percent" column="percent" />
+			<result property="parterSignId" column="parter_sign_id" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="percentType" column="percent_type" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="ParterPercentResult">
+		select
+		   *
+		from `parter_percent`
+		where `id` = #{id}
+	</select>
+	
+	
+	<select id="getParterPercentCount" parameterType="java.util.Map" resultType="Integer">
+		select
+		   count(*)
+		from `parter_percent`
+	</select>
+	
+	<select id="getParterPercent" parameterType="java.util.Map" resultMap="ParterPercentResult">
+		select
+		   *
+		from `parter_percent`
+		order by `id` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	
+	<select id = "getParterPercentByParterSignId" resultMap="ParterPercentResult">
+		select * from `parter_percent` where `parter_sign_id` = #{parterSignId} 
+		<if test="percentType != null and percentType != ''">
+			and percent_type = #{percentType}
+		</if>
+	</select>
+	
+</mapper>

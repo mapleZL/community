@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.order.OrdersErrorReadDao">
+	<resultMap id="OrdersErrorResult" type="com.ejavashop.entity.order.OrdersError">
+			<result property="id" column="id" />
+			<result property="orderSn" column="order_sn" />
+			<result property="relationOrderSn" column="relation_order_sn" />
+			<result property="orderType" column="order_type" />
+			<result property="sellerId" column="seller_id" />
+			<result property="memberId" column="member_id" />
+			<result property="memberName" column="member_name" />
+			<result property="orderState" column="order_state" />
+			<result property="payTime" column="pay_time" />
+			<result property="paymentStatus" column="payment_status" />
+			<result property="invoiceStatus" column="invoice_status" />
+			<result property="invoiceTitle" column="invoice_title" />
+			<result property="invoiceType" column="invoice_type" />
+			<result property="moneyProduct" column="money_product" />
+			<result property="moneyLogistics" column="money_logistics" />
+			<result property="moneyOrder" column="money_order" />
+			<result property="moneyPaidBalance" column="money_paid_balance" />
+			<result property="moneyPaidReality" column="money_paid_reality" />
+			<result property="moneyCoupon" column="money_coupon" />
+			<result property="moneyActFull" column="money_act_full" />
+			<result property="moneyDiscount" column="money_discount" />
+			<result property="moneyBack" column="money_back" />
+			<result property="moneyIntegral" column="money_integral" />
+			<result property="integral" column="integral" />
+			<result property="couponUserId" column="coupon_user_id" />
+			<result property="actFullId" column="act_full_id" />
+			<result property="activityId" column="activity_id" />
+			<result property="ip" column="ip" />
+			<result property="paymentName" column="payment_name" />
+			<result property="paymentCode" column="payment_code" />
+			<result property="name" column="name" />
+			<result property="provinceId" column="province_id" />
+			<result property="cityId" column="city_id" />
+			<result property="areaId" column="area_id" />
+			<result property="addressAll" column="address_all" />
+			<result property="addressInfo" column="address_info" />
+			<result property="mobile" column="mobile" />
+			<result property="email" column="email" />
+			<result property="zipCode" column="zip_code" />
+			<result property="remark" column="remark" />
+			<result property="deliverTime" column="deliver_time" />
+			<result property="finishTime" column="finish_time" />
+			<result property="source" column="source" />
+			<result property="logisticsId" column="logistics_id" />
+			<result property="logisticsName" column="logistics_name" />
+			<result property="logisticsNumber" column="logistics_number" />
+			<result property="isCodconfim" column="is_codconfim" />
+			<result property="codconfirmId" column="codconfirm_id" />
+			<result property="codconfirmName" column="codconfirm_name" />
+			<result property="codconfirmTime" column="codconfirm_time" />
+			<result property="codconfirmRemark" column="codconfirm_remark" />
+			<result property="codconfirmState" column="codconfirm_state" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="servicePrice" column="service_price" />
+			<result property="labelPrice" column="label_price" />
+			<result property="deliveredSum" column="delivered_sum" />
+			<result property="tradeNo" column="trade_no" />
+			<result property="tradeSn" column="trade_sn" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="OrdersErrorResult">
+		select
+		   *
+		from `orders_error`
+		where `id` = #{id}
+	</select>
+	
+	<select id = "getOrdersErrorByOrdersSn" resultMap="OrdersErrorResult">
+	 	select * from `orders_error` where substring(`relation_order_sn`,2) = substring(#{ordersSn},2)
+	 	<if test="queryMap.q_ordersSn != null and queryMap.q_ordersSn !=''">and `order_sn` = #{queryMap.q_ordersSn}</if>
+	</select>
+	
+</mapper>

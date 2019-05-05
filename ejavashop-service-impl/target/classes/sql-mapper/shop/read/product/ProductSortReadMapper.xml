@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.product.ProductSortReadDao" >
+	<resultMap id="PcIndexFloorProductResult" type="com.ejavashop.entity.shopm.pcindex.PcIndexFloorProduct">
+			<result property="id" column="id" />
+			<result property="productId" column="product_id" />
+			<result property="sortType" column="sort_type" />
+			<result property="name1" column="name1" />
+			<result property="sort" column="sort" />
+	</resultMap>
+	<sql id="getCondition">
+        <where>
+            <if test="queryMap.q_floorCode != null and queryMap.q_floorCode !=''">
+                and sort_type = #{queryMap.q_floorCode}
+            </if>
+        </where>
+    </sql> 
+    
+	<select id="getPcIndexFloorsCount" parameterType="java.util.Map" resultType="Integer">
+		select
+		   count(*)
+		from `product_order`
+		<include refid="getCondition"/>
+	</select>
+	
+	<select id="getPcIndexFloors" parameterType="java.util.Map" resultMap="PcIndexFloorProductResult">
+		select
+		   *
+		from `product_order`
+		<include refid="getCondition"/>
+		order by `id` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<select id="getName" parameterType="java.lang.Integer" resultType="String">
+		select
+		  `name1`
+		from `product`
+		where id = #{id};
+	</select>
+	
+	<!-- <delete id="delete">
+		delete from `product_order` where id = # {id};
+	</delete> -->
+	
+</mapper>

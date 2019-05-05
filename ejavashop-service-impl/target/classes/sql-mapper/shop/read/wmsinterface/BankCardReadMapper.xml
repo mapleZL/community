@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.wmsinterface.BankCardReadDao">
+	<resultMap id="BankCardResult" type="com.ejavashop.entity.wmsinterface.BankCard">
+			<result property="id" column="id" />
+			<result property="bankName" column="bank_name" />
+			<result property="bankCode" column="bank_code" />
+			<result property="cardBin" column="card_bin" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="BankCardResult">
+		select
+		   *
+		from `bank_card`
+		where `id` = #{id}
+	</select>
+	
+	<!-- <update id="update" parameterType="com.ejavashop.entity.wmsinterface.BankCard">
+        update `bank_card` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="bankName != null">`bank_name`= #{bankName},</if>
+			<if test="bankCode != null">`bank_code`= #{bankCode},</if>
+			<if test="cardBin != null">`card_bin`= #{cardBin}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.wmsinterface.BankCard" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`bank_card`
+		(
+			
+			`bank_name`,
+			`bank_code`,
+			`card_bin`
+		)
+		values
+		(
+			
+			#{bankName},
+			#{bankCode},
+			#{cardBin}
+		)
+	</insert> -->
+	<select id="getBankCodeByCardBin" parameterType="String" resultMap="BankCardResult">
+		select * from `bank_card` where `card_bin` = #{cardBin}
+	</select>
+	
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.member.MemberCreditLogReadDao">
+	<resultMap id="MemberCreditLogResult" type="com.ejavashop.entity.member.MemberCreditLog">
+			<result property="id" column="id" />
+			<result property="creditId" column="credit_id" />
+			<result property="type" column="type" />
+			<result property="memberId" column="member_id" />
+			<result property="orderSn" column="order_sn" />
+			<result property="orderMoney" column="order_money" />
+			<result property="orderDay" column="order_day" />
+			<result property="orderPayState" column="order_pay_state" />
+			<result property="balanceBefore" column="balance_before" />
+			<result property="balanceAfter" column="balance_after" />
+			<result property="creditAmount" column="credit_amount" />
+			<result property="creditBefore" column="credit_before" />
+			<result property="creditAfter" column="credit_after" />
+			<result property="expireDateBefore" column="expire_date_before" />
+			<result property="periodAccount" column="period_account" />
+			<result property="expireDateAfter" column="expire_date_after" />
+			<result property="createId" column="create_id" />
+			<result property="createName" column="create_name" />
+			<result property="creatTime" column="creat_time" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="MemberCreditLogResult">
+		select
+		   *
+		from `member_credit_log`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `member_credit_log` t1
+		<include refid="whereConditions" />
+	</select>
+	
+	<select id="page" resultType="com.ejavashop.entity.member.MemberCreditLog">
+		SELECT
+			(
+				SELECT
+					name
+				FROM
+					member
+				WHERE
+					id = t1.member_id
+			)AS member_name,
+			t1.*
+		FROM
+			`member_credit_log` t1
+		<include refid="whereConditions" />
+		order by id desc 
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<select id="list" resultType="com.ejavashop.entity.member.MemberCreditLog">
+		select * from `member_credit_log` t1
+		order by id desc 
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="whereConditions">
+		where 1=1
+		<trim  suffixOverrides="," >
+			<if test="id != null and id !=''"  > and `id`= #{id}</if>
+			<if test="creditId != null and creditId !=''"  > and `credit_id`= #{creditId}</if>
+			<if test="q_creditId != null and q_creditId !=''"  > and `credit_id`= #{q_creditId}</if>
+			<if test="type != null and type !=''"  > and `type`= #{type}</if>
+			<if test="memberId != null and memberId !=''"  > and `member_id`= #{memberId}</if>
+			<if test="in_members != null and in_members !=''"  > and `member_id` in(${in_members})</if>
+			<if test="q_orderSn != null and q_orderSn !=''"  > and `order_sn`= #{q_orderSn}</if>
+			<if test="orderMoney != null and orderMoney !=''"  > and `order_money`= #{orderMoney}</if>
+			<if test="orderDay != null and orderDay !=''"  > and `order_day`= #{orderDay}</if>
+			<if test="orderPayState != null and orderPayState !=''"  > and `order_pay_state`= #{orderPayState}</if>
+			<if test="balanceBefore != null and balanceBefore !=''"  > and `balance_before`= #{balanceBefore}</if>
+			<if test="balanceAfter != null and balanceAfter !=''"  > and `balance_after`= #{balanceAfter}</if>
+			<if test="creditAmount != null and creditAmount !=''"  > and `credit_amount`= #{creditAmount}</if>
+			<if test="creditBefore != null and creditBefore !=''"  > and `credit_before`= #{creditBefore}</if>
+			<if test="creditAfter != null and creditAfter !=''"  > and `credit_after`= #{creditAfter}</if>
+			<if test="expireDateBefore != null and expireDateBefore !=''"  > and `expire_date_before`= #{expireDateBefore}</if>
+			<if test="periodAccount != null and periodAccount !=''"  > and `period_account`= #{periodAccount}</if>
+			<if test="expireDateAfter != null and expireDateAfter !=''"  > and `expire_date_after`= #{expireDateAfter}</if>
+			<if test="createId != null and createId !=''"  > and `create_id`= #{createId}</if>
+			<if test="createName != null and createName !=''"  > and `create_name`= #{createName}</if>
+			<if test="creatTime != null and creatTime !=''"  > and `creat_time`= #{creatTime}</if>
+			<if test="q_startTime != null and q_startTime !=''"  >and `creat_time` &gt;= #{q_startTime}</if>
+			<if test="q_endTime != null and q_endTime !=''"  >and `creat_time` &lt;= #{q_endTime}</if>
+		</trim>
+	</sql>
+	
+	<select id="getAllMemberCreditLog" resultType="com.ejavashop.entity.member.MemberCreditLog">
+		select (select name from member where id = mc.member_id) as member_name ,mc.creat_time,mc.order_sn,mc.order_money,mc.balance_before,mc.balance_after 
+			from member_credit_log  mc where 1=1
+			<if test="q_expireDate != null and q_expireDate !=''"  > and `creat_time`&lt;= #{q_expireDate}</if>
+			  order by member_id 
+	</select>
+	
+</mapper>

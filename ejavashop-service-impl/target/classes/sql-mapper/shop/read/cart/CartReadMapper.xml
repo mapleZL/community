@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.cart.CartReadDao">
+	<resultMap id="CartResult" type="com.ejavashop.entity.cart.Cart">
+			<result property="id" column="id" />
+			<result property="createTime" column="create_time" />
+			<result property="memberId" column="member_id" />
+			<result property="count" column="count" />
+			<result property="specId" column="spec_id" />
+			<result property="specInfo" column="spec_info" />
+			<result property="productId" column="product_id" />
+			<result property="sellerId" column="seller_id" />
+			<result property="productGoodsId" column="product_goods_id" />
+			<result property="checked" column="checked" />
+	</resultMap>
+
+	<!-- 移到write库 <select id="getByMemberId" parameterType="Integer" resultMap="CartResult">
+		select
+		   *
+		from `cart`
+		where `member_id` = #{memberId}
+	</select> -->
+<select id="getByMemberId" parameterType="Integer" resultMap="CartResult">
+		select
+		   *
+		from `cart`
+		where `member_id` = #{memberId}
+		<if test="useType == 2">
+			and `checked`= 1
+		</if>
+		order by seller_id;
+	</select>
+
+	   
+	<!-- 查询条件 -->
+	<sql id="Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+			<if test="q_id != null and q_id !=''"  > and `id`= #{q_id}</if>
+			<if test="q_createTime != null and q_createTime !=''"  > and `create_time`= #{q_createTime}</if>
+			<if test="q_memberId != null and q_memberId !=''"  > and `member_id`= #{q_memberId}</if>
+			<if test="q_count != null and q_count !=''"  > and `count`= #{q_count}</if>
+			<if test="q_specId != null and q_specId !=''"  > and `spec_id`= #{q_specId}</if>
+			<if test="q_specInfo != null and q_specInfo !=''"  > and `spec_info`= #{q_specInfo}</if>
+			<if test="q_productId != null and q_productId !=''"  > and `product_id`= #{q_productId}</if>
+			<if test="q_sellerId != null and q_sellerId !=''"  > and `seller_id`= #{q_sellerId}</if>
+			<if test="q_productGoodsId != null and q_productGoodsId !=''"  > and `product_goods_id`= #{q_productGoodsId}</if>
+		</trim>
+	</sql>
+	
+	
+	<select id="get" parameterType="Integer" resultMap="CartResult">
+		select
+		   *
+		from `cart`
+		where `id` = #{id}
+	</select>
+	
+	
+	<select id="getCartNumberByMId" parameterType="Integer" resultType="Integer">
+		select
+		   sum(count)
+		from `cart`
+		where `member_id` = #{memberId}
+	</select>
+	
+	<!-- 取购物车中商户 -->
+	<select id="getSellersOfCart" parameterType="Integer" resultMap="CartResult">
+		select
+		   *
+		from `cart`
+		where `member_id` = #{memberId}
+		group by seller_id 
+	</select>
+	
+	
+	<!-- 商城购物车 列表总数-->
+	<select id="queryCount" resultType="java.lang.Integer"  parameterType="map">
+		select count(1) from cart
+		<include refid="Where_Clause"/>
+	</select>
+	  	
+	<!-- 查询商城购物车列表 -->
+	<select id="queryList" resultMap="CartResult"  parameterType="map">
+		select 
+		  * 
+		from cart 
+		<include refid="Where_Clause"/>
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<select id="getWeightByMemberId" parameterType="Integer" resultType="Double">
+		select ifnull(sum(c.count*
+			(select value from `product_attr` where `product_id`=c.product_id and name='克重（净重）')), 0)*1.1
+		<!-- select ifnull(sum(c.count * (select case CAST(value AS SIGNED) when 0 then 45 else value end from `product_attr` where `product_id`=c.product_id and name='克重（净重）')), 45)*1.1  --> 
+			from `cart` c where `member_id` = #{memberId} 
+			<if test="sellerId != null and sellerId !=''"  > and `seller_id` = #{sellerId}</if>
+			and `checked` = true
+	</select>
+	
+	<select id="getCountByMemberId" parameterType="Integer" resultType="Integer">
+		select ifnull(sum(c.count), 0) from `cart` c where `member_id` = #{memberId} 
+		<if test="productId != null and productId !=''"  >
+			and `product_id` = #{productId}
+		</if>
+		<if test="sellerId != null and sellerId !=''"  >
+			and `seller_id` = #{sellerId}
+		</if>
+		and `checked` = true
+	</select>
+	
+	<select id="getCountByProductGoodsId" parameterType="Integer" resultType="Integer">
+		select ifnull(sum(count),0) from cart where member_id=#{memberId} 
+		and product_goods_id=#{productGoodsId}
+	</select>
+	
+	<select id="selectPackage" resultType="Integer" parameterType="Integer">
+		select * from cart c where c.member_id = #{memberId} and  c.checked = 1 and (c.product_package_id != '' or c.product_package_id is not null)
+	
+	</select>
+	
+</mapper>

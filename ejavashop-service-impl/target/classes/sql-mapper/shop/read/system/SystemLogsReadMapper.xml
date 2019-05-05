@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.system.SystemLogsReadDao">
+	<resultMap id="SystemLogsResult" type="com.ejavashop.entity.system.SystemLogs">
+			<result property="id" column="id" />
+			<result property="optId" column="opt_id" />
+			<result property="optName" column="opt_name" />
+			<result property="optContent" column="opt_content" />
+			<result property="createTime" column="create_time" />
+			<result property="memberRuleId" column="member_rule_id" />
+			<result property="optObject" column="opt_object" />
+			<result property="optObjectId" column="opt_object_id" />
+			<result property="optType" column="opt_type" />
+			<result property="optOther" column="opt_other" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="SystemLogsResult">
+		select
+		   *
+		from `system_logs`
+		where `id` = #{id}
+	</select>
+	
+</mapper>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.write.order.BookingSendGoodsWriteDao">
+	<resultMap id="BookingSendGoodsResult" type="com.ejavashop.entity.order.BookingSendGoods">
+			<result property="id" column="id" />
+			<result property="sendAddress" column="send_address" />
+			<result property="payType" column="pay_type" />
+			<result property="payTime" column="pay_time" />
+			<result property="sendNum" column="send_num" />
+			<result property="weight" column="weight" />
+			<result property="takePrice" column="take_price" />
+			<result property="bookingUser" column="booking_user" />
+			<result property="mobile" column="mobile" />
+			<result property="phone" column="phone" />
+			<result property="checkMan" column="check_man" />
+			<result property="checkTime" column="check_time" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="ordersId" column="orders_id" />
+			<result property="status" column="status" />
+			<result property="logisticsNo" column="logistics_no" />
+			<result property="payMan" column="pay_man" />
+			<result property="logisticsId" column="logistics_id" />
+			<result property="logisticsName" column="logistics_name" />
+			<result property="tradeSn" column="trade_sn" />
+			<result property="provinceId" column="province_id" />
+			<result property="cityId" column="city_id" />
+			<result property="areaId" column="area_id" />
+			<result property="addressDetail" column="address_detail" />
+			<result property="isCodconfim" column="is_codconfim" />
+			<result property="codconfirmId" column="codconfirm_id" />
+			<result property="codconfirmName" column="codconfirm_name" />
+			<result property="codconfirmTime" column="codconfirm_time" />
+			<result property="codconfirmRemark" column="codconfirm_remark" />
+			<result property="codconfirmState" column="codconfirm_state" />
+			<result property="remark" column="remark" />
+			<result property="sendTime" column="send_time" />
+			<result property="name" column="name" />
+			<result property="paymentName" column="payment_name" />
+			<result property="paymentCode" column="payment_code" />
+			<result property="moneyProduct" column="money_product" />
+			<result property="moneyOrder" column="money_order" />
+			<result property="moneyPaidBalance" column="money_paid_balance" />
+			<result property="moneyPaidReality" column="money_paid_reality" />
+			<result property="moneyBack" column="money_back" />
+			<result property="checkNote" column="check_note" />
+			<result property="invoiceStatus" column="invoice_status" />
+			<result property="invoiceTitle" column="invoice_title" />
+			<result property="invoiceType" column="invoice_type" />
+			<result property="payStatus" column="pay_status" />
+			<result property="finishTime" column="finish_time" />
+			<result property="isDelete" column="is_delete" />
+			<result property="zipCode" column="zip_code" />
+			<result property="bookOrdersSn" column="book_orders_sn" />
+	</resultMap>
+	<!-- <select id="get" parameterType="Integer" resultMap="BookingSendGoodsResult">
+		select
+		   *
+		from `booking_send_goods`
+		where `id` = #{id}
+	</select> -->
+
+	<update id="update" parameterType="com.ejavashop.entity.order.BookingSendGoods">
+        update `booking_send_goods` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="sendAddress != null">`send_address`= #{sendAddress},</if>
+			<if test="payType != null">`pay_type`= #{payType},</if>
+			<if test="payTime != null">`pay_time`= now(),</if>
+			<if test="sendNum != null">`send_num`= #{sendNum},</if>
+			<if test="weight != null">`weight`= #{weight},</if>
+			<if test="takePrice != null">`take_price`= #{takePrice},</if>
+			<if test="bookingUser != null">`booking_user`= #{bookingUser},</if>
+			<if test="mobile != null">`mobile`= #{mobile},</if>
+			<if test="phone != null">`phone`= #{phone},</if>
+			<if test="checkMan != null">`check_man`= #{checkMan},</if>
+			<if test="checkTime != null">`check_time`= #{checkTime},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
+			<if test="updateTime != null">`update_time`= now(),</if>
+			<if test="ordersId != null">`orders_id`= #{ordersId},</if>
+			<if test="status != null">`status`= #{status},</if>
+			<if test="logisticsNo != null">`logistics_no`= #{logisticsNo},</if>
+			<if test="payMan != null">`pay_man`= #{payMan},</if>
+			<if test="logisticsId != null">`logistics_id`= #{logisticsId},</if>
+			<if test="logisticsName != null">`logistics_name`= #{logisticsName},</if>
+			<if test="tradeSn != null">`trade_sn`= #{tradeSn},</if>
+			<if test="provinceId != null">`province_id`= #{provinceId},</if>
+			<if test="cityId != null">`city_id`= #{cityId},</if>
+			<if test="areaId != null">`area_id`= #{areaId},</if>
+			<if test="addressDetail != null">`address_detail`= #{addressDetail},</if>
+			<if test="isCodconfim != null">`is_codconfim`= #{isCodconfim},</if>
+			<if test="codconfirmId != null">`codconfirm_id`= #{codconfirmId},</if>
+			<if test="codconfirmName != null">`codconfirm_name`= #{codconfirmName},</if>
+			<if test="codconfirmTime != null">`codconfirm_time`= #{codconfirmTime},</if>
+			<if test="codconfirmRemark != null">`codconfirm_remark`= #{codconfirmRemark},</if>
+			<if test="codconfirmState != null">`codconfirm_state`= #{codconfirmState},</if>
+			<if test="remark != null">`remark`= #{remark},</if>
+			<if test="sendTime != null">`send_time`= #{sendTime},</if>
+			<if test="name != null">`name`= #{name},</if>
+			<if test="paymentName != null">`payment_name`= #{paymentName},</if>
+			<if test="paymentCode != null">`payment_code`= #{paymentCode},</if>
+			<if test="moneyProduct != null">`money_product`= #{moneyProduct},</if>
+			<if test="moneyOrder != null">`money_order`= #{moneyOrder},</if>
+			<if test="moneyPaidBalance != null">`money_paid_balance`= #{moneyPaidBalance},</if>
+			<if test="moneyPaidReality != null">`money_paid_reality`= #{moneyPaidReality},</if>
+			<if test="moneyBack != null">`money_back`= #{moneyBack},</if>
+			<if test="checkNote != null">`check_note`= #{checkNote},</if>
+			<if test="invoiceStatus != null">`invoice_status`= #{invoiceStatus},</if>
+			<if test="invoiceTitle != null">`invoice_title`= #{invoiceTitle},</if>
+			<if test="invoiceType != null">`invoice_type`= #{invoiceType},</if>
+			<if test="payStatus != null">`pay_status`= #{payStatus},</if>
+			<if test="finishTime != null">`finish_time`= #{finishTime},</if>
+			<if test="isDelete != null">`is_delete`= #{isDelete},</if>
+			<if test="zipCode != null">`zip_code`= #{zipCode},</if>
+			<if test="bookOrdersSn != null">`book_orders_sn`= #{bookOrdersSn}</if>
+	    </set>
+        where `id` = #{id}
+	</update>	
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.order.BookingSendGoods" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`booking_send_goods`
+		(
+			
+			`send_address`,
+			`pay_type`,
+			`pay_time`,
+			`send_num`,
+			`weight`,
+			`take_price`,
+			`booking_user`,
+			`mobile`,
+			`phone`,
+			`check_man`,
+			`check_time`,
+			`create_time`,
+			`update_time`,
+			`orders_id`,
+			`status`,
+			`logistics_no`,
+			`pay_man`,
+			`logistics_id`,
+			`logistics_name`,
+			`trade_sn`,
+			`province_id`,
+			`city_id`,
+			`area_id`,
+			`address_detail`,
+			`is_codconfim`,
+			`codconfirm_id`,
+			`codconfirm_name`,
+			`codconfirm_time`,
+			`codconfirm_remark`,
+			`codconfirm_state`,
+			`remark`,
+			`send_time`,
+			`name`,
+			`payment_name`,
+			`payment_code`,
+			`money_product`,
+			`money_order`,
+			`money_paid_balance`,
+			`money_paid_reality`,
+			`money_back`,
+			`check_note`,
+			`invoice_status`,
+			`invoice_title`,
+			`invoice_type`,
+			`pay_status`,
+			`finish_time`,
+			`is_delete`,
+			`zip_code`,
+			`book_orders_sn`
+		)
+		values
+		(
+			
+			#{sendAddress},
+			#{payType},
+			#{payTime},
+			#{sendNum},
+			#{weight},
+			#{takePrice},
+			#{bookingUser},
+			#{mobile},
+			#{phone},
+			#{checkMan},
+			#{checkTime},
+			now(),
+			now(),
+			#{ordersId},
+			'1',
+			#{logisticsNo},
+			#{payMan},
+			#{logisticsId},
+			#{logisticsName},
+			#{tradeSn},
+			#{provinceId},
+			#{cityId},
+			#{areaId},
+			#{addressDetail},
+			#{isCodconfim},
+			#{codconfirmId},
+			#{codconfirmName},
+			#{codconfirmTime},
+			#{codconfirmRemark},
+			#{codconfirmState},
+			#{remark},
+			#{sendTime},
+			#{name},
+			#{paymentName},
+			#{paymentCode},
+			#{moneyProduct},
+			#{moneyOrder},
+			#{moneyPaidBalance},
+			#{moneyPaidReality},
+			#{moneyBack},
+			#{checkNote},
+			#{invoiceStatus},
+			#{invoiceTitle},
+			#{invoiceType},
+			#{payStatus},
+			#{finishTime},
+			'0',
+			#{zipCode},
+			#{bookOrdersSn}
+		)
+	</insert>
+	
+	<!-- <select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `booking_send_goods` 
+		<include refid="getSendGoods" />
+	</select>
+	
+	<select id="page"  parameterType="java.util.Map"  resultType="com.ejavashop.entity.order.BookingSendGoods">
+		select * from `booking_send_goods`
+		<include refid="getSendGoods" />
+		order by `id` desc, `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select> -->
+	
+	<!-- 查询条件 -->
+	<!-- <sql id="getSendGoods">
+		<where>
+			<if test="q_bookingUser != null and q_bookingUser != '' ">
+			   and `booking_user` = #{q_bookingUser}
+			</if>
+			<if test="q_name != null  and q_name != ''">
+			   and `name` = #{q_name}
+			</if>
+			<if test="q_mobile != null and q_mobile != ''">  
+			    and `mobile` = #{q_mobile}
+			</if>
+			    and `is_delete` = '0'
+		</where>
+	</sql> -->
+	
+	<!-- 审核 -->
+	<update id="auditSendGoods" parameterType="java.util.Map">
+	   update `booking_send_goods` 
+    	<set>
+	    	  `status` = #{status},
+	    	  `check_man` = #{checkMan},
+	    	 `check_time` = now(),
+	    	  `check_note` = #{checkNote},
+    	</set>
+    	where `id` =#{id}
+	</update>
+	
+	<!-- 逻辑删除 -->
+	<update id="delGoods" parameterType="Integer">
+	    update `booking_send_goods` 
+	    <set>
+	     `is_delete` = '1'
+	    </set>
+	    where `id` = #{id}
+	</update>
+	<update id="returngoods">
+	  update `booking_send_goods` 
+	  <set>
+	     `status` = #{status},
+	     `check_note` = #{checkNote},
+	     `update_time`= now()
+	   </set>
+	   where `id` = #{id}
+	</update>
+	
+	<!-- <select id="getSendGoodsByOrdersId"  parameterType="Integer" resultMap="BookingSendGoodsResult">
+	  select * from `booking_send_goods` 
+	  where `orders_id` = #{ordersId}
+	</select>
+    <select id="getBookList" resultMap="BookingSendGoodsResult">
+		select
+		   *
+		from `booking_send_goods`
+		where `pay_status` = 0
+		and `create_time` &lt;= #{cancelTime}
+	</select> -->
+	
+</mapper>

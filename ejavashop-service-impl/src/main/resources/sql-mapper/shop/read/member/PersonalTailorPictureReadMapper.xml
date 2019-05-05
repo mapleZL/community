@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.member.PersonalTailorPictureReadDao">
+	<resultMap id="PersonalTailorPictureResult" type="com.ejavashop.entity.member.PersonalTailorPicture">
+			<result property="id" column="id" />
+			<result property="personalTailorId" column="personal_tailor_id" />
+			<result property="tailorDescription" column="tailor_description" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="PersonalTailorPictureResult">
+		select
+		   *
+		from `personal_tailor_picture`
+		where `id` = #{id}
+	</select>
+	
+</mapper>

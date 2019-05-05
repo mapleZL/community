@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.order.BookingSendGoodsReadDao">
+	<resultMap id="BookingSendGoodsResult" type="com.ejavashop.entity.order.BookingSendGoods">
+			<result property="id" column="id" />
+			<result property="sendAddress" column="send_address" />
+			<result property="payType" column="pay_type" />
+			<result property="payTime" column="pay_time" />
+			<result property="sendNum" column="send_num" />
+			<result property="weight" column="weight" />
+			<result property="takePrice" column="take_price" />
+			<result property="bookingUser" column="booking_user" />
+			<result property="mobile" column="mobile" />
+			<result property="phone" column="phone" />
+			<result property="checkMan" column="check_man" />
+			<result property="checkTime" column="check_time" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="ordersId" column="orders_id" />
+			<result property="status" column="status" />
+			<result property="logisticsNo" column="logistics_no" />
+			<result property="payMan" column="pay_man" />
+			<result property="logisticsId" column="logistics_id" />
+			<result property="logisticsName" column="logistics_name" />
+			<result property="tradeSn" column="trade_sn" />
+			<result property="provinceId" column="province_id" />
+			<result property="cityId" column="city_id" />
+			<result property="areaId" column="area_id" />
+			<result property="addressDetail" column="address_detail" />
+			<result property="isCodconfim" column="is_codconfim" />
+			<result property="codconfirmId" column="codconfirm_id" />
+			<result property="codconfirmName" column="codconfirm_name" />
+			<result property="codconfirmTime" column="codconfirm_time" />
+			<result property="codconfirmRemark" column="codconfirm_remark" />
+			<result property="codconfirmState" column="codconfirm_state" />
+			<result property="remark" column="remark" />
+			<result property="sendTime" column="send_time" />
+			<result property="name" column="name" />
+			<result property="paymentName" column="payment_name" />
+			<result property="paymentCode" column="payment_code" />
+			<result property="moneyProduct" column="money_product" />
+			<result property="moneyOrder" column="money_order" />
+			<result property="moneyPaidBalance" column="money_paid_balance" />
+			<result property="moneyPaidReality" column="money_paid_reality" />
+			<result property="moneyBack" column="money_back" />
+			<result property="checkNote" column="check_note" />
+			<result property="invoiceStatus" column="invoice_status" />
+			<result property="invoiceTitle" column="invoice_title" />
+			<result property="invoiceType" column="invoice_type" />
+			<result property="payStatus" column="pay_status" />
+			<result property="finishTime" column="finish_time" />
+			<result property="isDelete" column="is_delete" />
+			<result property="zipCode" column="zip_code" />
+			<result property="bookOrdersSn" column="book_orders_sn" />
+	</resultMap>
+	<select id="get" parameterType="Integer" resultMap="BookingSendGoodsResult">
+		select
+		   *
+		from `booking_send_goods`
+		where `id` = #{id}
+	</select>
+
+	
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `booking_send_goods` 
+		<include refid="getSendGoods" />
+	</select>
+	
+	<select id="page"  parameterType="java.util.Map"  resultType="com.ejavashop.entity.order.BookingSendGoods">
+		select * from `booking_send_goods`
+		<include refid="getSendGoods" />
+		order by `id` desc, `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="getSendGoods">
+		<where>
+			<if test="q_bookingUser != null and q_bookingUser != '' ">
+			   and `booking_user` = #{q_bookingUser}
+			</if>
+			<if test="q_name != null  and q_name != ''">
+			   and `name` = #{q_name}
+			</if>
+			<if test="q_mobile != null and q_mobile != ''">  
+			    and `mobile` = #{q_mobile}
+			</if>
+			    and `is_delete` = '0'
+		</where>
+	</sql>
+	
+	<select id="getSendGoodsByOrdersId"  parameterType="Integer" resultMap="BookingSendGoodsResult">
+	  select * from `booking_send_goods` 
+	  where `orders_id` = #{ordersId}
+	</select>
+    <select id="getBookList" resultMap="BookingSendGoodsResult">
+		select
+		   *
+		from `booking_send_goods`
+		where `pay_status` = 0
+		and `create_time` &lt;= #{cancelTime}
+	</select>
+	
+</mapper>

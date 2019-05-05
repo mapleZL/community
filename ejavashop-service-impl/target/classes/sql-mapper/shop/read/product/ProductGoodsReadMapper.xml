@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.product.ProductGoodsReadDao">
+	<resultMap id="ProductGoodsResult" type="com.ejavashop.entity.product.ProductGoods">
+			<result property="id" column="id" />
+			<result property="productId" column="product_id" />
+			<result property="normAttrId" column="norm_attr_id" />
+			<result property="normName" column="norm_name" />
+			<result property="mallPcPrice" column="mall_pc_price" />
+			<result property="mallMobilePrice" column="mall_mobile_price" />
+			<result property="productStock" column="product_stock" />
+			<result property="productStockWarning" column="product_stock_warning" />
+			<result property="actualSales" column="actual_sales" />
+			<result property="sku" column="sku" />
+			<result property="barCode" column="bar_code" />
+			<result property="barCodeCS" column="bar_code_cs" />			
+			<result property="barCodePL" column="bar_code_pl" />		
+			<result property="images" column="images" />
+			<result property="isVirtualBom" column="is_virtualBom" />
+	</resultMap>
+
+	<select id="getByProductId" resultMap="ProductGoodsResult">
+		select 
+		  * 
+		from product_goods 
+		where product_id = #{productId}
+		order by product_stock desc
+	</select>
+	
+	  <select id="getByProductIdAndAttrId" resultType="com.ejavashop.entity.product.ProductGoods">
+        select
+        <include refid="selectColumn"/>
+        from `product_goods`
+        where `product_id` = #{productId} and `norm_attr_id` = #{attrId}
+    </select>
+    
+    <sql id="selectColumn">
+        `id`,
+        `product_id`,
+        `norm_attr_id`,
+        `norm_name`,
+        `mall_pc_price`,
+        `mall_mobile_price`,
+        `product_stock`,
+        `product_stock_warning`,
+        `actual_sales`,
+        `sku`,
+        `bar_code`,
+        `images`,
+        `mall_original_price`,
+        `bar_code_pl`,
+        `bar_code_cs`,
+        `is_virtualBom`
+    </sql>
+	
+	  <select id="checkProductBySKUAndSeller" resultType="java.lang.Integer">
+       select count(*) from product_goods pg left join product p on pg.product_id = p.id where 1=1
+        <if test="param1.sellerId != null and  param1.sellerId !=''">
+       		and p.seller_id = #{param1.sellerId} 
+       	</if>
+       	<if test="param1.sku != null and  param1.sku !=''">
+       		and pg.sku = #{param1.sku}
+       	</if>  
+       	<if test="param1.productId != null and  param1.productId !=''">
+       		and p.id = #{param1.productId}
+       	</if>
+       	and p.state != 5
+    </select>
+
+ 	<select id="checkProductBySKUAndProductId" resultType="com.ejavashop.entity.product.ProductGoods">
+    	select * from product_goods pg where pg.sku = #{param1.sku} and pg.product_id = #{param1.productId}
+    </select>
+
+	<select id="checkBarCodeIsExsit" resultType="java.lang.Integer">
+       select count(*) from product_goods where 
+       		(bar_code = #{param1.barCode}  or bar_code_pl = #{param1.barCode}  or bar_code_cs = #{param1.barCode} )
+            <if test="param1.id != null and '' != param1.id">
+               and id != #{param1.id}
+            </if>
+    </select>
+
+
+	<!-- 查询条件 -->
+	<sql id="Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+			<if test="q_id != null and q_id !=''"  > and `id`= #{q_id}</if>
+			<if test="q_productId != null and q_productId !=''"  > and `product_id`= #{q_productId}</if>
+			<if test="q_normAttrId != null and q_normAttrId !=''"  > and `norm_attr_id`= #{q_normAttrId}</if>
+			<if test="q_mallPcPrice != null and q_mallPcPrice !=''"  > and `mall_pc_price`= #{q_mallPcPrice}</if>
+			<if test="q_mallMobilePrice != null and q_mallMobilePrice !=''"  > and `mall_mobile_price`= #{q_mallMobilePrice}</if>
+			<if test="q_productStock != null and q_productStock !=''"  > and `product_stock`= #{q_productStock}</if>
+			<if test="q_productStockWarning != null and q_productStockWarning !=''"  > and `product_stock_warning`= #{q_productStockWarning}</if>
+			<if test="q_actualSales != null and q_actualSales !=''"  > and `actual_sales`= #{q_actualSales}</if>
+			<if test="q_sku != null and q_sku !=''"  > and `sku`= #{q_sku}</if>
+			<if test="q_images != null and q_images !=''"  > and `images`= #{q_images}</if>
+		</trim>
+	</sql>
+	
+	
+	<select id="get" parameterType="Integer" resultMap="ProductGoodsResult">
+		select
+		   *
+		from `product_goods`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getByCondition" parameterType="Integer" resultMap="ProductGoodsResult">
+		select
+		   *
+		from `product_goods`
+		<include refid="Where_Clause"/>
+		limit 1
+	</select>
+	
+	<!-- 货品表 列表总数-->
+	<select id="queryCount" resultType="java.lang.Integer"  parameterType="map">
+		select count(1) from product_goods
+		<include refid="Where_Clause"/>
+	</select>
+	  	
+	<!-- 查询货品表列表 -->
+	<select id="queryList" resultMap="ProductGoodsResult"  parameterType="map">
+		select 
+		  * 
+		from product_goods 
+		<include refid="Where_Clause"/>
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<select id="getProductGoodsBySKU" resultMap="ProductGoodsResult" >
+		select * from product_goods where sku = #{sku} order by id limit 1
+	</select>
+	
+	<select id="page" resultType="com.ejavashop.entity.product.ProductGoods">
+        select
+        <include refid="selectColumn"/>
+        from `product_goods`
+        <include refid="whereConditions"/>
+        <!-- and `product_stock` &gt; 0 -->
+        order by id desc
+        <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+    </select>
+	
+	  <select id="count" resultType="java.lang.Integer">
+        select count(1) from `product_goods`
+        <include refid="whereConditions"/>
+        <!-- and `product_stock` &gt; 0 -->
+    </select>
+    
+    <sql id="whereConditions">
+        <where>
+            <if test="param1.q_id != null and '' != param1.q_id">
+                and `id`= #{param1.q_id}
+            </if>
+            <if test="param1.q_productId != null and '' != param1.q_productId">
+                and `product_id`= #{param1.q_productId}
+            </if>
+            <if test="param1.in_products != null and '' != param1.in_products">
+                and `product_id` in (${param1.in_products})
+            </if>
+            <if test="param1.q_normAttrId != null and param1.q_normAttrId !=''">
+            	and `norm_attr_id`= #{param1.q_normAttrId}
+            </if>
+            <if test="param1.q_normName != null and '' != param1.q_normName">
+                and `norm_name`= #{param1.q_normName}
+            </if>
+            <if test="param1.q_mallPcPrice != null and '' != param1.q_mallPcPrice">
+                and `mall_pc_price`= #{param1.q_mallPcPrice}
+            </if>
+            <if test="param1.q_mallMobilePrice != null and '' != param1.q_mallMobilePrice">
+                and `mall_mobile_price`= #{param1.q_mallMobilePrice}
+            </if>
+            <if test="param1.q_productStock != null and '' != param1.q_productStock">
+                and `product_stock`= #{param1.q_productStock}
+            </if>
+            <if test="param1.q_productStockWarning != null and '' != param1.q_productStockWarning">
+                and `product_stock_warning`= #{param1.q_productStockWarning}
+            </if>
+            <if test="param1.q_actualSales != null and '' != param1.q_actualSales">
+                and `actual_sales`= #{param1.q_actualSales}
+            </if>
+            <if test="param1.q_sku != null and '' != param1.q_sku">
+                and `sku`= #{param1.q_sku}
+            </if>
+            <if test="param1.sku != null and '' != param1.sku">
+                and `sku` like CONCAT('%', #{param1.sku}, '%')
+            </if>
+            <if test="param1.term != null and '' != param1.term">
+                and `sku` like CONCAT('%', #{param1.term}, '%')
+            </if>
+            <if test="param1.barCode != null and '' != param1.barCode">
+                and `bar_code` like CONCAT('%', #{param1.barCode}, '%')
+            </if>
+            <if test="param1.q_images != null and '' != param1.q_images">
+                and `images`= #{param1.q_images}
+            </if>
+        </where>
+    </sql>
+    
+     <select id="getBySkuAndMember" resultMap="ProductGoodsResult">
+      select pg.*,p.state as state from product p , product_goods pg , seller s where p.seller_id = s.id and pg.product_id = p.id 
+        <if test="memberId != null  and '' != memberId  and memberId == 'MTY' ">
+            and (s.seller_code = '10001' or s.seller_code = 'MTY') 
+        </if>
+        <if test="memberId != null  and '' != memberId  and memberId  != 'MTY' ">
+            and s.seller_code = #{memberId}
+         </if>
+            and pg.sku = #{sku} 
+            order by state desc, pg.id desc 
+    </select>
+    
+    <select id="getMaxAttrIdByProductId" resultType="java.lang.Integer">
+        select max(`norm_attr_id`) from product_goods where product_id = #{productId}
+    </select>
+    
+     <select id="quickSearch" resultType="com.ejavashop.entity.product.ProductGoods">
+        select pg.id, pg.product_id, pg.norm_attr_id, pg.norm_name, pg.mall_pc_price, pg.mall_mobile_price, pg.product_stock, pg.product_stock_warning, pg.actual_sales, pg.sku, pg.bar_code, pg.images, pg.mall_original_price
+        from `product_goods` pg , `product` p where pg.product_id = p.id and p.state = 6 and pg.product_id = p.id
+        <if test="param1.q_sku != null and '' != param1.q_sku">
+            and `sku`= #{param1.q_sku}
+        </if>
+        <if test="param1.sku != null and '' != param1.sku">
+            and `sku` like CONCAT('%', #{param1.sku}, '%')
+        </if>
+            <if test="param1.term != null and '' != param1.term">
+                and `sku` like CONCAT('%', #{param1.term}, '%')
+            </if>
+		and pg.product_stock &gt; 0 and p.state = 6  and pg.product_stock &gt; 0
+        order by p.id desc <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+    </select>
+    
+     <select id="quickSearchCount" resultType="java.lang.Integer">
+        select count(1) from `product_goods` pg , `product` p where pg.product_id = p.id and pg.product_id = p.id 
+            <if test="param1.q_sku != null and '' != param1.q_sku">
+                and `sku`= #{param1.q_sku}
+            </if>
+            <if test="param1.sku != null and '' != param1.sku">
+                and `sku` like CONCAT('%', #{param1.sku}, '%')
+            </if>
+            <if test="param1.term != null and '' != param1.term">
+                and `sku` like CONCAT('%', #{param1.term}, '%')
+            </if>
+		and pg.product_stock &gt; 0 and p.state = 6 
+    </select>
+	
+</mapper>

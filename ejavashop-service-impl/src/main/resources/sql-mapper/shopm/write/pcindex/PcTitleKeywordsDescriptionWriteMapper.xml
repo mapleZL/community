@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shopm.write.pcindex.PcTitleKeywordsDescriptionWriteDao">
+	<resultMap id="PcTitleKeywordsDescriptionResult" type="com.ejavashop.entity.shopm.pcindex.PcTitleKeywordsDescription">
+			<result property="id" column="id" />
+			<result property="path" column="path" />
+			<result property="title" column="title" />
+			<result property="keywords" column="keywords" />
+			<result property="description" column="description" />
+			<result property="createId" column="create_id" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="applyPage" column="apply_page" />
+	</resultMap>
+	
+	<update id="update" parameterType="com.ejavashop.entity.shopm.pcindex.PcTitleKeywordsDescription">
+        update `pc_title_keywords_description` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="path != null">`path`= #{path},</if>
+			<if test="title != null">`title`= #{title},</if>
+			<if test="keywords != null">`keywords`= #{keywords},</if>
+			<if test="description != null">`description`= #{description},</if>
+			<if test="createId != null">`create_id`= #{createId},</if>
+			`update_time`= now(),
+			<if test="applyPage != null">`apply_page`= #{applyPage}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.shopm.pcindex.PcTitleKeywordsDescription" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`pc_title_keywords_description`
+		(
+			
+			`path`,
+			`title`,
+			`keywords`,
+			`description`,
+			`create_id`,
+			`create_time`,
+			`update_time`,
+			`apply_page`
+		)
+		values
+		(
+			
+			#{path},
+			#{title},
+			#{keywords},
+			#{description},
+			#{createId},
+			now(),
+			now(),
+			#{applyPage}
+		)
+	</insert>
+	
+	
+	<!-- 查询条件 -->
+	<sql id="getSEOCondition">
+		<where>
+			<if test="q_id != null and q_id != '' ">
+			   and `id` = #{q_id}
+			</if>
+			<if test="q_title != null  and q_title != ''">
+			   and `title` like CONCAT('%',#{q_title},'%')
+			</if>
+			<if test="q_keywords != null and q_keywords != ''">  
+			    and `keywords` like CONCAT('%',#{q_keywords},'%')
+			</if>
+			<if test="q_description != null and q_description != ''">
+				and `description` like CONCAT('%',#{q_description},'%')
+			</if>
+			<if test="q_applyPage != null and q_applyPage != ''">
+				and `apply_page` like CONCAT('%',#{q_applyPage},'%')
+			</if>
+		</where>
+	</sql>
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.wmsinterface.InterfaceWmsReadDao">
+	<resultMap id="InterfaceWmsResult" type="com.ejavashop.entity.wmsinterface.InterfaceWms">
+			<result property="id" column="id" />
+			<result property="relationId" column="relation_id" />
+			<result property="ralationTable" column="ralation_table" />
+			<result property="sendNo" column="send_no" />
+			<result property="sendResult" column="send_result" />
+			<result property="syncType" column="sync_type" />
+			<result property="errorMsg" column="error_msg" />
+			<result property="syncTime" column="sync_time" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="InterfaceWmsResult">
+		select
+		   *
+		from `interface_wms`
+		where `id` = #{id}
+	</select>
+	
+	<!-- <update id="update" parameterType="com.ejavashop.entity.wmsinterface.InterfaceWms">
+        update `interface_wms` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="relationId != null">`relation_id`= #{relationId},</if>
+			<if test="ralationTable != null">`ralation_table`= #{ralationTable},</if>
+			<if test="sendNo != null">`send_no`= #{sendNo},</if>
+			<if test="sendResult != null">`send_result`= #{sendResult},</if>
+			<if test="syncType != null">`sync_type`= #{syncType},</if>
+			<if test="errorMsg != null">`error_msg`= #{errorMsg},</if>
+			<if test="syncTime != null">`sync_time`= #{syncTime}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.wmsinterface.InterfaceWms" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`interface_wms`
+		(
+			
+			`relation_id`,
+			`ralation_table`,
+			`send_no`,
+			`send_result`,
+			`sync_type`,
+			`sync_time`,
+			`error_msg`
+		)
+		values
+		(
+			
+			#{relationId},
+			#{ralationTable},
+			#{sendNo},
+			#{sendResult},
+			#{syncType},
+			#{syncTime},
+			#{errorMsg}
+		)
+	</insert> -->
+	<select id="getInterfaceByRelationIdAndRelationTable"  resultMap="InterfaceWmsResult" >
+	     select * from `interface_wms` where `relation_id` = #{relationId} and `ralation_table` = #{relationTable}
+	</select>
+	
+	
+	<select id="getCount"  resultType="java.lang.Integer"  parameterType="java.util.Map">
+	    select count(*) from `interface_wms` 
+	    <include refid="getPageCount" />
+	    order by sync_time desc
+	</select>
+	
+	<select id="page" resultMap="InterfaceWmsResult">
+	   select * from `interface_wms`
+	    <include refid="getPageCount" />
+	    order by sync_time desc
+	    <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<sql id="getPageCount">
+ 	   <where>
+ 	       <if test="queryMap.q_ralationTable != null and queryMap.q_ralationTable != '' ">
+ 	         and  `ralation_table` = #{queryMap.q_ralationTable}
+ 	       </if>
+ 	       <if test="queryMap.q_syncType != null and queryMap.q_syncType != '' ">
+ 	         and  `sync_type` = #{queryMap.q_syncType}
+ 	       </if>
+ 	       <if test="queryMap.q_startTime != null and queryMap.q_startTime != '' ">
+ 	         and  `sync_time` &gt; #{queryMap.q_startTime}
+ 	       </if>
+ 	       <if test="queryMap.q_endTime != null and queryMap.q_endTime != '' ">
+ 	         and  `sync_time` &lt; #{queryMap.q_endTime}
+ 	       </if>
+ 	       <if test="queryMap.q_sendResult != null and queryMap.q_sendResult != '' ">
+ 	         and  `send_result` = #{queryMap.q_sendResult}
+ 	       </if>
+ 	   </where>
+	</sql>
+	
+	<select id = "getIntegerfaceWmsWithSendNoUp3" resultMap="InterfaceWmsResult">
+		select * from `interface_wms` where ralation_table = #{relationTable} and send_no >=#{sendNo} and send_result = '0'
+	
+	</select>
+	
+</mapper>

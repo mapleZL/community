@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.order.OrdersTradeSerialReadDao">
+	<resultMap id="OrdersTradeSerialResult" type="com.ejavashop.entity.order.OrdersTradeSerial">
+			<result property="tradeSn" column="trade_sn" />
+			<result property="relationOrderSn" column="relation_order_sn" />
+			<result property="paymentState" column="payment_state" />
+	</resultMap>
+	
+	<select id="get" parameterType="String" resultMap="OrdersTradeSerialResult">
+		select
+		   *
+		from `orders_trade_serial`
+		where `trade_sn` = #{tradeSn}
+	</select>
+	
+	<select id="existsByOrdersSn" parameterType="String" resultMap="OrdersTradeSerialResult">
+		SELECT
+			*
+		FROM
+			orders_trade_serial
+		WHERE
+			relation_order_sn LIKE CONCAT('%',#{snnotime})  ;
+	</select>
+	
+	<select id="getByRelationOrderSn" parameterType="String" resultMap="OrdersTradeSerialResult">
+		select
+		   *
+		from `orders_trade_serial`
+		where `relation_order_sn` = #{relationOrderSn}
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `orders_trade_serial` t1
+		<include refid="whereConditions" />
+	</select>
+	
+	<select id="page" resultType="com.ejavashop.entity.order.OrdersTradeSerial">
+		select * from `orders_trade_serial` t1
+		<include refid="whereConditions" />
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<select id="list" resultType="com.ejavashop.entity.order.OrdersTradeSerial">
+		select * from `orders_trade_serial` t1
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="whereConditions">
+		where 1=1
+		<trim  suffixOverrides="," >
+			<if test="tradeSn != null and tradeSn !=''"  > and `trade_sn`= #{tradeSn}</if>
+			<if test="relationOrderSn != null and relationOrderSn !=''"  > and `relation_order_sn`= #{relationOrderSn}</if>
+			<if test="paymentState != null and paymentState !=''"  > and `payment_state`= #{paymentState}</if>
+		</trim>
+	</sql>
+	
+</mapper>

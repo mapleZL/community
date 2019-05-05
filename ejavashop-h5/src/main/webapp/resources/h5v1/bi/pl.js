@@ -1,0 +1,1 @@
+document.write('<img width="1" height="1" style="style:none" src="' + domain + '/product_look_log.html?productId='+ $("#productId").val() + '" />');

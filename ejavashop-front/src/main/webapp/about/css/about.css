@@ -1,0 +1,96 @@
+body{
+}
+
+.about-mian{
+	width: 1210px;
+	margin: 0 auto;
+
+}
+.about-mian h3{
+	font-size: 18px;
+	margin-top: 30px;
+
+
+}
+.about-left{
+	width: 200px;
+	height: 750px;
+	border: 1px solid #ccc;
+	margin-top: 50px;
+	float: left;
+	}
+	.about-left a{
+		display: block;
+		width: 200px;
+		height: 40px;
+		
+	}
+.about-left a:hover{
+	
+	background: #27cdf2;
+	color: #fff;
+}
+.about-left li{
+	text-align: left;
+	line-height: 40px;
+	margin-left: 60px;
+
+}
+.about-rightMin{
+	margin-top: 50px;
+	width: 990px;
+	/* height: 1700px;
+ */	border: 1px solid #ccc;
+	padding-bottom: 50px;
+	float: right;
+}
+.about-right{
+	
+	display: block;
+}
+.about-right span{
+	display: block;
+}
+.about-right p{
+	margin-left: 30px;
+	margin-right:30px;
+}
+.about-right h1{
+	font-size: 24px;
+	font-weight: normal;
+	margin: 30px;
+}
+.about-top p{
+	margin-left: 30px;
+	margin-bottom:15px;
+	
+}
+.about-right h4{
+	margin: 20px 0 10px 30px;
+}
+.about-introduce p{
+	margin: 0 0 5px 30px;
+	width: 900px;
+}
+.company{
+	width: 808px;
+	height: 500px;
+	margin: 20px auto;
+}
+.about-serve{
+	
+	
+}
+
+.about-brand{
+	
+}
+
+.about-fiveYear{
+	
+}
+.about-introduce em{
+	font-weight: bold;
+	font-size:14px;
+	color: #66666;
+}

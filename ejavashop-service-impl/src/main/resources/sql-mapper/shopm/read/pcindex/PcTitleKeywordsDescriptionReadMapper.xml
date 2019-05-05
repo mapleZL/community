@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shopm.read.pcindex.PcTitleKeywordsDescriptionReadDao">
+	<resultMap id="PcTitleKeywordsDescriptionResult" type="com.ejavashop.entity.shopm.pcindex.PcTitleKeywordsDescription">
+			<result property="id" column="id" />
+			<result property="path" column="path" />
+			<result property="title" column="title" />
+			<result property="keywords" column="keywords" />
+			<result property="description" column="description" />
+			<result property="createId" column="create_id" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="applyPage" column="apply_page" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="PcTitleKeywordsDescriptionResult">
+		select
+		   *
+		from `pc_title_keywords_description`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getByPath" parameterType="String" resultMap="PcTitleKeywordsDescriptionResult">
+		select
+		   *
+		from `pc_title_keywords_description`
+		where `path` like CONCAT('%',#{path},'%')
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `pc_title_keywords_description` 
+		<include refid="getSEOCondition" />
+	</select>
+	
+	<select id="page"  parameterType="java.util.Map"  resultMap="PcTitleKeywordsDescriptionResult">
+		select * from `pc_title_keywords_description`
+		<include refid="getSEOCondition" />
+		order by `id` desc, `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="getSEOCondition">
+		<where>
+			<if test="q_id != null and q_id != '' ">
+			   and `id` = #{q_id}
+			</if>
+			<if test="q_title != null  and q_title != ''">
+			   and `title` like CONCAT('%',#{q_title},'%')
+			</if>
+			<if test="q_keywords != null and q_keywords != ''">  
+			    and `keywords` like CONCAT('%',#{q_keywords},'%')
+			</if>
+			<if test="q_description != null and q_description != ''">
+				and `description` like CONCAT('%',#{q_description},'%')
+			</if>
+			<if test="q_applyPage != null and q_applyPage != ''">
+				and `apply_page` like CONCAT('%',#{q_applyPage},'%')
+			</if>
+		</where>
+	</sql>
+</mapper>

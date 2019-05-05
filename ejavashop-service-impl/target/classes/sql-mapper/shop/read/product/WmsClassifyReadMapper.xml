@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.product.WmsClassifyReadDao">
+	<resultMap id="WmsClassifyResult" type="com.ejavashop.entity.product.WmsClassify">
+			<result property="id" column="id" />
+			<result property="wmsCategory" column="wms_category" />
+			<result property="createUser" column="create_user" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="state" column="state" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="WmsClassifyResult">
+		select
+		   *
+		from `wms_classify`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `wms_classify` 
+		<include refid="getWmsCondition" />
+	</select>
+	
+	<select id="page"  parameterType="java.util.Map"  resultType="java.util.Map">
+		select * from `wms_classify`
+		<include refid="getWmsCondition" />
+		order by `id` desc, `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="getWmsCondition">
+		<where>
+			<if test="q_id != null and q_id != '' ">
+			   and `id` = #{q_id}
+			</if>
+			<if test="q_wms_category != null  and q_wms_category != ''">
+			   and `wms_category` = #{q_wms_category}
+			</if>
+			<if test="q_create_id != null and q_create_id != ''">  
+			    and `create_user` = #{q_create_user}
+			</if>
+			 
+		</where>
+	</sql>
+	
+	<select id="getWmsCategoryList" parameterType="Integer" resultMap="WmsClassifyResult">
+		select
+		   *
+		from `wms_classify` where 1=1
+		<if test="state != null  and state != ''">
+			   and `state` = #{state}
+		</if>
+		order by id
+	</select>
+	
+</mapper>

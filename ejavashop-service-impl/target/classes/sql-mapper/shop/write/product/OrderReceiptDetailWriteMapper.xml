@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.write.product.OrderReceiptDetailWriteDao">
+
+	<resultMap id="OrderReceiptDetailResult" type="com.ejavashop.entity.product.OrderReceiptDetail">
+			<result property="id" column="id" />
+			<result property="ordersId" column="orders_id" />
+			<result property="SKU" column="SKU" />
+			<result property="numberProbaby" column="number_probaby" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="OrderReceiptDetailResult">
+		select
+		   *
+		from `order_receipt_detail`
+		where `id` = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.ejavashop.entity.product.OrderReceiptDetail">
+        update `order_receipt_detail` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="ordersId != null">`orders_id`= #{ordersId},</if>
+			<if test="SKU != null">`SKU`= #{SKU},</if>
+			<if test="numberProbaby != null">`number_probaby`= #{numberProbaby}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.product.OrderReceiptDetail" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`order_receipt_detail`
+		(
+			
+			`orders_id`,
+			`SKU`,
+			`number_probaby`
+		)
+		values
+		(
+			
+			#{ordersId},
+			#{SKU},
+			#{numberProbaby}
+		)
+	</insert>
+	
+</mapper>

@@ -1,0 +1,44 @@
+table.altrowstable {
+	font-family: verdana, arial, sans-serif;
+	font-size: 11px;
+	color: #333333;
+	border-width: 1px;
+	border-color: #a9c6c9;
+	border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+}
+
+table.altrowstable thead {
+	background: rgb(186, 213, 255) none repeat scroll 0% 0%;
+	font-weight: 600;
+}
+
+table.altrowstable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+
+table.altrowstable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+
+.win-btn {
+	text-align: center;
+	margin: 20px auto 0px;
+}
+
+.win-btn input[type='button'] {
+	cursor: pointer;
+}
+
+.confirm-info {
+	height: 80%;
+	overflow-x: auto;
+	overflow-y: visible;
+}

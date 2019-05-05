@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.write.parter.ParterSignWriteDao">
+	<resultMap id="ParterSignResult" type="com.ejavashop.entity.parter.ParterSign">
+			<result property="id" column="id" />
+			<result property="memberId" column="member_id" />
+			<result property="status" column="status" />
+			<result property="startTime" column="start_time" />
+			<result property="endTime" column="end_time" />
+			<result property="createMan" column="create_man" />
+			<result property="createTime" column="create_time" />
+			<result property="memberName" column="member_name" />
+			<result property="parterType" column="parter_type" />
+			<result property="signNo" column="sign_no" />
+	</resultMap>
+	
+	<!-- <select id="get" parameterType="Integer" resultMap="ParterSignResult">
+		select
+		   *
+		from `parter_sign`
+		where `id` = #{id} order by id desc
+	</select> -->
+	
+	<update id="update" parameterType="com.ejavashop.entity.parter.ParterSign">
+        update `parter_sign` 
+    	<set>
+			<if test="memberId != null">`member_id`= #{memberId},</if>
+			<if test="status != null">`status`= #{status},</if>
+			<if test="startTime != null">`start_time`= #{startTime},</if>
+			<if test="endTime != null">`end_time`= #{endTime},</if>
+			<if test="createMan != null">`create_man`= #{createMan},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
+			<if test="memberName != null">`member_name`= #{memberName},</if>
+			<if test="signNo != null">`sign_no`= #{signNo},</if>
+			<if test="parterType != null">`parter_type`= #{parterType}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.parter.ParterSign" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`parter_sign`
+		(
+			
+			`member_id`,
+			`status`,
+			`start_time`,
+			`end_time`,
+			`create_man`,
+			`create_time`,
+			`member_name`,
+			`sign_no`,
+			`parter_type`
+		)
+		values
+		(
+			
+			#{memberId},
+			#{status},
+			#{startTime},
+			#{endTime},
+			#{createMan},
+			now(),
+			#{memberName},
+			#{signNo},
+			#{parterType}
+		)
+	</insert>
+	
+	<!-- <select id="getParterSignCount" parameterType="java.util.Map" resultType="Integer">
+		select
+		   count(*)
+		from `parter_sign`
+		<if test="queryMap.q_memberName != null and queryMap.q_memberName !=''">
+		where member_name like CONCAT('%', #{queryMap.q_memberName}, '%')
+        </if>
+        <if test="type != null and type ==1">
+       			 group by member_id
+        </if>
+        order by `id` desc 
+	</select>
+	
+	<select id="getParterSign" parameterType="java.util.Map" resultMap="ParterSignResult">
+		select
+		   *
+		from `parter_sign`
+		<if test="queryMap.q_memberName != null and queryMap.q_memberName !=''">
+		where 	member_name like CONCAT('%', #{queryMap.q_memberName}, '%')
+        </if>
+		<if test="type != null and type ==1">
+       			 group by member_id
+        </if>
+		order by `id` desc 
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<select id = "getByMemeberSignNo" parameterType="String" resultMap="ParterSignResult">
+	select
+		   *
+		from `parter_sign` where `sign_no` = #{signNo}
+	</select>
+	
+	<select id = "getByMemeberId" parameterType="String" resultMap="ParterSignResult">
+	select
+		   *
+		from `parter_sign` where `member_id` = #{memberId} 
+	</select> -->
+	
+</mapper>

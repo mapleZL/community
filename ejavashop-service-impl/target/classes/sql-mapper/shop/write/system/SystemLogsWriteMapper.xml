@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.write.system.SystemLogsWriteDao">
+	<resultMap id="SystemLogsResult" type="com.ejavashop.entity.system.SystemLogs">
+			<result property="id" column="id" />
+			<result property="optId" column="opt_id" />
+			<result property="optName" column="opt_name" />
+			<result property="optContent" column="opt_content" />
+			<result property="createTime" column="create_time" />
+			<result property="memberRuleId" column="member_rule_id" />
+			<result property="optObject" column="opt_object" />
+			<result property="optObjectId" column="opt_object_id" />
+			<result property="optType" column="opt_type" />
+			<result property="optOther" column="opt_other" />
+	</resultMap>
+	
+	<!-- <select id="get" parameterType="Integer" resultMap="SystemLogsResult">
+		select
+		   *
+		from `system_logs`
+		where `id` = #{id}
+	</select> -->
+	
+	<update id="update" parameterType="com.ejavashop.entity.system.SystemLogs">
+        update `system_logs` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="optId != null">`opt_id`= #{optId},</if>
+			<if test="optName != null">`opt_name`= #{optName},</if>
+			<if test="optContent != null">`opt_content`= #{optContent},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
+			<if test="memberRuleId != null">`member_rule_id`= #{memberRuleId},</if>
+			<if test="optObject != null">`opt_object`= #{optObject},</if>
+			<if test="optObjectId != null">`opt_object_id`= #{optObjectId}</if>
+			<if test="optType != null">`opt_type`= #{optType}</if>
+			<if test="optOther != null">`opt_other`= #{optOther}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.system.SystemLogs" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`system_logs`
+		(`opt_id`,`opt_name`,
+			`opt_content`,
+			`create_time`,
+			`member_rule_id`,
+			`opt_object`,
+			`opt_type`,
+			`opt_other`,
+			`opt_object_id`)
+		values (#{optId},#{optName},#{optContent},#{createTime},#{memberRuleId},#{optObject},#{optType},#{optOther},#{optObjectId})
+	</insert>
+	
+</mapper>

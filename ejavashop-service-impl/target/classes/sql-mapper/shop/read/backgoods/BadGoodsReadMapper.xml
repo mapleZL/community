@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.backgoods.BadGoodsReadDao">
+	<resultMap id="BadGoodsResult" type="com.ejavashop.entity.backgoods.BadGoods">
+			<result property="id" column="id" />
+			<result property="ordersId" column="orders_id" />
+			<result property="ordersSn" column="orders_sn" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="productId" column="product_id" />
+			<result property="productSku" column="product_sku" />
+			<result property="sellerId" column="seller_id" />
+			<result property="badNum" column="bad_num" />
+			<result property="productName" column="product_name" />
+			<result property="sellerName" column="seller_name" />
+			<result property="backGoodsId" column="back_goods_id" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="BadGoodsResult">
+		select
+		   *
+		from `bad_goods`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `bad_goods` 
+		<include refid="getBadGoods" />
+	</select>
+	
+	<select id="page"  parameterType="java.util.Map"  resultType="com.ejavashop.entity.backgoods.BadGoods">
+		select * from `bad_goods`
+		<include refid="getBadGoods" />
+		order by `id` asc, `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="getBadGoods">
+		<where>
+			<if test="q_sellerId != null and q_sellerId != '' ">
+			   and `seller_id` = #{q_sellerId}
+			</if>
+			<if test="q_sellerName != null  and q_sellerName != ''">
+			   and `seller_name` = #{q_sellerName}
+			</if>
+			<if test="q_productSku != null and q_productSku != ''">  
+			    and `product_sku` = #{q_productSku}
+			</if>
+		</where>
+	</sql>
+	
+</mapper>

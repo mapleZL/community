@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.operate.ProductPackageReadDao">
+	<resultMap id="ProductPackageResult" type="com.ejavashop.entity.operate.ProductPackage">
+			<result property="id" column="id" />
+			<result property="name" column="name" />
+			<result property="price" column="price" />
+			<result property="state" column="state" />
+			<result property="packingType" column="packing_type" />
+			<result property="unitType" column="unit_type" />
+			<result property="isHook" column="is_hook" />
+			<result property="isGlue" column="is_glue" />
+			<result property="isLiner" column="is_liner" />
+			<result property="isBag" column="is_bag" />
+			<result property="isLabel" column="is_label" />
+			<result property="isGirdle" column="is_girdle" />
+			<result property="describe" column="describe" />
+			<result property="image" column="image" />
+			<result property="createId" column="create_id" />
+			<result property="createName" column="create_name" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="ProductPackageResult">
+		select
+		   *
+		from `product_package`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `product_package` t1
+		<include refid="whereConditions" />
+	</select>
+	
+	<select id="page" resultType="com.ejavashop.entity.operate.ProductPackage">
+		select * from `product_package` t1
+		<include refid="whereConditions" />
+		order by id
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<select id="list" resultType="com.ejavashop.entity.operate.ProductPackage">
+		select * from `product_package` t1
+		order by id
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="whereConditions">
+		where 1=1
+		<trim  suffixOverrides="," >
+			<if test="id != null and id !=''"  > and `id`= #{id}</if>
+			<if test="name != null and name !=''"  > and `name`= #{name}</if>
+			<if test="q_name != null and q_name != ''">
+				and `name` like CONCAT('%',#{q_name},'%')
+			</if>
+			<if test="price != null and price !=''"  > and `price`= #{price}</if>
+			<if test="state != null and state !=''"  > and `state`= #{state}</if>
+			<if test="packingType != null and packingType !=''"  > and `packing_type`= #{packingType}</if>
+			<if test="unitType != null and unitType !=''"  > and `unit_type`= #{unitType}</if>
+			<if test="isHook != null and isHook !=''"  > and `is_hook`= #{isHook}</if>
+			<if test="isGlue != null and isGlue !=''"  > and `is_glue`= #{isGlue}</if>
+			<if test="isLiner != null and isLiner !=''"  > and `is_liner`= #{isLiner}</if>
+			<if test="isBag != null and isBag !=''"  > and `is_bag`= #{isBag}</if>
+			<if test="isLabel != null and isLabel !=''"  > and `is_label`= #{isLabel}</if>
+			<if test="isGirdle != null and isGirdle !=''"  > and `is_girdle`= #{isGirdle}</if>
+			<if test="describe != null and describe !=''"  > and `describe`= #{describe}</if>
+			<if test="image != null and image !=''"  > and `image`= #{image}</if>
+			<if test="createId != null and createId !=''"  > and `create_id`= #{createId}</if>
+			<if test="createName != null and createName !=''"  > and `create_name`= #{createName}</if>
+			<if test="createTime != null and createTime !=''"  > and `create_time`= #{createTime}</if>
+			<if test="updateTime != null and updateTime !=''"  > and `update_time`= #{updateTime}</if>
+		</trim>
+	</sql>
+	
+	
+</mapper>

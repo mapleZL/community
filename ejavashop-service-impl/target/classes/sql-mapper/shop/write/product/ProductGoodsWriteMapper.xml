@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.write.product.ProductGoodsWriteDao">
+   <resultMap id="ProductGoodsResult" type="com.ejavashop.entity.product.ProductGoods">
+			<result property="id" column="id" />
+			<result property="productId" column="product_id" />
+			<result property="normAttrId" column="norm_attr_id" />
+			<result property="normName" column="norm_name" />
+			<result property="mallPcPrice" column="mall_pc_price" />
+			<result property="mallMobilePrice" column="mall_mobile_price" />
+			<result property="productStock" column="product_stock" />
+			<result property="productStockWarning" column="product_stock_warning" />
+			<result property="actualSales" column="actual_sales" />
+			<result property="sku" column="sku" />
+			<result property="barCode" column="bar_code" />			
+			<result property="barCodeCS" column="bar_code_cs" />			
+			<result property="barCodePL" column="bar_code_pl" />			
+			<result property="images" column="images" />
+			<result property="mallOriginalPrice" column="mall_original_price" />
+			<result property="state" column="state" />
+			<result property="isVirtualBom" column="is_virtualBom" />
+	</resultMap>
+	<resultMap id="ProductWmsStockVOResult" type="com.ejavashop.vo.product.ProductWmsStockVO">
+			<result property="stock" column="product_stock" />
+			<result property="state" column="state" />
+			<result property="company" column="seller_name" />
+			<result property="sku" column="sku" />
+	</resultMap>
+   
+	<update id="updateStock">
+		update `product_goods`
+        set `product_stock`= `product_stock` - #{number}
+        where `id` = #{id}
+	</update>
+   
+	<update id="batchUpdate" parameterType="java.util.List">
+		  <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_goods 
+                <set>
+                  `product_stock` = #{item.productStock},
+                  `mall_pc_price` = #{item.mallPcPrice},
+                  `mall_mobile_price` = #{item.mallMobilePrice}
+                </set>
+                where id = ${item.id}
+         </foreach>
+	</update>
+	
+	<update id="updateActualSales">
+		update `product_goods`
+        set `actual_sales`= `actual_sales` + #{number}
+        where `id` = #{id}
+	</update>
+   
+   <insert id="insert"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into `product_goods`(
+            `product_id`,
+            `norm_attr_id`,
+            `norm_name`,
+            `mall_pc_price`,
+            `mall_mobile_price`,
+            `product_stock`,
+            `product_stock_warning`,
+            `actual_sales`,
+            `sku`,
+            `bar_code`,
+            `images`,
+            `is_virtualBom`,
+            `bar_code_pl`,
+            `bar_code_cs`
+        )
+        values(
+            #{productId},
+            #{normAttrId},
+            #{normName},
+            #{mallPcPrice},
+            #{mallMobilePrice},
+            #{productStock},
+            #{productStockWarning},
+            #{actualSales},
+            #{sku},
+            #{barCode},
+            #{images},
+            #{isVirtualBom},
+            #{barCodePL},
+            #{barCodeCS}
+        )
+    </insert>
+   
+   	<update id="update">
+		update `product_goods`
+		<set>
+		    <!-- <if test = "null != id and '' != id">`id`= #{id},</if> -->
+		    <if test = "null != productId">`product_id`= #{productId},</if>
+		    <if test = "null != normName">`norm_name`= #{normName},</if>
+		    <if test = "null != mallPcPrice">`mall_pc_price`= #{mallPcPrice},</if>
+		    <if test = "null != mallMobilePrice">`mall_mobile_price`= #{mallMobilePrice},</if>
+		    <if test = "null != productStock">`product_stock`= #{productStock},</if>
+		    <if test = "null != productStockWarning">`product_stock_warning`= #{productStockWarning},</if>
+		    <if test = "null != actualSales">`actual_sales`= #{actualSales},</if>
+		    <if test = "null != sku">`sku`= #{sku},</if>
+		    <if test = "null != sku">`bar_code`= #{barCode},</if>
+		    <if test = "null != images">`images`= #{images},</if>
+		    <if test = "null != barCodePL">`bar_code_pl`= #{barCodePL},</if>
+		    <if test = "null != barCodeCS">`bar_code_cs`= #{barCodeCS},</if>
+		    <if test = "null != isVirtualBom">`is_virtualBom`= #{isVirtualBom}</if>
+		</set>
+		where `id` = #{id}
+	</update>
+   
+   <select id="getByProductId" resultType="com.ejavashop.entity.product.ProductGoods">
+        select
+        <include refid="selectColumn"/>
+        from `product_goods`
+        where `product_id` = #{productId} order by id desc limit 1
+    </select>
+
+    <select id="get" resultType="com.ejavashop.entity.product.ProductGoods">
+        select
+        <include refid="selectColumn"/>
+        from `product_goods`
+        where `id` = #{id}
+    </select>
+
+    
+    <!-- <update id="update">
+        update `product_goods`
+        <set>
+            <if test = "null != id and '' != id">`id`= #{id},</if>
+            <if test = "null != productId and '' != productId">`product_id`= #{productId},</if>
+            <if test = "null != normName and '' != normName">`norm_name`= #{normName},</if>
+            <if test = "null != mallPcPrice and '' != mallPcPrice">`mall_pc_price`= #{mallPcPrice},</if>
+            <if test = "null != mallMobilePrice and '' != mallMobilePrice">`mall_mobile_price`= #{mallMobilePrice},</if>
+            <if test = "null != productStock">`product_stock`= #{productStock},</if>
+            <if test = "null != productStockWarning and '' != productStockWarning">`product_stock_warning`= #{productStockWarning},</if>
+            <if test = "null != actualSales and '' != actualSales">`actual_sales`= #{actualSales},</if>
+            <if test = "null != sku and '' != sku">`sku`= #{sku},</if>
+            <if test = "null != images and '' != images">`images`= #{images},</if>
+        </set>
+        where `id` = #{id}
+    </update> -->
+    
+    <!-- <select id="getByCondition" parameterType="Integer" resultMap="ProductGoodsResult">
+		select
+		   *
+		from `product_goods`
+		<include refid="whereConditions"/>
+		limit 1
+	</select>
+    
+    <delete id="del">
+        delete from `product_goods` where `id` = #{id}
+    </delete>
+
+	<select id="getMaxAttrIdByProductId" resultType="java.lang.Integer">
+        select max(`norm_attr_id`) from product_goods where product_id = #{productId}
+    </select>
+
+    
+
+    <select id="getByProductIdAndAttrId" resultType="com.ejavashop.entity.product.ProductGoods">
+        select
+        <include refid="selectColumn"/>
+        from `product_goods`
+        where `product_id` = #{productId} and `norm_attr_id` = #{attrId}
+    </select>
+    
+    <select id="page" resultType="com.ejavashop.entity.product.ProductGoods">
+        select
+        <include refid="selectColumn"/>
+        from `product_goods`
+        <include refid="whereConditions"/>
+        and `product_stock` &gt; 0
+        order by id desc
+        <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+    </select>
+    
+    <select id="count" resultType="java.lang.Integer">
+        select count(1) from `product_goods`
+        <include refid="whereConditions"/>
+        and `product_stock` &gt; 0
+    </select>
+    
+    <select id="quickSearch" resultType="com.ejavashop.entity.product.ProductGoods">
+        select pg.id, pg.product_id, pg.norm_attr_id, pg.norm_name, pg.mall_pc_price, pg.mall_mobile_price, pg.product_stock, pg.product_stock_warning, pg.actual_sales, pg.sku, pg.bar_code, pg.images, pg.mall_original_price
+        from `product_goods` pg , `product` p where pg.product_id = p.id and p.state = 6 and pg.product_id = p.id
+        <if test="param1.q_sku != null and '' != param1.q_sku">
+            and `sku`= #{param1.q_sku}
+        </if>
+        <if test="param1.sku != null and '' != param1.sku">
+            and `sku` like CONCAT('%', #{param1.sku}, '%')
+        </if>
+            <if test="param1.term != null and '' != param1.term">
+                and `sku` like CONCAT('%', #{param1.term}, '%')
+            </if>
+		and pg.product_stock &gt; 0 and p.state = 6  and pg.product_stock &gt; 0
+        order by p.id desc <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+    </select>
+    
+    <select id="quickSearchCount" resultType="java.lang.Integer">
+        select count(1) from `product_goods` pg , `product` p where pg.product_id = p.id and pg.product_id = p.id 
+            <if test="param1.q_sku != null and '' != param1.q_sku">
+                and `sku`= #{param1.q_sku}
+            </if>
+            <if test="param1.sku != null and '' != param1.sku">
+                and `sku` like CONCAT('%', #{param1.sku}, '%')
+            </if>
+            <if test="param1.term != null and '' != param1.term">
+                and `sku` like CONCAT('%', #{param1.term}, '%')
+            </if>
+		and pg.product_stock &gt; 0 and p.state = 6 
+    </select> -->
+
+    <sql id="selectColumn">
+        `id`,
+        `product_id`,
+        `norm_attr_id`,
+        `norm_name`,
+        `mall_pc_price`,
+        `mall_mobile_price`,
+        `product_stock`,
+        `product_stock_warning`,
+        `actual_sales`,
+        `sku`,
+        `bar_code`,
+        `images`,
+        `mall_original_price`,
+        `bar_code_pl`,
+        `bar_code_cs`,
+        `is_virtualBom`
+    </sql>
+    <sql id="whereConditions">
+        <where>
+            <if test="param1.q_id != null and '' != param1.q_id">
+                and `id`= #{param1.q_id}
+            </if>
+            <if test="param1.q_productId != null and '' != param1.q_productId">
+                and `product_id`= #{param1.q_productId}
+            </if>
+            <if test="param1.in_products != null and '' != param1.in_products">
+                and `product_id` in (${param1.in_products})
+            </if>
+            <if test="param1.q_normAttrId != null and param1.q_normAttrId !=''">
+            	and `norm_attr_id`= #{param1.q_normAttrId}
+            </if>
+            <if test="param1.q_normName != null and '' != param1.q_normName">
+                and `norm_name`= #{param1.q_normName}
+            </if>
+            <if test="param1.q_mallPcPrice != null and '' != param1.q_mallPcPrice">
+                and `mall_pc_price`= #{param1.q_mallPcPrice}
+            </if>
+            <if test="param1.q_mallMobilePrice != null and '' != param1.q_mallMobilePrice">
+                and `mall_mobile_price`= #{param1.q_mallMobilePrice}
+            </if>
+            <if test="param1.q_productStock != null and '' != param1.q_productStock">
+                and `product_stock`= #{param1.q_productStock}
+            </if>
+            <if test="param1.q_productStockWarning != null and '' != param1.q_productStockWarning">
+                and `product_stock_warning`= #{param1.q_productStockWarning}
+            </if>
+            <if test="param1.q_actualSales != null and '' != param1.q_actualSales">
+                and `actual_sales`= #{param1.q_actualSales}
+            </if>
+            <if test="param1.q_sku != null and '' != param1.q_sku">
+                and `sku`= #{param1.q_sku}
+            </if>
+            <if test="param1.sku != null and '' != param1.sku">
+                and `sku` like CONCAT('%', #{param1.sku}, '%')
+            </if>
+            <if test="param1.term != null and '' != param1.term">
+                and `sku` like CONCAT('%', #{param1.term}, '%')
+            </if>
+            <if test="param1.barCode != null and '' != param1.barCode">
+                and `bar_code` like CONCAT('%', #{param1.barCode}, '%')
+            </if>
+            <if test="param1.q_images != null and '' != param1.q_images">
+                and `images`= #{param1.q_images}
+            </if>
+        </where>
+    </sql>
+    
+    <delete id="deleteByProductId">
+        delete from `product_goods` where `product_id` = #{proid}
+    </delete>
+    
+    <!-- <select id="checkProductBySKUAndSeller" resultType="java.lang.Integer">
+       select count(*) from product_goods pg left join product p on pg.product_id = p.id where 1=1
+        <if test="param1.sellerId != null and  param1.sellerId !=''">
+       		and p.seller_id = #{param1.sellerId} 
+       	</if>
+       	<if test="param1.sku != null and  param1.sku !=''">
+       		and pg.sku = #{param1.sku}
+       	</if>  
+       	<if test="param1.productId != null and  param1.productId !=''">
+       		and p.id = #{param1.productId}
+       	</if>	
+    </select>
+    
+    <select id="checkProductBySKUAndProductId" resultType="com.ejavashop.entity.product.ProductGoods">
+    	select * from product_goods pg where pg.sku = #{param1.sku} and pg.product_id = #{param1.productId}
+    </select>
+    
+    <select id="checkBarCodeIsExsit" resultType="java.lang.Integer">
+       select count(*) from product_goods where 
+       		(bar_code = #{param1.barCode}  or bar_code_pl = #{param1.barCode}  or bar_code_cs = #{param1.barCode} )
+            <if test="param1.id != null and '' != param1.id">
+               and id != #{param1.id}
+            </if>
+    </select>
+    <select id="getBySkuAndMember" resultMap="ProductGoodsResult">
+      select pg.*,p.state as state from product p , product_goods pg , seller s where p.seller_id = s.id and pg.product_id = p.id 
+        <if test="memberId != null  and '' != memberId  and memberId == 'MTY' ">
+            and (s.seller_code = '10001' or s.seller_code = 'MTY') 
+        </if>
+        <if test="memberId != null  and '' != memberId  and memberId  != 'MTY' ">
+            and s.seller_code = #{memberId}
+         </if>
+            and pg.sku = #{sku} 
+            order by state desc, pg.id desc 
+    </select> -->
+    
+    <update id = "updateSpuStock">
+	     <!-- update product p set p.product_stock = IFNULL((select sum(pg.product_stock) from product_goods pg where pg.product_id = p.id),0) -->
+	     update product p, (select sum(product_stock) total, product_id from product_goods group by product_id) t set p.product_stock = t.total where p.id = t.product_id 
+	</update>
+	
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.promotion.read.bidding.ActBiddingReadDao">
+	<resultMap id="ActBiddingResult" type="com.ejavashop.entity.promotion.bidding.ActBidding">
+			<result property="id" column="id" />
+			<result property="type" column="type" />
+			<result property="typeState" column="type_state" />
+			<result property="name" column="name" />
+			<result property="descinfo" column="descinfo" />
+			<result property="virtualSaleNum" column="virtual_sale_num" />
+			<result property="saleNum" column="sale_num" />
+			<result property="purchase" column="purchase" />
+			<result property="startTime" column="start_time" />
+			<result property="endTime" column="end_time" />
+			<result property="productId" column="product_id" />
+			<result property="marketPrice" column="market_price" />
+			<result property="price" column="price" />
+			<result property="stock" column="stock" />
+			<result property="firstPrice" column="first_price" />
+			<result property="firstEndTime" column="first_end_time" />
+			<result property="lastEndTime" column="last_end_time" />
+			<result property="sortNum" column="sort_num" />
+			<result property="isBest" column="is_best" />
+			<result property="activityState" column="activity_state" />
+			<result property="state" column="state" />
+			<result property="auditId" column="audit_id" />
+			<result property="auditName" column="audit_name" />
+			<result property="reason" column="reason" />
+			<result property="image" column="image" />
+			<result property="channel" column="channel" />
+			<result property="sellerId" column="seller_id" />
+			<result property="executeState" column="execute_state" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="auditOpinion" column="audit_opinion" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="ActBiddingResult">
+		select
+		   *
+		from `act_bidding`
+		where `id` = #{id}
+	</select>
+	<select id="getExecuteStateNo" resultMap="ActBiddingResult">
+		select 
+			* 
+		from `act_bidding` 
+		where `state` = 3
+		and `activity_state` = 3
+		and `execute_state` = 0
+		and `first_end_time` &lt; now()
+	</select>
+	
+	<select id="getActBiddingsCount" resultType="java.lang.Integer"  parameterType="map">
+		select count(1) from `act_bidding` 
+		<include refid="getProductAsksCondition"/>
+	</select>
+	  	
+	<select id="getActBiddings" resultMap="ActBiddingResult"  parameterType="map">
+		select 
+			* 
+		from `act_bidding` 
+		<include refid="getProductAsksCondition"/>
+		order by 
+		<if test="queryMap.biddingfront != null and queryMap.biddingfront == 1" >
+		`is_best` desc, `sort_num` desc, 
+		</if>
+		`id` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="getProductAsksCondition">
+        <where>
+			<if test="queryMap.q_sellerId != null and queryMap.q_sellerId !=''" >
+				and `seller_id`= #{queryMap.q_sellerId}
+			</if>
+			<if test="queryMap.q_productId != null and queryMap.q_productId !=''" >
+				and `product_id`= #{queryMap.q_productId}
+			</if>
+			<if test="queryMap.q_state != null and queryMap.q_state !=''" >
+				and `state`= #{queryMap.q_state}
+			</if>
+			<if test="queryMap.q_activityState != null and queryMap.q_activityState !=''" >
+				and `activity_state`= #{queryMap.q_activityState}
+			</if>
+			<if test="queryMap.q_type != null and queryMap.q_type !=''" >
+				and `type`= #{queryMap.q_type}
+			</if>
+			
+			<if test="queryMap.biddingfront != null and queryMap.biddingfront == 1" >
+				and `activity_state`= 2
+				and `state`= 3
+				and  `start_time`  &lt;  now()
+				and `end_time` &gt; now()
+			</if>
+			
+			<if test="queryMap.biddingfront != null and queryMap.biddingfront == 2" >
+				and `activity_state`= 3
+				and `state`= 3
+			</if>
+			
+			<if test="queryMap.biddingfront != null and queryMap.biddingfront == 3" >
+				and `activity_state`= 2
+				and `state`= 3
+				and  `start_time` &gt; now()
+			</if>
+        </where>
+    </sql>
+	
+	<select id="getActBiddingsFrontCount" resultType="java.lang.Integer"  parameterType="map">
+		select count(1) from 
+		`act_bidding` a
+        <include refid="getProductAsksConditionFront"/>
+	</select>
+	  	
+	<select id="getActBiddingsFront" resultMap="ActBiddingResult"  parameterType="map">
+		select 
+			  *
+		from `act_bidding` a
+		<include refid="getProductAsksConditionFront"/>
+		order by 
+		<if test="queryMap.biddingfront != null and queryMap.biddingfront == 1" >
+		a.`is_best` desc, a.`sort_num` desc, 
+		</if>
+		a.`id` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	<sql id="getProductAsksConditionFront">
+        <where>
+			<if test="queryMap.biddingfront != null and queryMap.type != 0">
+	             and a.`type` = #{queryMap.type}
+	        </if>
+			<if test="queryMap.biddingfront != null and queryMap.biddingfront == 1" >
+				and a.`activity_state`= 2
+				and a.`state`= 3
+				and  a.`start_time`  &lt;  now()
+				and a.`end_time` &gt; now()
+			</if>
+			<if test="queryMap.biddingfront != null and queryMap.biddingfront == 2" >
+				and a.`activity_state`= 3
+				and a.`state`= 3
+			</if>
+			<if test="queryMap.biddingfront != null and queryMap.biddingfront == 3" >
+				and a.`activity_state`= 2
+				and a.`state`= 3
+				and a.`start_time` &gt; now()
+			</if>
+			and (
+				`channel` = #{queryMap.channel}
+				or `channel` = 1
+			)
+			and a.`type_state`= 1
+        </where>
+    </sql>
+    
+    <select id="getActBiddingsByType" resultMap="ActBiddingResult"  parameterType="java.lang.Integer">
+		select 
+			* 
+		from `act_bidding` 
+		where `type` = #{type}
+		and `start_time` &lt; now()
+		and `end_time` &gt; now()
+		and `activity_state` = 2
+		and `state` = 3
+		order by `is_best` desc, `sort_num` desc, `id` desc
+		limit #{topNum}
+	</select>
+	<select id="getAllEnd" resultMap="ActBiddingResult">
+		select 
+			* 
+		from `act_bidding` 
+		where `state` = 3
+		and `activity_state` = 2
+		and `end_time` &lt; now()
+	</select>
+	
+	
+</mapper>

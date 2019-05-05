@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.system.RegionsReadDao">
+	<resultMap id="RegionsResult" type="com.ejavashop.entity.system.Regions">
+			<result property="id" column="id" />
+			<result property="parentId" column="parentId" />
+			<result property="regionName" column="regionName" />
+			<result property="parentPath" column="parentPath" />
+			<result property="firstLetter" column="firstLetter" />
+			<result property="regionType" column="regionType" />
+			<result property="agencyId" column="agencyId" />
+			<result property="shippingId" column="shippingId" />
+			<result property="visible" column="visible" />
+			<result property="rowId" column="rowId" />
+	</resultMap>
+	<select id="get" parameterType="Integer" resultMap="RegionsResult">
+		select
+		   *
+		from `regions`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getChildrenArea" parameterType="java.util.Map" resultMap="RegionsResult">
+		select
+		   *
+		from `regions`
+		where `parentId` = #{parentid} and `regionType` = #{type}
+	</select>
+	
+	<select id="getProvince" resultMap="RegionsResult">
+		select
+		   *
+		from `regions`
+		where `parentId` = 0 and `regionType` = 1
+	</select>
+	
+	<select id="getByParentId" parameterType="java.util.Map" resultMap="RegionsResult">
+		select
+		   *
+		from `regions`
+		where `parentId` = #{parentId}
+	</select>
+	
+	<select id="getRegionsByRegionName1" resultMap="RegionsResult">
+		select * from regions where regionName = #{regionName} and firstLetter != '' and parentId= #{parentId} limit 1
+	</select>
+	
+	<select id="getRegionsByRegionName2" resultMap="RegionsResult">
+		select * from regions where regionName = #{regionName} and firstLetter = '' and parentId= #{parentId} limit 1
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `regions` t1
+	</select>
+	
+	<select id="page"  resultMap="RegionsResult">
+		select * from `regions` t1
+		order by id
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<select id = "getParterSignArea" resultMap="RegionsResult">
+		select r.* from regions r LEFT JOIN parter_area pt on r.id = pt.area_id 
+		LEFT JOIN parter_sign ps on pt.parter_sign_id = ps.id 
+		where  r.regionType =3
+		<if test ="memberId != null and memberId !=''">
+		 and ps.member_id  = #{memberId} 
+		</if>
+		<if test ="signNo != null and signNo !=''">
+		 and ps.sign_no = #{signNo}
+		</if>
+	</select>
+	
+</mapper>

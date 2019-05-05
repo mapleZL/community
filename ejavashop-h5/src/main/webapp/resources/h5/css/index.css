@@ -1,0 +1,67 @@
+.login-header{
+	height: 44px;
+	background: url(../img/header-bg.png) repeat-x
+}
+.tiperror{
+	color: #f25454;
+	margin-bottom: 10px;
+}
+.captcha-img{
+	position: absolute;
+	top: 5px;
+	left: 55%;
+}
+.member input{
+	width: 15px;
+	height: 15px;
+	border:solid 1px #000;
+}
+.btn-login{
+	width:100%;
+	background: #27cdf2;
+	color: #fff;
+}
+.login-option{
+	margin:15px 0;
+}
+.login-option a{
+	color: #686868;
+	font-size: 16px;
+	text-decoration: underline;
+}
+.fa-qq{
+	font-size: 24px;
+	margin-left: 15px;
+}
+/**返回顶部 按钮样式 start*/
+#scroll-qq{
+	bottom: 18rem;
+	position: fixed;
+	width: 5rem;
+	height: 5rem;
+	right: 1rem;
+	background: url('../img/index/qq.png') 0 0 no-repeat;
+	background-size:5rem 5rem !important;
+	z-index: 10000;
+}
+#scroll-phone{
+	bottom: 12rem;
+	position: fixed;
+	width: 5rem;
+	height: 5rem;
+	right: 1rem;
+	background: url('../img/index/phone.png') 0 0 no-repeat;
+	background-size:5rem 5rem !important;
+	z-index: 10000;
+}
+#scroll-top{
+	bottom: 6rem;
+	position: fixed;
+	width: 5rem;
+	height: 5rem;
+	right: 1rem;
+	background: url('../img/index/top.png') 0 0 no-repeat;
+	background-size:5rem 5rem !important;
+	z-index: 10000;
+}
+/**end*/

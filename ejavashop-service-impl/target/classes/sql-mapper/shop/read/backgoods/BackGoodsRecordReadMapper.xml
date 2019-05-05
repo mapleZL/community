@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.backgoods.BackGoodsRecordReadDao">
+	<resultMap id="BackGoodsRecordResult" type="com.ejavashop.entity.backgoods.BackGoodsRecord">
+			<result property="id" column="id" />
+			<result property="backGoodsId" column="back_goods_id" />
+			<result property="productSku" column="product_sku" />
+			<result property="wellNum" column="well_num" />
+			<result property="badNum" column="bad_num" />
+			<result property="productId" column="product_id" />
+			<result property="backNum" column="back_num" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="BackGoodsRecordResult">
+		select
+		   *
+		from `back_goods_record`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getBackGoodRecordByGoodsId" parameterType="Integer"  resultMap="BackGoodsRecordResult"> 
+	    select * from `back_goods_record` where `back_goods_id` = #{goodsId}
+	</select>
+	
+</mapper>

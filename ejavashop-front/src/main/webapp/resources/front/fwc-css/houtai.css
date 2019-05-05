@@ -1,0 +1,112 @@
+.wrapper_main1{
+	width: 1000px;
+	margin: 0 200px;
+}
+
+.wrapper_main1 h3{
+	border:1px solid #e8e8e8;
+	width: 1010px;
+	height: 36px;
+	font-size: 16px;
+	line-height: 36px;
+	text-indent: 30px;
+	background: #f9f9f9;
+	margin-bottom:8px;
+
+}
+
+.main-current1{
+	border:1px solid #e8e8e8;
+	width: 1010px;
+	/* height:1110px; */
+	height:1058px;
+	background: #f9f9f9;
+	text-indent: 30px;
+	font-size: 16px;
+}
+
+.main-current1 p{
+	margin-top: 20px;
+	
+
+}
+
+.main-current1 em{
+
+	font-size: 20px;
+	color: red;
+}
+.list-group li{
+
+	width: 363px;
+	height: 30px;
+	line-height:30px;
+	
+}
+
+.fenge{
+	border-bottom:1px solid #e5e5e5;
+	text-indent: -9999px;
+	width:900px;
+	margin:0 auto;
+}
+.list-group1 li input{
+	border: 1px solid #ccc;
+
+	
+}
+
+.s-infotitle1{
+	float: right;
+	width: 200px;
+	height: 30px;
+	border: 1px solid #ccc;
+}
+
+.list-group1{
+
+	margin-top: 30px;
+}
+
+select{
+
+	width: 100px;
+	height: 30px;
+	
+	border: 1px solid #ccc;
+}
+
+.list-group1 li{
+	width: 550px;
+	height: 30px;
+	line-height:30px;
+}
+
+.list-group1 li .s-infotitle1{
+	
+	width: 300px;
+	height: 30px;
+	border: 1px solid #ccc;
+	
+}
+.list-group1 li .s-infotitle1{
+
+	
+	width: 300px;
+	height: 60px;
+	border: 1px solid #ccc;
+}
+
+.preserve{
+
+
+	background: #27cdf2 ;
+	border:1px solid #27b9f2;
+	border-radius:3px;
+	width:136px;
+	height:36px;
+	margin: 30px 0 0 160px;
+	color: #fff;
+	font-size: 20px;
+	cursor: pointer;
+}

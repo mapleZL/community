@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.write.product.WmsClassifyWriteDao">
+	<resultMap id="WmsClassifyResult" type="com.ejavashop.entity.product.WmsClassify">
+			<result property="id" column="id" />
+			<result property="wmsCategory" column="wms_category" />
+			<result property="createUser" column="create_user" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="state" column="state" />
+	</resultMap>
+	
+	<update id="update" parameterType="com.ejavashop.entity.product.WmsClassify">
+        update `wms_classify` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="wmsCategory != null">`wms_category`= #{wmsCategory},</if>
+			<if test="createUser != null">`create_user`= #{createUser},</if>
+			<if test="updateTime != null">`update_time`= now(),</if>
+			<if test="state != null">`state`= #{state},</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.product.WmsClassify" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`wms_classify`
+		(
+			
+			`wms_category`,
+			`create_user`,
+			`create_time`,
+			`update_time`,
+			`state`
+		)
+		values
+		(
+			
+			#{wmsCategory},
+			#{createUser},
+			now(),
+			now(),
+			#{state}
+		)
+	</insert>
+	
+</mapper>

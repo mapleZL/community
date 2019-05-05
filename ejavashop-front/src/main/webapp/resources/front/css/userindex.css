@@ -1,0 +1,117 @@
+.tool-tip {
+	position: relative;
+	cursor: pointer;
+}
+
+.moneyblock {
+	border: solid 1px #E7E7E7;
+	margin: 15px;
+	overflow: hidden;
+	padding: 0;
+}
+
+.moneyblock ul {
+	white-space: nowrap;
+	list-style: none outside none;
+}
+
+.moneyblock li {
+	font-size: 12px;
+	vertical-align: top;
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-align: center;
+	display: inline-block;
+	width: 33%;
+	border-left: solid 1px #E7E7E7;
+}
+
+.moneyblock a:link, a:visited, a:active {
+	text-decoration: none;
+}
+
+#pre-deposit .icon {
+	background-position: -240px 0;
+}
+
+#points .icon {
+	background-position: -310px 0px;
+}
+
+.moneyblock .icon {
+	background: url('../img/member_pics.png') no-repeat scroll 0% 0%
+		transparent;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	margin: 5px auto;
+}
+
+.moneyblock li .value {
+	font-weight: 600;
+	line-height: 28px;
+	color: #999;
+	display: block;
+	clear: both;
+}
+
+.moneyblock li .value em {
+	font: 24px/28px Arial;
+	color: #666;
+	vertical-align: bottom;
+	margin: 0 4px;
+}
+
+.transaction {
+	height: 30px;
+	background-color: #FEFBF8;
+	margin: 15px;
+	padding: 20px;
+}
+
+.transaction h3 {
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 16px;
+	display: inline-block;
+	height: 32px;
+	padding-left: 5px;
+	border-left: 3px solid #FD6760;
+}
+
+.transaction ul {
+	font-size: 0px;
+	vertical-align: top;
+	display: inline-block;
+	margin-left: 80px;
+	overflow: hidden;
+}
+
+.transaction ul li {
+	font-size: 12px;
+	line-height: 14px;
+	vertical-align: middle;
+	letter-spacing: normal;
+	word-spacing: normal;
+	display: inline-block;
+	height: 14px;
+	padding: 0px 20px;
+	margin-left: -1px;
+	border-left: 1px solid #E7E7E7;
+}
+
+.btn-5:link, .btn-5:visited {
+	color: #323333;
+	text-decoration: none;
+}
+
+.btn-5 {
+	background-color: #f5fbef;
+	border-radius: 2px;
+	display: inline-block;
+	height: 22px;
+	line-height: 18px;
+	border: 1px solid #bfd6af;
+	padding: 2px 14px 3px;
+	color: #323333;
+}

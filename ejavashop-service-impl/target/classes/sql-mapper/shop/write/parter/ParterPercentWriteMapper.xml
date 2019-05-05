@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.write.parter.ParterPercentWriteDao">
+	<resultMap id="ParterPercentResult" type="com.ejavashop.entity.parter.ParterPercent">
+			<result property="id" column="id" />
+			<result property="type" column="type" />
+			<result property="startTime" column="start_time" />
+			<result property="endTime" column="end_time" />
+			<result property="percent" column="percent" />
+			<result property="parterSignId" column="parter_sign_id" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="percentType" column="percent_type" />
+	</resultMap>
+	
+	<!-- <select id="get" parameterType="Integer" resultMap="ParterPercentResult">
+		select
+		   *
+		from `parter_percent`
+		where `id` = #{id}
+	</select -->
+	
+	<update id="update" parameterType="com.ejavashop.entity.parter.ParterPercent">
+        update `parter_percent` 
+    	<set>
+			<if test="type != null">`type`= #{type},</if>
+			<if test="startTime != null">`start_time`= #{startTime},</if>
+			<if test="endTime != null">`end_time`= #{endTime},</if>
+			<if test="percent != null">`percent`= #{percent},</if>
+			<if test="parterSignId != null">`parter_sign_id`= #{parterSignId},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
+			<if test="percentType != null">`percent_type`= #{percentType},</if>
+			<if test="updateTime != null">`update_time`= now()</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.parter.ParterPercent" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`parter_percent`
+		(
+			`type`,
+			`start_time`,
+			`end_time`,
+			`percent`,
+			`parter_sign_id`,
+			`create_time`,
+			`percent_type`,
+			`update_time`
+		)
+		values
+		(
+			#{type},
+			#{startTime},
+			#{endTime},
+			#{percent},
+			#{parterSignId},
+			now(),
+			#{percentType},
+			now()
+		)
+	</insert>
+	
+<!-- 	<select id="getParterPercentCount" parameterType="java.util.Map" resultType="Integer">
+		select
+		   count(*)
+		from `parter_percent`
+	</select>
+	
+	<select id="getParterPercent" parameterType="java.util.Map" resultMap="ParterPercentResult">
+		select
+		   *
+		from `parter_percent`
+		order by `id` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select> -->
+	
+	<delete id="percentDelete" parameterType="Integer">
+	  delete from `parter_percent` where id= #{parterPercentId}
+	</delete>
+	
+	<!-- <select id = "getParterPercentByParterSignId" resultMap="ParterPercentResult">
+		select * from `parter_percent` where `parter_sign_id` = #{parterSignId} 
+		<if test="percentType != null and percentType != ''">
+			and percent_type = #{percentType}
+		</if>
+	</select -->
+	
+</mapper>

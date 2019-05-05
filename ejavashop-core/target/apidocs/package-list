@@ -1,0 +1,15 @@
+com.bestpay.util
+com.ejavashop.core
+com.ejavashop.core.email
+com.ejavashop.core.excel
+com.ejavashop.core.exception
+com.ejavashop.core.freemarker
+com.ejavashop.core.freemarkerutil
+com.ejavashop.core.ibatis
+com.ejavashop.core.matrix
+com.ejavashop.core.sms
+com.ejavashop.core.sms.bean
+com.ejavashop.core.sms.util
+com.ejavashop.web.controller
+com.ejavashop.web.util
+org.apache.log4j

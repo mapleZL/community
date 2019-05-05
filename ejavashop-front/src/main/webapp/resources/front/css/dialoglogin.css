@@ -1,0 +1,28 @@
+#dialogLoginForm {
+	margin-top: 10px;
+}
+
+#dialogLoginForm input {
+	padding-left: 20px;
+}
+
+#dialogLoginForm label {
+	float: left;
+	line-height: 30px;
+}
+
+.tip {
+	height: 18px;
+	line-height: 24px;
+	margin-bottom: 0px;
+	display: none;
+}
+
+.error {
+	color: #333;
+	background: #FFEEEE url(../img/joinin_pic.png) no-repeat -395px -135px;
+	vertical-align: middle;
+	display: inline-block;
+	border: solid 1px #FCC;
+	font-weight: 400;
+}

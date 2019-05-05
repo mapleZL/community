@@ -1,0 +1,169 @@
+
+
+.custom-made{
+
+	
+	height: 330px;
+	background: #f5f5f5;
+	margin: 0 auto;
+	font-size: 26px;
+	
+
+}
+
+.custom-made h1{
+	height:100px;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	line-height:100px;
+}
+
+.demand-banner{
+	position: relative;
+	height:530px;
+	overflow:hidden;
+}
+.demand-banner img{
+	position:absolute;
+	left:50%;
+	margin-left:-960px;
+
+
+}
+.step-img{
+	width: 1158px; 
+	height: 150px;
+	margin: 20px auto;
+	
+}
+
+.demand-content{
+		background: #fff;
+		width: 100%;
+
+}
+
+.demand-content h1{
+	font-size: 26px;
+	font-weight: bold;
+	text-align: center;
+	height: 95px;
+	line-height: 130px;
+}
+.write-content{
+	width: 600px;
+	height: 160px;
+	margin: 0 auto;
+	position: relative;
+}
+.write-content i{
+	position: absolute;
+	top: 73px;
+	right: 200px;
+	
+}
+.write-content em{
+	color: red;
+	display: inline-block;
+	position: absolute;
+	top: 30px;
+	left: -50px;
+	font-size: 20px;
+
+}
+
+.write-content span{
+	display: inline-block;
+	font-size: 18px;
+	position: absolute;
+	top: 30px;
+	left: -35px;
+	font-weight: bold;
+
+}
+
+.online-bottom{
+	
+	width:600px;
+	border-bottom:1px solid #ccc;
+	position: absolute;
+	bottom:50px;
+}
+.demand-content textarea{
+	width: 423px;
+	height: 152px;
+	border: 1px solid #ccc;
+	resize: none;
+	margin: 30px 0 0 100px;
+	line-height: 20px;
+	}
+
+
+.write-content1 {
+	border-bottom: 1px solid #ccc;
+	background: #fff;
+}
+.contact-way{
+	height: 60px;
+}
+.contact-way1{
+	width: 422px;
+	height: 40px;
+	/* border: 1px solid #ccc; */
+	position: absolute;
+	top: 31px;
+	left: 100px;
+	line-height:33px;
+	text-indent: 4px;
+	font-size: 14px;
+}
+
+.contact-way1 .shangchuan{
+	display:inline-block;
+	 width:60px;
+  	height:40px; 
+ 	 position:relative;
+  	font-size: 22px;
+  	font-weight: normal;
+	left: 200px;
+	top: 0;
+	background: #EEEEEE;
+	text-align: center; }
+.contact-way1 .shangchuan input{
+	position:absolute; 
+	right:0; 
+	top:0;  
+	opacity:0;
+	width:100px; height:40px;
+ filter:alpha(opacity=0);
+cursor: pointer;}
+.contact-way input{
+
+	width: 422px;
+	height: 40px;
+	border: 1px solid #ccc;
+	position: absolute;
+	top: 22px;
+	left: 100px;
+	font-size: 22px;
+}
+.sure-submit{
+
+	width: 136px;
+    height: 36px;
+    margin: 30px auto;
+}
+
+.sure-submit input{
+	background: #27cdf2;
+    border: 1px solid #27b9f2;
+    border-radius: 3px;
+    width: 136px;
+    height: 36px;
+   
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+
+}

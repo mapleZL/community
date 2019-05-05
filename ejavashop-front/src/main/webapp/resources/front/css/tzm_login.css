@@ -1,0 +1,100 @@
+.login_top_div{
+	margin-top: 20px;
+	margin-left: 364px;	
+	float: left;
+}
+.login_top_txtdiv{
+	font-family: "Microsoft YaHei UI";
+	font-size: 20px;
+	color: rgb(51,51,51);	
+	float: left;
+	margin-top: 57px;
+	padding-left: 36px;
+}
+.login_bg_div {
+	padding-top: 100px;
+	width:970px
+}
+.login_bg_div .welcom_login_tip{
+	border:1px solid blue;
+	font-family: "Microsoft YaHei UI";
+	font-size: 16px;
+	color: #27CDF2;
+	height: 40px;
+	width: 300px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #27CDF2;
+	background-color: #FFFFFF;
+	margin-bottom: 12px;
+}
+.login_bg_div .login_form_input{
+	width: 300px;
+}
+
+.login_form_div  {
+	float:left;
+	margin-left:400px;
+	width:300px;
+}
+
+.login-box {
+	width: 198px;
+	float: left;
+}
+.login-box input{
+	height: 40px;
+}
+.form-label {
+	height: 40px;
+	line-height: 40px;
+	float: left;
+	font-size: 14px;
+	font-weight: normal;
+	background-color: white;
+	border: 1px solid rgb(232,232,232);
+}
+.form-horizontal .form-group {
+    margin-right: 0px;
+    margin-left: 0;
+}
+.submit_css{
+	margin-top: 32px;
+}
+.submit_css a{
+	display:block;
+	text-align: center;
+	font-family: "Microsoft YaHei UI";
+	height: 40px;
+	width: 300px;
+	line-height: :40px;
+}
+.login_other_url{
+	margin-top: -5px;
+	width:300px;
+}
+.login_other_url span a{
+	font-size: 12px;
+	font-family: "Microsoft YaHei UI";
+	color: #27CDF2;
+}
+.tip {
+	height: 18px;
+	line-height: 24px;
+	margin-bottom: 0px;
+	display: none;
+}
+.error{
+	color: #333;
+	line-height: 18px;
+	background: #FFEEEE url(../img/joinin_pic.png) no-repeat -395px -135px;
+	vertical-align: middle;
+	display: inline-block;
+	height: 22px;
+	padding: 1px 5px 1px 20px;
+	margin-left: 4px;
+	border: solid 1px #FCC;
+	font-weight: 400;
+	margin-top:0px;
+	margin-bottom: 0px;
+}

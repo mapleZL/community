@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.member.MemberBalanceLogsReadDao">
+	<resultMap id="MemberBalanceLogsResult" type="com.ejavashop.entity.member.MemberBalanceLogs">
+			<result property="id" column="id" />
+			<result property="memberId" column="member_id" />
+			<result property="memberName" column="member_name" />
+			<result property="moneyBefore" column="money_before" />
+			<result property="moneyAfter" column="money_after" />
+			<result property="money" column="money" />
+			<result property="createTime" column="create_time" />
+			<result property="state" column="state" />
+			<result property="remark" column="remark" />
+			<result property="optId" column="opt_id" />
+			<result property="optName" column="opt_name" />
+	</resultMap>
+	<select id="get" parameterType="Integer" resultMap="MemberBalanceLogsResult">
+		select
+		   *
+		from `member_balance_logs`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getMemberBalanceLogsCount" resultType="Integer">
+		select
+		   count(*)
+		from `member_balance_logs`
+		where `member_id` = #{memberId}
+	</select>
+
+	<select id="getMemberBalanceLogs" resultMap="MemberBalanceLogsResult">
+		select
+		   *
+		from `member_balance_logs`
+		where `member_id` = #{memberId}
+		order by `id` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from `member_balance_logs` t1
+		<include refid="whereConditions" />
+	</select>
+	
+	<select id="page" resultType="com.ejavashop.entity.member.MemberBalanceLogs">
+		select * from `member_balance_logs` t1
+		<include refid="whereConditions" />
+		order by id desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="whereConditions">
+		where 1=1
+		<trim  suffixOverrides="," >
+			<if test="id != null and id !=''"  > and `id`= #{id}</if>
+			<if test="memberId != null and memberId !=''"  > and `member_id`= #{memberId}</if>
+			<if test="memberName != null and memberName !=''"  > and `member_name`= #{memberName}</if>
+			<if test="moneyBefore != null and moneyBefore !=''"  > and `money_before`= #{moneyBefore}</if>
+			<if test="moneyAfter != null and moneyAfter !=''"  > and `money_after`= #{moneyAfter}</if>
+			<if test="money != null and money !=''"  > and `money`= #{money}</if>
+			<if test="createTime != null and createTime !=''"  > and `create_time`= #{createTime}</if>
+			<if test="state != null and state !=''"  > and `state`= #{state}</if>
+			<if test="remark != null and remark !=''"  > and `remark`= #{remark}</if>
+			<if test="optId != null and optId !=''"  > and `opt_id`= #{optId}</if>
+			<if test="optName != null and optName !=''"  > and `opt_name`= #{optName}</if>
+		</trim>
+	</sql>
+</mapper>

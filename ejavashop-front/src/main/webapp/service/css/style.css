@@ -1,0 +1,30 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }
+body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; }
+h1, h2, h3, h4, h5, h6{ font-size:100%; }
+address, cite, dfn, em, var { font-style:normal; }
+code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
+small{ font-size:12px; }
+ul, ol { list-style:none; }
+a { text-decoration:none; }
+a:hover { text-decoration:underline; }
+sup { vertical-align:text-top; }
+sub{ vertical-align:text-bottom; }
+legend { color:#000; }
+fieldset, img { border:0; }
+button, input, select, textarea { font-size:100%; }
+table { border-collapse:collapse; border-spacing:0; }
+
+body{margin:0 auto;min-width:1200px;font-family:MicrosoftYaHei;font-size:20px;color:#333333;line-height:20px;text-align:left;}
+.logo{margin:0 auto;width:1200px;height:150px;}
+.logo img {float:left; margin-top:48px;}
+.logo b {float:left; margin-left:40px;margin-top:67px;}
+.banner{background: url(../images/personal_ser_banner.png) no-repeat center;height:600px;}
+.wrap{margin:0 auto;width:1200px}
+.wrap1{margin:0 auto;background: url(../images/personal_ser_page1.png) no-repeat center;height:550px;width:1200px}
+.wrap2{margin:0 auto;background: url(../images/personal_ser_page2.png) no-repeat center;height:550px;width:1200px}
+.wrap3{margin:0 auto;background: url(../images/personal_ser_page3.png) no-repeat center;height:550px;width:1200px}
+.wrap4{margin:0 auto;background: url(../images/personal_ser_page4.png) no-repeat center;height:550px;width:1200px}
+.wrap5{margin:0 auto;background: url(../images/personal_ser_page5.png) no-repeat center;height:550px;width:1200px}
+.floor_white {background-color:#ffffff;}
+.floor_bg {background-color:#f5f5f5;}
+.footer{}
