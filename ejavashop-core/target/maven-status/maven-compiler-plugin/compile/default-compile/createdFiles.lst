@@ -6,10 +6,7 @@ com\bestpay\util\Constants.class
 com\ejavashop\core\DataStatus.class
 com\ejavashop\core\HttpJsonResult.class
 com\ejavashop\core\excel\ExcelConfig$CellType.class
-com\bestpay\util\Base64Utils.class
-com\bestpay\util\RsaCipher.class
 com\ejavashop\web\util\CommUtil.class
-com\bestpay\util\ServerCert.class
 com\ejavashop\core\exception\BusinessException.class
 com\ejavashop\core\WebUtil.class
 com\ejavashop\core\email\EmailAuthenticator.class
@@ -22,7 +19,6 @@ com\ejavashop\core\ConstantsEJS.class
 com\ejavashop\web\util\SpringContextUtil.class
 com\ejavashop\core\email\MailSender.class
 com\ejavashop\core\sms\AbstractSMSSender.class
-com\bestpay\util\AESUtil.class
 org\apache\log4j\RollingPastCalendar.class
 com\ejavashop\core\excel\ExcelConfig.class
 com\ejavashop\core\freemarker\FreemarkerStaticModels.class
@@ -49,18 +45,14 @@ com\ejavashop\core\email\MailSenderInfo.class
 com\ejavashop\core\ibatis\DataStatus.class
 com\ejavashop\core\ConvertUtil.class
 com\ejavashop\core\sms\MobileMessage.class
-com\ejavashop\core\SignCfcaUtil.class
 com\ejavashop\core\SyncWayUtil.class
 com\ejavashop\core\PathUtil.class
 com\ejavashop\core\excel\ExcelManager.class
 com\ejavashop\core\PaginationFrontUtil.class
 com\ejavashop\core\EjavashopConfig.class
-com\bestpay\util\CertUtils.class
 com\ejavashop\core\CookieHelper.class
 com\ejavashop\core\freemarker\CustomFreeMarkerConfigurer.class
 com\ejavashop\core\excel\CellConfig.class
-com\bestpay\util\main.class
-com\ejavashop\core\SignUtil.class
 com\ejavashop\core\email\SendMail.class
 com\ejavashop\core\Md5.class
 com\ejavashop\core\ServiceResult.class
