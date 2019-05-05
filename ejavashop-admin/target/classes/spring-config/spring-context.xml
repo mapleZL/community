@@ -30,15 +30,15 @@
     <import resource="shiro-context.xml"/>
 
     <bean id="domainUrlUtil" class="com.ejavashop.core.freemarkerutil.DomainUrlUtil">
-        <property name="EJS_URL_RESOURCES" value="http://127.0.0.1:8081"/>
-        <property name="EJS_FRONT_URL" value="http://127.0.0.1:8807"/>
-        <property name="EJS_H5_URL" value="http://127.0.0.1:8808"/>
-        <property name="EJS_STATIC_RESOURCES" value="http://127.0.0.1:8081"/>
-        <property name="EJS_IMAGE_RESOURCES" value="https://images2.dawawang.com"/>
-        <property name="EJS_COOKIE_DOMAIN" value=".dawawang.com"/>
-        <property name="EJS_SOLR_URL" value="http://114.55.88.189:8080/solr"/>
-        <property name="EJS_SOLR_SERVER" value="ejavashopcore"/>
-        <property name="EJS_WMS_URL" value="http://114.55.88.189:88/InterFace_MTY/HttpListener.aspx"/>
+        <property name="EJS_URL_RESOURCES" value="${ejs.url.resources}"/>
+        <property name="EJS_FRONT_URL" value="${ejs.front.url}"/>
+        <property name="EJS_H5_URL" value="${ejs.h5.url}"/>
+        <property name="EJS_STATIC_RESOURCES" value="${ejs.static.resources}"/>
+        <property name="EJS_IMAGE_RESOURCES" value="${ejs.image.resources}"/>
+        <property name="EJS_COOKIE_DOMAIN" value="${ejs.cookie.domain}"/>
+        <property name="EJS_SOLR_URL" value="${search.solr.url}"/>
+        <property name="EJS_SOLR_SERVER" value="${search.solr.server}"/>
+        <property name="EJS_WMS_URL" value="${ejs.wms.url}"/>
     </bean>
     
     <!-- 配置SpringContext,便于手动取得注入的bean -->
