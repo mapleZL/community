@@ -1,11 +1,789 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="GradleLocalSettings">
-    <option name="projectSyncType">
-      <map>
-        <entry key="$PROJECT_DIR$/../../code/link_platform/project" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../code/test/link_platform/project" value="PREVIEW" />
-      </map>
+  <component name="ChangeListManager">
+    <list default="true" id="aa21b937-59cd-482c-b8db-630b7be2beef" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/job/AdminJob.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/BaseController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/BaseController$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/BaseController$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/BaseController$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/BaseController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/CsrfTokenManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/SyncController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/backgoods/AdminBadGoodsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/member/AdminMemberConfigController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/member/AdminMemberController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/member/AdminMemberCreditController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/member/AdminMemberDrawingController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/member/AdminProdcutAskController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/member/AdminProdcutCommentsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/member/MemberCreditLogController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/mindex/MIndexBannerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/mindex/MIndexFloorController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/mindex/MIndexFloorDataController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/news/AdminNewsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/news/AdminNewsPartnerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/news/AdminNewsTypeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/operate/AdminConfigController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/operate/AdminCourierCompanyController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/operate/AdminTransportController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/operate/ProductLabelController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/operate/ProductPackageController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/operate/SEOController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/order/AdminBookingSendGoodsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/order/AdminComplaintController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/order/AdminOrdersController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/order/AdminOrdersLeadingInController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/order/AdminOrdersProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/order/AdminProductBackController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/order/AdminProductExchangeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/parter/AdminParterController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/pcindex/PcIndexBannerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/pcindex/PcIndexFloorClassController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/pcindex/PcIndexFloorController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/pcindex/PcIndexFloorDataController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/pcindex/PcIndexFloorPatchController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/pcindex/PcIndexFloorProductSortController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/pcindex/PcJPRecommendController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/pcindex/PcRecommendController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/BrandController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/CateController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/NormAttrController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/NormAttrOptController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/NormController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/OrderReceiptController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/PersonalTailorController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/ProductAttrController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/ProductBuyStockController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/ProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/ProductVertifyController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/ProductWmsClassifyController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/TypeAttrController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/product/TypeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/ActFlashSaleProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminActBiddingBannerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminActBiddingController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminActBiddingTypeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminActFlashSaleController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminActFullController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminActGroupBannerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminActGroupController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminActGroupTypeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminActSingleController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminCouponController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/promotion/AdminCouponUserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/report/AdminCPIstatisticsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/report/AdminGoodsReturnRateController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/report/AdminOrdersProfileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/report/AdminPVStatisticsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/report/AdminProductSaleStatisticsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/report/AdminPruchaseRateController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/report/AdminReportOrderController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/report/AdminReportOrderFinanceController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/report/AdminReportProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/report/AdminSaleStatisticsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/search/CacheIndexesController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/search/ProductSearchLogsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/search/SearchIndexesController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/search/SearchKeyWordController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/search/SearchRecordController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/search/SearchSetingKeyWordController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/search/SolrMain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/seller/AdminSellerAuditController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/seller/AdminSellerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/settlement/AdminSettlementController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/system/AdminCodeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/system/AdminLoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/system/AdminRegionsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/system/AdminReportController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/system/AdminResourceController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/system/AdminRoleController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/system/AdminUserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/controller/wmsinterface/AdminWmdInterfaceController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/ResourceCheckFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/ShiroDbRealm.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/AuthenticatedTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/GuestTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/HasAnyRolesTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/HasPermissionTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/HasRoleTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/LacksPermissionTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/LacksRoleTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/NotAuthenticatedTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/PermissionTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/PrincipalTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/RoleTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/SecureTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/ShiroTags.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/shiro/tag/UserTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/util/UEditorUploaderImage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/util/UploadUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/util/WebAdminSession.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/util/freemarker/CustomFreeMarkerConfigurer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/util/freemarker/EscapeHtmlTemplateLoader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/util/freemarker/FreemarkerStaticModels.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/util/freemarker/InitJSCodeContainerTemplateMethodModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/util/freemarkerutil/CodeManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/com/ejavashop/web/util/freemarkerutil/FreemarkerUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/log4j.xml.bak" beforeDir="false" afterPath="$PROJECT_DIR$/ejavashop-admin/target/classes/log4j.xml.bak" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/properties-config/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ejavashop-admin/target/classes/properties-config/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/properties-config/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ejavashop-admin/target/classes/properties-config/jdbc.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/spring-config/spring-context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ejavashop-admin/target/classes/spring-config/spring-context.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/spring-config/spring-datasources-analysis.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ejavashop-admin/target/classes/spring-config/spring-datasources-analysis.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/spring-config/spring-datasources-m.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ejavashop-admin/target/classes/spring-config/spring-datasources-m.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/spring-config/spring-datasources-promotion.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ejavashop-admin/target/classes/spring-config/spring-datasources-promotion.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-admin/target/classes/spring-config/spring-datasources-shop.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ejavashop-admin/target/classes/spring-config/spring-datasources-shop.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/analysis/read/BrowseLogMobileReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/analysis/read/BrowseLogReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/analysis/read/ProductLookLogReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/analysis/write/BrowseLogMobileWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/analysis/write/BrowseLogWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/analysis/write/ProductLookLogWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/bidding/ActBiddingBannerReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/bidding/ActBiddingPriceReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/bidding/ActBiddingReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/bidding/ActBiddingTypeReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/coupon/CouponOptLogReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/coupon/CouponReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/coupon/CouponUserReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/flash/ActFlashSaleLogReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/flash/ActFlashSaleProductReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/flash/ActFlashSaleReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/flash/ActFlashSaleStageReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/full/ActFullLogReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/full/ActFullReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/group/ActGroupBannerReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/group/ActGroupReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/group/ActGroupTypeReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/single/ActSingleLogReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/read/single/ActSingleReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/bidding/ActBiddingBannerWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/bidding/ActBiddingPriceWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/bidding/ActBiddingTypeWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/bidding/ActBiddingWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/coupon/CouponOptLogWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/coupon/CouponUserWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/coupon/CouponWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/coupon/LogCouponWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/flash/ActFlashSaleLogWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/flash/ActFlashSaleProductWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/flash/ActFlashSaleStageWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/flash/ActFlashSaleWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/flash/LogActFlashSaleProductWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/flash/LogActFlashSaleStageWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/flash/LogActFlashSaleWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/full/ActFullLogWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/full/ActFullWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/full/LogActFullWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/group/ActGroupBannerWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/group/ActGroupTypeWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/group/ActGroupWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/single/ActSingleLogWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/single/ActSingleWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/promotion/write/single/LogActSingleWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/backgoods/BackGoodsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/backgoods/BackGoodsRecordReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/backgoods/BadGoodsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/cart/CartReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/InvoiceReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberAddressReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberApplyDrawingReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberBalanceLogsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberCollectionProductReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberCollectionSellerReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberCreditLogReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberCreditReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberGradeConfigReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberGradeIntegralLogsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberGradeUpLogsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberLoginLogsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberProductBackReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberProductExchangeReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/MemberRuleReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/PersonalTailorPictureReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/member/PersonalTailorReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/news/NewsPartnerReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/news/NewsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/news/NewsTypeReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/operate/ConfigReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/operate/CourierCompanyReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/operate/ProductLabelReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/operate/ProductPackageReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/BookingSendGoodsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/OrderLogReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/OrderPayLogReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/OrdersErrorReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/OrdersProductErrorReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/OrdersProductReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/OrdersProductReturnReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/OrdersReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/OrdersReturnReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/OrdersTradeSerialReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/SendGoodsRecordReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/order/TerraceSelfCouponReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/parter/ParterAreaReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/parter/ParterPercentReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/parter/ParterSignReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductAskReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductAttrReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductBrandReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductBuyStockReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductCateReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductCommentsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductGoodsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductNormAttrOptReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductNormReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductOrderReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductPictureReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductPriceReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductSkuOtherReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductSortReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductTypeAttrReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/ProductTypeReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/product/WmsClassifyReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/search/SearchKeywordReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/search/SearchLogsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/search/SearchRecordReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/search/SearchSettingReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerApplyBrandReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerApplyReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerCateReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerComplaintReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerManageCateReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerQqReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerResourcesRolesReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerRolesReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerTransportReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerTypeLogsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerUserLoginLogReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/seller/SellerUserReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/settlement/SettlementOpReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/settlement/SettlementReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/system/RegionsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/system/SystemAdminReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/system/SystemLogsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/system/SystemResourcesReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/system/SystemResourcesRolesReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/system/SystemRolesReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/wmsinterface/BankCardReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/read/wmsinterface/InterfaceWmsReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/backgoods/BackGoodsRecordWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/backgoods/BackGoodsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/backgoods/BadGoodsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/cart/CartWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/InvoiceWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberAddressWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberApplyDrawingWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberBalanceLogsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberCollectionProductWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberCollectionSellerWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberCreditLogWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberCreditWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberGradeConfigWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberGradeIntegralLogsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberGradeUpLogsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberLoginLogsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberProductBackWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberProductExchangeWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberRuleWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/MemberWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/PersonalTailorPictureWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/member/PersonalTailorWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/news/NewsPartnerWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/news/NewsTypeWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/news/NewsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/operate/ConfigWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/operate/CourierCompanyWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/operate/ProductLabelWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/operate/ProductPackageWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/BookingSendGoodsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/OrderLogWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/OrderPayLogWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/OrdersErrorWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/OrdersProductErrorWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/OrdersProductReturnWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/OrdersProductWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/OrdersReturnWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/OrdersTradeSerialWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/OrdersWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/SendGoodsRecordWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/order/TerraceSelfCouponWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/parter/ParterAreaWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/parter/ParterPercentWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/parter/ParterSignWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/OrderReceiptDetailWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/OrderReceiptWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductAskWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductAttrWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductBrandWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductBuyStockWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductCateWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductCommentsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductGoodsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductNormAttrOptWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductNormWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductOrderWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductPictureWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductPriceWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductSkuOtherWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductSortWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductTypeAttrWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductTypeWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/ProductWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/product/WmsClassifyWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/search/SearchKeywordWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/search/SearchLogsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/search/SearchRecordWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/search/SearchSettingWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerApplyBrandWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerApplyWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerCateWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerComplaintWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerManageCateWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerQqWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerResourcesRolesWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerRolesWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerTransportWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerTypeLogsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerUserLoginLogWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerUserWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/seller/SellerWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/settlement/SettlementOpWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/settlement/SettlementWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/system/CodeWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/system/RegionsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/system/SystemAdminWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/system/SystemLogsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/system/SystemResourcesRolesWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/system/SystemResourcesWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/system/SystemRolesWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/wmsinterface/BankCardWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shop/write/wmsinterface/InterfaceWmsWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/mindex/MIndexBannerReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/mindex/MIndexFloorDataReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/mindex/MIndexFloorReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/mseller/MSellerIndexBannerReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/mseller/MSellerIndexFloorDataReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/mseller/MSellerIndexFloorReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcindex/PcIndexBannerReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcindex/PcIndexFloorClassReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcindex/PcIndexFloorDataReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcindex/PcIndexFloorPatchReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcindex/PcIndexFloorReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcindex/PcRecommendReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcindex/PcTitleKeywordsDescriptionReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcseller/PcSellerIndexBannerReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcseller/PcSellerIndexReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcseller/PcSellerRecommendDataReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/read/pcseller/PcSellerRecommendReadDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/mindex/MIndexBannerWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/mindex/MIndexFloorDataWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/mindex/MIndexFloorWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/mseller/MSellerIndexBannerWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/mseller/MSellerIndexFloorDataWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/mseller/MSellerIndexFloorWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcindex/PcIndexBannerWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcindex/PcIndexFloorClassWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcindex/PcIndexFloorDataWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcindex/PcIndexFloorPatchWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcindex/PcIndexFloorWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcindex/PcRecommendWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcindex/PcTitleKeywordsDescriptionWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcseller/PcSellerIndexBannerWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcseller/PcSellerIndexWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcseller/PcSellerRecommendDataWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/dao/shopm/write/pcseller/PcSellerRecommendWriteDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/analysis/AnalysisModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/backgoods/BackGoodsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/backgoods/BackGoodsRecordModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/backgoods/BadGoodsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/cart/CartModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/InvoiceModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberAddressModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberApplyDrawingModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberBalanceLogsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberCollectionProductModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberCollectionSellerModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberCreditLogModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberCreditModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberGradeConfigModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberProductBackModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberProductExchangeModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/MemberRuleModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/PersonalTailorModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/member/PersonalTailorPictureModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/mindex/MIndexBannerModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/mindex/MIndexFloorDataModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/mindex/MIndexFloorModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/mseller/MSellerIndexBannerModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/mseller/MSellerIndexFloorDataModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/mseller/MSellerIndexFloorModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/news/NewsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/news/NewsPartnerModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/news/NewsTypeModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/operate/ConfigModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/operate/CourierCompanyModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/operate/ProductLabelModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/operate/ProductPackageModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/BookingSendGoodsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/CalculateUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/ComplaintModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/OrderLogModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/OrdersErrorModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/OrdersModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/OrdersProductErrorModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/OrdersProductModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/OrdersProductReturnModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/OrdersReturnModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/OrdersTradeSerialModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/SendGoodsRecordModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/order/TerraceSelfCouponModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/parter/ParterAreaModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/parter/ParterPercentModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/parter/ParterSignModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcindex/PcIndexBannerModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcindex/PcIndexFloorClassModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcindex/PcIndexFloorDataModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcindex/PcIndexFloorModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcindex/PcIndexFloorPatchModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcindex/PcRecommendModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcindex/PcTitleKeywordsDescriptionModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcseller/PcSellerIndexBannerModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcseller/PcSellerIndexModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcseller/PcSellerRecommendDataModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/pcseller/PcSellerRecommendModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/FrontProductPictureModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/OrderReceiptDetailModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/OrderReceiptModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductAskModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductAttrModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductBrandModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductBuyStockModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductCateModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductCommentsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductFrontModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductGoodsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductNormModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductOrderModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductPictureModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductPriceModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductSkuOtherModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductSortModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductTypeAttrModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/ProductTypeModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/SellerApplyBrandModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/SellerBrandModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/SellerCateModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/SellerManageCateModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/SellerTypeLogsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/product/WmsClassifyModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/promotion/ActBiddingBannerModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/promotion/ActBiddingModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/promotion/ActFlashSaleModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/promotion/ActFlashSaleProductModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/promotion/ActFullModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/promotion/ActGroupBannerModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/promotion/ActGroupModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/promotion/ActSingleModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/promotion/CouponModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/promotion/CouponUserModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/report/StatisticsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/search/SearchLogsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/search/SearchRecordModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/search/SearchSettingModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/search/SolrProductModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerApplyModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerComplaintModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerQqModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerResourcesRolesModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerRolesModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerTransportModel$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerTransportModel$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerTransportModel$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerTransportModel$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerTransportModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/seller/SellerUserModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/settlement/SettlementModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/settlement/SettlementOpModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/sms/SMSSendModel$SMSCall.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/sms/SMSSendModel$SMSThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/sms/SMSSendModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/system/CodeModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/system/RegionsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/system/SystemAdminModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/system/SystemLogsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/system/SystemResourcesModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/system/SystemResourcesRolesModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/system/SystemRolesModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/wmsinterface/BankCardModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/model/wmsinterface/InterfaceWmsModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/analysis/AnalysisServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/backgoods/BackGoodsRecordServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/backgoods/BackGoodsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/backgoods/BadGoodsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/cart/CartServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/InvoiceServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberAddressServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberApplyDrawingServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberBalanceLogsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberCollectionProductServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberCollectionSellerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberCreditLogServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberCreditServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberGradeConfigServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberProductBackServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberProductExchangeServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberRuleServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/MemberServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/PersonalTailorPictureServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/member/PersonalTailorServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/mindex/MIndexServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/mseller/MSellerIndexServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/news/NewsPartnerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/news/NewsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/news/NewsTypeServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/operate/ConfigServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/operate/CourierCompanyServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/operate/ProductLabelServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/operate/ProductPackageServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/AdminComplaintServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/BookingSendGoodsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/OrderLogServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/OrdersErrorServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/OrdersProductErrorServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/OrdersProductReturnServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/OrdersProductServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/OrdersReturnServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/OrdersServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/OrdersTradeSerialServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/SendGoodsRecordServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/order/TerraceSelfCouponServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/parter/ParterAreaServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/parter/ParterPercentServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/parter/ParterSignServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcindex/PcIndexBannerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcindex/PcIndexFloorClassServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcindex/PcIndexFloorDataServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcindex/PcIndexFloorPatchServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcindex/PcIndexFloorServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcindex/PcRecommendServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcindex/PcTitleKeywordsDescriptionServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcseller/PcSellerIndexBannerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcseller/PcSellerIndexServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcseller/PcSellerRecommendDataServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/pcseller/PcSellerRecommendServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/FrontProductPictureServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/OrderReceiptDetailServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/OrderReceiptServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductAskServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductAttrServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductBrandServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductBuyStockServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductCateServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductCommentsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductFrontServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductGoodsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductNormAttrOptServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductNormServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductOrderServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductPictureServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductPriceServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductSkuOtherServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductSortServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductTypeAttrServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/ProductTypeServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/SellerApplyBrandServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/SellerBrandServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/SellerCateServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/SellerManageCateServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/SellerTypeLogsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/product/WmsClassifyServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/promotion/ActBiddingBannerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/promotion/ActBiddingServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/promotion/ActFlashSaleProductServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/promotion/ActFlashSaleServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/promotion/ActFullServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/promotion/ActGroupBannerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/promotion/ActGroupServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/promotion/ActSingleServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/promotion/CouponServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/report/StatisticsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/search/SearchLogsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/search/SearchRecordServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/search/SearchSettingServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/search/SolrProductServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerApplyServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerComplaintServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerQqServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerResourcesRolesServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerRolesServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerTransportServiceImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerTransportServiceImpl$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerTransportServiceImpl$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerTransportServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/seller/SellerUserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/settlement/SettlementOpServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/settlement/SettlementServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/sms/SMSSenderServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/system/CodeServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/system/RegionsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/system/SystemAdminServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/system/SystemLogsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/system/SystemResourcesRolesServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/system/SystemResourcesServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/system/SystemRolesServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/wmsinterface/BankCardServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/service/impl/wmsinterface/InterfaceWmsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/classes/com/ejavashop/util/FrontProductPictureUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/test-classes/com/ejavashop/AppTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/test-classes/com/ejavashop/SearchServiceImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/test-classes/com/ejavashop/service/member/MemberServiceImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/test-classes/com/ejavashop/service/member/ProductServiceImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service-impl/target/test-classes/com/ejavashop/service/settlement/SettlementServiceImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/entity/wmsinterface/BankCard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/entity/wmsinterface/InterfaceWms.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/service/wmsinterface/IBankCardService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/service/wmsinterface/IInterfaceWmsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/util/interfacewms/EnteringWarehouse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/util/interfacewms/HttpRequester.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/util/interfacewms/HttpRespons.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/util/interfacewms/InterfaceClientUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/util/interfacewms/RemoteParamHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/util/interfacewms/XmlConvertUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/util/interfacewms/dawa_ttx_config.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejavashop-service/target/classes/com/ejavashop/util/interfacewms/keyWordsReplaceUtil.class" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/ejavashop-h5/target/" />
+    <ignored path="$PROJECT_DIR$/ejavashop-service/target/" />
+    <ignored path="$PROJECT_DIR$/ejavashop-app/target/" />
+    <ignored path="$PROJECT_DIR$/ejavashop-seller/target/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/ejavashop-parent/target/" />
+    <ignored path="$PROJECT_DIR$/ejavashop-front/target/" />
+    <ignored path="$PROJECT_DIR$/ejavashop-admin/target/" />
+    <ignored path="$PROJECT_DIR$/ejavashop-service-impl/target/" />
+    <ignored path="$PROJECT_DIR$/ejavashop-core/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/service/impl/analysis/AnalysisServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1178">
+              <caret line="80" column="51" selection-start-line="80" selection-start-column="51" selection-end-line="80" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/model/analysis/AnalysisModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1948">
+              <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ejavashop-admin/src/main/java/com/ejavashop/web/controller/member/MemberCreditLogController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ejavashop-admin/src/main/java/com/ejavashop/web/controller/member/MemberCarController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="28" column="42" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/model/member/MemberCarModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="42" column="7" selection-start-line="42" selection-start-column="7" selection-end-line="42" selection-end-column="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/service/impl/member/MemberCarServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="86" column="23" selection-start-line="86" selection-start-column="23" selection-end-line="86" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#829#840#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ejavashop-admin/src/main/webapp/WEB-INF/views/admin/commons/_west.ftl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="114" column="61" selection-start-line="114" selection-start-column="61" selection-end-line="114" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/model/seller/SellerApplyModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="307">
+              <caret line="78" column="13" lean-forward="true" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>促销</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/ejavashop-service/src/main/java/com/ejavashop/entity/member/MemberCar.java" />
+        <option value="$PROJECT_DIR$/ejavashop-service/src/main/java/com/ejavashop/service/member/IMemberCarService.java" />
+        <option value="$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/dao/shop/read/member/MemberCarDao.java" />
+        <option value="$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/model/member/MemberCarModel.java" />
+        <option value="$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/service/impl/member/MemberCarServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ejavashop-service-impl/src/main/resources/sql-mapper/shop/read/member/MemberCarMapper.xml" />
+        <option value="$PROJECT_DIR$/ejavashop-admin/src/main/java/com/ejavashop/web/controller/member/MemberCarController.java" />
+        <option value="$PROJECT_DIR$/ejavashop-admin/src/main/webapp/WEB-INF/views/admin/commons/_west.ftl" />
+        <option value="$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/model/seller/SellerApplyModel.java" />
+      </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -13,11 +791,302 @@
     <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ejavashop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="community" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557069383659" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ejavashop.web.controller.member" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\work\demo\community\ejavashop-service-impl\src\main\resources\sql-mapper\shop\read\member" />
+      <recent name="C:\work\demo\community\ejavashop-service-impl\src\main\java\com\ejavashop\service\impl\member" />
+      <recent name="C:\work\demo\community\ejavashop-service-impl\src\main\java\com\ejavashop\model\member" />
+      <recent name="C:\work\demo\community\ejavashop-service-impl\src\main\java\com\ejavashop\dao\shop\read\member" />
+      <recent name="C:\work\demo\community\ejavashop-service\src\main\java\com\ejavashop\entity\member" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="dw-admin [clean,compile,jetty:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="compile" />
+                <option value="jetty:run" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map>
+                <entry key="dev" value="true" />
+              </map>
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/ejavashop-admin" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aa21b937-59cd-482c-b8db-630b7be2beef" name="Default Changelist" comment="" />
+      <created>1557048485042</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1557048485042</updated>
+      <workItem from="1557048487591" duration="3016000" />
+      <workItem from="1557053716492" duration="3095000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="6111000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16329284" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5289634" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Spring" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.44054878" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.18902439" />
+      <window_info anchor="bottom" id="Java Enterprise" order="12" />
+      <window_info anchor="bottom" id="Database Changes" order="13" />
+      <window_info anchor="bottom" id="Version Control" order="14" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ejavashop-service/src/main/java/com/dawawang/service/redis/RedisCacheTransfer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#377#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/service/impl/analysis/AnalysisServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1178">
+          <caret line="80" column="51" selection-start-line="80" selection-start-column="51" selection-end-line="80" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/dao/analysis/write/BrowseLogWriteDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-admin/src/main/java/com/ejavashop/web/filter/SessionFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#4454#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-admin/src/main/java/com/ejavashop/web/controller/member/AdminMemberController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2832">
+          <caret line="126" column="21" lean-forward="true" selection-start-line="126" selection-start-column="21" selection-end-line="126" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-admin/src/main/java/com/ejavashop/web/controller/member/AdminMemberDrawingController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2129">
+          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/model/analysis/AnalysisModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1948">
+          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-admin/src/main/java/com/ejavashop/web/controller/member/MemberCreditLogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service/src/main/java/com/ejavashop/service/member/IMemberCarService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="12" column="25" lean-forward="true" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service/src/main/java/com/ejavashop/service/member/IMemberCreditLogService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/model/member/InvoiceModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/dao/shop/read/member/MemberCarDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/model/member/MemberCarModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="42" column="7" selection-start-line="42" selection-start-column="7" selection-end-line="42" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/service/impl/member/MemberCarServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="86" column="23" selection-start-line="86" selection-start-column="23" selection-end-line="86" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#829#840#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service/src/main/java/com/ejavashop/entity/member/MemberCar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="40" lean-forward="true" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/resources/sql-mapper/shop/read/member/MemberCarMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="63" lean-forward="true" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-admin/src/main/java/com/ejavashop/web/controller/member/MemberCarController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="28" column="42" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-admin/src/main/webapp/WEB-INF/views/admin/commons/_west.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="114" column="61" selection-start-line="114" selection-start-column="61" selection-end-line="114" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejavashop-service-impl/src/main/java/com/ejavashop/model/seller/SellerApplyModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="78" column="13" lean-forward="true" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
   <component name="masterDetails">
     <states>

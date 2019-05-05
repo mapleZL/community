@@ -110,12 +110,13 @@
 	</div>
 	</@shiro.hasPermission>
 	<@shiro.hasPermission name="/admin_menu_promotion">
-	<div title="促销管理" class="ra_div">
+
+	<div title="客户信息" class="ra_div">
 		<@shiro.hasPermission name="/admin/promotion/coupon">
-		<a href="javascript:void(0);" onclick="addTab('红包管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/promotion/coupon')">红包管理</a>
+		<a href="javascript:void(0);" onclick="addTab('车辆认证', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/car')">车辆认证</a>
 		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/promotion/full">
-		<a href="javascript:void(0);" onclick="addTab('订单满减', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/promotion/full')">订单满减</a>
+		<a href="javascript:void(0);" onclick="addTab('车位认证', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/promotion/full')">车位认证</a>
 		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/promotion/single/singleset">
 		<a href="javascript:void(0);" onclick="addTab('设置单品立减', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/promotion/single/singleset')">设置单品立减</a>
