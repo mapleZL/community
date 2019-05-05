@@ -62,16 +62,10 @@ public class AdminComplaintController extends BaseController {
     public @ResponseBody HttpJsonResult<List<SellerComplaintVO>> list(HttpServletRequest request,
                                                                       Map<String, Object> dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
-        //        queryMap.put("q_state", String.valueOf(ConstantsEJS.SELLER_COMPLAINT_1));//1、买家投诉待审核
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         ServiceResult<List<SellerComplaintVO>> serviceResult = sellerComplaintService.page(queryMap,
             pager);
         List<SellerComplaintVO> list = serviceResult.getResult();
-
-        //        queryMap.put("q_state", String.valueOf(ConstantsEJS.SELLER_COMPLAINT_4));//4、卖家申诉待审核
-        //        serviceResult = sellerComplaintService.page(queryMap,
-        //                pager);
-        //        list.addAll(serviceResult.getResult());
 
         HttpJsonResult<List<SellerComplaintVO>> jsonResult = new HttpJsonResult<List<SellerComplaintVO>>();
         jsonResult.setRows(serviceResult.getResult());

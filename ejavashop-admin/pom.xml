@@ -246,10 +246,6 @@
                 <ejs.image.resources>https://images2.dawawang.com</ejs.image.resources>
                 <ejs.cookie.domain>.dawawang.com</ejs.cookie.domain>
                 <ejs.cookie.name>dawawang_admin</ejs.cookie.name>
-                <ejs.front.url>http://127.0.0.1:8807</ejs.front.url>
-                <ejs.h5.url>http://127.0.0.1:8808</ejs.h5.url>
-                <!-- wms测试推送地址 -->
-                <ejs.wms.url>http://114.55.88.189:88/InterFace_MTY/HttpListener.aspx</ejs.wms.url>
 
                 <shop.write.url>jdbc:mysql://47.105.205.117:3306/dw</shop.write.url>
                 <shop.write.username>root</shop.write.username>
@@ -292,59 +288,6 @@
         </profile>
         
         <profile>
-            <id>pev</id>
-            <properties>
-                <ejs.url.resources>http://127.0.0.1:8081</ejs.url.resources>
-                <ejs.static.resources>http://127.0.0.1:8081</ejs.static.resources>
-                <ejs.image.resources>http://images.dawawang.com</ejs.image.resources>
-                <ejs.cookie.domain>.dawawang.com</ejs.cookie.domain>
-                <ejs.cookie.name>dawawang_admin</ejs.cookie.name>
-                <ejs.front.url>http://127.0.0.1:8807</ejs.front.url>
-                <ejs.h5.url>http://127.0.0.1:8807</ejs.h5.url>
-                <!-- wms生产推送地址 -->
-                <ejs.wms.url>http://121.40.96.166/InterFaceApp_MTY/HttpListener.aspx</ejs.wms.url>
-
-                <shop.write.url>jdbc:mysql://121.40.82.254:3306/dw</shop.write.url>
-                <shop.write.username>root</shop.write.username>
-                <shop.write.password>Lushuai@1992</shop.write.password>
-                
-                <shop.read.url>jdbc:mysql://121.40.82.254:3306/dw</shop.read.url>
-                <shop.read.username>root</shop.read.username>
-                <shop.read.password>Lushuai@1992</shop.read.password>
-                
-                <analysis.write.url>jdbc:mysql://121.40.82.254:3306/dw_analysis</analysis.write.url>
-                <analysis.write.username>root</analysis.write.username>
-                <analysis.write.password>Lushuai@1992</analysis.write.password>
-                
-                <analysis.read.url>jdbc:mysql://121.40.82.254:3306/dw_analysis</analysis.read.url>
-                <analysis.read.username>root</analysis.read.username>
-                <analysis.read.password>Lushuai@1992</analysis.read.password>
-                
-                <mobile.write.url>jdbc:mysql://121.40.82.254:3306/dw_m</mobile.write.url>
-                <mobile.write.username>root</mobile.write.username>
-                <mobile.write.password>Lushuai@1992</mobile.write.password>
-                
-                <mobile.read.url>jdbc:mysql://121.40.82.254:3306/dw_m</mobile.read.url>
-                <mobile.read.username>root</mobile.read.username>
-                <mobile.read.password>Lushuai@1992</mobile.read.password>
-				
-                <promotion.write.url>jdbc:mysql://121.40.82.254:3306/dw_promotion</promotion.write.url>
-                <promotion.write.username>root</promotion.write.username>
-                <promotion.write.password>Lushuai@1992</promotion.write.password>
-                
-                <promotion.read.url>jdbc:mysql://121.40.82.254:3306/dw_promotion</promotion.read.url>
-                <promotion.read.username>root</promotion.read.username>
-                <promotion.read.password>Lushuai@1992</promotion.read.password>
-                
-                <search.solr.url>http://solr.dawawang.com</search.solr.url>
-                <search.solr.server>dawacore</search.solr.server>
-
-                <pom.log.file>/home/logs/admin.log</pom.log.file>
-                <pom.log.level>info</pom.log.level>
-            </properties>
-        </profile>
-        
-        <profile>
             <id>test</id>
             <properties>
                 <ejs.url.resources>http://118.126.66.195:8081</ejs.url.resources>
@@ -354,8 +297,6 @@
                 <ejs.cookie.name>dawawang_admin</ejs.cookie.name>
                 <ejs.front.url>http://118.126.66.195:8807</ejs.front.url>
                 <ejs.h5.url>http://118.126.66.195:8808</ejs.h5.url>
-                <!-- wms测试推送地址 -->
-                <ejs.wms.url>http://114.55.88.189:88/InterFace_MTY/HttpListener.aspx</ejs.wms.url>
                 
                 <shop.write.url>jdbc:mysql://47.105.205.117:3306/dw</shop.write.url>
                 <shop.write.username>root</shop.write.username>

@@ -493,16 +493,6 @@ public class AdminParterController extends BaseController {
     	return jsonResult;
     }
     
-    @RequestMapping(value = "/getParterTuiJian", method = { RequestMethod.GET , RequestMethod.POST})
-    public @ResponseBody HttpJsonResult<List<Member>> getParterTuiJian(HttpServletRequest request, HttpServletResponse response, Map<String, Object> dataMap) {
-    	String memberId = request.getParameter("memberId");
-    	HttpJsonResult<List<Member>> jsonResult = new HttpJsonResult<List<Member>>();
-    	ServiceResult<List<Member>> parterSignListServiceResult = memberService.getParterTuijianByMemberId1(Integer.parseInt(memberId),null);
-    	List<Member> parterSignList = parterSignListServiceResult.getResult();
-    	jsonResult.setData(parterSignList);
-    	return jsonResult;
-    }
-    
     
     
     /**
@@ -582,60 +572,6 @@ public class AdminParterController extends BaseController {
         return jsonResult;
     }
     
-    /**
-     * 
-     * @param request
-     * @param response
-     * @param dataMap
-     * @return
-     */
-    @RequestMapping(value = "/getParterTuijianList", method = { RequestMethod.GET,RequestMethod.POST })
-    public @ResponseBody HttpJsonResult<List<ParterTuijian>> getParterTuijianList(HttpServletRequest request, HttpServletResponse response, Map<String, Object> dataMap) {
-    	String url = request.getRequestURI();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        
-        String startTime = request.getParameter("q_startTime") ;
-        String endTime =  request.getParameter("q_endTime");
-        
-        String areaId =  request.getParameter("q_areaId");
-        String memberId =  request.getParameter("q_parterSignMemberId");
-        
-        String q_tuiJIanMemberId =  request.getParameter("q_tuiJIanMemberId");
-        
-        if(memberId != null && memberId.equals("000")){
-        	memberId = "";
-        }
-        if(areaId != null && areaId.equals("000")){
-        	areaId = "";
-        }
-        
-        
-       /* if(StringUtil.isEmpty(startTime)){
-        	startTime = "2016-07-31";
-        }
-        
-        if(StringUtil.isEmpty(endTime)){
-        	Date date = new Date();
-        	endTime = sdf.format(date);
-        }*/
-        
-        ServiceResult<List<ParterTuijian>> parterTuijianResult = new ServiceResult<List<ParterTuijian>>();
-        parterTuijianResult =  ordersService.getParterTuijian(memberId,startTime,endTime,q_tuiJIanMemberId,areaId,null);
-        List<ParterTuijian> list = parterTuijianResult.getResult();
-    	HttpJsonResult<List<ParterTuijian>> jsonResult = new HttpJsonResult<List<ParterTuijian>>();
-    	
-    	if (!parterTuijianResult.getSuccess()) {
-    		if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(parterTuijianResult.getCode())) {
-    			throw new RuntimeException(parterTuijianResult.getMessage());
-    		} else {
-    			jsonResult = new HttpJsonResult<List<ParterTuijian>>(parterTuijianResult.getMessage());
-    		}
-    	}
-    	jsonResult.setRows(list);
-    	jsonResult.setTotal(list.size());
-    	return jsonResult;
-    }
-    
     
     @RequestMapping(value = "/parterSalesSum", method = { RequestMethod.GET })
     public String parterSalesSum(Map<String, Object> dataMap) throws Exception {
@@ -650,49 +586,6 @@ public class AdminParterController extends BaseController {
     	dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
     	dataMap.put("parterSignList", parterSignList);
     	return "admin/parter/parterSalesSum";
-    }
-    
-    
-    
-    /**
-     * 合伙人提点统计
-     * @param request
-     * @param response
-     * @param dataMap
-     * @return
-     */
-    @RequestMapping(value = "/parterSalesSumList", method = { RequestMethod.GET, RequestMethod.POST })
-    public @ResponseBody HttpJsonResult<List<ParterTuijian>> parterSalesSumPercent(HttpServletRequest request, HttpServletResponse response, Map<String, Object> dataMap) {
-    	String memberId =  request.getParameter("q_parterSignMemberId");
-    	String signNo = request.getParameter("q_signNo");
-    	String startTime = request.getParameter("q_startTime") ;
-        String endTime =  request.getParameter("q_endTime");
-        
-        String areaId = request.getParameter("q_areaId") == null ? "" : request.getParameter("q_areaId");
-        
-        if(memberId != null && memberId.equals("000")){
-        	memberId = "";
-        }
-        
-        if(areaId != null && areaId.equals("000")){
-        	areaId = "";
-        }
-        ServiceResult<List<ParterTuijian>> parterTuijianResult = new ServiceResult<List<ParterTuijian>>();
-        parterTuijianResult =  ordersService.getParterTuijian(memberId,startTime,endTime,null,areaId,signNo);
-        List<ParterTuijian> list = parterTuijianResult.getResult();
-        
-        HttpJsonResult<List<ParterTuijian>> jsonResult = new HttpJsonResult<List<ParterTuijian>>();
-    	
-    	if (!parterTuijianResult.getSuccess()) {
-    		if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(parterTuijianResult.getCode())) {
-    			throw new RuntimeException(parterTuijianResult.getMessage());
-    		} else {
-    			jsonResult = new HttpJsonResult<List<ParterTuijian>>(parterTuijianResult.getMessage());
-    		}
-    	}
-    	jsonResult.setRows(list);
-    	jsonResult.setTotal(list.size());
-    	return jsonResult;
     }
     
 }

@@ -1,7 +1,6 @@
 package com.ejavashop.web.controller.order;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,7 +16,6 @@ import com.ejavashop.core.ConstantsEJS;
 import com.ejavashop.core.HttpJsonResult;
 import com.ejavashop.core.ServiceResult;
 import com.ejavashop.core.exception.BusinessException;
-import com.ejavashop.entity.seller.Seller;
 import com.ejavashop.service.order.IOrdersService;
 import com.ejavashop.web.controller.BaseController;
 import com.ejavashop.web.util.UploadUtil;

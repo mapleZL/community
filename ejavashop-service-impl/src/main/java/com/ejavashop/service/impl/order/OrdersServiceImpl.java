@@ -549,38 +549,6 @@ public class OrdersServiceImpl implements IOrdersService {
     }
 
     @Override
-    public ServiceResult<OrderSuccessVO> orderCommitForFlash(OrderCommitVO orderCommitVO) {
-        ServiceResult<OrderSuccessVO> serviceResult = new ServiceResult<OrderSuccessVO>();
-        try {
-            serviceResult.setResult(ordersModel.orderCommitForFlash(orderCommitVO));
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-            log.error("[OrderService][orderCommitForFlash]会员限时抢购下单时发生异常:" + be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-            log.error("[OrderService][orderCommitForFlash]会员限时抢购下单时发生异常:", e);
-        }
-        return serviceResult;
-    }
-
-    @Override
-    public ServiceResult<OrderSuccessVO> orderCommitForGroup(OrderCommitVO orderCommitVO) {
-        ServiceResult<OrderSuccessVO> serviceResult = new ServiceResult<OrderSuccessVO>();
-        try {
-            serviceResult.setResult(ordersModel.orderCommitForGroup(orderCommitVO));
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-            log.error("[OrderService][orderCommitForGroup]会员团购下单时发生异常:" + be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-            log.error("[OrderService][orderCommitForGroup]会员团购下单时发生异常:", e);
-        }
-        return serviceResult;
-    }
-
-    @Override
     public ServiceResult<OrderSuccessVO> orderCommitForBidding(OrderCommitVO orderCommitVO) {
         ServiceResult<OrderSuccessVO> serviceResult = new ServiceResult<OrderSuccessVO>();
         try {
@@ -698,38 +666,6 @@ public class OrdersServiceImpl implements IOrdersService {
     }
 
     @Override
-    public ServiceResult<Boolean> returninstore(Integer id, String checkMan) {
-        ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
-        try {
-            serviceResult.setResult(ordersModel.returninstore(id, checkMan));
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            serviceResult.setMessage(e.getMessage());
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-        }
-        return serviceResult;
-    }
-
-    @Override
-    public ServiceResult<Boolean> returngoods(Integer id, SystemAdmin systemAdmin) {
-        ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
-        try {
-            serviceResult.setResult(ordersModel.returngoods(id, systemAdmin));
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            serviceResult.setMessage(e.getMessage());
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-        }
-        return serviceResult;
-    }
-
-    @Override
     public ServiceResult<BigDecimal> getTransFee(String productIds, String numstrs, String transportType,
                                                  String menberAddressId) {
         ServiceResult<BigDecimal> serviceResult = new ServiceResult<BigDecimal>();
@@ -796,22 +732,6 @@ public class OrdersServiceImpl implements IOrdersService {
         }
         return serviceResult;
     }
-
-	@Override
-	public ServiceResult<Integer> putOutDoorOrders() {
-		ServiceResult<Integer> serviceResult = new ServiceResult<Integer>();
-        try {
-            serviceResult.setResult(ordersModel.putOutDoorOrders());
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            serviceResult.setMessage(e.getMessage());
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-        }
-        return serviceResult;
-	}
 
 	@Override
 	public ServiceResult<List<SumParterSaleVO>> getSumParterSaleVO(
@@ -1003,23 +923,6 @@ public class OrdersServiceImpl implements IOrdersService {
         return serviceResult;
 	}
 
-	@Override
-	public ServiceResult<List<ParterTuijian>> getParterTuijian(
-			String memberId, String startTime, String endTime,String memberTuijianId,String memberAreaId,String signNo) {
-		ServiceResult<List<ParterTuijian>> serviceResult = new ServiceResult<List<ParterTuijian>>();
-        try {
-            serviceResult.setResult(ordersModel.getParterTuijian(memberId,startTime,endTime,memberTuijianId,memberAreaId,signNo));
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            serviceResult.setMessage(e.getMessage());
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-        }
-        return serviceResult;
-	}
-
     @Override
     public ServiceResult<Boolean> sendMessageToMember() {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
@@ -1035,22 +938,6 @@ public class OrdersServiceImpl implements IOrdersService {
         }
         return serviceResult;
     }
-
-	@Override
-	public ServiceResult<Integer> omsOrdersCreate() {
-		ServiceResult<Integer> serviceResult = new ServiceResult<Integer>();
-        try {
-            serviceResult.setResult(ordersModel.omsOrdersCreate());
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            serviceResult.setMessage(e.getMessage());
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-        }
-        return serviceResult;
-	}
 
     @Override
     public ServiceResult<String> saveOrdersLeadingXls(File newFile) {
@@ -1126,4 +1013,5 @@ public class OrdersServiceImpl implements IOrdersService {
         }
         return serviceResult;
     }
+
 }

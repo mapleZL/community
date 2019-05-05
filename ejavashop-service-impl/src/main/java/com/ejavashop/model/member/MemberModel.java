@@ -51,7 +51,6 @@ import com.ejavashop.dao.shop.write.member.MemberRuleWriteDao;
 import com.ejavashop.dao.shop.write.member.MemberWriteDao;
 import com.ejavashop.dao.shop.write.order.OrdersWriteDao;
 import com.ejavashop.dao.shop.write.seller.SellerWriteDao;
-import com.ejavashop.dao.shop.write.wmsinterface.InterfaceWmsWriteDao;
 import com.ejavashop.entity.member.Member;
 import com.ejavashop.entity.member.MemberBalanceLogs;
 import com.ejavashop.entity.member.MemberCollectionProduct;
@@ -67,11 +66,8 @@ import com.ejavashop.entity.order.Orders;
 import com.ejavashop.entity.product.Product;
 import com.ejavashop.entity.product.ProductAsk;
 import com.ejavashop.entity.product.ProductComments;
-import com.ejavashop.entity.seller.Seller;
 import com.ejavashop.entity.system.SystemAdmin;
-import com.ejavashop.entity.wmsinterface.InterfaceWms;
 import com.ejavashop.service.sms.ISenderService;
-import com.ejavashop.util.interfacewms.dawa_ttx_config;
 import com.ejavashop.vo.member.FrontCheckPwdVO;
 import com.ejavashop.vo.member.FrontMemberProductBehaveStatisticsVO;
 
@@ -148,8 +144,6 @@ public class MemberModel {
     private SellerWriteDao            		sellerWriteDao;
     @Resource
     private SellerReadDao            		sellerReadDao;
-    @Resource
-    private InterfaceWmsWriteDao            interfaceWmsWriteDao;
     @Resource
     private ISenderService                  senderService;
     
@@ -1412,95 +1406,6 @@ public class MemberModel {
     public List<Member>getParterTuijianByMemberId1(
     		Integer memberId,String memeberTuijianId){
     	return memberReadDao.getParterTuijianByMemberId1(memberId,memeberTuijianId);
-    }
-	public boolean transferBussiness(String memberIdStr,String type){
-    	Integer memberId = Integer.parseInt(memberIdStr);
-    	Member member = memberReadDao.get(memberId);
-    	if(member != null){
-    		//oms账号同步T
-        	if(!"".equals(type) && "syncOms".equals(type)){
-        		Seller seller = sellerReadDao.getSellerByMemberId(member.getId());
-        		try {
-            		//推送货主信息给oms
-            		Map<String, Object> omsMap = new HashMap<String, Object>();
-            		omsMap.put(dawa_ttx_config.RELATION_ID, member.getId()+""); 
-            		//名称需要从dawa_ttx_config 避免输入错误影响查询结果
-            		omsMap.put(dawa_ttx_config.RELATION_TABLE, dawa_ttx_config.MEMBER);
-            		//用户名臣
-            		omsMap.put("userName", member.getName());
-            		//盐值= MD5(用户名
-            		//String saltValue = Md5.getMd5String(member.getName());
-            		//盐值
-            		//omsMap.put("saltValue",saltValue);
-            		//用户密码 = MD5(盐值+MD5(用户明文密码))
-            		omsMap.put("password", member.getPassword());
-            		Map<String, Object> corporationMap = new HashMap<String, Object>();
-            		//公司编码
-            		corporationMap.put("code", member.getName());
-            		//公司名称
-            		corporationMap.put("name", member.getName());
-            		//公司logo地址
-            		corporationMap.put("logoUrl", "");
-            		//全名
-            		corporationMap.put("fullName", member.getName());
-            		//联系人
-            		if(!StringUtil.isEmpty(member.getRealName())){
-            			corporationMap.put("attentionTo", member.getRealName());
-            		}
-            		corporationMap.put("attentionTo", member.getName());
-            		//电话1
-            		corporationMap.put("phoneNum1", member.getMobile());
-            		//电话2
-            		corporationMap.put("phoneNum2", member.getMobile());
-            		//手机
-            		corporationMap.put("mobileNum", member.getPhone());
-            		//邮箱
-            		corporationMap.put("email", "");
-            		//邮编
-            		corporationMap.put("zip", "");
-            	    //传真
-            		corporationMap.put("faxNum", "");
-            		//国家  默认值，目前用户信息没有区域属性，但是传入OMS需要
-            		corporationMap.put("country", "中国");
-            		//省 默认值，目前用户信息没有区域属性，但是传入OMS需要
-            		corporationMap.put("state","浙江省");
-            		//市 默认值，目前用户信息没有区域属性，但是传入OMS需要
-            		corporationMap.put("city", "绍兴市");
-            		//区 默认值，目前用户信息没有区域属性，但是传入OMS需要
-            		corporationMap.put("district", "诸暨市");
-            		//地址1
-            		corporationMap.put("address1","");
-            		//地址2
-            		corporationMap.put("address2","");
-            		omsMap.put("corporation", corporationMap);
-            		
-//        			EnteringWarehouse.commonSyncOMS(omsMap, dawa_ttx_config.OMS_CORAPORATION_CREATE_COMPANY);
-        			
-        			//member.setIsSyncOms("1");
-        			
-        		} catch (Exception e) {
-        			ILog.error(e.getMessage());
-        			e.printStackTrace();
-        			InterfaceWms interfaceWms = new InterfaceWms();
-        			interfaceWms.setRalationTable(dawa_ttx_config.MEMBER);
-        			interfaceWms.setRelationId(""+member.getId());
-        			interfaceWms.setSendNo(1);
-        			interfaceWms.setSendResult("0");
-        			interfaceWms.setSyncTime(new Date());
-        			interfaceWms.setSyncType(dawa_ttx_config.OMS_CORAPORATION_CREATE_COMPANY);
-        			interfaceWms.setErrorMsg(e.getMessage());
-        			interfaceWmsWriteDao.insert(interfaceWms);
-        			throw new BusinessException("同步用户信息失败");
-        		}
-        	}else{
-        		//设置 该用户拥有代发业务的权限
-        		member.setIsTransferBussiness("1");
-        		memberWriteDao.update(member);
-        	}
-    	}else{
-    		throw new BusinessException("该用户不存在");
-    	}
-    	return true;
     }
 
 }

@@ -1,7 +1,5 @@
 package com.ejavashop.web.controller.order;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -147,7 +145,6 @@ public class AdminOrdersController extends BaseController {
         return "admin/order/orders/modifyInfo";
     }
     
-    @SuppressWarnings("deprecation")
     @RequestMapping(value = "modifyOrdersInfo", method = { RequestMethod.GET })
     public String modifyOrdersInfo(HttpServletRequest request, ModelMap dataMap ,Integer ordersId ,String q_paymentCode,String q_createTime)throws Exception {
         Orders orders = new Orders();
@@ -759,112 +756,6 @@ public class AdminOrdersController extends BaseController {
         return "admin/order/orders/ordersprint";
     }
     
-    
-     /**
-      * 三方仓储订单退货
-      * @param request
-      * @param response
-      * @param id
-      */
-     @RequestMapping(value="returninstore",method={ RequestMethod.GET})
-     @ResponseBody
-     public void  returninstore(HttpServletRequest request,HttpServletResponse response, Integer id){
-    	 SystemAdmin systemAdmin = WebAdminSession.getAdminUser(request);
-    	 String checkMan = "";
-    	 if(systemAdmin != null ){
-    		 checkMan = systemAdmin.getName();
-    	 }
-    	 response.setContentType("text/plain;charset=utf-8");
-         String msg = "操作成功!";
-         PrintWriter pw = null;
-         try {
-         	if (id == null || id == 0)
-         		throw new BusinessException("请选择要操作的订单");
-         	pw = response.getWriter();
-         	ServiceResult<Boolean> serviceResult = orderService.returninstore(id,checkMan);
-         } catch (IOException e) {
- 			log.error("[admin][AdminOrdersController] returninstore exception", e);
-             msg = e.getMessage();
- 			e.printStackTrace();
- 		}
-         pw.print(msg);
-     }
-     
-     /**
-      * 非三方仓储订单退货
-      * @param request
-      * @param response
-      * @param id
-      */
-     @RequestMapping(value="returngoods",method={ RequestMethod.GET})
-     @ResponseBody
-     public void  returngoods(HttpServletRequest request,HttpServletResponse response, Integer id){
-         SystemAdmin systemAdmin = WebAdminSession.getAdminUser(request);
-         String checkMan = "";
-         if(systemAdmin != null ){
-             checkMan = systemAdmin.getName();
-         }
-         else {
-             systemAdmin = new SystemAdmin();
-         }
-         response.setContentType("text/plain;charset=utf-8");
-         String msg = "操作成功!";
-         PrintWriter pw = null;
-         try {
-            if (id == null || id == 0)
-                throw new BusinessException("请选择要操作的订单");
-            pw = response.getWriter();
-            //Terry 20160918 checkMan增加returnStock checkMan_returnStock
-            String returnStock = request.getParameter("returnStock") == null ? "" : (String)request.getParameter("returnStock");
-            String reason = request.getParameter("reason") == null ? "" : (String)request.getParameter("reason");
-            checkMan = checkMan + "&_" + returnStock + "&_" + reason; 
-            systemAdmin.setName(checkMan);
-            orderService.returngoods(id,systemAdmin);
-         } catch (IOException e) {
-            log.error("[admin][AdminOrdersController] returninstore exception", e);
-             msg = e.getMessage();
-            e.printStackTrace();
-        }
-         pw.print(msg);
-     }
-     
-     /**
-      *  线下打款    订单退货
-      * @param request
-      * @param response
-      * @param id
-      */
-     @RequestMapping(value="cancelorder",method={ RequestMethod.GET})
-     @ResponseBody
-     public void  cancelorder(HttpServletRequest request,HttpServletResponse response, Integer id){
-    	 SystemAdmin systemAdmin = WebAdminSession.getAdminUser(request);
-    	 String checkMan = "";
-    	 if(systemAdmin != null ){
-    		 checkMan = systemAdmin.getName();
-    	 }
-    	 else {
-    	     systemAdmin = new SystemAdmin();
-    	 }
-    	 response.setContentType("text/plain;charset=utf-8");
-         String msg = "操作成功!";
-         PrintWriter pw = null;
-         try {
-         	if (id == null || id == 0)
-         		throw new BusinessException("请选择要操作的订单");
-         	pw = response.getWriter();
-            //Terry 20160918 checkMan增加returnStock checkMan_returnStock
-            String returnStock = request.getParameter("returnStock") == null ? "" : (String)request.getParameter("returnStock");
-            String reason = request.getParameter("reason") == null ? "" : (String)request.getParameter("reason");
-            checkMan = checkMan + "&_" + returnStock + "&_" + reason; 
-            systemAdmin.setName(checkMan);
-         	orderService.returngoods(id,systemAdmin);
-         } catch (IOException e) {
- 			log.error("[admin][AdminOrdersController] returninstore exception", e);
-             msg = e.getMessage();
- 			e.printStackTrace();
- 		}
-         pw.print(msg);
-     }
      
      @RequestMapping(value = "setNumber", method = { RequestMethod.GET })
      public String setNumber(HttpServletRequest request, ModelMap dataMap, Integer orderId)

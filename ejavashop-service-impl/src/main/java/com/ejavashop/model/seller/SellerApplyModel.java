@@ -18,7 +18,6 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.ejavashop.core.ConstantsEJS;
 import com.ejavashop.core.Md5;
-import com.ejavashop.core.SyncWayUtil;
 import com.ejavashop.core.exception.BusinessException;
 import com.ejavashop.dao.shop.read.member.MemberReadDao;
 import com.ejavashop.dao.shop.read.seller.SellerApplyReadDao;
@@ -34,7 +33,6 @@ import com.ejavashop.dao.shop.write.seller.SellerRolesWriteDao;
 import com.ejavashop.dao.shop.write.seller.SellerUserWriteDao;
 import com.ejavashop.dao.shop.write.seller.SellerWriteDao;
 import com.ejavashop.dao.shop.write.system.RegionsWriteDao;
-import com.ejavashop.dao.shop.write.wmsinterface.InterfaceWmsWriteDao;
 import com.ejavashop.entity.member.Member;
 import com.ejavashop.entity.seller.Seller;
 import com.ejavashop.entity.seller.SellerApply;
@@ -42,9 +40,6 @@ import com.ejavashop.entity.seller.SellerResourcesRoles;
 import com.ejavashop.entity.seller.SellerRoles;
 import com.ejavashop.entity.seller.SellerUser;
 import com.ejavashop.entity.system.SystemResources;
-import com.ejavashop.entity.wmsinterface.InterfaceWms;
-import com.ejavashop.util.interfacewms.EnteringWarehouse;
-import com.ejavashop.util.interfacewms.dawa_ttx_config;
 
 @Component(value = "sellerApplyModel")
 public class SellerApplyModel {
@@ -74,8 +69,6 @@ public class SellerApplyModel {
     private SellerUserReadDao            sellerUserReadDao;
     @Resource
     private SellerUserWriteDao           sellerUserWriteDao;
-    @Resource
-    private InterfaceWmsWriteDao interfaceWmsWriteDao;
     @Resource
     private RegionsWriteDao regionsWriteDao;
     @Resource
@@ -235,42 +228,6 @@ public class SellerApplyModel {
                     seller.setSellerCode(sellerCode);
                     seller.setAuditStatus(Seller.AUDIT_STATE_2_DONE);
                     sellerWriteDao.update(seller);
-                    
-                    /**
-                     * //1.货主信息同步 品台字段
-     public static final String DAWA_SELLER_USER_WORDS="seller_name,name,member_name,address1,address2,phone,mobile";
-     // 货主信息同步 wms字段   货主,名称,联系人,地址1,地址2,座机,手机
-     public static final String TTX_SELLER_USER_WORDS="COMPANY,NAME,ATTENTION_TO,ADDRESS1,ADDRESS2,PHONE_NUM,MOBILE";
-                     */
-            		//推送给oms
-                	if (SyncWayUtil.SYNC_WAY.equals(SyncWayUtil.SYNC_OMS)) {
-//                		this.syncOmsMember(member, applyDb, seller);
-                	} else {
-                		//推送货主信息给wms
-                        Map<String, Object> map = new HashMap<String,Object>();
-                        map.put(dawa_ttx_config.RELATION_ID, seller.getSellerCode()); 
-                		//名称需要从dawa_ttx_config拿 避免输入错误影响查询结果
-                		map.put(dawa_ttx_config.RELATION_TABLE, dawa_ttx_config.SELLER_USER);
-                		//名称
-                		map.put("NAME", applyDb.getName());
-                		//货主编码
-                		if("10001".equals(seller.getSellerCode())){
-    		            	map.put("Company", "MTY");
-    					}else{
-    						map.put("Company", seller.getSellerCode());
-    					}
-                		//联系人
-                		map.put("ATTENTION_TO", seller.getName());
-                		map.put("PHONE_NUM", applyDb.getPersonPhone());
-                		map.put("MOBILE", applyDb.getTelephone());
-                		map.put("ADDRESS1", applyDb.getCompanyAdd());
-                		map.put("ADDRESS2", applyDb.getCompanyAdd());
-                		try {
-                			EnteringWarehouse.goodsOwnerSync(map, dawa_ttx_config.DAWA_SELLER_USER_WORDS, dawa_ttx_config.TTX_SELLER_USER_WORDS, dawa_ttx_config.SUBJECT_HEADER13);
-    					} catch (Exception e) {
-    						e.printStackTrace();
-    					}
-                	} 
                 }
 
             } else if (SellerApply.STATE_4_FAIL == state.intValue()) {

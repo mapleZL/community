@@ -274,10 +274,4 @@ public interface IMemberService {
      */
     ServiceResult<Member> addBalancePassword(String password, Member member);
     
-    
-    ServiceResult<List<Member>> getTuijianMemberByMemberId(Integer memberId);
-    
-    ServiceResult<List<Member>> getParterTuijianByMemberId1(Integer memberId,String memberTuijianId);
-
-	ServiceResult<Boolean> transferBussiness(String memberId, String type);
 }

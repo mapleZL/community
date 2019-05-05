@@ -255,21 +255,7 @@ public interface IOrdersService {
     ServiceResult<Boolean> orderPayAfter(String trade_no, String total_fee, String paycode,
                                          String payname, String tradeSn, String tradeContent);
 
-    /**
-     * 用户限时抢购提交订单<br>
-     * @param orderCommitVO
-     * @return
-     * @throws Exception
-     */
-    ServiceResult<OrderSuccessVO> orderCommitForFlash(OrderCommitVO orderCommitVO);
 
-    /**
-     * 用户团购提交订单<br>
-     * @param orderCommitVO
-     * @return
-     * @throws Exception
-     */
-    ServiceResult<OrderSuccessVO> orderCommitForGroup(OrderCommitVO orderCommitVO);
 
     /**
      * 用户提交集合竞价订单<br>
@@ -298,15 +284,6 @@ public interface IOrdersService {
 
     ServiceResult<Boolean> saveOrdersProductLabel(Integer orderId, String opinfo);
 
-    /**
-     * 三方仓储未发货订单退货
-     */
-    ServiceResult<Boolean> returninstore(Integer id, String checkMan);
-
-    /**
-     * 非三方仓储订单退货
-     */
-    ServiceResult<Boolean> returngoods(Integer id, SystemAdmin systemAdmin);
 
     /**
      * 第三方仓储发货计算邮费
@@ -324,19 +301,8 @@ public interface IOrdersService {
      * @return
      */
     ServiceResult<Integer> getOrdersByMemberId(Integer memberId);
-    
-    
-    /**
-     * 定时推送待发货订单
-     * @return
-     */
-    ServiceResult<Integer>putOutDoorOrders();
+   
 
-	 /**
-     * 定时推送待oms发货订单
-     * @return
-     */
-    ServiceResult<Integer>omsOrdersCreate();
     /**
      * 退货保存
      * @param orderId
@@ -360,7 +326,6 @@ public interface IOrdersService {
     
     ServiceResult<List<SalesDetailsVO>> getSalesDetailsByOrdersId(Integer ordersId);
     
-    ServiceResult<List<ParterTuijian>> getParterTuijian(String memberId,String startTime,String endTime,String memberTuijianId,String memberAreaId,String signNo);
 
     ServiceResult<Boolean> sendMessageToMember();
 

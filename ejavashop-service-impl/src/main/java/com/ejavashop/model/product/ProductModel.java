@@ -1,10 +1,6 @@
 package com.ejavashop.model.product;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +32,6 @@ import com.ejavashop.dao.shop.read.product.ProductReadDao;
 import com.ejavashop.dao.shop.read.product.ProductSkuOtherReadDao;
 import com.ejavashop.dao.shop.read.seller.SellerCateReadDao;
 import com.ejavashop.dao.shop.read.seller.SellerReadDao;
-import com.ejavashop.dao.shop.read.wmsinterface.InterfaceWmsReadDao;
 import com.ejavashop.dao.shop.write.product.ProductAttrWriteDao;
 import com.ejavashop.dao.shop.write.product.ProductBrandWriteDao;
 import com.ejavashop.dao.shop.write.product.ProductCateWriteDao;
@@ -49,21 +44,16 @@ import com.ejavashop.dao.shop.write.product.ProductTypeWriteDao;
 import com.ejavashop.dao.shop.write.product.ProductWriteDao;
 import com.ejavashop.dao.shop.write.seller.SellerCateWriteDao;
 import com.ejavashop.dao.shop.write.seller.SellerWriteDao;
-import com.ejavashop.dao.shop.write.wmsinterface.InterfaceWmsWriteDao;
 import com.ejavashop.entity.product.Product;
 import com.ejavashop.entity.product.ProductAttr;
 import com.ejavashop.entity.product.ProductCate;
 import com.ejavashop.entity.product.ProductGoods;
 import com.ejavashop.entity.product.ProductNormAttrOpt;
 import com.ejavashop.entity.product.ProductPicture;
-import com.ejavashop.entity.product.ProductPrice;
 import com.ejavashop.entity.product.ProductSkuOther;
 import com.ejavashop.entity.seller.Seller;
 import com.ejavashop.entity.seller.SellerCate;
-import com.ejavashop.entity.wmsinterface.InterfaceWms;
 import com.ejavashop.util.FrontProductPictureUtil;
-import com.ejavashop.util.interfacewms.EnteringWarehouse;
-import com.ejavashop.util.interfacewms.dawa_ttx_config;
 import com.ejavashop.vo.product.ListProductPriceVO1;
 import com.ejavashop.vo.product.ListProductPriceVO2;
 import com.ejavashop.vo.product.ListProductPriceVO3;
@@ -95,8 +85,6 @@ public class ProductModel {
     @Resource
     private ProductBrandReadDao         productBrandReadDao;
     @Resource
-    private InterfaceWmsReadDao            interfaceWmsReadDao;
-    @Resource
     private ProductCateWriteDao          productCateWriteDao;
     @Resource
     private ProductCateReadDao          productCateReadDao;
@@ -124,8 +112,6 @@ public class ProductModel {
     private ProductAttrReadDao           productAttrReadDao;
     @Resource
     private ProductNormAttrOptReadDao    productNormAttrOptReadDao;
-    @Resource
-    private InterfaceWmsWriteDao interfaceWmsWriteDao;
     @Resource
     private ProductPriceReadDao productPriceReadDao;
     /**
