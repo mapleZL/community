@@ -1,6 +1,5 @@
 package com.ejavashop.service.impl.pcindex;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +20,6 @@ import com.ejavashop.core.exception.BusinessException;
 import com.ejavashop.entity.shopm.pcindex.PcIndexBanner;
 import com.ejavashop.model.pcindex.PcIndexBannerModel;
 import com.ejavashop.service.pcindex.IPcIndexBannerService;
-
-import payment.tools.util.StringUtil;
 
 @Service(value = "pcIndexBannerService")
 public class PcIndexBannerServiceImpl implements IPcIndexBannerService {

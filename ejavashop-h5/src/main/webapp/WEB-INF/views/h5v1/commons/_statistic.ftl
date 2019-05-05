@@ -1,1 +1,0 @@
-<script type="text/javascript" src="${(domainUrlUtil.EJS_STATIC_RESOURCES)!}/bi/browse.js"></script>

@@ -1,3 +1,0 @@
-<#noescape>
-${(paytext)!}
-</#noescape>

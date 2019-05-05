@@ -145,7 +145,7 @@
 			<artifactId>core</artifactId>
 		</dependency>
          
-          <dependency>
+          <!-- <dependency>
             <groupId>chinapaysecure</groupId>
             <artifactId>chinapaysecure</artifactId>
             <version>1.0</version>
@@ -167,7 +167,7 @@
             <groupId>cpcn-payment-api</groupId>
             <artifactId>tools</artifactId>
             <version>1.6.4</version>
-        </dependency>
+        </dependency> -->
         
     </dependencies>
 

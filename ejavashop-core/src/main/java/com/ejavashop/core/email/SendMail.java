@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.bestpay.util.main;
 import com.ejavashop.core.EjavashopConfig;
 import com.ejavashop.core.TimeUtil;
 
