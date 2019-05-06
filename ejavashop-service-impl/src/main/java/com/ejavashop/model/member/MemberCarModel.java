@@ -7,6 +7,8 @@ import com.ejavashop.entity.member.MemberCar;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class MemberCarModel {
@@ -51,4 +53,12 @@ public class MemberCarModel {
 		memberCar.setVehicleStructure(StringUtil.dbSafeString(memberCar.getVehicleStructure(), true, 64));
 		memberCar.setVehicleNumber(StringUtil.dbSafeString(memberCar.getVehicleNumber(), true, 20));
      }
+
+    public int getMemberCarCount(Map<String, String> queryMap) {
+        return memberCarDao.getMemberCarCount(queryMap);
+    }
+
+    public List<MemberCar> getMemberCarList(Map<String, String> queryMap, Integer start, Integer size) {
+        return memberCarDao.getMemberCarList(queryMap,start,size);
+    }
 }

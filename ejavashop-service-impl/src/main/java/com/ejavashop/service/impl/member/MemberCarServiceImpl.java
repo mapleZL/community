@@ -1,6 +1,8 @@
 package com.ejavashop.service.impl.member;
 
+import com.alibaba.fastjson.JSON;
 import com.ejavashop.core.ConstantsEJS;
+import com.ejavashop.core.PagerInfo;
 import com.ejavashop.core.ServiceResult;
 import com.ejavashop.core.exception.BusinessException;
 import com.ejavashop.entity.member.MemberCar;
@@ -9,8 +11,11 @@ import com.ejavashop.service.member.IMemberCarService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @Service(value = "memberCarService")
 public class MemberCarServiceImpl implements IMemberCarService {
@@ -27,7 +32,7 @@ public class MemberCarServiceImpl implements IMemberCarService {
      */
     @Override
     public ServiceResult<MemberCar> getMemberCarById(Integer memberCarId) {
-        ServiceResult<MemberCar> result = new ServiceResult<MemberCar>();
+        ServiceResult<MemberCar> result = new ServiceResult<>();
         try {
             result.setResult(memberCarModel.getMemberCarById(memberCarId));
         } catch (BusinessException e) {
@@ -87,5 +92,40 @@ public class MemberCarServiceImpl implements IMemberCarService {
                     e);
         }
         return result;
+    }
+
+    /**
+     * create by: zl
+     * description: 获取我的车辆列表
+     * create time:
+     *
+     * @return
+     * @Param: queryMap
+     * @Param: pager
+     */
+    @Override
+    public ServiceResult<List<MemberCar>> page(Map<String, String> queryMap, PagerInfo pager) {
+        ServiceResult<List<MemberCar>> serviceResult = new ServiceResult<List<MemberCar>>();
+        serviceResult.setPager(pager);
+        try {
+            Assert.notNull(memberCarModel, "Property 'memberCarModel' is required.");
+            Integer start = 0, size = 0;
+            if (pager != null) {
+                pager.setRowsCount(memberCarModel.getMemberCarCount(queryMap));
+                start = pager.getStart();
+                size = pager.getPageSize();
+            }
+            serviceResult.setResult(memberCarModel.getMemberCarList(queryMap, start, size));
+        } catch (BusinessException e) {
+            serviceResult.setSuccess(false);
+            serviceResult.setMessage(e.getMessage());
+            log.error("[IMemberCarService][page]查询车辆表时出现异常：" + e.getMessage());
+        } catch (Exception e) {
+            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
+            log.error("[IMemberCarService][page]param1:" + JSON.toJSONString(queryMap)
+                    + " &param2:" + JSON.toJSONString(pager));
+            log.error("[IMemberCarService][page]查询车辆信息发生异常:", e);
+        }
+        return serviceResult;
     }
 }

@@ -2,7 +2,9 @@ package com.ejavashop.web.controller.member;
 
 import com.ejavashop.core.*;
 import com.ejavashop.core.exception.BusinessException;
+import com.ejavashop.entity.member.MemberCar;
 import com.ejavashop.entity.member.MemberCreditLog;
+import com.ejavashop.service.member.IMemberCarService;
 import com.ejavashop.service.member.IMemberCreditLogService;
 import com.ejavashop.web.controller.BaseController;
 import org.springframework.stereotype.Controller;
@@ -29,7 +31,7 @@ import java.util.Map;
 @RequestMapping(value = "/admin/member/car")
 public class MemberCarController extends BaseController {
     @Resource
-    private IMemberCreditLogService memberCreditLogService;
+    private IMemberCarService memberCarService;
 
     /**
      * 默认页面
@@ -43,7 +45,7 @@ public class MemberCarController extends BaseController {
 
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         dataMap.put("queryMap", queryMap);
-        return "/admin/member/membercreditLog/list";
+        return "/admin/member/car/list";
     }
 
     /**
@@ -53,11 +55,11 @@ public class MemberCarController extends BaseController {
      * @return
      */
     @RequestMapping(value = "list", method = { RequestMethod.GET })
-    public @ResponseBody HttpJsonResult<List<MemberCreditLog>> list(HttpServletRequest request,
+    public @ResponseBody HttpJsonResult<List<MemberCar>> list(HttpServletRequest request,
                                                                     ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
-        ServiceResult<List<MemberCreditLog>> serviceResult = memberCreditLogService.page(queryMap,
+        ServiceResult<List<MemberCar>> serviceResult = memberCarService.page(queryMap,
             pager);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
@@ -67,8 +69,8 @@ public class MemberCarController extends BaseController {
             }
         }
 
-        HttpJsonResult<List<MemberCreditLog>> jsonResult = new HttpJsonResult<List<MemberCreditLog>>();
-        jsonResult.setRows((List<MemberCreditLog>) serviceResult.getResult());
+        HttpJsonResult<List<MemberCar>> jsonResult = new HttpJsonResult<List<MemberCar>>();
+        jsonResult.setRows((List<MemberCar>) serviceResult.getResult());
         jsonResult.setTotal(pager.getRowsCount());
 
         return jsonResult;

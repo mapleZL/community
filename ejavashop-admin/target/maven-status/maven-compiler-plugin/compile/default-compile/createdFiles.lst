@@ -70,6 +70,10 @@ com\ejavashop\web\controller\system\AdminUserController.class
 com\ejavashop\web\controller\product\CateController.class
 com\ejavashop\web\controller\operate\AdminCourierCompanyController.class
 com\ejavashop\web\controller\product\NormController.class
+<<<<<<< HEAD
+=======
+com\ejavashop\web\controller\product\ProductVertifyController.class
+>>>>>>> 857192f668f3bedb56a40c7ff6e8d8cff6c4bc4a
 com\ejavashop\web\controller\product\ProductBuyStockController.class
 com\ejavashop\web\controller\BaseController$3.class
 com\ejavashop\web\controller\pcindex\PcIndexBannerController.class
