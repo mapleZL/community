@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.read.MemberCarDao">
+<mapper namespace="com.ejavashop.dao.shop.read.member.MemberCarDao">
 	<resultMap id="MemberCarResult" type="com.ejavashop.entity.member.MemberCar">
 			<result property="id" column="id" />
 			<result property="memberId" column="member_id" />
@@ -68,26 +68,26 @@
 		)
 	</insert>
 
+	<sql id="getCondition">
+		<where>
+			<if test="queryMap.q_vehicle_number != null and queryMap.q_vehicle_number !=''">
+				and vehicle_number = #{queryMap.q_vehicle_number}
+			</if>
+		</where>
+	</sql>
 	<select id="getMemberCarCount" parameterType="java.util.Map" resultType="Integer">
 		select
 		count(*)
 		from `member_car`
-		<if test="queryMap.member_id != null and queryMap.member_id !=''">
-			where member_id = #{queryMap.member_id}
-		</if>
-		and deleted = 1
-		order by `id` desc
+		<include refid="getCondition"/>
 	</select>
 
-	<select id="getParterSign" parameterType="java.util.Map" resultMap="MemberCarResult">
+	<select id="getMemberCarList" parameterType="java.util.Map" resultMap="MemberCarResult">
 		select
 		*
 		from `member_car`
-		<if test="queryMap.member_id != null and queryMap.member_id !=''">
-			where member_id = #{queryMap.member_id}
-		</if>
-		and deleted = 1
-		order by `id` desc
+		<include refid="getCondition"/>
+		order by `create_date` desc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 	
