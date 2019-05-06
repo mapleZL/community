@@ -10,9 +10,9 @@
 
 	<bean id="promotionReadDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
-        <property name="url" value="${promotion.read.url}?characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull" />
-        <property name="username" value="${promotion.read.username}" />
-        <property name="password" value="${promotion.read.password}" />
+        <property name="url" value="jdbc:mysql://47.105.205.117:3306/dw_promotion?characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull" />
+        <property name="username" value="root" />
+        <property name="password" value="Lushuai@1992" />
 
         <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="1"/>
@@ -59,9 +59,9 @@
 	
     <bean id="promotionWriteDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
-        <property name="url" value="${promotion.write.url}?characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull" />
-        <property name="username" value="${promotion.write.username}" />
-        <property name="password" value="${promotion.write.password}" />
+        <property name="url" value="jdbc:mysql://47.105.205.117:3306/dw_promotion?characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull" />
+        <property name="username" value="root" />
+        <property name="password" value="Lushuai@1992" />
 
         <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="1"/>

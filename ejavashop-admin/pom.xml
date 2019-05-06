@@ -174,12 +174,6 @@
             <artifactId>quartz</artifactId>
             <version>1.5.2</version>
         </dependency>
-        
-        <!-- solr -->
-		<dependency>
-	      <groupId>org.apache.solr</groupId>
-	      <artifactId>solr-solrj</artifactId>
-	    </dependency>
 	    
 	    <!-- shiro -->
 		<dependency>
