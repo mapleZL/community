@@ -1,6 +1,9 @@
 package com.ejavashop.model.member;
 
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -14,7 +17,7 @@ import com.ejavashop.entity.member.MemberHouse;
 public class MemberHouseModel {
     
     @Resource
-    private MemberHouseReadDao memberHouseDao;
+    private MemberHouseReadDao memberHouseReadDao;
     
     @Resource
     private MemberHouseWriteDao memberHouseWriteDao;
@@ -25,7 +28,7 @@ public class MemberHouseModel {
      * @return
      */
     public MemberHouse getMemberHouseById(Integer memberHouseId) {
-    	return memberHouseDao.get(memberHouseId);
+    	return memberHouseReadDao.get(memberHouseId);
     }
     
     /**
@@ -45,5 +48,15 @@ public class MemberHouseModel {
      public Integer updateMemberHouse(MemberHouse memberHouse) {
      	return memberHouseWriteDao.update(memberHouse);
      }
+
+    public int getMemberHouseCount(Map<String, String> queryMap) {
+        return memberHouseReadDao.getMemberHouseCount(queryMap);
+    }
+
+    public List<MemberHouse> getMemberHouseList(Map<String, String> queryMap, Integer start,
+                                                Integer size) {
+        
+        return memberHouseReadDao.getMemberHouseList(queryMap, start, size);
+    }
      
 }
