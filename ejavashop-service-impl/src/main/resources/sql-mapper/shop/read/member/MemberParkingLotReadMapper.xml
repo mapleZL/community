@@ -33,7 +33,7 @@
         </where>
     </sql>
     
-	<select id="getMemberParkingList" parameterType="java.util.Map" resultMap="MemberHouseResult">
+	<select id="getMemberParkingList" parameterType="java.util.Map" resultMap="MemberParkingLotResult">
 		select
 		   *
 		from `member_parking_lot`

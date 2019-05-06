@@ -38,6 +38,7 @@ D:\Workspace\community\ejavashop-admin\src\main\java\com\ejavashop\web\shiro\tag
 D:\Workspace\community\ejavashop-admin\src\main\java\com\ejavashop\web\controller\order\AdminComplaintController.java
 D:\Workspace\community\ejavashop-admin\src\main\java\com\ejavashop\web\controller\product\TypeController.java
 D:\Workspace\community\ejavashop-admin\src\main\java\com\ejavashop\web\controller\promotion\AdminActGroupController.java
+D:\Workspace\community\ejavashop-admin\src\main\java\com\ejavashop\web\controller\member\MemberParkingLotController.java
 D:\Workspace\community\ejavashop-admin\src\main\java\com\ejavashop\web\controller\report\AdminCPIstatisticsController.java
 D:\Workspace\community\ejavashop-admin\src\main\java\com\ejavashop\web\controller\operate\AdminConfigController.java
 D:\Workspace\community\ejavashop-admin\src\main\java\com\ejavashop\web\controller\system\AdminRoleController.java

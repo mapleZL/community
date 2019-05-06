@@ -48,7 +48,7 @@ public class MemberParkingLotController extends BaseController{
     @RequestMapping(value = "", method = { RequestMethod.GET })
     public String getList(Map<String, Object> dataMap) throws Exception {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
-        return "admin/member/member/memberparkinglotlist";
+        return "admin/member/member/memberparkinglot";
     }
     
     /**

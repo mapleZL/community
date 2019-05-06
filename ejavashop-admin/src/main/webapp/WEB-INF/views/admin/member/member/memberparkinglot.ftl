@@ -24,7 +24,7 @@
 					$.messager.progress({text:"提交中..."});
 					$.ajax({
 						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/house/passInfo",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/parking/lot/passInfo",
 						dataType: "json",
 					    data: "id=" + selected.id,
 					    cache:false,
@@ -54,7 +54,7 @@
 					$.messager.progress({text:"提交中..."});
 					$.ajax({
 						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/house/noPassInfo",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/parking/lot/noPassInfo",
 						dataType: "json",
 					    data: "id=" + selected.id,
 					    cache:false,
@@ -83,7 +83,7 @@
 <div id="searchbar" data-options="region:'north'" style="margin:0 auto;"
 	border="false">
 	<h2 class="h2-title">
-		房屋信息列表 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
+		车位信息列表 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
 	</h2>
 	<div id="searchbox" class="head-seachbox">
 		<div class="w-p99 marauto searchCont">
@@ -92,7 +92,7 @@
 				<div class="fluidbox">
 					<p class="p4 p-item">
 						<label class="lab-item">业主名 :</label> <input type="text"
-							class="txt" id="q_member_name" name="q_member_name" value="${q_member_name!''}" />
+							class="txt" id="q_belonger" name="q_belonger" value="${q_belonger!''}" />
 					</p>
 				</div>
 			</form>
@@ -112,18 +112,20 @@
 						,pagination:true
 						,pageSize:'${pageSize}'
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/house/list'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/parking/lot/list'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
 		<thead>
 			<tr>
 				<th field="id" hidden="hidden"></th>
-				<th field="memberName" width="120" align="center">业主姓名</th>
-				<th field="villageName" width="150" align="center">小区名称</th>
-				<th field="houseBlock" width="70" align="center">楼幢</th>
-				<th field="houseUnit" width="70" align="center">单元</th>
-				<th field="houseNumber" width="70" align="center">门牌号码</th>
+				<th field="lotType" width="90" align="center">车位类型</th>
+				<th field="position" width="150" align="center">车位位置</th>
+				<th field="lockType" width="70" align="center">锁类型</th>
+				<th field="validityDate" width="90" align="center">车位有效期</th>
+				<th field="vehicleNumber" width="70" align="center">车牌号</th>
+				<th field="belonger" width="70" align="center">车辆所属人</th>
+				<th field="phoneNum" width="70" align="center">所属人手机号</th>
 				<th field="status" width="70" align="center" formatter="getState">状态</th>
 			</tr>
 		</thead>

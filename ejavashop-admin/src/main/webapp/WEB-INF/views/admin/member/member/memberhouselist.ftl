@@ -42,7 +42,7 @@
 			});
 		});
 		
-		// 解冻商家
+		// 审核不通过
 		$('#btn_noPass').click(function () {
 			var selected = $('#dataGrid').datagrid('getSelected');
 	 		if(!selected){
@@ -83,7 +83,7 @@
 <div id="searchbar" data-options="region:'north'" style="margin:0 auto;"
 	border="false">
 	<h2 class="h2-title">
-		商家列表 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
+		房屋信息列表 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
 	</h2>
 	<div id="searchbox" class="head-seachbox">
 		<div class="w-p99 marauto searchCont">

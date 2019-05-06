@@ -20,6 +20,7 @@ com\ejavashop\web\controller\BaseController$2.class
 com\ejavashop\web\controller\backgoods\AdminBadGoodsController.class
 com\ejavashop\web\shiro\tag\NotAuthenticatedTag.class
 com\ejavashop\web\controller\BaseController.class
+com\ejavashop\web\controller\member\MemberParkingLotController.class
 com\ejavashop\web\controller\product\ProductWmsClassifyController.class
 com\ejavashop\web\shiro\tag\RoleTag.class
 com\ejavashop\web\controller\settlement\AdminSettlementController.class
