@@ -112,7 +112,7 @@
 	
 	<@shiro.hasPermission name="/admin_menu_promotion">
 	<div title="客户信息" class="ra_div">
-		<@shiro.hasPermission name="/admin/promotion/coupon">
+		<@shiro.hasPermission name="/admin/member/car">
 		<a href="javascript:void(0);" onclick="addTab('车辆认证', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/car')">车辆认证</a>
 		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/member/parking/lot">

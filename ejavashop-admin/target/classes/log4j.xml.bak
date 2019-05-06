@@ -7,7 +7,7 @@
         </layout>
     </appender>
     <appender name="admin-log" class="org.apache.log4j.DailyMaxRollingFileAppender">
-        <param name="file" value="${pom.log.file}"/>
+        <param name="file" value="F:/logs/dawa/ejavashop-admin.log"/>
         <param name="append" value="true"/>
         <param name="datePattern" value="'.'yyyy-MM-dd"/>
         <param name="maxBackupIndex" value="30"/>
@@ -17,17 +17,17 @@
     </appender>
 
     <logger name="java.sql" additivity="false">
-        <level value="${pom.log.level}"/>
+        <level value="info"/>
         <appender-ref ref="console-log"/>
     </logger>
 
     <logger name="org.springframework" additivity="false">
-        <level value="${pom.log.level}"/>
+        <level value="info"/>
         <appender-ref ref="admin-log"/>
     </logger>
 
     <root>
-        <level value="${pom.log.level}"/>
+        <level value="info"/>
         <appender-ref ref="admin-log"/>
     </root>
 </log4j:configuration>

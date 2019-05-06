@@ -49,7 +49,7 @@ public class MemberCarController extends BaseController {
 
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         dataMap.put("queryMap", queryMap);
-        return "/admin/member/car/list";
+        return "admin/member/member/membercarlist";
     }
 
     /**
