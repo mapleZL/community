@@ -1,14 +1,20 @@
 package com.ejavashop.service.impl.member;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.ejavashop.core.ConstantsEJS;
+import com.ejavashop.core.PagerInfo;
 import com.ejavashop.core.ServiceResult;
 import com.ejavashop.core.exception.BusinessException;
+import com.ejavashop.entity.member.Member;
 import com.ejavashop.entity.member.MemberHouse;
 import com.ejavashop.model.member.MemberHouseModel;
 import com.ejavashop.service.member.IMemberHouseService;
@@ -87,4 +93,32 @@ public class MemberHouseServiceImpl implements IMemberHouseService {
         }
         return result;
      }
+
+    /**
+     * 
+     * @param queryMap
+     * @param pager
+     * @return
+     * @see com.ejavashop.service.member.IMemberHouseService#page(java.util.Map, com.ejavashop.core.PagerInfo)
+     */
+    @Override
+    public ServiceResult<List<MemberHouse>> page(Map<String, String> queryMap, PagerInfo pager) {
+        ServiceResult<List<MemberHouse>> serviceResult = new ServiceResult<List<MemberHouse>>();
+        serviceResult.setPager(pager);
+        try {
+            Integer start = 0, size = 0;
+            if (pager != null) {
+                pager.setRowsCount(memberHouseModel.getMemberHouseCount(queryMap));
+                start = pager.getStart();
+                size = pager.getPageSize();
+            }
+            serviceResult.setResult(memberHouseModel.getMemberHouseList(queryMap, start, size));
+        } catch (Exception e) {
+            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
+            log.error("[memberHouseService][page]param1:" + JSON.toJSONString(queryMap)
+                      + " &param2:" + JSON.toJSONString(pager));
+            log.error("[memberHouseService][page]查询会员信息发生异常:", e);
+        }
+        return serviceResult;
+    }
 }

@@ -75,8 +75,6 @@ import com.ejavashop.vo.member.FrontMemberProductBehaveStatisticsVO;
 public class MemberModel {
     private static Logger                   log = LogManager.getLogger(MemberModel.class);
     
-    private static final Logger  ILog = LogManager.getLogger("oms_interface");
-
     @Resource
     private MemberWriteDao                  memberWriteDao;
     

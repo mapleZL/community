@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.write.member.MemberHouseWriteDao">
+	<resultMap id="MemberHouseResult" type="com.ejavashop.entity.member.MemberHouse">
+			<result property="id" column="id" />
+			<result property="memberId" column="member_id" />
+			<result property="memberName" column="member_name" />
+			<result property="villageName" column="village_name" />
+			<result property="houseBlock" column="house_block" />
+			<result property="houseUnit" column="house_unit" />
+			<result property="houseNumber" column="house_number" />
+			<result property="createDate" column="create_date" />
+			<result property="examineDate" column="examine_date" />
+			<result property="examineUserId" column="examine_user_id" />
+			<result property="status" column="status" />
+			<result property="deleted" column="deleted" />
+	</resultMap>
+	
+	<update id="update" parameterType="com.ejavashop.entity.member.MemberHouse">
+        update `member_house` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="memberId != null">`member_id`= #{memberId},</if>
+			<if test="memberName != null">`member_name`= #{memberName},</if>
+			<if test="villageName != null">`village_name`= #{villageName},</if>
+			<if test="houseBlock != null">`house_block`= #{houseBlock},</if>
+			<if test="houseUnit != null">`house_unit`= #{houseUnit},</if>
+			<if test="houseNumber != null">`house_number`= #{houseNumber},</if>
+			<if test="createDate != null">`create_date`= #{createDate},</if>
+			<if test="examineDate != null">`examine_date`= #{examineDate},</if>
+			<if test="examineUserId != null">`examine_user_id`= #{examineUserId},</if>
+			<if test="status != null">`status`= #{status},</if>
+			<if test="deleted != null">`deleted`= #{deleted}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.ejavashop.entity.member.MemberHouse" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`member_house`
+		(
+			
+			`member_id`,
+			`member_name`,
+			`village_name`,
+			`house_block`,
+			`house_unit`,
+			`house_number`,
+			`create_date`,
+			`examine_date`,
+			`examine_user_id`,
+			`status`,
+			`deleted`
+		)
+		values
+		(
+			
+			#{memberId},
+			#{memberName},
+			#{villageName},
+			#{houseBlock},
+			#{houseUnit},
+			#{houseNumber},
+			#{createDate},
+			#{examineDate},
+			#{examineUserId},
+			#{status},
+			#{deleted}
+		)
+	</insert>
+	
+</mapper>

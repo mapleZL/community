@@ -1,5 +1,9 @@
 package com.ejavashop.service.member;
 
+import java.util.List;
+import java.util.Map;
+
+import com.ejavashop.core.PagerInfo;
 import com.ejavashop.core.ServiceResult;
 import com.ejavashop.entity.member.MemberHouse;
 
@@ -25,4 +29,12 @@ public interface IMemberHouseService {
      * @return
      */
      ServiceResult<Integer> updateMemberHouse(MemberHouse memberHouse);
+     
+     /**
+      * 分页查询
+      * @param queryMap
+      * @param pager
+      * @return
+      */
+      ServiceResult<List<MemberHouse>> page(Map<String, String> queryMap, PagerInfo pager);
 }
