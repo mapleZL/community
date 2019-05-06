@@ -1,0 +1,388 @@
+<?xml version="1.0"?> 
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0">
+    <name>ejavashop-admin Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.ejavashop</groupId>
+        <artifactId>ejavashop-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../ejavashop-parent/pom.xml</relativePath>
+    </parent>
+
+    <!-- <groupId>com.ejavashop</groupId> -->
+    <artifactId>dw-admin</artifactId>
+    <!-- <version>1.0-SNAPSHOT</version> -->
+    <packaging>war</packaging>
+
+    <dependencies>
+        <!--ejs-->
+        <dependency>
+            <groupId>com.ejavashop</groupId>
+            <artifactId>ejavashop-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ejavashop</groupId>
+            <artifactId>ejavashop-service-impl</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!--db-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+
+        <!-- web -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+        </dependency>
+
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <!-- log -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+
+        <!-- commons -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+
+        <!-- 3th -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+        </dependency>
+
+        <!--db-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        
+        <!-- gson -->
+        <dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		
+        <dependency>
+            <groupId>quartz</groupId>
+            <artifactId>quartz</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+	    
+	    <!-- shiro -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+		</dependency>
+    </dependencies>
+
+    <build>
+        <finalName>ROOT</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.3.0.M2</version>
+                <configuration>
+                    <webAppConfig>
+                        <contextPath>/</contextPath>
+                    </webAppConfig>
+                    <httpConnector>
+                        <port>8081</port>
+                        <idleTimeout>10000</idleTimeout>
+                    </httpConnector>
+                </configuration>
+            </plugin>
+            <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-war-plugin</artifactId>
+	            <version>2.5</version>
+	            <configuration>
+	                <webResources>
+	                    <resource>
+	                        <directory>src/main/webapp/WEB-INF</directory>
+	                    </resource>
+	                </webResources>
+	            </configuration>
+	        </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <ejs.url.resources>http://127.0.0.1:8081</ejs.url.resources>
+                <ejs.static.resources>http://127.0.0.1:8081</ejs.static.resources>
+                <ejs.image.resources>https://images2.dawawang.com</ejs.image.resources>
+                <ejs.cookie.domain>.dawawang.com</ejs.cookie.domain>
+                <ejs.cookie.name>dawawang_admin</ejs.cookie.name>
+
+                <shop.write.url>jdbc:mysql://47.105.205.117:3306/dw</shop.write.url>
+                <shop.write.username>root</shop.write.username>
+                <shop.write.password>Lushuai@1992</shop.write.password>
+                
+                <shop.read.url>jdbc:mysql://47.105.205.117:3306/dw</shop.read.url>
+                <shop.read.username>root</shop.read.username>
+                <shop.read.password>Lushuai@1992</shop.read.password>
+                
+                <analysis.write.url>jdbc:mysql://47.105.205.117:3306/dw_analysis</analysis.write.url>
+                <analysis.write.username>root</analysis.write.username>																																																																																					
+                <analysis.write.password>Lushuai@1992</analysis.write.password>
+                
+                <analysis.read.url>jdbc:mysql://47.105.205.117:3306/dw_analysis</analysis.read.url>
+                <analysis.read.username>root</analysis.read.username>
+                <analysis.read.password>Lushuai@1992</analysis.read.password>
+                
+                <mobile.write.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.write.url>
+                <mobile.write.username>root</mobile.write.username>
+                <mobile.write.password>Lushuai@1992</mobile.write.password>
+                
+                <mobile.read.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.read.url>
+                <mobile.read.username>root</mobile.read.username>
+                <mobile.read.password>Lushuai@1992</mobile.read.password>
+				
+                <promotion.write.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.write.url>
+                <promotion.write.username>root</promotion.write.username>
+                <promotion.write.password>Lushuai@1992</promotion.write.password>
+                
+                <promotion.read.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.read.url>
+                <promotion.read.username>root</promotion.read.username>
+                <promotion.read.password>Lushuai@1992</promotion.read.password>
+                
+                <search.solr.url>http://114.55.88.189:8080/solr</search.solr.url>
+                <search.solr.server>ejavashopcore</search.solr.server>
+
+                <pom.log.file>F:/logs/dawa/ejavashop-admin.log</pom.log.file>
+                <pom.log.level>info</pom.log.level>
+            </properties>
+        </profile>
+        
+        <profile>
+            <id>test</id>
+            <properties>
+                <ejs.url.resources>http://118.126.66.195:8081</ejs.url.resources>
+                <ejs.static.resources>http://118.126.66.195:8081</ejs.static.resources>
+                <ejs.image.resources>http://images2.dawawang.com</ejs.image.resources>
+                <ejs.cookie.domain>dawawang.com</ejs.cookie.domain>
+                <ejs.cookie.name>dawawang_admin</ejs.cookie.name>
+                <ejs.front.url>http://118.126.66.195:8807</ejs.front.url>
+                <ejs.h5.url>http://118.126.66.195:8808</ejs.h5.url>
+                
+                <shop.write.url>jdbc:mysql://47.105.205.117:3306/dw</shop.write.url>
+                <shop.write.username>root</shop.write.username>
+                <shop.write.password>Lushuai@1992</shop.write.password>
+                
+                <shop.read.url>jdbc:mysql://47.105.205.117:3306/dw</shop.read.url>
+                <shop.read.username>root</shop.read.username>
+                <shop.read.password>Lushuai@1992</shop.read.password>
+                
+                <analysis.write.url>jdbc:mysql://47.105.205.117:3306/dw_analysis</analysis.write.url>
+                <analysis.write.username>root</analysis.write.username>
+                <analysis.write.password>Lushuai@1992</analysis.write.password>
+                
+                <analysis.read.url>jdbc:mysql://47.105.205.117:3306/dw_analysis</analysis.read.url>
+                <analysis.read.username>root</analysis.read.username>
+                <analysis.read.password>Lushuai@1992</analysis.read.password>
+                
+                <mobile.write.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.write.url>
+                <mobile.write.username>root</mobile.write.username>
+                <mobile.write.password>Lushuai@1992</mobile.write.password>
+                
+                <mobile.read.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.read.url>
+                <mobile.read.username>root</mobile.read.username>
+                <mobile.read.password>Lushuai@1992</mobile.read.password>
+				
+                <promotion.write.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.write.url>
+                <promotion.write.username>root</promotion.write.username>
+                <promotion.write.password>Lushuai@1992</promotion.write.password>
+                
+                <promotion.read.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.read.url>
+                <promotion.read.username>root</promotion.read.username>
+                <promotion.read.password>Lushuai@1992</promotion.read.password>
+                
+                <search.solr.url>http://47.105.205.117:8080/solr</search.solr.url>
+                <search.solr.server>ejavashopcore</search.solr.server>
+
+                <pom.log.file>D:/logs/dawa/admin.log</pom.log.file>
+                <pom.log.level>info</pom.log.level>
+            </properties>
+        </profile>
+        
+        <profile>
+            <id>prd</id>
+            <properties>
+                <ejs.url.resources>http://admin.dawawang.com</ejs.url.resources>
+                <ejs.static.resources>http://admin.dawawang.com</ejs.static.resources>
+                <ejs.image.resources>http://images.dawawang.com</ejs.image.resources>
+                <ejs.cookie.domain>.dawawang.com</ejs.cookie.domain>
+                <ejs.cookie.name>dawawang_admin</ejs.cookie.name>
+                <ejs.front.url>http://www.dawawang.com</ejs.front.url>
+                <ejs.h5.url>http://m.dawawang.com</ejs.h5.url>
+                <!-- wms生产推送地址 -->
+                <ejs.wms.url>http://121.40.96.166/InterFaceApp_MTY/HttpListener.aspx</ejs.wms.url>
+
+                <shop.write.url>jdbc:mysql://10.168.119.162:3306/dw</shop.write.url>
+                <shop.write.username>root</shop.write.username>
+                <shop.write.password>Lushuai@1992</shop.write.password>
+                
+                <shop.read.url>jdbc:mysql://10.168.119.162:3306/dw</shop.read.url>
+                <shop.read.username>root</shop.read.username>
+                <shop.read.password>Lushuai@1992</shop.read.password>
+                
+                <analysis.write.url>jdbc:mysql://10.168.119.162:3306/dw_analysis</analysis.write.url>
+                <analysis.write.username>root</analysis.write.username>
+                <analysis.write.password>Lushuai@1992</analysis.write.password>
+                
+                <analysis.read.url>jdbc:mysql://10.168.119.162:3306/dw_analysis</analysis.read.url>
+                <analysis.read.username>root</analysis.read.username>
+                <analysis.read.password>Lushuai@1992</analysis.read.password>
+                
+                <mobile.write.url>jdbc:mysql://10.168.119.162:3306/dw_m</mobile.write.url>
+                <mobile.write.username>root</mobile.write.username>
+                <mobile.write.password>Lushuai@1992</mobile.write.password>
+                
+                <mobile.read.url>jdbc:mysql://10.168.119.162:3306/dw_m</mobile.read.url>
+                <mobile.read.username>root</mobile.read.username>
+                <mobile.read.password>Lushuai@1992</mobile.read.password>
+				
+                <promotion.write.url>jdbc:mysql://10.168.119.162:3306/dw_promotion</promotion.write.url>
+                <promotion.write.username>root</promotion.write.username>
+                <promotion.write.password>Lushuai@1992</promotion.write.password>
+                
+                <promotion.read.url>jdbc:mysql://10.168.119.162:3306/dw_promotion</promotion.read.url>
+                <promotion.read.username>root</promotion.read.username>
+                <promotion.read.password>Lushuai@1992</promotion.read.password>
+                
+                <search.solr.url>http://10.252.129.75:8079</search.solr.url>
+                <search.solr.server>dawacore</search.solr.server>
+
+                <pom.log.file>/home/logs/admin.log</pom.log.file>
+                <pom.log.level>info</pom.log.level>
+            </properties>
+        </profile>
+    </profiles>
+</project>

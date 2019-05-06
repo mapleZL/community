@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ejavashop.dao.shop.read.member.MemberParkingLotReadDao">
+	<resultMap id="MemberParkingLotResult" type="com.ejavashop.entity.member.MemberParkingLot">
+			<result property="id" column="id" />
+			<result property="memberId" column="member_id" />
+			<result property="position" column="position" />
+			<result property="lotType" column="lot_type" />
+			<result property="lockType" column="lock_type" />
+			<result property="validityDate" column="validity_date" />
+			<result property="vehicleNumber" column="vehicle_number" />
+			<result property="belonger" column="belonger" />
+			<result property="status" column="status" />
+			<result property="createDate" column="create_date" />
+			<result property="examineDate" column="examine_date" />
+			<result property="examineUserId" column="examine_user_id" />
+			<result property="deleted" column="deleted" />
+			<result property="phoneNum" column="phone_num" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="MemberParkingLotResult">
+		select
+		   *
+		from `member_parking_lot`
+		where `id` = #{id}
+	</select>
+	
+	<sql id="getCondition">
+        <where>
+             <if test="queryMap.q_belonger != null and queryMap.q_belonger !=''">
+                and belonger = #{queryMap.q_belonger}
+          	 </if>
+        </where>
+    </sql>
+    
+	<select id="getMemberParkingList" parameterType="java.util.Map" resultMap="MemberHouseResult">
+		select
+		   *
+		from `member_parking_lot`
+		<include refid="getCondition"/>
+		order by `create_date` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+	<select id="getMemberParkingCount" parameterType="java.util.Map" resultType="Integer">
+		select
+		   count(*)
+		from `member_parking_lot`
+		<include refid="getCondition"/>
+	</select>
+	
+</mapper>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,12 +19,13 @@ import com.ejavashop.core.PagerInfo;
 import com.ejavashop.core.ServiceResult;
 import com.ejavashop.core.WebUtil;
 import com.ejavashop.core.exception.BusinessException;
+import com.ejavashop.echarts.component.MemberPropertyStatus;
 import com.ejavashop.entity.member.MemberHouse;
 import com.ejavashop.service.member.IMemberHouseService;
 import com.ejavashop.web.controller.BaseController;
 
 @Controller
-@RequestMapping(value = "admin/member/house")
+@RequestMapping(value = "/admin/member/house")
 public class MemberHouseController extends BaseController{
     
     @Resource
@@ -39,7 +41,7 @@ public class MemberHouseController extends BaseController{
     @RequestMapping(value = "", method = { RequestMethod.GET })
     public String getList(Map<String, Object> dataMap) throws Exception {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
-        return "admin/member/member/productcommentslist";
+        return "admin/member/member/memberhouselist";
     }
     
     /**
@@ -48,7 +50,7 @@ public class MemberHouseController extends BaseController{
      * @param dataMap
      * @return
      */
-    @RequestMapping(value = "list", method = { RequestMethod.GET })
+    @RequestMapping(value = "/list", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<List<MemberHouse>> list(HttpServletRequest request,
                                                                     ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
@@ -66,6 +68,54 @@ public class MemberHouseController extends BaseController{
         jsonResult.setRows((List<MemberHouse>) serviceResult.getResult());
         jsonResult.setTotal(pager.getRowsCount());
 
+        return jsonResult;
+    }
+    
+    /**
+     * 房屋认证-通过
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/passInfo", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<Boolean> pass(HttpServletRequest request,
+                                                      HttpServletResponse response, Integer id) {
+
+        ServiceResult<Boolean> serviceResult = memberHouseService.changeStatus(id, MemberPropertyStatus.STATE_2);
+        if (!serviceResult.getSuccess()) {
+            if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
+                throw new RuntimeException(serviceResult.getMessage());
+            } else {
+                throw new BusinessException(serviceResult.getMessage());
+            }
+        }
+
+        HttpJsonResult<Boolean> jsonResult = new HttpJsonResult<Boolean>();
+        jsonResult.setData(true);
+        return jsonResult;
+    }
+    
+    /**
+     * 房屋认证-不通过
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/noPassInfo", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<Boolean> noPass(HttpServletRequest request,
+                                                      HttpServletResponse response, Integer id) {
+
+        ServiceResult<Boolean> serviceResult = memberHouseService.changeStatus(id, MemberPropertyStatus.STATE_0);
+        if (!serviceResult.getSuccess()) {
+            if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
+                throw new RuntimeException(serviceResult.getMessage());
+            } else {
+                throw new BusinessException(serviceResult.getMessage());
+            }
+        }
+
+        HttpJsonResult<Boolean> jsonResult = new HttpJsonResult<Boolean>();
+        jsonResult.setData(true);
         return jsonResult;
     }
 }

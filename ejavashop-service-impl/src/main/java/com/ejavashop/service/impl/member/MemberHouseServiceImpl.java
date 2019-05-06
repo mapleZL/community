@@ -14,7 +14,6 @@ import com.ejavashop.core.ConstantsEJS;
 import com.ejavashop.core.PagerInfo;
 import com.ejavashop.core.ServiceResult;
 import com.ejavashop.core.exception.BusinessException;
-import com.ejavashop.entity.member.Member;
 import com.ejavashop.entity.member.MemberHouse;
 import com.ejavashop.model.member.MemberHouseModel;
 import com.ejavashop.service.member.IMemberHouseService;
@@ -120,5 +119,22 @@ public class MemberHouseServiceImpl implements IMemberHouseService {
             log.error("[memberHouseService][page]查询会员信息发生异常:", e);
         }
         return serviceResult;
+    }
+
+    @Override
+    public ServiceResult<Boolean> changeStatus(Integer id, int state) {
+        ServiceResult<Boolean> result = new ServiceResult<Boolean>();
+        try {
+            result.setResult(memberHouseModel.changeStatus(id, state));
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error("[memberHouseService][changeStatus]根据id[" + id + "]审核房屋状态时出现异常："
+                      + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
+            log.error("[memberHouseService][changeStatus]审核房屋状态时发生异常:", e);
+        }
+        return result;
     }
 }

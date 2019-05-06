@@ -2,37 +2,6 @@ package com.ejavashop.entity.product;
 
 import java.io.Serializable;
 
-/**
- * 商品评论管理
- * <p>Table: <strong>product_comments</strong>
- * <p><table class="er-mapping" cellspacing=0 cellpadding=0 style="border:solid 1 #666;padding:3px;">
- *   <tr style="background-color:#ddd;Text-align:Left;">
- *     <th nowrap>属性名</th><th nowrap>属性类型</th><th nowrap>字段名</th><th nowrap>字段类型</th><th nowrap>说明</th>
- *   </tr>
- *   <tr><td>id</td><td>{@link Integer}</td><td>id</td><td>int</td><td>id</td></tr>
- *   <tr><td>userId</td><td>{@link Integer}</td><td>user_id</td><td>int</td><td>评价人ID</td></tr>
- *   <tr><td>userName</td><td>{@link String}</td><td>user_name</td><td>varchar</td><td>评价人账号</td></tr>
- *   <tr><td>grade</td><td>{@link Integer}</td><td>grade</td><td>tinyint</td><td>评分(1到5)</td></tr>
- *   <tr><td>content</td><td>{@link String}</td><td>content</td><td>varchar</td><td>评价内容</td></tr>
- *   <tr><td>sellerAttitude</td><td>{@link String}</td><td>seller_attitude</td><td>varchar</td><td>评价商家服务</td></tr>
- *   <tr><td>createTime</td><td>{@link java.util.Date}</td><td>create_time</td><td>datetime</td><td>评价时间</td></tr>
- *   <tr><td>productId</td><td>{@link Integer}</td><td>product_id</td><td>int</td><td>评价商品</td></tr>
- *   <tr><td>productGoodsId</td><td>{@link Integer}</td><td>product_goods_id</td><td>int</td><td>货品ID</td></tr>
- *   <tr><td>sellerId</td><td>{@link Integer}</td><td>seller_id</td><td>int</td><td>所属商家</td></tr>
- *   <tr><td>orderSn</td><td>{@link String}</td><td>order_sn</td><td>varchar</td><td>订单编号</td></tr>
- *   <tr><td>replyId</td><td>{@link Integer}</td><td>reply_id</td><td>int</td><td>回复人ID</td></tr>
- *   <tr><td>replyName</td><td>{@link String}</td><td>reply_name</td><td>varchar</td><td>回复人名称</td></tr>
- *   <tr><td>replyContent</td><td>{@link String}</td><td>reply_content</td><td>varchar</td><td>回复内容</td></tr>
- *   <tr><td>state</td><td>{@link Integer}</td><td>state</td><td>tinyint</td><td>1、评价；2、审核通过，前台显示；3、删除</td></tr>
- *   <tr><td>adminId</td><td>{@link Integer}</td><td>admin_id</td><td>int</td><td>审核上架人</td></tr>
- *   <tr><td>description</td><td>{@link Integer}</td><td>description</td><td>tinyint</td><td>描述相符(1到5星)</td></tr>
- *   <tr><td>serviceAttitude</td><td>{@link Integer}</td><td>service_attitude</td><td>tinyint</td><td>服务态度(1到5星)</td></tr>
- *   <tr><td>productSpeed</td><td>{@link Integer}</td><td>product_speed</td><td>tinyint</td><td>发货速度(1到5星)</td></tr>
- *   <tr><td>logisticsSpeed</td><td>{@link Integer}</td><td>logistics_speed</td><td>tinyint</td><td>物流态度（1到5星）</td></tr>
- *   <tr><td>expressAttitude</td><td>{@link Integer}</td><td>express_attitude</td><td>tinyint</td><td>快递员态度(1到5星)</td></tr>
- * </table>
- *
- */
 public class ProductComments implements Serializable {
 
     /**

@@ -37,4 +37,12 @@ public interface IMemberHouseService {
       * @return
       */
       ServiceResult<List<MemberHouse>> page(Map<String, String> queryMap, PagerInfo pager);
+
+      /**
+       * 修改状态
+       * @param id
+       * @param state
+       * @return
+       */
+      ServiceResult<Boolean> changeStatus(Integer id, int state);
 }

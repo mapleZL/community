@@ -25,13 +25,13 @@
 	
 	<sql id="getCondition">
         <where>
-            <if test="queryMap.memberName != null and queryMap.memberName !=''">
-                and member_name = #{queryMap.memberName}
-            </if>
+             <if test="queryMap.q_member_name != null and queryMap.q_member_name !=''">
+                and member_name = #{queryMap.q_member_name}
+          	 </if>
         </where>
     </sql>
     
-	<select id="getPageList" parameterType="java.util.Map" resultMap="MemberHouseResult">
+	<select id="getMemberHouseList" parameterType="java.util.Map" resultMap="MemberHouseResult">
 		select
 		   *
 		from `member_house`

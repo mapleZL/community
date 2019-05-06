@@ -1,22 +1,26 @@
 package com.ejavashop.web.controller.member;
 
-import com.ejavashop.core.*;
-import com.ejavashop.core.exception.BusinessException;
-import com.ejavashop.entity.member.MemberCar;
-import com.ejavashop.entity.member.MemberCreditLog;
-import com.ejavashop.service.member.IMemberCarService;
-import com.ejavashop.service.member.IMemberCreditLogService;
-import com.ejavashop.web.controller.BaseController;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
+import com.ejavashop.core.ConstantsEJS;
+import com.ejavashop.core.HttpJsonResult;
+import com.ejavashop.core.PagerInfo;
+import com.ejavashop.core.ServiceResult;
+import com.ejavashop.core.WebUtil;
+import com.ejavashop.core.exception.BusinessException;
+import com.ejavashop.entity.member.MemberCar;
+import com.ejavashop.service.member.IMemberCarService;
+import com.ejavashop.web.controller.BaseController;
 
 /**
  * 我的车辆相关action
