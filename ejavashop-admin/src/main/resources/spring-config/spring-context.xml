@@ -23,9 +23,7 @@
     </context:component-scan>
 
     <import resource="spring-datasources-shop.xml"/>
-    <import resource="spring-datasources-analysis.xml"/>
     <import resource="spring-datasources-m.xml"/>
-    <import resource="spring-datasources-promotion.xml"/>
     <import resource="spring-scheduler.xml"/>
     <import resource="shiro-context.xml"/>
 

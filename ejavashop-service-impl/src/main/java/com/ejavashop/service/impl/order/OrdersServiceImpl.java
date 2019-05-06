@@ -67,7 +67,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Orders> getOrdersBySn(String orderSn) {
         ServiceResult<Orders> serviceResult = new ServiceResult<Orders>();
         try {
-            serviceResult.setResult(ordersModel.getOrdersBySn(orderSn));
             serviceResult.setSuccess(true);
         } catch (BusinessException e) {
         	serviceResult.setSuccess(false);
@@ -217,8 +216,8 @@ public class OrdersServiceImpl implements IOrdersService {
                                                        SellerUser sellerUser, boolean updateStore) {
         ServiceResult<Integer> serviceResult = new ServiceResult<Integer>();
         try {
-            serviceResult
-                .setResult(ordersModel.updateOrdersBySeller(orders, type, sellerUser, updateStore));
+//            serviceResult
+//                .setResult(ordersModel.updateOrdersBySeller(orders, type, sellerUser, updateStore));
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());
@@ -236,8 +235,8 @@ public class OrdersServiceImpl implements IOrdersService {
                                                       boolean updateStore) {
         ServiceResult<Integer> serviceResult = new ServiceResult<Integer>();
         try {
-            serviceResult
-                .setResult(ordersModel.updateOrdersByAdmin(orders, type, systemAdmin, updateStore));
+//            serviceResult
+//                .setResult(ordersModel.updateOrdersByAdmin(orders, type, systemAdmin, updateStore));
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());
@@ -253,7 +252,7 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Boolean> cancelOrderBySeller(Integer ordersId, SellerUser sellerUser) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.cancelOrderBySeller(ordersId, sellerUser));
+//            serviceResult.setResult(ordersModel.cancelOrderBySeller(ordersId, sellerUser));
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());
@@ -296,8 +295,7 @@ public class OrdersServiceImpl implements IOrdersService {
         serviceResult.setPager(pager);//TODO
         try {
             pager = countOrderWithOrderProduct(queryMap, pager);
-            List<Orders> returnList = ordersModel.getOrderWithOrderProduct(queryMap, pager.getStart(), pager.getPageSize());
-            serviceResult.setResult(returnList);
+//            List<Orders> returnList = ordersModel.getOrderWithOrderProduct(queryMap, pager.getStart(), pager.getPageSize());
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -315,7 +313,7 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Boolean> cancelOrder(String tradeNo, Integer optId, String optName) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.cancelOrder(tradeNo, optId, optName));
+//            serviceResult.setResult(ordersModel.cancelOrder(tradeNo, optId, optName));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -331,7 +329,7 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Orders> getOrderWithOPById(Integer orderId,String type) {
         ServiceResult<Orders> serviceResult = new ServiceResult<Orders>();
         try {
-            serviceResult.setResult(ordersModel.getOrderWithOPById(orderId,type));
+//            serviceResult.setResult(ordersModel.getOrderWithOPById(orderId,type));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -349,7 +347,7 @@ public class OrdersServiceImpl implements IOrdersService {
                                                      String ordersType) {
         ServiceResult<OrderSuccessVO> serviceResult = new ServiceResult<OrderSuccessVO>();
         try {
-            serviceResult.setResult(ordersModel.orderCommit(orderCommitVO, ordersType));
+//            serviceResult.setResult(ordersModel.orderCommit(orderCommitVO, ordersType));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -372,7 +370,7 @@ public class OrdersServiceImpl implements IOrdersService {
 
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.goodsReceipt(ordersId));
+//            serviceResult.setResult(ordersModel.goodsReceipt(ordersId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -388,7 +386,7 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<List<OrderDayDto>> getOrderDayDto(Map<String, String> queryMap) {
         ServiceResult<List<OrderDayDto>> serviceResult = new ServiceResult<List<OrderDayDto>>();
         try {
-            serviceResult.setResult(ordersModel.getOrderDayDto(queryMap));
+//            serviceResult.setResult(ordersModel.getOrderDayDto(queryMap));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -404,7 +402,7 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<List<OrderDayDto>> getOrderDay0913Dto(Map<String, String> queryMap) {
         ServiceResult<List<OrderDayDto>> serviceResult = new ServiceResult<List<OrderDayDto>>();
         try {
-            serviceResult.setResult(ordersModel.getOrderDay0913Dto(queryMap));
+//            serviceResult.setResult(ordersModel.getOrderDay0913Dto(queryMap));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -420,7 +418,7 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<List<OrderFinanceDayDto>> getOrderFinanceDayDto(Map<String, String> queryMap) {
         ServiceResult<List<OrderFinanceDayDto>> serviceResult = new ServiceResult<List<OrderFinanceDayDto>>();
         try {
-            serviceResult.setResult(ordersModel.getOrderFinanceDayDto(queryMap));
+//            serviceResult.setResult(ordersModel.getOrderFinanceDayDto(queryMap));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -436,7 +434,7 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Boolean> jobSystemFinishOrder() {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.jobSystemFinishOrder());
+//            serviceResult.setResult(ordersModel.jobSystemFinishOrder());
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -452,7 +450,7 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Boolean> jobSystemCancelOrder() {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.jobSystemCancelOrder());
+//            serviceResult.setResult(ordersModel.jobSystemCancelOrder());
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -475,8 +473,6 @@ public class OrdersServiceImpl implements IOrdersService {
                                                                     Integer memberId) {
         ServiceResult<OrderSuccessVO> serviceResult = new ServiceResult<OrderSuccessVO>();
         try {
-            serviceResult
-                .setResult(ordersModel.getOrdersByRelationOrderSn(relationOrderSn, memberId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -502,8 +498,8 @@ public class OrdersServiceImpl implements IOrdersService {
                                                         String balancePassword, Member member) {
         ServiceResult<OrderSuccessVO> serviceResult = new ServiceResult<OrderSuccessVO>();
         try {
-            serviceResult.setResult(
-                ordersModel.orderPayBefore(relationOrderSn, isBalancePay, balancePassword, member));
+//            serviceResult.setResult(
+//                ordersModel.orderPayBefore(relationOrderSn, isBalancePay, balancePassword, member));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -533,8 +529,8 @@ public class OrdersServiceImpl implements IOrdersService {
                                                 String tradeContent) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.orderPayAfter(trade_no, total_fee, paycode, payname,
-                tradeSn, tradeContent));
+//            serviceResult.setResult(ordersModel.orderPayAfter(trade_no, total_fee, paycode, payname,
+//                tradeSn, tradeContent));
         } catch (BusinessException be) {
             be.printStackTrace();
             serviceResult.setSuccess(false);
@@ -552,7 +548,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<OrderSuccessVO> orderCommitForBidding(OrderCommitVO orderCommitVO) {
         ServiceResult<OrderSuccessVO> serviceResult = new ServiceResult<OrderSuccessVO>();
         try {
-            serviceResult.setResult(ordersModel.orderCommitForBidding(orderCommitVO));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -568,7 +563,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Boolean> saveOrdersProductPrice(Integer orderId, String opinfo,String submitType) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.saveOrdersProductPrice(orderId, opinfo,submitType));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -585,7 +579,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Boolean> saveOrdersReturn(Integer orderId, String opinfo,String returnInfo,Integer usedId) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.saveOrdersReturn(orderId, opinfo,returnInfo,usedId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -601,8 +594,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<BookingSendGoodsVO> listUserInfo(Integer orderId) {
         ServiceResult<BookingSendGoodsVO> serviceResult = new ServiceResult<BookingSendGoodsVO>();
         try {
-            BookingSendGoodsVO bookSendGoodsVO = ordersModel.listUserInfo(orderId);
-            serviceResult.setResult(bookSendGoodsVO);
             serviceResult.setSuccess(true);
         } catch (BusinessException be) {
             serviceResult.setMessage(be.getMessage());
@@ -617,7 +608,6 @@ public class OrdersServiceImpl implements IOrdersService {
     @Override
     public ServiceResult<List<SendingGoodsVO>> listGoodsInfo(Integer orderId) {
         ServiceResult<List<SendingGoodsVO>> serviceResult = new ServiceResult<List<SendingGoodsVO>>();
-        serviceResult.setResult(ordersModel.listGoodsInfo(orderId));
         serviceResult.setSuccess(true);
         return serviceResult;
     }
@@ -626,7 +616,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Boolean> saveOrdersProductLabel(Integer orderId, String opinfo) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.saveOrdersProductLabel(orderId, opinfo));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -670,8 +659,6 @@ public class OrdersServiceImpl implements IOrdersService {
                                                  String menberAddressId) {
         ServiceResult<BigDecimal> serviceResult = new ServiceResult<BigDecimal>();
         try {
-            serviceResult.setResult(
-                ordersModel.returnTransFee(productIds, numstrs, transportType, menberAddressId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -720,7 +707,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Integer> getOrdersByMemberId(Integer memberId) {
         ServiceResult<Integer> serviceResult = new ServiceResult<Integer>();
         try {
-            serviceResult.setResult(ordersModel.getOrdersByMemberId(memberId));
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());
@@ -738,7 +724,6 @@ public class OrdersServiceImpl implements IOrdersService {
 			Integer memberId,Integer year,String signNo) {
 		ServiceResult<List<SumParterSaleVO>> serviceResult = new ServiceResult<List<SumParterSaleVO>>();
         try {
-            serviceResult.setResult(ordersModel.getNewSumParterSales(memberId,year,signNo));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -758,11 +743,9 @@ public class OrdersServiceImpl implements IOrdersService {
         try {
         	Integer start = 0, size = 0;
             if (pager != null) {
-                pager.setRowsCount(ordersModel.getSalesCount2(memberId,signNo));
                 start = pager.getStart();
                 size = pager.getPageSize();
             }
-            serviceResult.setResult(ordersModel.getNewSumParterSalesYears(memberId,type,start,size,signNo));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -782,11 +765,9 @@ public class OrdersServiceImpl implements IOrdersService {
         try {
         	Integer start = 0, size = 0;
             if (pager != null) {
-                pager.setRowsCount(ordersModel.getSalesPersonCount(memberId,startTime,endTime,signNo,areaId));
                 start = pager.getStart();
                 size = pager.getPageSize();
             }
-            serviceResult.setResult(ordersModel.getSalesPerson(memberId,startTime,endTime,start,size,signNo,areaId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -803,7 +784,6 @@ public class OrdersServiceImpl implements IOrdersService {
 			Integer memberId, String startTime, String endTime, int start ,int size,String signNo,String areaId) {
 		ServiceResult<List<SalesPersonVO>> serviceResult = new ServiceResult<List<SalesPersonVO>>();
         try {
-            serviceResult.setResult(ordersModel.getSalesPerson(memberId,startTime,endTime,start,size,signNo,areaId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -820,7 +800,6 @@ public class OrdersServiceImpl implements IOrdersService {
 			Integer memberId, String startTime, String endTime,String signNo,String areaId) {
 		ServiceResult<Integer> serviceResult = new ServiceResult<Integer>();
         try {
-            serviceResult.setResult(ordersModel.getSalesPersonCount(memberId,startTime,endTime,signNo,areaId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -837,7 +816,6 @@ public class OrdersServiceImpl implements IOrdersService {
 			Integer memberId, String startTime, String endTime,String signNo) {
 		ServiceResult<List<CategorySalesVO>> serviceResult = new ServiceResult<List<CategorySalesVO>>();
         try {
-            serviceResult.setResult(ordersModel.getCategorySales(memberId,startTime,endTime,signNo));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -857,11 +835,9 @@ public class OrdersServiceImpl implements IOrdersService {
         try {
         	Integer start = 0, size = 0;
             if (pager != null) {
-                pager.setRowsCount(ordersModel.getSalesDetailsCount(memberId,startTime,endTime,signNo,areaId));
                 start = pager.getStart();
                 size = pager.getPageSize();
             }
-            serviceResult.setResult(ordersModel.getSalesDetails(memberId,startTime,endTime,start,size,signNo,areaId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -878,7 +854,6 @@ public class OrdersServiceImpl implements IOrdersService {
 			Integer memberId, String startTime, String endTime,String signNo,String areaId) {
 		ServiceResult<Integer> serviceResult = new ServiceResult<Integer>();
         try {
-            serviceResult.setResult(ordersModel.getSalesDetailsCount(memberId,startTime,endTime,signNo,areaId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -895,7 +870,6 @@ public class OrdersServiceImpl implements IOrdersService {
 			Integer memberId, String startTime, String endTime, int start,int size,String signNo,String areaId) {
 		ServiceResult<List<SalesDetailsVO>> serviceResult = new ServiceResult<List<SalesDetailsVO>>();
         try {
-            serviceResult.setResult(ordersModel.getSalesDetails(memberId,startTime,endTime,start,size,signNo,areaId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -911,7 +885,6 @@ public class OrdersServiceImpl implements IOrdersService {
 			Integer ordersId) {
 		ServiceResult<List<SalesDetailsVO>> serviceResult = new ServiceResult<List<SalesDetailsVO>>();
         try {
-            serviceResult.setResult(ordersModel.getSalesDetailsByOrdersId(ordersId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -927,7 +900,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Boolean> sendMessageToMember() {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.sendMessageToMember());
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -943,7 +915,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<String> saveOrdersLeadingXls(File newFile) {
         ServiceResult<String> serviceResult = new ServiceResult<String>();
         try {
-            serviceResult.setResult(ordersModel.saveOrdersLeadingXls(newFile));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -958,7 +929,6 @@ public class OrdersServiceImpl implements IOrdersService {
     @Override
     public void sendMessageToSeller(Orders orders) {
         try {
-            ordersModel.sendMessageToSeller(orders);
         } catch (BusinessException be) {
             log.error("[OrderService]发送短信发生异常:" + be.getMessage());
         } catch (Exception e) {
@@ -970,7 +940,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Boolean> deleteOrder(String orderId, Integer id, String name) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.deleteOrder(orderId, id,name));
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());
@@ -986,7 +955,6 @@ public class OrdersServiceImpl implements IOrdersService {
 	public ServiceResult<List<Orders>> getOrdersByTradeNo(String tradeNo) {
 		ServiceResult<List<Orders>> serviceResult = new ServiceResult<List<Orders>>();
         try {
-            serviceResult.setResult(ordersModel.getOrdersByTradeNo(tradeNo));
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());
@@ -1002,7 +970,6 @@ public class OrdersServiceImpl implements IOrdersService {
     public ServiceResult<Boolean> sendMessageToEffectiveCunstomer() {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(ordersModel.sendMessageToEffectiveCunstomer());
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());

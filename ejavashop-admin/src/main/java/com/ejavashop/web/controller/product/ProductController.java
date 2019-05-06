@@ -75,18 +75,7 @@ import com.ejavashop.entity.system.SystemAdmin;
 import com.ejavashop.entity.system.SystemLogsConstants;
 import com.ejavashop.service.member.IMemberService;
 import com.ejavashop.service.mindex.IMIndexService;
-import com.ejavashop.service.pcindex.IPcIndexFloorDataService;
-import com.ejavashop.service.product.IProductAttrService;
-import com.ejavashop.service.product.IProductBrandService;
-import com.ejavashop.service.product.IProductCateService;
-import com.ejavashop.service.product.IProductGoodsService;
-import com.ejavashop.service.product.IProductNormAttrOptService;
-import com.ejavashop.service.product.IProductNormService;
-import com.ejavashop.service.product.IProductPictureService;
 import com.ejavashop.service.product.IProductService;
-import com.ejavashop.service.product.IProductTypeAttrService;
-import com.ejavashop.service.product.IProductTypeService;
-import com.ejavashop.service.product.IWmsClassifyService;
 import com.ejavashop.service.seller.ISellerService;
 import com.ejavashop.service.system.ISystemLogsService;
 import com.ejavashop.vo.product.ListProductPriceVO1;
@@ -107,35 +96,13 @@ public class ProductController extends BaseController {
     @Resource
     private IProductService        productService;
     @Resource
-    private IProductPictureService productPicService;
-    @Resource
     private IMemberService         memberService;
-    @Resource
-    private IProductGoodsService   productGoodsService;
     @Resource
     private ISellerService         sellerService;
     @Resource
     private IMIndexService          mIndexService;
     @Resource
     private ISystemLogsService         systemLogsService;
-    @Resource
-    private IProductCateService        productCateService;
-    @Resource
-    private IProductBrandService       productBrandService;
-    @Resource
-    private IPcIndexFloorDataService   pcIndexFloorDataService;
-    @Resource
-    private IProductNormAttrOptService productNormAttrOptService;
-    @Resource
-    private IProductTypeAttrService    sellerProductTypeAttrService;
-    @Resource
-    private IProductAttrService        productAttrService;
-    @Resource
-    private IProductTypeService        sellerProductTypeService;
-    @Resource
-    private IProductNormService        sellerProductNormService;
-    @Resource
-    private IWmsClassifyService        wmsClassifyService;
     
     private String                 baseUrl = "admin/product/manager/";
     private Logger                 log     = Logger.getLogger(this.getClass());
@@ -284,8 +251,7 @@ public class ProductController extends BaseController {
         	serviceResult = productService.pageProductByh5fllordata(queryMap, pager,productIds);
         }else if(channel!=null && "pcfloordata".equals(channel)){//PC端楼层数据，则商品列表不应该是设置过的PC端楼层数据
         	queryMap.put("q_dataType", "1");
-        	ServiceResult<List<PcIndexFloorData>> serviceResultFloorData = pcIndexFloorDataService.getPcIndexFloorDatas(
-        			queryMap, null);
+        	ServiceResult<List<PcIndexFloorData>> serviceResultFloorData = new ServiceResult<>();
         	List<PcIndexFloorData> floorDatas = serviceResultFloorData.getResult();
         	List<Integer> productIds = new ArrayList<Integer>();
         	if(floorDatas.size()>0){//存在楼层数据
@@ -323,9 +289,7 @@ public class ProductController extends BaseController {
     public @ResponseBody HttpJsonResult<List<ProductGoods>> listGoods(Integer productId,
                                                                       HttpServletRequest request,
                                                                       Map<String, Object> dataMap) {
-        ServiceResult<List<ProductGoods>> serviceResult = productGoodsService
-            .getGoodSByProductId(productId);
-
+        ServiceResult<List<ProductGoods>> serviceResult = new ServiceResult<>();
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());
@@ -360,7 +324,7 @@ public class ProductController extends BaseController {
                     	if (SyncWayUtil.SYNC_WAY.equals(SyncWayUtil.SYNC_OMS)) {
                     		Product product =  productService.getProductById(id).getResult();
                     		if(product != null ){
-                    			List<ProductGoods> goodsList = productGoodsService.getGoodSByProductId(id).getResult();
+                    			List<ProductGoods> goodsList = new ArrayList<>();
                     			for (ProductGoods goods : goodsList) {
                     				ServiceResult<String> strResult = productService.omsProductCreate(product,goods);
                     				//如果返回成功并且错误信息为空更新商品状态为审核通过
@@ -825,17 +789,17 @@ public class ProductController extends BaseController {
         dataMap.put("product", product);
 
         //商品二级分类
-        ServiceResult<List<ProductCate>> serviceResult = productCateService.getByPid(1);
+        ServiceResult<List<ProductCate>> serviceResult = new ServiceResult<>();
         if (serviceResult.getSuccess() == true && serviceResult.getResult() != null) {
             dataMap.put("cate", serviceResult.getResult());
         }
         /**品牌名称**/
-        ServiceResult<ProductCate> cateResult = productCateService.getProductCateById(Integer.valueOf(1));
+        ServiceResult<ProductCate> cateResult = new ServiceResult<>();
         if (!cateResult.getSuccess() || cateResult.getResult() == null) {
             dataMap.put("message", "该分类下无可以经营的品牌，请重新选择分类，或者联系商城管理员");
             return rtnPath;
         }
-        ServiceResult<List<ProductBrand>> brandResult = productBrandService.getBrandByTypeId(cateResult.getResult().getProductTypeId());
+        ServiceResult<List<ProductBrand>> brandResult = new ServiceResult<>();
         if (brandResult.getSuccess() && brandResult.getResult() != null) {
               dataMap.put("brand", brandResult.getResult());
         }
@@ -849,8 +813,7 @@ public class ProductController extends BaseController {
         assembleProp(Integer.valueOf(product.getProductCateId()), dataMap, product.getId());
 
         /**商品图片**/
-        ServiceResult<List<ProductPicture>> pictureServiceResult = productPicService
-            .getProductPictureByProductId(product.getId());
+        ServiceResult<List<ProductPicture>> pictureServiceResult = new ServiceResult<>();
         if (pictureServiceResult.getSuccess() && pictureServiceResult.getResult() != null) {
             for (ProductPicture pic : pictureServiceResult.getResult()) {
                 String path = pic.getImagePath();
@@ -865,7 +828,7 @@ public class ProductController extends BaseController {
         queryMap.put("sellerId", product.getSellerId() + "");
         queryMap.put("productId", id + "");
         queryMap.put("flag", "2");
-        ServiceResult<List<ProductNormAttrOpt>> optservice = productNormAttrOptService.page(queryMap, null);
+        ServiceResult<List<ProductNormAttrOpt>> optservice = new ServiceResult<>();
         dataMap.put("customAttr", optservice.getResult());
 
         dataMap.put("edit", "edit");
@@ -875,7 +838,7 @@ public class ProductController extends BaseController {
         
         //查询wms分类 使用中的
         Integer state = 1;
-        ServiceResult<List<WmsClassify>> serviceResult2 = wmsClassifyService.getWmsCategoryList(state);
+        ServiceResult<List<WmsClassify>> serviceResult2 = new ServiceResult<>();
         if (serviceResult2.getSuccess() == true && serviceResult2.getResult() != null) {
             dataMap.put("wmsClassify", serviceResult2.getResult());
         }
@@ -1131,8 +1094,7 @@ public class ProductController extends BaseController {
             }
             queryMap.put("sellerId", sellerId.toString());
             queryMap.put("sku", sku);
-            ServiceResult<Boolean> serviceResult = productGoodsService
-                .checkProductBySKUAndSeller(queryMap);
+            ServiceResult<Boolean> serviceResult = new ServiceResult<>();
             if (serviceResult.getResult()) {
                 jsonResult.setMessage("该商品对应SKU已存在，请重新输入！");
                 return jsonResult;
@@ -1146,7 +1108,7 @@ public class ProductController extends BaseController {
                 if (!StringUtil.isEmpty(id)) {
                     queryMap.put("id", id);
                 }
-                ServiceResult<Boolean> serviceResult = productGoodsService.checkBarCodeIsExsit(queryMap);
+                ServiceResult<Boolean> serviceResult = new ServiceResult<>();
                 if (serviceResult.getResult()) {
                     jsonResult.setMessage("商品编码已存在，请重新输入！");
                     return jsonResult;
@@ -1166,8 +1128,7 @@ public class ProductController extends BaseController {
 //        queryMap.put("sellerId", product.getSellerId() + "");
         queryMap.put("flag", "2");
         queryMap.put("productId", product.getId() + "");
-        ServiceResult<List<ProductNormAttrOpt>> optservice = productNormAttrOptService.page(
-            queryMap, null);
+        ServiceResult<List<ProductNormAttrOpt>> optservice = new ServiceResult<>();
         List<ProductNormAttrOpt> optlist = optservice.getResult();
 
         if (skupics.length() < 1) {
@@ -1189,7 +1150,6 @@ public class ProductController extends BaseController {
                     if (opt1.getAttrId().intValue() == Integer.valueOf(id).intValue()) {
                         opt1.setImage(url);
                         opt1.setSellerId(product.getSellerId());
-                        productNormAttrOptService.updateProductNormAttrOpt(opt1);
                     }
                 }
             } else {
@@ -1217,8 +1177,6 @@ public class ProductController extends BaseController {
                 if (Integer.valueOf(pg.getNormAttrId()).intValue() == Integer.valueOf(id)
                     .intValue()) {
                     pg.setImages(url);
-
-                    productGoodsService.updateProductGoods(pg);
                 }
             }
 
@@ -1232,14 +1190,13 @@ public class ProductController extends BaseController {
      * @param dataMap
      */
     private void assembleProp(Integer productCateId, Map<String, Object> dataMap, Integer productId) {
-        ServiceResult<ProductCate> cate = productCateService.getProductCateById(productCateId);
+        ServiceResult<ProductCate> cate = new ServiceResult<>();
         if (cate.getSuccess() == true && cate.getResult() != null) {
 
             Integer typeId = cate.getResult().getProductTypeId();
             //初始化商品属性信息
             typeId = 1;
-            ServiceResult<List<ProductTypeAttr>> typeAttr = sellerProductTypeAttrService
-                .getProductTypeAttrByTypeId(typeId);
+            ServiceResult<List<ProductTypeAttr>> typeAttr = new ServiceResult<>();
 
             Map<String, String> sellerMap = new HashMap<String, String>();
             sellerMap.put("q_auditStatus", "2");
@@ -1256,8 +1213,7 @@ public class ProductController extends BaseController {
                 List<ProductAttr> productAttrList = null;
                 if (null != productId) {
                     //编辑商品时候使用
-                    ServiceResult<List<ProductAttr>> attrServiceResult = productAttrService
-                        .getProductAttrByProductId(productId);
+                    ServiceResult<List<ProductAttr>> attrServiceResult = new ServiceResult<>();
                     if (attrServiceResult.getSuccess() && attrServiceResult.getResult() != null) {
                         productAttrList = attrServiceResult.getResult();
                     }
@@ -1277,8 +1233,7 @@ public class ProductController extends BaseController {
             }
 
             /**组装商品属性信息**/
-            ServiceResult<ProductType> serviceResult = sellerProductTypeService
-                .getProductTypeById(typeId);
+            ServiceResult<ProductType> serviceResult = new ServiceResult<>();
             if (serviceResult.getSuccess() && serviceResult.getResult() != null) {
                 ProductType productType = serviceResult.getResult();
                 String productNormIds = productType.getProductNormIds();
@@ -1289,8 +1244,7 @@ public class ProductController extends BaseController {
                     for (String normId : normIds) {
                         Map<String, Object> attrMap = null;
                         Integer id = Integer.valueOf(normId);
-                        ServiceResult<ProductNorm> normResult = sellerProductNormService
-                            .getNormById(id);
+                        ServiceResult<ProductNorm> normResult = new ServiceResult<>();
 
                         if (normResult.getSuccess() && normResult.getResult() != null) {
                             attrMap = new HashMap<String, Object>(2);
@@ -1304,7 +1258,7 @@ public class ProductController extends BaseController {
                             if (null != productId) {
                                 Map<String, String> queryMap = new HashMap<String, String>(1);
                                 queryMap.put("q_productId", String.valueOf(productId));
-                                ServiceResult<List<ProductGoods>> listServiceResult = productGoodsService.pageProductGoods(queryMap, null);
+                                ServiceResult<List<ProductGoods>> listServiceResult = new ServiceResult<>();
                                 if (listServiceResult.getSuccess()
                                     && listServiceResult.getResult() != null
                                     && listServiceResult.getResult().size() > 0) {
@@ -1495,8 +1449,7 @@ public class ProductController extends BaseController {
 
         }
         //所有商家初始化列表一致user.getSellerId()
-        ServiceResult<List<ProductCate>> serviceResult = productCateService
-            .getCateBySellerId(0, id);
+        ServiceResult<List<ProductCate>> serviceResult = new ServiceResult<>();
         if (serviceResult.getSuccess() == true && serviceResult.getResult() != null) {
             jsonResult.setRows(serviceResult.getResult());
         }

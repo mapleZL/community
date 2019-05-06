@@ -39,12 +39,7 @@ import com.ejavashop.entity.order.OrdersError;
 import com.ejavashop.entity.order.OrdersProductError;
 import com.ejavashop.entity.seller.Seller;
 import com.ejavashop.entity.system.SystemAdmin;
-import com.ejavashop.service.order.IBookingSendGoodsService;
-import com.ejavashop.service.order.IOrdersErrorService;
-import com.ejavashop.service.order.IOrdersProductErrorService;
-import com.ejavashop.service.order.IOrdersProductService;
 import com.ejavashop.service.order.IOrdersService;
-import com.ejavashop.service.order.ISendGoodsRecordService;
 import com.ejavashop.service.seller.ISellerService;
 import com.ejavashop.vo.order.BookingSendGoodsVO;
 import com.ejavashop.vo.order.SendingGoodsVO;
@@ -67,21 +62,6 @@ public class AdminOrdersController extends BaseController {
     private IOrdersService orderService;
     Logger                 log = Logger.getLogger(this.getClass());
     
-    @Resource(name = "bookingSendGoodsService")
-	 IBookingSendGoodsService bookingSendGoodsService;
-    
-    @Resource(name = "sendGoodsRecordService")
-     ISendGoodsRecordService sendGoodsRecordService;
-    
-    @Resource(name = "ordersProductService")
-    IOrdersProductService ordersProductService;
-    
-    @Resource(name = "ordersErrorService")
-    IOrdersErrorService  ordersErrorService;
-    
-    @Resource(name = "ordersProductErrorService")
-    IOrdersProductErrorService  ordersProductErrorService;
-
     @Resource(name = "sellerService")
     ISellerService sellerService;
     /**
@@ -428,7 +408,7 @@ public class AdminOrdersController extends BaseController {
              jsonResult.setBackUrl(DomainUrlUtil.getEJS_URL_RESOURCES() + "/admin/login");
              return jsonResult;
          }
-         ServiceResult<Boolean > serviceResult = bookingSendGoodsService.saveSendGoods(map);
+         ServiceResult<Boolean > serviceResult = new ServiceResult<>();
          if (!serviceResult.getSuccess()) {
              jsonResult.setMessage(serviceResult.getMessage());
              return jsonResult;
@@ -498,7 +478,7 @@ public class AdminOrdersController extends BaseController {
     public @ResponseBody HttpJsonResult<List<OrdersError>>  errororderslist(HttpServletRequest request,
                                                            Map<String, Object> dataMap,String ordersSn) {
     	Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
-    	ServiceResult<List<OrdersError>> ordersErrorListServiceResult = ordersErrorService.getOrdersErrorByOrdersSn(ordersSn, queryMap);
+    	ServiceResult<List<OrdersError>> ordersErrorListServiceResult = new ServiceResult<>();
     	List<OrdersError> ordersErrorList =  ordersErrorListServiceResult.getResult();
     	HttpJsonResult<List<OrdersError>> jsonResult = new HttpJsonResult<List<OrdersError>>();
         jsonResult.setRows(ordersErrorList);
@@ -510,8 +490,7 @@ public class AdminOrdersController extends BaseController {
     public @ResponseBody HttpJsonResult<List<OrdersProductError>> geterrorordersproduct(HttpServletRequest request,
                                                                               HttpServletResponse response,
                                                                               String orderserrorsn) {
-        ServiceResult<List<OrdersProductError>> res = ordersProductErrorService
-            .geterrorordersproduct(orderserrorsn);
+        ServiceResult<List<OrdersProductError>> res = new ServiceResult<>();
         HttpJsonResult<List<OrdersProductError>> json = new HttpJsonResult<List<OrdersProductError>>();
         json.setRows(res.getResult());
         json.setTotal(res.getResult().size());

@@ -20,10 +20,7 @@ import com.ejavashop.core.exception.BusinessException;
 import com.ejavashop.entity.shopm.MIndexBanner;
 import com.ejavashop.entity.shopm.MIndexFloor;
 import com.ejavashop.entity.shopm.MIndexFloorData;
-import com.ejavashop.entity.shopm.pcindex.PcIndexBanner;
 import com.ejavashop.model.mindex.MIndexBannerModel;
-import com.ejavashop.model.mindex.MIndexFloorDataModel;
-import com.ejavashop.model.mindex.MIndexFloorModel;
 import com.ejavashop.service.mindex.IMIndexService;
 
 @Service(value = "mIndexService")
@@ -32,10 +29,6 @@ public class MIndexServiceImpl implements IMIndexService {
 
     @Resource
     private MIndexBannerModel    mIndexBannerModel;
-    @Resource
-    private MIndexFloorModel     mIndexFloorModel;
-    @Resource
-    private MIndexFloorDataModel mIndexFloorDataModel;
 
     @Override
     public ServiceResult<MIndexBanner> getMIndexBannerById(Integer mIndexBannerId) {
@@ -150,7 +143,6 @@ public class MIndexServiceImpl implements IMIndexService {
     public ServiceResult<MIndexFloor> getMIndexFloorById(Integer mIndexFloorId) {
         ServiceResult<MIndexFloor> result = new ServiceResult<MIndexFloor>();
         try {
-            result.setResult(mIndexFloorModel.getMIndexFloorById(mIndexFloorId));
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());
@@ -169,7 +161,6 @@ public class MIndexServiceImpl implements IMIndexService {
     public ServiceResult<Boolean> saveMIndexFloor(MIndexFloor mIndexFloor) {
         ServiceResult<Boolean> result = new ServiceResult<Boolean>();
         try {
-            result.setResult(mIndexFloorModel.saveMIndexFloor(mIndexFloor));
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());
@@ -185,7 +176,6 @@ public class MIndexServiceImpl implements IMIndexService {
     public ServiceResult<Boolean> updateMIndexFloor(MIndexFloor mIndexFloor) {
         ServiceResult<Boolean> result = new ServiceResult<Boolean>();
         try {
-            result.setResult(mIndexFloorModel.updateMIndexFloor(mIndexFloor));
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());
@@ -201,7 +191,6 @@ public class MIndexServiceImpl implements IMIndexService {
     public ServiceResult<Boolean> deleteMIndexFloor(Integer mIndexFloorId) {
         ServiceResult<Boolean> result = new ServiceResult<Boolean>();
         try {
-            result.setResult(mIndexFloorModel.deleteMIndexFloor(mIndexFloorId));
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());
@@ -221,11 +210,9 @@ public class MIndexServiceImpl implements IMIndexService {
         try {
             Integer start = 0, size = 0;
             if (pager != null) {
-                pager.setRowsCount(mIndexFloorModel.getMIndexFloorsCount(queryMap));
                 start = pager.getStart();
                 size = pager.getPageSize();
             }
-            serviceResult.setResult(mIndexFloorModel.getMIndexFloors(queryMap, start, size));
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());
@@ -243,7 +230,6 @@ public class MIndexServiceImpl implements IMIndexService {
     public ServiceResult<List<MIndexFloor>> getMIndexFloorsWithData(Boolean isPreview) {
         ServiceResult<List<MIndexFloor>> result = new ServiceResult<List<MIndexFloor>>();
         try {
-            result.setResult(mIndexFloorModel.getMIndexFloorsWithData(isPreview));
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());
@@ -259,7 +245,6 @@ public class MIndexServiceImpl implements IMIndexService {
     public ServiceResult<MIndexFloorData> getMIndexFloorDataById(Integer mIndexFloorDataId) {
         ServiceResult<MIndexFloorData> result = new ServiceResult<MIndexFloorData>();
         try {
-            result.setResult(mIndexFloorDataModel.getMIndexFloorDataById(mIndexFloorDataId));
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());
@@ -278,7 +263,6 @@ public class MIndexServiceImpl implements IMIndexService {
     public ServiceResult<Boolean> saveMIndexFloorData(MIndexFloorData mIndexFloorData) {
         ServiceResult<Boolean> result = new ServiceResult<Boolean>();
         try {
-            result.setResult(mIndexFloorDataModel.saveMIndexFloorData(mIndexFloorData));
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());
@@ -294,7 +278,6 @@ public class MIndexServiceImpl implements IMIndexService {
     public ServiceResult<Boolean> updateMIndexFloorData(MIndexFloorData mIndexFloorData) {
         ServiceResult<Boolean> result = new ServiceResult<Boolean>();
         try {
-            result.setResult(mIndexFloorDataModel.updateMIndexFloorData(mIndexFloorData));
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());
@@ -311,7 +294,6 @@ public class MIndexServiceImpl implements IMIndexService {
     public ServiceResult<Boolean> deleteMIndexFloorData(Integer mIndexFloorDataId) {
         ServiceResult<Boolean> result = new ServiceResult<Boolean>();
         try {
-            result.setResult(mIndexFloorDataModel.deleteMIndexFloorData(mIndexFloorDataId));
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());
@@ -332,12 +314,9 @@ public class MIndexServiceImpl implements IMIndexService {
         try {
             Integer start = 0, size = 0;
             if (pager != null) {
-                pager.setRowsCount(mIndexFloorDataModel.getMIndexFloorDatasCount(queryMap));
                 start = pager.getStart();
                 size = pager.getPageSize();
             }
-            serviceResult
-                .setResult(mIndexFloorDataModel.getMIndexFloorDatas(queryMap, start, size));
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());
@@ -355,8 +334,6 @@ public class MIndexServiceImpl implements IMIndexService {
     public ServiceResult<List<MIndexFloorData>> getMIndexFloorDatasByFloorId(Integer mIndexFloorId) {
         ServiceResult<List<MIndexFloorData>> serviceResult = new ServiceResult<List<MIndexFloorData>>();
         try {
-            serviceResult
-                .setResult(mIndexFloorDataModel.getMIndexFloorDatasByFloorId(mIndexFloorId));
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());

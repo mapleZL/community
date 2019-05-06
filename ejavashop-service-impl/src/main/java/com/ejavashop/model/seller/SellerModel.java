@@ -17,17 +17,13 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.ejavashop.core.StringUtil;
 import com.ejavashop.core.exception.BusinessException;
-import com.ejavashop.dao.shop.read.member.MemberCollectionSellerReadDao;
 import com.ejavashop.dao.shop.read.member.MemberReadDao;
 import com.ejavashop.dao.shop.read.order.OrdersReadDao;
-import com.ejavashop.dao.shop.read.product.ProductCommentsReadDao;
 import com.ejavashop.dao.shop.read.product.ProductReadDao;
-import com.ejavashop.dao.shop.read.seller.SellerApplyReadDao;
 import com.ejavashop.dao.shop.read.seller.SellerReadDao;
 import com.ejavashop.dao.shop.read.system.RegionsReadDao;
 import com.ejavashop.dao.shop.write.member.MemberWriteDao;
 import com.ejavashop.dao.shop.write.product.ProductWriteDao;
-import com.ejavashop.dao.shop.write.seller.SellerApplyWriteDao;
 import com.ejavashop.dao.shop.write.seller.SellerWriteDao;
 import com.ejavashop.dao.shop.write.system.RegionsWriteDao;
 import com.ejavashop.dto.CommentsDto;
@@ -47,10 +43,6 @@ public class SellerModel {
     @Resource
     private SellerReadDao                 sellerReadDao;
     @Resource
-    private SellerApplyWriteDao           sellerApplyDao;
-    @Resource
-    private SellerApplyReadDao           sellerApplyReadDao;
-    @Resource
     private DataSourceTransactionManager  transactionManager;
     @Resource
     private MemberWriteDao                memberWriteDao;
@@ -64,10 +56,6 @@ public class SellerModel {
     private ProductReadDao                productReadDao;
     @Resource
     private ProductWriteDao               productWriteDao;
-    @Resource
-    private ProductCommentsReadDao        productCommentsReadDao;
-    @Resource
-    private MemberCollectionSellerReadDao memberCollectionSellerReadDao;
     @Resource
     private OrdersReadDao                 ordersReadDao;
 
@@ -171,7 +159,7 @@ public class SellerModel {
      */
     public String getSellerLocationByMId(Integer memberId) {
         //获得商家申请信息
-        SellerApply sellerApply = sellerApplyReadDao.getSellerApplyByUserId(memberId);
+        SellerApply sellerApply = new SellerApply();
         String location = "";
         if (sellerApply != null && !StringUtil.isEmpty(sellerApply.getCompanyProvince())
             && !StringUtil.isEmpty(sellerApply.getCompanyCity())) {
@@ -194,8 +182,7 @@ public class SellerModel {
         if (sellers != null && sellers.size() > 0) {
             for (Seller seller : sellers) {
                 try {
-                    CommentsDto commentsDto = productCommentsReadDao
-                        .getSellerScoreSum(seller.getId());
+                    CommentsDto commentsDto = new CommentsDto();
                     if (commentsDto != null && commentsDto.getNumber() != null
                         && commentsDto.getNumber() > 0) {
                         Seller sellerNew = new Seller();
@@ -249,8 +236,7 @@ public class SellerModel {
                     sellerNew.setProductNumber(prdCount);
 
                     // 店铺收藏
-                    Integer countBySellerId = memberCollectionSellerReadDao
-                        .getCountBySellerId(seller.getId());
+                    Integer countBySellerId = 1;
                     sellerNew.setCollectionNumber(countBySellerId);
 
                     // 店铺总销售金额、店铺完成订单量

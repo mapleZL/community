@@ -120,7 +120,6 @@ public class MemberServiceImpl implements IMemberService {
         try {
             Assert.notNull(memberModel, "Property 'memberModel' is required.");
 
-            serviceResult.setResult(memberModel.updateMemberValue(logs));
             return serviceResult;
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
@@ -142,11 +141,9 @@ public class MemberServiceImpl implements IMemberService {
             Assert.notNull(memberModel, "Property 'memberModel' is required.");
             Integer start = 0, size = 0;
             if (pager != null) {
-                pager.setRowsCount(memberModel.getMemberGradeUpLogsCount(memberId));
                 start = pager.getStart();
                 size = pager.getPageSize();
             }
-            serviceResult.setResult(memberModel.getMemberGradeUpLogs(memberId, start, size));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -168,12 +165,9 @@ public class MemberServiceImpl implements IMemberService {
             Assert.notNull(memberModel, "Property 'memberModel' is required.");
             Integer start = 0, size = 0;
             if (pager != null) {
-                pager.setRowsCount(memberModel.getMemberGradeIntegralLogsCount(memberId, type));
                 start = pager.getStart();
                 size = pager.getPageSize();
             }
-            serviceResult
-                .setResult(memberModel.getMemberGradeIntegralLogs(memberId, type, start, size));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -195,11 +189,9 @@ public class MemberServiceImpl implements IMemberService {
             Assert.notNull(memberModel, "Property 'memberModel' is required.");
             Integer start = 0, size = 0;
             if (pager != null) {
-                pager.setRowsCount(memberModel.getMemberLoginLogsCount(memberId));
                 start = pager.getStart();
                 size = pager.getPageSize();
             }
-            serviceResult.setResult(memberModel.getMemberLoginLogs(memberId, start, size));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -220,11 +212,9 @@ public class MemberServiceImpl implements IMemberService {
             Assert.notNull(memberModel, "Property 'memberModel' is required.");
             Integer start = 0, size = 0;
             if (pager != null) {
-                pager.setRowsCount(memberModel.getMemberCollectionSellersCount(memberId));
                 start = pager.getStart();
                 size = pager.getPageSize();
             }
-            serviceResult.setResult(memberModel.getMemberCollectionSellers(memberId, start, size));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -246,11 +236,9 @@ public class MemberServiceImpl implements IMemberService {
             Assert.notNull(memberModel, "Property 'memberModel' is required.");
             Integer start = 0, size = 0;
             if (pager != null) {
-                pager.setRowsCount(memberModel.getMemberCollectionProductsCount(memberId));
                 start = pager.getStart();
                 size = pager.getPageSize();
             }
-            serviceResult.setResult(memberModel.getMemberCollectionProducts(memberId, start, size));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -270,7 +258,6 @@ public class MemberServiceImpl implements IMemberService {
         try {
             Assert.notNull(memberModel, "Property 'memberModel' is required.");
 
-            serviceResult.setResult(memberModel.updateMemberBalance(logs, systemAdmin));
             return serviceResult;
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
@@ -341,7 +328,6 @@ public class MemberServiceImpl implements IMemberService {
     public ServiceResult<MemberGradeConfig> getMemberGradeConfig(Integer memberGradeConfigId) {
         ServiceResult<MemberGradeConfig> serviceResult = new ServiceResult<MemberGradeConfig>();
         try {
-            serviceResult.setResult(memberModel.getMemberGradeConfig(memberGradeConfigId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -356,7 +342,6 @@ public class MemberServiceImpl implements IMemberService {
     public ServiceResult<MemberRule> getMemberRule(Integer memberRuleId, Integer state) {
         ServiceResult<MemberRule> serviceResult = new ServiceResult<MemberRule>();
         try {
-            serviceResult.setResult(memberModel.getMemberRule(memberRuleId, state));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -371,7 +356,6 @@ public class MemberServiceImpl implements IMemberService {
     public ServiceResult<Boolean> memberRegistSendValue(Integer memberId, String memberName) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(memberModel.memberRegistSendValue(memberId, memberName));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -386,7 +370,6 @@ public class MemberServiceImpl implements IMemberService {
     public ServiceResult<Boolean> memberLoginSendValue(Integer memberId, String memberName) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(memberModel.memberLoginSendValue(memberId, memberName));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -402,8 +385,6 @@ public class MemberServiceImpl implements IMemberService {
                                                        Integer orderId) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult
-                .setResult(memberModel.memberOrderSendValue(memberId, memberName, orderId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -419,8 +400,6 @@ public class MemberServiceImpl implements IMemberService {
                                                           Integer productId) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult
-                .setResult(memberModel.memberEvaluateSendValue(memberId, memberName, productId));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -464,7 +443,6 @@ public class MemberServiceImpl implements IMemberService {
                                                                                               Member member) {
         ServiceResult<FrontMemberProductBehaveStatisticsVO> serviceResult = new ServiceResult<FrontMemberProductBehaveStatisticsVO>();
         try {
-            serviceResult.setResult(memberModel.getBehaveStatisticsByProductId(productId, member));
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());

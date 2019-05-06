@@ -113,7 +113,6 @@ public class ProductServiceImpl implements IProductService {
     public ServiceResult<List<Product>> getRecommendProducts(Integer size) {
         ServiceResult<List<Product>> result = new ServiceResult<List<Product>>();
         try {
-            result.setResult(productModel.getRecommendProducts(size));
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());
@@ -131,8 +130,6 @@ public class ProductServiceImpl implements IProductService {
                                               List<ProductAttr> productAttrList) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(productModel.saveProduct(product, productPictureList,
-                productAttrList));
         } catch (BusinessException e) {
             serviceResult.setMessage(e.getMessage());
             serviceResult.setSuccess(Boolean.FALSE);
@@ -151,8 +148,6 @@ public class ProductServiceImpl implements IProductService {
                                                 List<ProductAttr> productAttrList) {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
-            serviceResult.setResult(productModel.updateProduct(product, productPictureList,
-                productAttrList));
         } catch (BusinessException e) {
             serviceResult.setMessage(e.getMessage());
             serviceResult.setSuccess(Boolean.FALSE);
@@ -186,7 +181,6 @@ public class ProductServiceImpl implements IProductService {
     public ServiceResult<Product> getProductById(Integer productId) {
         ServiceResult<Product> serviceResult = new ServiceResult<Product>();
         try {
-            serviceResult.setResult(productModel.getProductById(productId));
         } catch (BusinessException e) {
             serviceResult.setMessage(e.getMessage());
             serviceResult.setSuccess(Boolean.FALSE);
@@ -203,7 +197,6 @@ public class ProductServiceImpl implements IProductService {
     public ServiceResult<List<Product>> pageProduct(Map<String, String> queryMap, PagerInfo pager) {
         ServiceResult<List<Product>> serviceResult = new ServiceResult<List<Product>>();
         try {
-            serviceResult.setResult(productModel.pageProduct(queryMap, pager));
         } catch (BusinessException e) {
             serviceResult.setMessage(e.getMessage());
             serviceResult.setSuccess(false);
@@ -239,8 +232,6 @@ public class ProductServiceImpl implements IProductService {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
 
-            serviceResult.setResult(productModel.saveOrupdate(product, productPictureList,
-                productAttrList, productGoodsList, optlist));
         } catch (BusinessException e) {
             serviceResult.setMessage(e.getMessage());
             serviceResult.setSuccess(Boolean.FALSE);
@@ -456,7 +447,6 @@ public class ProductServiceImpl implements IProductService {
 			Map<String, String> queryMap, PagerInfo pager,List<Integer> productIds) {
         ServiceResult<List<Product>> serviceResult = new ServiceResult<List<Product>>();
         try {
-            serviceResult.setResult(productModel.pageProductByh5fllordata(queryMap, pager,productIds));
         } catch (BusinessException e) {
             serviceResult.setMessage(e.getMessage());
             serviceResult.setSuccess(false);
@@ -477,7 +467,6 @@ public class ProductServiceImpl implements IProductService {
 			List<Integer> productIds) {
         ServiceResult<List<Product>> serviceResult = new ServiceResult<List<Product>>();
         try {
-            serviceResult.setResult(productModel.pageproductBypcfloordata(queryMap, pager,productIds));
         } catch (BusinessException e) {
             serviceResult.setMessage(e.getMessage());
             serviceResult.setSuccess(false);
@@ -534,7 +523,6 @@ public class ProductServiceImpl implements IProductService {
     public void saveGoodsAndAttr(Map<String, String> dataMap, int c, Integer productId,
                                  Integer productGoodsId) {
         try {
-            productModel.saveGoodsAndAttr(dataMap,c,productId,productGoodsId);
         } catch (Exception e) {
             e.printStackTrace();
         }
