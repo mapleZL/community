@@ -61,4 +61,14 @@ public class MemberCarModel {
     public List<MemberCar> getMemberCarList(Map<String, String> queryMap, Integer start, Integer size) {
         return memberCarDao.getMemberCarList(queryMap,start,size);
     }
+
+    /**
+     * 修改状态值
+     * @param id
+     * @param state
+     * @return
+     */
+    public Boolean changeStatus(Integer id, int state) {
+        return memberCarDao.changeState(id, state);
+    }
 }

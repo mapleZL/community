@@ -37,6 +37,10 @@
 	    </set>
         where `id` = #{id}
 	</update>
+
+	<update id="changeState">
+	    update `member_car` set `status`= #{status} where id = #{id}
+	</update>
 	
 	<insert id="insert" parameterType="com.ejavashop.entity.member.MemberCar" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into 

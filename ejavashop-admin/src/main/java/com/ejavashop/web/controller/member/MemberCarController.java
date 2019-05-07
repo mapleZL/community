@@ -5,7 +5,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.ejavashop.echarts.component.MemberPropertyStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +79,54 @@ public class MemberCarController extends BaseController {
         jsonResult.setRows((List<MemberCar>) serviceResult.getResult());
         jsonResult.setTotal(pager.getRowsCount());
 
+        return jsonResult;
+    }
+
+    /**
+     * 车辆认证-通过
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/passInfo", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<Boolean> pass(HttpServletRequest request,
+                                                      HttpServletResponse response, Integer id) {
+
+        ServiceResult<Boolean> serviceResult = memberCarService.changeStatus(id, MemberPropertyStatus.STATE_2);
+        if (!serviceResult.getSuccess()) {
+            if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
+                throw new RuntimeException(serviceResult.getMessage());
+            } else {
+                throw new BusinessException(serviceResult.getMessage());
+            }
+        }
+
+        HttpJsonResult<Boolean> jsonResult = new HttpJsonResult<Boolean>();
+        jsonResult.setData(true);
+        return jsonResult;
+    }
+
+    /**
+     * 车辆认证-不通过
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/noPassInfo", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<Boolean> noPass(HttpServletRequest request,
+                                                        HttpServletResponse response, Integer id) {
+
+        ServiceResult<Boolean> serviceResult = memberCarService.changeStatus(id, MemberPropertyStatus.STATE_0);
+        if (!serviceResult.getSuccess()) {
+            if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
+                throw new RuntimeException(serviceResult.getMessage());
+            } else {
+                throw new BusinessException(serviceResult.getMessage());
+            }
+        }
+
+        HttpJsonResult<Boolean> jsonResult = new HttpJsonResult<Boolean>();
+        jsonResult.setData(true);
         return jsonResult;
     }
 
