@@ -19,6 +19,11 @@
 				$.messager.alert('提示','请选择操作行。');
 				return;
 			}
+			// 判断是否是已经审核通过的数据
+			if(selected.status != 1){
+				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
+				return;
+			}
 	 		$.messager.confirm('确认', '确定审核通过该条申请吗', function(r){
 				if (r){
 					$.messager.progress({text:"提交中..."});
@@ -47,6 +52,11 @@
 			var selected = $('#dataGrid').datagrid('getSelected');
 	 		if(!selected){
 				$.messager.alert('提示','请选择操作行。');
+				return;
+			}
+			// 判断是否是已经审核通过的数据
+			if(selected.status != 1){
+				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
 	 		$.messager.confirm('确认', '确定驳回该条申请吗？', function(r){
