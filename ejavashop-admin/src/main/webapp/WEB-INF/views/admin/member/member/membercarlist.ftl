@@ -13,10 +13,15 @@
 		
 		// 审核通过
 		$('#btn_pass').click(function () {
-			debugger;
+			// debugger;
 			var selected = $('#dataGrid').datagrid('getSelected');
 	 		if(!selected){
 				$.messager.alert('提示','请选择操作行。');
+				return;
+			}
+	 		// 判断是否是已经审核通过的数据
+			if(selected.status != 1){
+				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
 	 		$.messager.confirm('确认', '确定审核通过该条申请吗', function(r){
@@ -47,6 +52,11 @@
 			var selected = $('#dataGrid').datagrid('getSelected');
 	 		if(!selected){
 				$.messager.alert('提示','请选择操作行。');
+				return;
+			}
+			// 判断是否是已经审核通过的数据
+			if(selected.status != 1){
+				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
 	 		$.messager.confirm('确认', '确定驳回该条申请吗？', function(r){
@@ -119,9 +129,10 @@
 		<thead>
 			<tr>
 				<th field="id" hidden="hidden"></th>
-				<th field="vehicleType" width="120" align="center">型号</th>
-				<th field="vehicleStructure" width="150" align="center">种类</th>
-				<th field="vehicleNumber" width="70" align="center">车牌</th>
+				<th field="vehicleType" width="100" align="center">型号</th>
+				<th field="vehicleStructure" width="100" align="center">种类</th>
+				<th field="vehicleNumber" width="100" align="center">车牌</th>
+				<th field="status" width="100" align="center" formatter="getState">状态</th>
 			</tr>
 		</thead>
 	</table>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>社区管理系统平台端</title>
 	
-<link rel="stylesheet" href="${(domainUrlUtil.EJS_STATIC_RESOURCES)!}/resources/admin/jslib/easyui/themes/default/easyui.css" type="text/css"></link>
+<link rel="stylesheet" href="${(domainUrlUtil.EJS_STATIC_RESOURCES)!}/resources/admin/jslib/easyui/themes/grinder/easyui.css" type="text/css"></link>
 <link rel="stylesheet" href="${(domainUrlUtil.EJS_STATIC_RESOURCES)!}/resources/admin/css/login.css" type="text/css"></link>
 <script type="text/javascript" src="${(domainUrlUtil.EJS_STATIC_RESOURCES)!}/resources/admin/jslib/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="${(domainUrlUtil.EJS_STATIC_RESOURCES)!}/resources/admin/jslib/easyui/jquery.easyui.min.js"></script>
@@ -81,6 +81,6 @@
           	   </div>
           </form>
 	 </div>
-	 <div class="bottom"> 版权所有 .保留一切权利.浙ICP备16019581号 </div>
+	 <div class="bottom"> 版权所有 靖江泉富鑫网络科技有限公司.保留一切权利 </div>
 </body>
 </html>
