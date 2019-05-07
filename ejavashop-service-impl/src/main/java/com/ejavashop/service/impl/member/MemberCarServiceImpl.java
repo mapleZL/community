@@ -128,4 +128,22 @@ public class MemberCarServiceImpl implements IMemberCarService {
         }
         return serviceResult;
     }
+
+
+    @Override
+    public ServiceResult<Boolean> changeStatus(Integer id, int state) {
+        ServiceResult<Boolean> result = new ServiceResult<Boolean>();
+        try {
+            result.setResult(memberCarModel.changeStatus(id, state));
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error("[memberCarService][changeStatus]根据id[" + id + "]审核车辆状态时出现异常："
+                    + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
+            log.error("[memberCarService][changeStatus]审核车辆状态时发生异常:", e);
+        }
+        return result;
+    }
 }

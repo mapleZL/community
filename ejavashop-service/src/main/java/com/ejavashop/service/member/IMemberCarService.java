@@ -44,4 +44,12 @@ public interface IMemberCarService {
      * @Param: pager
      */
     ServiceResult<List<MemberCar>> page(Map<String, String> queryMap, PagerInfo pager);
+
+    /**
+     * 修改状态
+     * @param id
+     * @param state
+     * @return
+     */
+    ServiceResult<Boolean> changeStatus(Integer id, int state);
 }
