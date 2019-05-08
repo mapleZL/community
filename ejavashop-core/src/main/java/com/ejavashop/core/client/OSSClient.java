@@ -46,7 +46,7 @@ public class OSSClient implements FactoryClient {
 
     /**
      * create by: zl
-     * description: 获取指定文档的分享url url有效期为1个小时,若VALIDITY值为-1,表示永久生效
+     * description: 获取指定文档的分享url,若VALIDITY值为-1,表示永久生效
      * create time:
      *
      * @return
