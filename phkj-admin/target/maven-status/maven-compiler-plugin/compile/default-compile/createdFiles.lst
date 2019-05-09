@@ -3,6 +3,7 @@ com\phkj\web\controller\CsrfTokenManager.class
 com\phkj\web\controller\system\AdminRoleController.class
 com\phkj\web\controller\BaseController$2.class
 com\phkj\web\shiro\tag\GuestTag.class
+com\phkj\web\controller\repair\StAppletRepairController.class
 com\phkj\web\util\freemarkerutil\FreemarkerUtil.class
 com\phkj\web\controller\system\AdminResourceController.class
 com\phkj\web\controller\order\AdminOrdersController.class
