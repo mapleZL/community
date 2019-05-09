@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.read.news.NewsReadDao">
-	<resultMap id="NewsResult" type="com.ejavashop.entity.news.News">
+<mapper namespace="com.phkj.dao.shop.read.news.NewsReadDao">
+	<resultMap id="NewsResult" type="com.phkj.entity.news.News">
 			<result property="id" column="id" />
 			<result property="typeId" column="type_id" />
 			<result property="typePath" column="type_path" />
@@ -18,42 +18,42 @@
 			<result property="createTime" column="create_time" />
 			<result property="updateTime" column="update_time" />
 	</resultMap>
-	<select id="getNewsType" resultType="com.ejavashop.entity.news.NewsType">
+	<select id="getNewsType" resultType="com.phkj.entity.news.NewsType">
 		select * from news_type t1
 		where pid = 0
 		order by sort asc,create_time desc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 	
-	<select id="getNewsByType" resultType="com.ejavashop.entity.news.News">
+	<select id="getNewsByType" resultType="com.phkj.entity.news.News">
 		select * from news t1
 		where type_id = #{typeid} and status=1
 		order by sort asc,create_time desc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 	
-	<select id="getLastedNews" resultType="com.ejavashop.entity.news.News">
+	<select id="getLastedNews" resultType="com.phkj.entity.news.News">
 		select * from news t1
 		where status=1
 		order by create_time desc,sort asc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 
-	<select id="get" parameterType="Integer" resultType="com.ejavashop.entity.news.News">
+	<select id="get" parameterType="Integer" resultType="com.phkj.entity.news.News">
 		select
 		   *
 		from `news`
 		where `id` = #{id}
 	</select>
 	
-	<select id="getType" parameterType="Integer" resultType="com.ejavashop.entity.news.NewsType">
+	<select id="getType" parameterType="Integer" resultType="com.phkj.entity.news.NewsType">
 		select
 		   *
 		from `news_type`
 		where `id` = #{typeid}
 	</select>
 	
-	<select id="getPre" parameterType="Integer" resultType="com.ejavashop.entity.news.News">
+	<select id="getPre" parameterType="Integer" resultType="com.phkj.entity.news.News">
 		select
 		   *
 		from `news`
@@ -62,7 +62,7 @@
 		order by sort desc limit 1
 	</select>
 	
-	<select id="getNext" parameterType="Integer" resultType="com.ejavashop.entity.news.News">
+	<select id="getNext" parameterType="Integer" resultType="com.phkj.entity.news.News">
 		select
 		   *
 		from `news`
@@ -88,7 +88,7 @@
 		</if>
 	</select>
 	
-	<select id="page" resultType="com.ejavashop.entity.news.News">
+	<select id="page" resultType="com.phkj.entity.news.News">
 		select * from news t1
 		<include refid="whereConditions" />
 		order by type_id asc,sort asc,create_time desc

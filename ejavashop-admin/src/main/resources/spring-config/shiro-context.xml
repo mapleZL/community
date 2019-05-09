@@ -20,9 +20,9 @@
     </bean>
 
     <!-- 項目自定义的Realm -->
-    <bean id="shiroDbRealm" class="com.ejavashop.web.shiro.ShiroDbRealm"/>
+    <bean id="shiroDbRealm" class="com.phkj.web.shiro.ShiroDbRealm"/>
     
-    <bean id="resourceCheckFilter" class="com.ejavashop.web.shiro.ResourceCheckFilter"/>
+    <bean id="resourceCheckFilter" class="com.phkj.web.shiro.ResourceCheckFilter"/>
 
     <!-- Shiro Filter -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">

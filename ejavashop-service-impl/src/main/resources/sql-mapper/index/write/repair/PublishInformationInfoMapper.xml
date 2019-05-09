@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.index.read.repair.PublishInformationInfoDao">
-	<resultMap id="PublishInformationInfoResult" type="com.ejavashop.entity.repair.PublishInformationInfo">
+<mapper namespace="com.phkj.dao.index.read.repair.PublishInformationInfoDao">
+	<resultMap id="PublishInformationInfoResult" type="com.phkj.entity.repair.PublishInformationInfo">
 			<result property="id" column="id" />
 			<result property="name" column="name" />
 			<result property="userId" column="user_id" />
@@ -28,7 +28,7 @@
 		where `id` = #{id}
 	</select>
 	
-	<update id="update" parameterType="com.ejavashop.entity.repair.PublishInformationInfo">
+	<update id="update" parameterType="com.phkj.entity.repair.PublishInformationInfo">
         update `publish_information_info` 
     	<set>
 			<if test="id != null">`id`= #{id},</if>
@@ -52,7 +52,7 @@
         where `id` = #{id}
 	</update>
 	
-	<insert id="insert" parameterType="com.ejavashop.entity.repair.PublishInformationInfo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="insert" parameterType="com.phkj.entity.repair.PublishInformationInfo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into 
 		`publish_information_info`
 		(

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.write.system.CodeWriteDao">
+<mapper namespace="com.phkj.dao.shop.write.system.CodeWriteDao">
 
-  	<select id="getCodes" parameterType="java.util.Map" resultType="com.ejavashop.entity.system.Code">
+  	<select id="getCodes" parameterType="java.util.Map" resultType="com.phkj.entity.system.Code">
 		select 	t1.`code_div`, t1.`code_cd`, t1.`code_text`, 
 				t1.`sort_order`, t1.`use_yn`, 
 				t1.`create_user_id`, t1.`create_user`, t1.`create_time`,
@@ -47,7 +47,7 @@
 		</where>	
 	</select>
 	
-	<select id="getCode" resultType="com.ejavashop.entity.system.Code">
+	<select id="getCode" resultType="com.phkj.entity.system.Code">
 		select 	t1.`code_div`, t1.`code_cd`, t1.`code_text`, 
 				t1.`sort_order`, t1.`use_yn`, 
 				t1.`create_user_id`, t1.`create_user`, t1.`create_time`,
@@ -57,7 +57,7 @@
 		and		t1.`code_cd` = #{codeCd}
 	</select>
 	
-	<insert id="createCode"  parameterType="com.ejavashop.entity.system.Code">
+	<insert id="createCode"  parameterType="com.phkj.entity.system.Code">
 		insert into `code_master`
 			(`code_div`, `code_cd`, `code_text`, 
 			`sort_order`, `use_yn`, 
@@ -68,7 +68,7 @@
 	        #{createUserId},#{createUser},now())
 	</insert>
 	
-	<update id="updateCode" parameterType="com.ejavashop.entity.system.Code">
+	<update id="updateCode" parameterType="com.phkj.entity.system.Code">
 		update 	`code_master` t
 		set		t.`use_yn`=#{useYn}
 				,t.`sort_order`=#{sortOrder}

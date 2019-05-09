@@ -42,8 +42,8 @@
     </bean>
 
 	<bean id="shopReadSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="mapperLocations" value="classpath:sql-mapper/shop/read/**/*.xml" />
-		<property name="typeAliasesPackage" value="com.ejavashop.entity" />
+		<property name="mapperLocations" value="classpath:sql-mapper/**/*.xml" />
+		<property name="typeAliasesPackage" value="com.phkj.entity" />
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
 
 		<property name="dataSource">
@@ -52,9 +52,23 @@
 
 		<property name="typeHandlers">
 			<list>
-				<bean class="com.ejavashop.core.ibatis.DataStatusHandler" />
+				<bean class="com.phkj.core.ibatis.DataStatusHandler" />
 			</list>
 		</property>
+
+        <property name="plugins">
+            <array>
+                <!-- 分页插件配置 -->
+                <bean id="paginationInterceptor"
+                      class="com.baomidou.mybatisplus.plugins.PaginationInterceptor"/>
+                <!-- 乐观锁插件 -->
+                <bean id="optimisticLockerInterceptor"
+                      class="com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor">
+                </bean>
+                <bean id="performanceInterceptor"
+                      class="com.baomidou.mybatisplus.plugins.PerformanceInterceptor"/>
+            </array>
+        </property>
 	</bean>
 	
     <bean id="shopDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -91,8 +105,8 @@
     </bean>
 
 	<bean id="shopWriteSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="mapperLocations" value="classpath:sql-mapper/shop/write/**/*.xml" />
-		<property name="typeAliasesPackage" value="com.ejavashop.entity" />
+		<property name="mapperLocations" value="classpath:sql-mapper/**/*.xml" />
+		<property name="typeAliasesPackage" value="com.phkj.entity" />
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
 
 		<property name="dataSource">
@@ -101,18 +115,20 @@
 
 		<property name="typeHandlers">
 			<list>
-				<bean class="com.ejavashop.core.ibatis.DataStatusHandler" />
+				<bean class="com.phkj.core.ibatis.DataStatusHandler" />
 			</list>
 		</property>
+
+
 	</bean>
 
 	<bean name="shopMapperScannerWrite" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.ejavashop.dao.*" />
+		<property name="basePackage" value="com.phkj.dao.*" />
 		<property name="sqlSessionFactoryBeanName" value="shopWriteSqlSessionFactory" />
 	</bean>
 	
 	<bean name="shopMapperScannerRead" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.ejavashop.dao.*" />
+		<property name="basePackage" value="com.phkj.dao.*" />
 		<property name="sqlSessionFactoryBeanName" value="shopReadSqlSessionFactory" />
 	</bean>
 

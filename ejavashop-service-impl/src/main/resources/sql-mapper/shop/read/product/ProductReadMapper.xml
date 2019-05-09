@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.read.product.ProductReadDao">
+<mapper namespace="com.phkj.dao.shop.read.product.ProductReadDao">
 
 
-	<select id="getSellerRecommendProducts" resultType="com.ejavashop.entity.product.Product">
+	<select id="getSellerRecommendProducts" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product`
@@ -14,7 +14,7 @@
         <if test="size != null and size &gt; 0">limit #{size}</if>
     </select>
 
-    <select id="getProductsByIds" parameterType="java.util.List" resultType="com.ejavashop.entity.product.Product">
+    <select id="getProductsByIds" parameterType="java.util.List" resultType="com.phkj.entity.product.Product">
 		select
 			*
 		from `product`
@@ -25,7 +25,7 @@
 		</foreach>
 	</select>
 
-	<select id="getSellerNewProducts" resultType="com.ejavashop.entity.product.Product">
+	<select id="getSellerNewProducts" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product`
@@ -37,7 +37,7 @@
     </select>
 
 	<!-- 查询商铺所有在售商品 -->
-    <select id="getProductForSellerList" resultType="com.ejavashop.entity.product.Product">
+    <select id="getProductForSellerList" resultType="com.phkj.entity.product.Product">
 		select
         	*
         from `product`
@@ -63,7 +63,7 @@
     </select>
     
     <!-- 查询所有在售商品 -->
-    <select id="getProducts" resultType="com.ejavashop.entity.product.Product">
+    <select id="getProducts" resultType="com.phkj.entity.product.Product">
 		select
         	*
         from `product`
@@ -76,7 +76,7 @@
     </select>
     
     <!-- 查询所有在售商品 -->
-    <select id="getProductsUpdateTime" resultType="com.ejavashop.entity.product.Product">
+    <select id="getProductsUpdateTime" resultType="com.phkj.entity.product.Product">
 		select
         	*
         from `product`
@@ -114,7 +114,7 @@
 	    </if>
     </sql>
 
-    <select id="getRecommendProducts" resultType="com.ejavashop.entity.product.Product">
+    <select id="getRecommendProducts" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product`
@@ -125,14 +125,14 @@
         <if test="size != null and size &gt; 0">limit #{size}</if>
     </select>
 
-	<select id="get" resultType="com.ejavashop.entity.product.Product">
+	<select id="get" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product`
         where `id` = #{id}
     </select>
     
-	<select id="getProductByMax" resultType="com.ejavashop.entity.product.Product">
+	<select id="getProductByMax" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product`
@@ -190,7 +190,7 @@
         transport_id 
     </sql> -->
     
-    <select id="getBySellerId" resultType="com.ejavashop.entity.product.Product">
+    <select id="getBySellerId" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product`
@@ -279,7 +279,7 @@
 </sql>
     
     
-    <select id="getByCateId" resultType="com.ejavashop.entity.product.Product">
+    <select id="getByCateId" resultType="com.phkj.entity.product.Product">
         select * from `product`
         where `product_cate_id` = #{cateId}
 	        and `seller_state` = 1
@@ -293,7 +293,7 @@
       	<include refid="commonOrders"/>
     </select>
     <!-- 取得除了裸袜之外的所有品牌袜:通过品牌ID来判定 -->
-    <select id="getNoLuowaByBrandId" resultType="com.ejavashop.entity.product.Product">
+    <select id="getNoLuowaByBrandId" resultType="com.phkj.entity.product.Product">
         select * from `product`
         where 
            <if test="brandId != 0">`product_brand_id` = #{brandId}</if>
@@ -306,11 +306,11 @@
     </select>
     <!-- 其他分类   查询p前缀的链接商品 -->
     
-    <select id="countProductByOtherCategory" resultType="com.ejavashop.entity.product.Product">
+    <select id="countProductByOtherCategory" resultType="com.phkj.entity.product.Product">
 		select count(1) from product p right join product_order po on p.id = po.product_id and po.sort_type = #{intFlag} 
         where `state` = 6 and `product_cate_state` = 1 and `up_time`  &lt; now() <include refid="Where_List"/>
     </select>
-    <select id="getProductByOtherCategory" resultType="com.ejavashop.entity.product.Product">
+    <select id="getProductByOtherCategory" resultType="com.phkj.entity.product.Product">
 		select p.* from product p right join product_order po on p.id = po.product_id and po.sort_type = #{intFlag} 
         where `state` = 6 and `product_cate_state` = 1 and `up_time`  &lt; now()
 		<include refid="Where_List"/>
@@ -324,7 +324,7 @@
     	</choose> 
     </select>
     <!-- end -->
-    <select id="getByCateIdTop" resultType="com.ejavashop.entity.product.Product">
+    <select id="getByCateIdTop" resultType="com.phkj.entity.product.Product">
         select * from `product`
         where 
 	        `seller_state` = 1
@@ -340,7 +340,7 @@
         	limit 4
     </select>
     
-     <select id="getByCateIdLeft" resultType="com.ejavashop.entity.product.Product">
+     <select id="getByCateIdLeft" resultType="com.phkj.entity.product.Product">
         select
          * 
         from `product`
@@ -357,7 +357,7 @@
         	 limit 6
     </select>
     
-   <select id="getProductsBySellerId" resultType="com.ejavashop.entity.product.Product">
+   <select id="getProductsBySellerId" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product`
@@ -372,7 +372,7 @@
 	</select>
 	  	
 	<!-- 查询商品表列表 -->
-	<select id="queryList" resultType="com.ejavashop.entity.product.Product"  parameterType="map">
+	<select id="queryList" resultType="com.phkj.entity.product.Product" parameterType="map">
 		select 
 		 * 
 		from product 
@@ -382,7 +382,7 @@
 	</select>
 	
 	
-	<select id="getProductListBySellerCateId" resultType="com.ejavashop.entity.product.Product">
+	<select id="getProductListBySellerCateId" resultType="com.phkj.entity.product.Product">
         select * 
         from `product`
         where 
@@ -435,7 +435,7 @@
 	        and `up_time`  &lt; now()
 	</select>
 	
-	<select id="getProductsBySPU" resultType="com.ejavashop.entity.product.Product" >
+	<select id="getProductsBySPU" resultType="com.phkj.entity.product.Product" >
 		select  * from `product` where  `seller_id` = #{seller_id}
 		<if test="name1 != null and name1 != ''" >
 			 and `name1` like CONCAT('%',#{name1},'%') 
@@ -450,7 +450,7 @@
 		select count(*) from `product` where `product_code` = #{param1.spu} and seller_id = #{param1.sellerId} and state != 5
     </select>
 	
-	<select id="getProductByIsTop" resultType="com.ejavashop.entity.product.Product" parameterType="java.lang.Integer">
+	<select id="getProductByIsTop" resultType="com.phkj.entity.product.Product" parameterType="java.lang.Integer">
 		select
         	*
         from `product`
@@ -487,7 +487,7 @@
     	</choose> 
     </select>
     <!-- 获得所有九折商品立减商品【仝照美】 -->
-	<select id="getProductBySingle" resultType="com.ejavashop.entity.product.Product">
+	<select id="getProductBySingle" resultType="com.phkj.entity.product.Product">
 		select
 		   *
 		from `product`
@@ -510,7 +510,7 @@
         <include refid="commonOrders"/>
 	</select>
 	
-	<select id="getProductYangMao" resultType="com.ejavashop.entity.product.Product">
+	<select id="getProductYangMao" resultType="com.phkj.entity.product.Product">
 		select * from `product` where `state` = 6 and `id` in
 			(select `product_id` from `product_attr` 
 				where `name`='材质' 
@@ -553,7 +553,7 @@
 	        </otherwise>
     	</choose> 
      </sql>
-	<select id="getProductByLeadingSku" resultType="com.ejavashop.entity.product.Product">
+	<select id="getProductByLeadingSku" resultType="com.phkj.entity.product.Product">
 		select * from product where id in 
 				(select product_id from product_goods where sku = #{sku}) 
 						order by seller_id limit 1
@@ -816,26 +816,26 @@
         and `seller_cate_id` = #{sellerCateId}
     </select>
     
-   <select id="downMTYProduct" resultType="com.ejavashop.entity.product.Product">
+   <select id="downMTYProduct" resultType="com.phkj.entity.product.Product">
         select p.* from product p where  p.product_stock  &lt; 100  and (p.seller_id = 1 or p.seller_id = 13) and p.state = 6
     </select>
     
-    <select id="downOthersProduct" resultType="com.ejavashop.entity.product.Product">
+    <select id="downOthersProduct" resultType="com.phkj.entity.product.Product">
         <!-- select p.* from product p ,product_attr a where p.id = a.product_id and p.product_stock  &lt;  REPLACE(a.`value`,'双','') 
          and a.name = '包装规格' and p.seller_id != 1 and p.seller_id != 13 and p.state = 6 -->
         select p.* from product p ,product_attr a where p.id = a.product_id and p.product_stock  &lt;  REPLACE(a.`value`,'双','') 
          and a.name = '包装规格' and p.state = 6
     </select>
-    <select id="getProductByProductsId" resultType="com.ejavashop.entity.product.Product" >
+    <select id="getProductByProductsId" resultType="com.phkj.entity.product.Product" >
 		select  * from `product` where `id`= #{id} limit 1
 	</select>
-	<select id="getProductByProductCode" resultType="com.ejavashop.entity.product.Product">
+	<select id="getProductByProductCode" resultType="com.phkj.entity.product.Product">
         select * from `product`
         where (`name1` like CONCAT('%',#{searchKeyword},'%') or keyword like CONCAT('%',#{searchKeyword},'%')  or name2 like CONCAT('%',#{searchKeyword},'%'))
         and `state` = 6 order by is_top desc,`id` desc, `actual_sales` desc limit #{start},#{size}
     </select>
     
-    <select id="getProductByProductCodebySort" resultType="com.ejavashop.entity.product.Product">
+    <select id="getProductByProductCodebySort" resultType="com.phkj.entity.product.Product">
     	select * from `product`
         where (`name1` like CONCAT('%',#{searchKeyword},'%') or keyword like CONCAT('%',#{searchKeyword},'%')  or name2 like CONCAT('%',#{searchKeyword},'%'))
         and `state` = 6 
@@ -860,7 +860,7 @@
         and `state` = 6 
     </select>
     
-      <select id="getProductsByrefIds" resultType="com.ejavashop.entity.product.Product">
+      <select id="getProductsByrefIds" resultType="com.phkj.entity.product.Product">
     	select
 		   *
 		from `product`
@@ -872,7 +872,7 @@
 		limit 6
     </select>
     
-    <select id="page" resultType="com.ejavashop.entity.product.Product">
+    <select id="page" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product`
@@ -880,7 +880,7 @@
         order by id desc 
         <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
     </select>
-    <select id="page1" resultType="com.ejavashop.entity.product.Product">
+    <select id="page1" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product`
@@ -889,7 +889,7 @@
         <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
     </select>
     
-    <select id="page2" resultType="com.ejavashop.entity.product.Product">
+    <select id="page2" resultType="com.phkj.entity.product.Product">
         select
         	p.*,pp.price1,concat(pp.price1_s,'-',pp.price1_e) as price1se,
         	pp.price2,concat(pp.price2_s,'-',pp.price2_e) as price2se,
@@ -902,7 +902,7 @@
         <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
     </select>
     
-     <select id="pageProductByh5fllordata" resultType="com.ejavashop.entity.product.Product">
+     <select id="pageProductByh5fllordata" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product` 
@@ -916,7 +916,7 @@
         order by id desc
         <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
     </select>
-     <select id="pageproductBypcfloordata" resultType="com.ejavashop.entity.product.Product">
+     <select id="pageproductBypcfloordata" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product` 
@@ -931,13 +931,13 @@
         <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
     </select>
     
-    <select id = "listProductPrice1" resultType = "com.ejavashop.vo.product.ListProductPriceVO1">
+    <select id = "listProductPrice1" resultType = "com.phkj.vo.product.ListProductPriceVO1">
     	select p.id as id,(select seller_name from seller where id = p.seller_id) as sellerName,p.product_code as productCode,p.mall_pc_price as price from product p where p.price_status=1 and p.state=6
     </select>
-    <select id = "listProductPrice2" resultType = "com.ejavashop.vo.product.ListProductPriceVO2">
+    <select id = "listProductPrice2" resultType = "com.phkj.vo.product.ListProductPriceVO2">
     	select p.id as id ,(select seller_name from seller where id = p.seller_id) as sellerName,p.product_code as productCode,p.full_container_quantity as number ,p.mall_pc_price as price1,p.scattered_price as price2 from product p where p.price_status=3 and p.state=6
     </select>
-    <select id = "listProductPrice3" resultType = "com.ejavashop.vo.product.ListProductPriceVO3">
+    <select id = "listProductPrice3" resultType = "com.phkj.vo.product.ListProductPriceVO3">
     	select p.id as id ,(select seller_name from seller where id = p.seller_id) as sellerName,p.product_code as productCode, concat(pp.price1_s,'-',pp.price1_e) as state1,pp.price1 as price1,concat(pp.price2_s,'-',pp.price2_e) as state2,pp.price2 as price2,concat('>=',pp.price3_s) as state3,pp.price3 as price3 from product p,product_price pp where p.price_pid = pp.id and p.price_status=2 and p.state=6
     </select>
     

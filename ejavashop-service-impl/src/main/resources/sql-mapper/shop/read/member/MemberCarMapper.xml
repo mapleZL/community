@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.read.member.MemberCarDao">
-	<resultMap id="MemberCarResult" type="com.ejavashop.entity.member.MemberCar">
+<mapper namespace="com.phkj.dao.shop.read.member.MemberCarDao">
+	<resultMap id="MemberCarResult" type="com.phkj.entity.member.MemberCar">
 			<result property="id" column="id" />
 			<result property="memberId" column="member_id" />
 			<result property="vehicleType" column="vehicle_type" />
@@ -21,7 +21,7 @@
 		where `id` = #{id}
 	</select>
 	
-	<update id="update" parameterType="com.ejavashop.entity.member.MemberCar">
+	<update id="update" parameterType="com.phkj.entity.member.MemberCar">
         update `member_car` 
     	<set>
 			<if test="id != null">`id`= #{id},</if>
@@ -42,7 +42,7 @@
 	    update `member_car` set `status`= #{status} where id = #{id}
 	</update>
 	
-	<insert id="insert" parameterType="com.ejavashop.entity.member.MemberCar" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="insert" parameterType="com.phkj.entity.member.MemberCar" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into 
 		`member_car`
 		(

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.read.system.SystemResourcesReadDao">
-	<resultMap id="SystemResourcesResult" type="com.ejavashop.entity.system.SystemResources">
+<mapper namespace="com.phkj.dao.shop.read.system.SystemResourcesReadDao">
+	<resultMap id="SystemResourcesResult" type="com.phkj.entity.system.SystemResources">
 		<result property="id" column="id" />
 		<result property="pid" column="pid" />
 		<result property="url" column="url" />
@@ -35,14 +35,14 @@
 	</select>
 	
 	
-	<select id="page" resultType="com.ejavashop.entity.system.SystemResources">
+	<select id="page" resultType="com.phkj.entity.system.SystemResources">
 		select * from `system_resources` t1
 		<include refid="whereConditions" />
 		order by id
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 	
-	<select id="list" resultType="com.ejavashop.entity.system.SystemResources">
+	<select id="list" resultType="com.phkj.entity.system.SystemResources">
 		select 
 		if((select count(1) from `system_resources` where pid = t1.`id` and `status` = 1)=0,'open','closed') state,
 		`id`,

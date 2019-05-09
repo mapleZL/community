@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.share.StAppletShareInfoMapper">
+  <resultMap id="BaseResultMap" type="com.phkj.entity.share.StAppletShareInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="share_type" jdbcType="VARCHAR" property="shareType" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="task_type" jdbcType="VARCHAR" property="taskType" />
+    <result column="door_lock" jdbcType="VARCHAR" property="doorLock" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="car_lock" jdbcType="VARCHAR" property="carLock" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="car_num" jdbcType="VARCHAR" property="carNum" />
+    <result column="depart_place" jdbcType="VARCHAR" property="departPlace" />
+    <result column="destination" jdbcType="VARCHAR" property="destination" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="profession" jdbcType="VARCHAR" property="profession" />
+    <result column="skill" jdbcType="VARCHAR" property="skill" />
+    <result column="sts" jdbcType="CHAR" property="sts" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="modify_user_id" jdbcType="BIGINT" property="modifyUserId" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.phkj.entity.share.StAppletShareInfo">
+    <result column="img_url" jdbcType="LONGVARCHAR" property="imgUrl" />
+  </resultMap>
+
+  <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+   SELECT
+	t.id,
+  CASE
+      t.task_type
+      WHEN '1' THEN
+      '拼车' ELSE '其他'
+      END as taskType,
+      t.title,
+      t.content,
+      t.create_time AS createTime2 , t.sts,
+      t.img_url AS imgUrl
+  FROM
+      st_applet_share_info t
+  </select>
+
+
+
+
+
+
+  <sql id="Base_Column_List">
+    id, create_user_name, share_type, contact, telephone, title, task_type, door_lock, 
+    content, start_time, end_time, car_lock, price, car_num, depart_place, destination, 
+    gender, profession, skill, sts, create_time, create_user_id, modify_user_id, modify_time
+  </sql>
+  <sql id="Blob_Column_List">
+    img_url
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_share_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from st_applet_share_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.phkj.entity.share.StAppletShareInfo">
+    insert into st_applet_share_info (id, create_user_name, share_type, 
+      contact, telephone, title, 
+      task_type, door_lock, content, 
+      start_time, end_time, car_lock, 
+      price, car_num, depart_place, 
+      destination, gender, profession, 
+      skill, sts, create_time, 
+      create_user_id, modify_user_id, modify_time, 
+      img_url)
+    values (#{id,jdbcType=BIGINT}, #{createUserName,jdbcType=VARCHAR}, #{shareType,jdbcType=VARCHAR}, 
+      #{contact,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{taskType,jdbcType=VARCHAR}, #{doorLock,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{carLock,jdbcType=VARCHAR}, 
+      #{price,jdbcType=VARCHAR}, #{carNum,jdbcType=VARCHAR}, #{departPlace,jdbcType=VARCHAR}, 
+      #{destination,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{skill,jdbcType=VARCHAR}, #{sts,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=BIGINT}, #{modifyUserId,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{imgUrl,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.phkj.entity.share.StAppletShareInfo">
+    insert into st_applet_share_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createUserName != null">
+        create_user_name,
+      </if>
+      <if test="shareType != null">
+        share_type,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="taskType != null">
+        task_type,
+      </if>
+      <if test="doorLock != null">
+        door_lock,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="carLock != null">
+        car_lock,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="carNum != null">
+        car_num,
+      </if>
+      <if test="departPlace != null">
+        depart_place,
+      </if>
+      <if test="destination != null">
+        destination,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="profession != null">
+        profession,
+      </if>
+      <if test="skill != null">
+        skill,
+      </if>
+      <if test="sts != null">
+        sts,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createUserName != null">
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="shareType != null">
+        #{shareType,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null">
+        #{taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="doorLock != null">
+        #{doorLock,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carLock != null">
+        #{carLock,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum != null">
+        #{carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="departPlace != null">
+        #{departPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null">
+        #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="skill != null">
+        #{skill,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null">
+        #{sts,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.phkj.entity.share.StAppletShareInfo">
+    update st_applet_share_info
+    <set>
+      <if test="createUserName != null">
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="shareType != null">
+        share_type = #{shareType,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null">
+        task_type = #{taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="doorLock != null">
+        door_lock = #{doorLock,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carLock != null">
+        car_lock = #{carLock,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum != null">
+        car_num = #{carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="departPlace != null">
+        depart_place = #{departPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null">
+        destination = #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="skill != null">
+        skill = #{skill,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null">
+        sts = #{sts,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.phkj.entity.share.StAppletShareInfo">
+    update st_applet_share_info
+    set create_user_name = #{createUserName,jdbcType=VARCHAR},
+      share_type = #{shareType,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      task_type = #{taskType,jdbcType=VARCHAR},
+      door_lock = #{doorLock,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      car_lock = #{carLock,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      car_num = #{carNum,jdbcType=VARCHAR},
+      depart_place = #{departPlace,jdbcType=VARCHAR},
+      destination = #{destination,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      skill = #{skill,jdbcType=VARCHAR},
+      sts = #{sts,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      modify_user_id = #{modifyUserId,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      img_url = #{imgUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.phkj.entity.share.StAppletShareInfo">
+    update st_applet_share_info
+    set create_user_name = #{createUserName,jdbcType=VARCHAR},
+      share_type = #{shareType,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      task_type = #{taskType,jdbcType=VARCHAR},
+      door_lock = #{doorLock,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      car_lock = #{carLock,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      car_num = #{carNum,jdbcType=VARCHAR},
+      depart_place = #{departPlace,jdbcType=VARCHAR},
+      destination = #{destination,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      skill = #{skill,jdbcType=VARCHAR},
+      sts = #{sts,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      modify_user_id = #{modifyUserId,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.write.member.MemberWriteDao">
-	<resultMap id="MemberResult" type="com.ejavashop.entity.member.Member">
+<mapper namespace="com.phkj.dao.shop.write.member.MemberWriteDao">
+	<resultMap id="MemberResult" type="com.phkj.entity.member.Member">
 			<result property="id" column="id" />
 			<result property="name" column="name" />
 			<result property="password" column="password" />
@@ -110,7 +110,7 @@
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select> -->
 	
-	<update id="update" parameterType="com.ejavashop.entity.member.Member">
+	<update id="update" parameterType="com.phkj.entity.member.Member">
         update `member` 
     	<set>
 			<if test="name != null">`name`= #{name},</if>
@@ -196,7 +196,7 @@
         where `id` = #{id}
 	</update>
 	
-	<insert id="save" parameterType="com.ejavashop.entity.member.Member" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="save" parameterType="com.phkj.entity.member.Member" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into `member`
 		(
 			`name`,

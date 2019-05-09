@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.write.product.ProductWriteDao">
+<mapper namespace="com.phkj.dao.shop.write.product.ProductWriteDao">
 
 	<update id="freezeProductsBySellerId" parameterType="Integer">
         update `product`
@@ -226,13 +226,13 @@
         delete from `product` where `id` = #{id}
     </delete>
 
-    <select id="get" resultType="com.ejavashop.entity.product.Product">
+    <select id="get" resultType="com.phkj.entity.product.Product">
         select
         	*
         from `product`
         where `id` = #{id}
     </select>
-    <!-- <select id="page" resultType="com.ejavashop.entity.product.Product">
+    <!-- <select id="page" resultType="com.phkjty.product.Product">
         select
         	*
         from `product`
@@ -240,7 +240,7 @@
         order by id desc 
         <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
     </select>
-    <select id="page1" resultType="com.ejavashop.entity.product.Product">
+    <select id="page1" resultType="com.phkjty.product.Product">
         select
         	*
         from `product`
@@ -248,7 +248,7 @@
         order by id desc
         <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
     </select>
-    <select id="pageProductByh5fllordata" resultType="com.ejavashop.entity.product.Product">
+    <select id="pageProductByh5fllordata" resultType="com.phkjty.product.Product">
         select
         	*
         from `product` 
@@ -262,7 +262,7 @@
         order by id desc
         <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
     </select>
-    <select id="pageproductBypcfloordata" resultType="com.ejavashop.entity.product.Product">
+    <select id="pageproductBypcfloordata" resultType="com.phkjty.product.Product">
         select
         	*
         from `product` 
@@ -277,7 +277,7 @@
         <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
     </select>
     
-    <select id="getProductsBySellerId" resultType="com.ejavashop.entity.product.Product">
+    <select id="getProductsBySellerId" resultType="com.phkjty.product.Product">
         select
         	*
         from `product`
@@ -529,20 +529,20 @@
        	</foreach>
     </update>
     
-    <!-- <select id="getProductsBySPU" resultType="com.ejavashop.entity.product.Product" >
+    <!-- <select id="getProductsBySPU" resultType="com.phkjty.product.Product" >
 		select  * from `product` where `product_cate_id`= #{q_product_cate_id} limit 1
 	</select>
 	
-	<select id="getProductByProductsId" resultType="com.ejavashop.entity.product.Product" >
+	<select id="getProductByProductsId" resultType="com.phkjty.product.Product" >
 		select  * from `product` where `id`= #{id} limit 1
 	</select>
-	<select id="getProductByProductCode" resultType="com.ejavashop.entity.product.Product">
+	<select id="getProductByProductCode" resultType="com.phkjty.product.Product">
         select * from `product`
         where (`name1` like CONCAT('%',#{searchKeyword},'%') or keyword like CONCAT('%',#{searchKeyword},'%')  or name2 like CONCAT('%',#{searchKeyword},'%'))
         and `state` = 6 order by is_top desc,`id` desc, `actual_sales` desc limit #{start},#{size}
     </select>
     
-    <select id="getProductByProductCodebySort" resultType="com.ejavashop.entity.product.Product">
+    <select id="getProductByProductCodebySort" resultType="com.phkjty.product.Product">
     	select * from `product`
         where (`name1` like CONCAT('%',#{searchKeyword},'%') or keyword like CONCAT('%',#{searchKeyword},'%')  or name2 like CONCAT('%',#{searchKeyword},'%'))
         and `state` = 6 
@@ -567,18 +567,18 @@
         and `state` = 6 
     </select>
     
-    <select id="downMTYProduct" resultType="com.ejavashop.entity.product.Product">
+    <select id="downMTYProduct" resultType="com.phkjty.product.Product">
         select p.* from product p where  p.product_stock  &lt; 100  and (p.seller_id = 1 or p.seller_id = 13) and p.state = 6
     </select>
     
-    <select id="downOthersProduct" resultType="com.ejavashop.entity.product.Product">
+    <select id="downOthersProduct" resultType="com.phkjty.product.Product">
         select p.* from product p ,product_attr a where p.id = a.product_id and p.product_stock  &lt;  REPLACE(a.`value`,'双','') 
          and a.name = '包装规格' and p.seller_id != 1 and p.seller_id != 13 and p.state = 6
         select p.* from product p ,product_attr a where p.id = a.product_id and p.product_stock  &lt;  REPLACE(a.`value`,'双','') 
          and a.name = '包装规格' and p.state = 6
     </select>
     
-    <select id="getProductsByrefIds" resultType="com.ejavashop.entity.product.Product">
+    <select id="getProductsByrefIds" resultType="com.phkjty.product.Product">
     	select
 		   *
 		from `product`

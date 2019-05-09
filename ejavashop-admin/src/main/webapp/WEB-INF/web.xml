@@ -29,15 +29,15 @@
     </filter-mapping>
 
     <!-- xss过滤-开始
-  <com.ejavashop.web.filter>
-      <com.ejavashop.web.filter-name>XssFilter</com.ejavashop.web.filter-name>
-      <com.ejavashop.web.filter-class>com.zdone.basic.xss.XssFilter</com.ejavashop.web.filter-class>
-  </com.ejavashop.web.filter>
-  <com.ejavashop.web.filter-mapping>
-      <com.ejavashop.web.filter-name>XssFilter</com.ejavashop.web.filter-name>
+  <com.phkjfilter>
+      <com.phkjfilter-name>XssFilter</com.phkjfilter-name>
+      <com.phkjfilter-class>com.zdone.basic.xss.XssFilter</com.phkjfilter-class>
+  </com.phkjfilter>
+  <com.phkjfilter-mapping>
+      <com.phkjfilter-name>XssFilter</com.phkjfilter-name>
       <url-pattern>/*</url-pattern>
       <dispatcher>REQUEST</dispatcher>
-  </com.ejavashop.web.filter-mapping>
+  </com.phkjfilter-mapping>
   xss过滤-结束 -->
 
     <listener>
@@ -60,7 +60,7 @@
 
     <!-- <filter>
         <filter-name>SessionFilter</filter-name>
-        <filter-class>com.ejavashop.web.filter.SessionFilter</filter-class>
+        <filter-class>com.phkjfilter.SessionFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>SessionFilter</filter-name>

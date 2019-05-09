@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.read.system.SystemResourcesRolesReadDao">
-    <resultMap id="SystemResourcesRolesResult" type="com.ejavashop.entity.system.SystemResourcesRoles">
+<mapper namespace="com.phkj.dao.shop.read.system.SystemResourcesRolesReadDao">
+    <resultMap id="SystemResourcesRolesResult" type="com.phkj.entity.system.SystemResourcesRoles">
         <result property="id" column="id"/>
         <result property="resourcesId" column="resources_id"/>
         <result property="rolesId" column="roles_id"/>
@@ -21,21 +21,21 @@
         <include refid="whereConditions"/>
     </select>
 
-    <select id="page" resultType="com.ejavashop.entity.system.SystemResourcesRoles">
+    <select id="page" resultType="com.phkj.entity.system.SystemResourcesRoles">
         select * from `system_resources_roles` t1
         <include refid="whereConditions"/>
         order by id
         <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
     </select>
 
-    <select id="getResourceByRoleId" resultType="com.ejavashop.entity.system.SystemResources">
+    <select id="getResourceByRoleId" resultType="com.phkj.entity.system.SystemResources">
         select * from `system_resources` t1
         where t1.id in(select t2.resources_id from `system_resources_roles` t2 where t2.roles_id = #{roleId})
         and t1.scope=#{scope}
         order by id
     </select>
 
-    <select id="getResourceByPid" resultType="com.ejavashop.entity.system.SystemResources">
+    <select id="getResourceByPid" resultType="com.phkj.entity.system.SystemResources">
         select * from `system_resources` t1
         where
         t1.pid = #{pid}
@@ -44,7 +44,7 @@
         order by id
     </select>
 
-    <select id="list" resultType="com.ejavashop.entity.system.SystemResourcesRoles">
+    <select id="list" resultType="com.phkj.entity.system.SystemResourcesRoles">
         select * from `system_resources_roles` t1
         order by id
     </select>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.write.news.NewsPartnerWriteDao">
-	<resultMap id="NewsPartnerResult" type="com.ejavashop.entity.news.NewsPartner">
+<mapper namespace="com.phkj.dao.shop.write.news.NewsPartnerWriteDao">
+	<resultMap id="NewsPartnerResult" type="com.phkj.entity.news.NewsPartner">
 		<result property="id" column="id" />
 		<result property="name" column="name" />
 		<result property="image" column="image" />
@@ -23,7 +23,7 @@
         delete from `news_partner` where `id` = #{id}
 	</delete>
 	
-	<update id="update" parameterType="com.ejavashop.entity.news.NewsPartner">
+	<update id="update" parameterType="com.phkj.entity.news.NewsPartner">
         update `news_partner` 
 		<set>
 			<if test="id != null">`id`= #{id},</if>
@@ -39,7 +39,7 @@
         where `id` = #{id}
 	</update>
 	
-	<insert id="save" parameterType="com.ejavashop.entity.news.NewsPartner" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="save" parameterType="com.phkj.entity.news.NewsPartner" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into 
 		`news_partner`
 		(

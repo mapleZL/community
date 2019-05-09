@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.write.news.NewsWriteDao">
-	<resultMap id="NewsResult" type="com.ejavashop.entity.news.News">
+<mapper namespace="com.phkj.dao.shop.write.news.NewsWriteDao">
+	<resultMap id="NewsResult" type="com.phkj.entity.news.News">
 			<result property="id" column="id" />
 			<result property="typeId" column="type_id" />
 			<result property="typePath" column="type_path" />
@@ -35,14 +35,14 @@
         delete from `news` where `id` = #{id}
     </delete>
 	
-	<!-- <select id="page" resultType="com.ejavashop.entity.news.News">
+	<!-- <select id="page" resultType="com.phkjty.news.News">
 		select * from news t1
 		<include refid="whereConditions" />
 		order by type_id asc,sort asc,create_time desc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select> -->
 	
-	<update id="update" parameterType="com.ejavashop.entity.news.News">
+	<update id="update" parameterType="com.phkj.entity.news.News">
         update `news` 
     	<set>
 			<if test="id != null">`id`= #{id},</if>
@@ -64,7 +64,7 @@
         where `id` = #{id}
 	</update>
 	
-	<insert id="save" parameterType="com.ejavashop.entity.news.News" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="save" parameterType="com.phkj.entity.news.News" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into 
 		`news`
 		(

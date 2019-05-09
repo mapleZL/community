@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.write.seller.SellerWriteDao">
-	<resultMap id="SellerResult" type="com.ejavashop.entity.seller.Seller">
+<mapper namespace="com.phkj.dao.shop.write.seller.SellerWriteDao">
+	<resultMap id="SellerResult" type="com.phkj.entity.seller.Seller">
 			<result property="id" column="id" />
 			<result property="memberId" column="member_id" />
 			<result property="name" column="name" />
@@ -57,7 +57,7 @@
 		where `id` = #{id}
 	</select> -->
 	
-	<update id="update" parameterType="com.ejavashop.entity.seller.Seller">
+	<update id="update" parameterType="com.phkj.entity.seller.Seller">
         update `seller` 
     	<set>
 			<!-- <if test="id != null">`id`= #{id},</if> -->
@@ -84,7 +84,7 @@
         where `id` = #{id}
 	</update>
 	
-	<insert id="save" parameterType="com.ejavashop.entity.seller.Seller" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="save" parameterType="com.phkj.entity.seller.Seller" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into `seller`
 		(
 			`member_id`,
@@ -134,7 +134,7 @@
 		<include refid="getSellersCondition" />
 	</select> -->
 	
-	<!-- <select id="getSellers" resultType="com.ejavashop.entity.seller.Seller">
+	<!-- <select id="getSellers" resultType="com.phkjty.seller.Seller">
 		select * from seller
 		<include refid="getSellersCondition" />
 		order by id desc
@@ -162,20 +162,20 @@
         where `id` = #{id}
 	</update>
 	
-	<!-- <select id="getSellerByName" resultType="com.ejavashop.entity.seller.Seller">
+	<!-- <select id="getSellerByName" resultType="com.phkjty.seller.Seller">
 		select * from seller
 		where `name` = #{name}
 	</select>
 
-	<select id="getSellerBySellerName" resultType="com.ejavashop.entity.seller.Seller">
+	<select id="getSellerBySellerName" resultType="com.phkjty.seller.Seller">
 		select * from seller
 		where `seller_name` = #{sellerName}
 	</select>
-	<select id="checkSellerCode" resultType="com.ejavashop.entity.seller.Seller" parameterType="String">
+	<select id="checkSellerCode" resultType="com.phkjty.seller.Seller" parameterType="String">
 	select * from seller where `seller_code` = #{sellerCode}
 	</select>
 
-	<select id="getSellerListAll" resultType="com.ejavashop.entity.seller.Seller">
+	<select id="getSellerListAll" resultType="com.phkjty.seller.Seller">
 		select * from seller
 		where `audit_status` = 2
 	</select> -->

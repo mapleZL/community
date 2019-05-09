@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.write.system.SystemAdminWriteDao">
-	<resultMap id="SystemAdminResult" type="com.ejavashop.entity.system.SystemAdmin">
+<mapper namespace="com.phkj.dao.shop.write.system.SystemAdminWriteDao">
+	<resultMap id="SystemAdminResult" type="com.phkj.entity.system.SystemAdmin">
 			<result property="id" column="id" />
 			<result property="name" column="name" />
 			<result property="password" column="password" />
@@ -36,14 +36,14 @@
         delete from `system_admin` where `id` = #{id}
 	</delete>
 	
-	<!-- <select id="page"  parameterType="java.util.Map" resultType="com.ejavashop.entity.system.SystemAdmin">
+	<!-- <select id="page"  parameterType="java.util.Map" resultType="com.phkjty.system.SystemAdmin">
 		select * from `system_admin` t1
 		<include refid="whereConditions" />
 		order by id
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 	
-	<select id="list" resultType="com.ejavashop.entity.system.SystemAdmin">
+	<select id="list" resultType="com.phkjty.system.SystemAdmin">
 		select * from `system_admin` t1
 		order by id
 	</select> -->
@@ -63,7 +63,7 @@
 		</where>
 	</sql>
 	
-	<update id="update" parameterType="com.ejavashop.entity.system.SystemAdmin">
+	<update id="update" parameterType="com.phkj.entity.system.SystemAdmin">
         update `system_admin` 
     	<set>
 			<!-- <if test="id != null">`id`= #{id},</if> -->
@@ -78,7 +78,7 @@
         where `id` = #{id}
 	</update>
 	
-	<insert id="save" parameterType="com.ejavashop.entity.system.SystemAdmin" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="save" parameterType="com.phkj.entity.system.SystemAdmin" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into 
 		`system_admin`
 		(

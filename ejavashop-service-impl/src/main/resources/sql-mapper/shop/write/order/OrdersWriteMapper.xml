@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.write.order.OrdersWriteDao">
-	<resultMap id="OrdersResult" type="com.ejavashop.entity.order.Orders">
+<mapper namespace="com.phkj.dao.shop.write.order.OrdersWriteDao">
+	<resultMap id="OrdersResult" type="com.phkj.entity.order.Orders">
 			<result property="id" column="id" />
 			<result property="orderSn" column="order_sn" />
 			<result property="relationOrderSn" column="relation_order_sn" />
@@ -69,7 +69,7 @@
 			<result property="logisticsNameOms" column="logistics_name_oms" />
 	</resultMap>
 	
-	<resultMap id="goodsReturnMap" type="com.ejavashop.dto.OrdersReturnDto">
+	<resultMap id="goodsReturnMap" type="com.phkj.dto.OrdersReturnDto">
 			<result property="id" column="id" />
 			<result property="sellerId" column="seller_id" />
 			<result property="memberId" column="member_id" />
@@ -80,7 +80,7 @@
 			<result property="finishTime" column="finish_time" />
 	</resultMap>
 	
-	<resultMap id="productSaleMap" type="com.ejavashop.dto.ProductSaleDto">
+	<resultMap id="productSaleMap" type="com.phkj.dto.ProductSaleDto">
 			<result property="orderState" column="order_state" />
 			<result property="moneyOrder" column="money_order" />
 			<result property="productName" column="product_name" />
@@ -89,7 +89,7 @@
 			<result property="payTime" column="pay_time" />
 	</resultMap>
 	
-	<resultMap id="bookGoodsMap" type="com.ejavashop.vo.order.BookingSendGoodsVO">
+	<resultMap id="bookGoodsMap" type="com.phkj.vo.order.BookingSendGoodsVO">
 	        <result property="memberName" column="member_name" />
 	        <result property="province" column="province_id" />
 	        <result property="city" column="city_id" />
@@ -108,14 +108,14 @@
 	        <result property="image" column="images" />
 	        <result property="normName" column="norm_name" />
 	</resultMap>
-	<resultMap id="sumParterSaleVOMap" type="com.ejavashop.entity.parter.SumParterSaleVO">
+	<resultMap id="sumParterSaleVOMap" type="com.phkj.entity.parter.SumParterSaleVO">
 		    <result property="month" column="months" />
 		    <result property="bussineeNo" column="bussinee_no" />
 		    <result property="saleMoney" column="sale_money" />
 		    <result property="newBussineeNo" column="new_bussinee_no" />
 		    <result property="newSaleMoney" column="new_sale_money" />
 	</resultMap>
-	<resultMap id="salesPerson" type="com.ejavashop.entity.parter.SalesPersonVO">
+	<resultMap id="salesPerson" type="com.phkj.entity.parter.SalesPersonVO">
 			<result property="userName" column="user_name" />
 			<result property="mobile" column="mobile" />
 			<result property="memberName" column="member_name" />
@@ -125,7 +125,7 @@
 			<result property="number" column="number" />
 			<result property="ordersTime" column="orders_time" />
 	</resultMap>
-	<resultMap id="categorySalesVO" type="com.ejavashop.entity.parter.CategorySalesVO">
+	<resultMap id="categorySalesVO" type="com.phkj.entity.parter.CategorySalesVO">
 			<result property="brandName" column="is_brand" />
 			<result property="brandName1" column="is_brand1" />
 			<result property="memberNo" column="member_no" />
@@ -135,7 +135,7 @@
 			<result property="salesNo" column="sales_no" />
 			<result property="returnSalesNo" column="return_sales_no" />
 	</resultMap>
-	<resultMap id="salesDetailsVO" type="com.ejavashop.entity.parter.SalesDetailsVO">
+	<resultMap id="salesDetailsVO" type="com.phkj.entity.parter.SalesDetailsVO">
 			<result property="ordersId" column="oid" />
 			<result property="orderSn" column="order_sn" />
 			<result property="name" column="name" />
@@ -166,11 +166,11 @@
 			INFORMATION_SCHEMA. COLUMNS c
 		WHERE
 			c.table_name = 'orders'
-		AND c.TABLE_SCHEMA = 'ejavashop'
+		AND c.TABLE_SCHEMA = 'phkj'
 		AND c.COLUMN_NAME = 'order_state'
 	</select>
 	
-	<select id="getProductByOrderId" resultType="com.ejavashop.entity.product.Product">
+	<select id="getProductByOrderId" resultType="com.phkjty.product.Product">
 		SELECT
 			*
 		FROM
@@ -250,7 +250,7 @@
 		where `order_sn` = #{orderSn}
 	</select>
  -->
-	<insert id="insert" parameterType="com.ejavashop.entity.order.Orders" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="insert" parameterType="com.phkj.entity.order.Orders" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into `orders`
 		(
 			`order_sn`,
@@ -385,7 +385,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="com.ejavashop.entity.order.Orders">
+	<update id="update" parameterType="com.phkj.entity.order.Orders">
         update `orders` 
     	<set>
 			<!-- <if test="id != null">`id`= #{id},</if> -->
@@ -478,7 +478,7 @@
 		<include refid="getOrdersCondition1" />
 	</select>
 
-	<select id="getOrders" parameterType="java.util.Map" resultType="com.ejavashop.entity.order.Orders">
+	<select id="getOrders" parameterType="java.util.Map" resultType="com.phkjty.order.Orders">
 		select * from `orders` o
 		<include refid="getOrdersCondition" />
 		<choose>  
@@ -493,7 +493,7 @@
 	</select> -->
 	
 	<!-- 导出excel -->
-	<!-- <select id="getOrdersAndOrdersProductVO" parameterType="java.util.Map" resultType="com.ejavashop.entity.order.OrdersAndOrdersProductVO">
+	<!-- <select id="getOrdersAndOrdersProductVO" parameterType="java.util.Map" resultType="com.phkjty.order.OrdersAndOrdersProductVO">
 		select o.member_id,o.member_name,o.order_sn,o.create_time,o.pay_time,o.order_type,o.order_state,
 		op.number,op.money_price,o.money_order,o.money_product,o.money_coupon,op.money_act_single,
 		o.money_logistics,o.service_price,op.label_fee_total,o.payment_name,o.logistics_name,o.address_info,
@@ -511,7 +511,7 @@
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 	
-	<select id="getordersInStore" parameterType="java.util.Map" resultType="com.ejavashop.entity.order.Orders">
+	<select id="getordersInStore" parameterType="java.util.Map" resultType="com.phkjty.order.Orders">
 		select * from `orders`
 		<include refid="getOrdersCondition1" />
 		order by id desc
@@ -793,14 +793,14 @@
         where `id` = #{id}
 	</update>
 
-	<!-- <select id="list" resultType="com.ejavashop.entity.order.Orders">
+	<!-- <select id="list" resultType="com.phkjty.order.Orders">
 		select * from `orders` t1
 		order by id
 	</select>
    
    
    
-    <select id="listUserInfo"  parameterType="Integer"  resultType="com.ejavashop.vo.order.BookingSendGoodsVO">
+    <select id="listUserInfo"  parameterType="Integer"  resultType="com.phkjrder.BookingSendGoodsVO">
          select 
          m.member_name ,m.province_id,m.city_id,
           m.area_id,m.add_all as addressAll,m.address_info,m.mobile,
@@ -812,7 +812,7 @@
          and o.id = #{id} and m.state = 1
     </select>
     
-    <select id="listUserInfoLimit1"  parameterType="Integer"  resultType="com.ejavashop.vo.order.BookingSendGoodsVO">
+    <select id="listUserInfoLimit1"  parameterType="Integer"  resultType="com.phkjrder.BookingSendGoodsVO">
          select 
          m.member_name ,m.province_id,m.city_id,
           m.area_id,m.add_all as addressAll,m.address_info,m.mobile,
@@ -824,7 +824,7 @@
          and o.id = #{id} order by m.create_time desc,m.update_time desc limit 0,1
     </select>
     
-    <select id="listGoodsInfo"  parameterType="Integer"  resultType="com.ejavashop.vo.order.SendingGoodsVO">
+    <select id="listGoodsInfo"  parameterType="Integer"  resultType="com.phkjrder.SendingGoodsVO">
            select pg.product_id,ifnull(p.full_container_quantity,0) as fullContainerQuantity,
             op.product_name,pg.norm_name,op.number,op.product_sku,
             pg.images,o.delivered_sum,op.delivered_num ,op.id as orderGoodsId
@@ -834,7 +834,7 @@
 			and o.id=#{id};
     </select>
     
-    <select id="getWaitSendGoodsOrders" resultType="com.ejavashop.entity.order.Orders">
+    <select id="getWaitSendGoodsOrders" resultType="com.phkjty.order.Orders">
        select o.*
        from orders o LEFT JOIN orders_product p on p.orders_id = o.id where o.order_type !=4 
        and o.order_state = 3  and p.product_id != 10  and (o.sync_state = '未推送' or o.sync_state is null) group by o.order_sn order by o.order_sn
@@ -850,18 +850,18 @@
         and `order_type` = 9
 	</update>
 	
-	<select id="getOrderList" parameterType="String" resultType="com.ejavashop.entity.order.Orders">
+	<select id="getOrderList" parameterType="String" resultType="com.phkj.entity.order.Orders">
 		select * from `orders` where `trade_no` =#{relationOrderSn}
 	</select>
 	
-	<!-- <select id="getActBiddingState5" parameterType="java.lang.Integer" resultType="com.ejavashop.entity.order.Orders">
+	<!-- <select id="getActBiddingState5" parameterType="java.lang.Integer" resultType="com.phkjty.order.Orders">
 		select * from `orders`
 		where `order_state` = 5
 		and `activity_id` = #{actBiddingId}
         and `order_type` = 9
 	</select>
 	
-	<select id="getOrderSn" parameterType="String" resultType="com.ejavashop.entity.order.OrdersTradeSerial">
+	<select id="getOrderSn" parameterType="String" resultType="com.phkjty.order.OrdersTradeSerial">
 		select * from `orders_trade_serial` where `trade_sn` = #{tradeSn}
 	</select>
 	
@@ -1255,11 +1255,11 @@
 				from orders_product_return opr where opr.orders_id = #{ordersId}) as bb
 				on aa.order_sn = bb.product_sku
 	</select>
-	<select id="getOrdersByTradeNo" parameterType="String" resultType="com.ejavashop.entity.order.Orders">
+	<select id="getOrdersByTradeNo" parameterType="String" resultType="com.phkjty.order.Orders">
 		select * from `orders` where `trade_no` = #{tradeNo}
 	</select>
 	
-	<select id="getAllRelationOrdersBgId" parameterType="java.lang.Integer" resultType="com.ejavashop.entity.order.Orders">
+	<select id="getAllRelationOrdersBgId" parameterType="java.lang.Integer" resultType="com.phkjty.order.Orders">
 		select * from  `orders` where `trade_no` = (select `trade_no` from `orders` where id = #{id})
 	</select> -->
 </mapper>

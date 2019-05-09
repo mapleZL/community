@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ejavashop.dao.shop.write.member.MemberHouseWriteDao">
-	<resultMap id="MemberHouseResult" type="com.ejavashop.entity.member.MemberHouse">
+<mapper namespace="com.phkj.dao.shop.write.member.MemberHouseWriteDao">
+	<resultMap id="MemberHouseResult" type="com.phkj.entity.member.MemberHouse">
 			<result property="id" column="id" />
 			<result property="memberId" column="member_id" />
 			<result property="memberName" column="member_name" />
@@ -16,7 +16,7 @@
 			<result property="deleted" column="deleted" />
 	</resultMap>
 	
-	<update id="update" parameterType="com.ejavashop.entity.member.MemberHouse">
+	<update id="update" parameterType="com.phkj.entity.member.MemberHouse">
         update `member_house` 
     	<set>
 			<if test="id != null">`id`= #{id},</if>
@@ -35,7 +35,7 @@
         where `id` = #{id}
 	</update>
 	
-	<insert id="insert" parameterType="com.ejavashop.entity.member.MemberHouse" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="insert" parameterType="com.phkj.entity.member.MemberHouse" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into 
 		`member_house`
 		(
