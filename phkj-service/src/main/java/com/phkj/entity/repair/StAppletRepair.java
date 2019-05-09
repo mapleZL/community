@@ -5,23 +5,24 @@ import java.io.Serializable;
  * 
  *
  */
-public class PublishInformationInfo implements Serializable {
+public class StAppletRepair implements Serializable {
  
- 	private Long id;
- 	private String name;
- 	private String userId;
+ 	private Integer id;
+ 	private String communityName;
+ 	private String houseName;
+ 	private String createUserId;
  	private String userName;
  	private String examineId;
  	private java.util.Date examineTime;
  	private String repairId;
  	private java.util.Date createTime;
- 	private java.util.Date updateTime;
+ 	private java.util.Date modifyTime;
  	private String type;
  	private String title;
  	private String telPhone;
  	private java.util.Date startTime;
  	private java.util.Date endTime;
- 	private Integer status;
+ 	private Integer sts;
  	private String detail;
  	private String img;
  	
@@ -29,43 +30,57 @@ public class PublishInformationInfo implements Serializable {
 	/**
      * 获取id
      */
-	public Long getId(){
+	public Integer getId(){
 		return this.id;
 	}
  		
 	/**
      * 设置id
      */
-	public void setId(Long id){
+	public void setId(Integer id){
 		this.id = id;
+	}
+ 		
+	/**
+     * 获取communityName
+     */
+	public String getCommunityName(){
+		return this.communityName;
+	}
+ 		
+	/**
+     * 设置communityName
+     */
+	public void setCommunityName(String communityName){
+		this.communityName = communityName;
 	}
  		
 	/**
      * 获取名称
      */
-	public String getName(){
-		return this.name;
+	public String getHouseName(){
+		return this.houseName;
 	}
  		
 	/**
      * 设置名称
      */
-	public void setName(String name){
-		this.name = name;
+	public void setHouseName(String houseName){
+		this.houseName = houseName;
 	}
  		
 	/**
      * 获取发布人id
      */
-	public String getUserId(){
-		return this.userId;
+	public String getCreateUserId(){
+		return this.createUserId;
 	}
  		
 	/**
      * 设置发布人id
      */
-	public void setUserId(String userId){
-		this.userId = userId;
+	public void setCreateUserId(String createUserId){
+		this.createUserId = createUserId;
 	}
  		
 	/**
@@ -141,15 +156,15 @@ public class PublishInformationInfo implements Serializable {
 	/**
      * 获取更新时间
      */
-	public java.util.Date getUpdateTime(){
-		return this.updateTime;
+	public java.util.Date getModifyTime(){
+		return this.modifyTime;
 	}
  		
 	/**
      * 设置更新时间
      */
-	public void setUpdateTime(java.util.Date updateTime){
-		this.updateTime = updateTime;
+	public void setModifyTime(java.util.Date modifyTime){
+		this.modifyTime = modifyTime;
 	}
  		
 	/**
@@ -225,15 +240,15 @@ public class PublishInformationInfo implements Serializable {
 	/**
      * 获取状态，1待审核 2已审核 0审核不通过
      */
-	public Integer getStatus(){
-		return this.status;
+	public Integer getSts(){
+		return this.sts;
 	}
  		
 	/**
      * 设置状态，1待审核 2已审核 0审核不通过
      */
-	public void setStatus(Integer status){
-		this.status = status;
+	public void setSts(Integer sts){
+		this.sts = sts;
 	}
  		
 	/**
