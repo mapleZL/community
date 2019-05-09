@@ -45,8 +45,8 @@
                 /resources/** = anon <!-- 不需要认证 -->
                 /admin/property/repair/** = anon
                 /admin/member/car/** = anon
-                /admin/member/house/** = anno
-                /admin/member/parking/lot/** = anno
+                /admin/member/house/** = anon
+                /admin/member/parking/lot/** = anon
                 /admin/login.html = anon
                 /admin/doLogin = anon
                 /verify.html = anon
