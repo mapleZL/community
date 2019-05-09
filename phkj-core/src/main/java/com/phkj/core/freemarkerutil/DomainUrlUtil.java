@@ -26,6 +26,11 @@ public class DomainUrlUtil {
     public static String                     EJS_WMS_URL;                 
     public static String                     EJS_OMS_URL; 
     
+    public static String                     OSS_ENDPOINT;
+    public static String                     OSS_ACCESSKEYID;
+    public static String                     OSS_ACCESSKEYSECRET;
+    public static String                     OSS_BUCKETNAME;
+    
     public static String getEJS_URL_RESOURCES() {
         return EJS_URL_RESOURCES;
     }
@@ -114,4 +119,36 @@ public class DomainUrlUtil {
 		EJS_OMS_URL = eJS_OMS_URL;
 	}
 
+    public static String getOSS_ENDPOINT() {
+        return OSS_ENDPOINT;
+    }
+
+    public static void setOSS_ENDPOINT(String oSS_ENDPOINT) {
+        OSS_ENDPOINT = oSS_ENDPOINT;
+    }
+
+    public static String getOSS_ACCESSKEYID() {
+        return OSS_ACCESSKEYID;
+    }
+
+    public static void setOSS_ACCESSKEYID(String oSS_ACCESSKEYID) {
+        OSS_ACCESSKEYID = oSS_ACCESSKEYID;
+    }
+
+    public static String getOSS_ACCESSKEYSECRET() {
+        return OSS_ACCESSKEYSECRET;
+    }
+
+    public static void setOSS_ACCESSKEYSECRET(String oSS_ACCESSKEYSECRET) {
+        OSS_ACCESSKEYSECRET = oSS_ACCESSKEYSECRET;
+    }
+
+    public static String getOSS_BUCKETNAME() {
+        return OSS_BUCKETNAME;
+    }
+
+    public static void setOSS_BUCKETNAME(String oSS_BUCKETNAME) {
+        OSS_BUCKETNAME = oSS_BUCKETNAME;
+    }
+	
 }
