@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <bean id="adminJob" class="com.phkj.job.AdminJob"/>
+    
+    
+    <!-- 系统完成订单任务 -->
+    <!-- <bean id="jobSystemFinishOrder" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="adminJob"/>
+        <property name="targetMethod" value="jobSystemFinishOrder"/>
+    </bean>
+    <bean id="jobSystemFinishOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="jobSystemFinishOrder"/>
+        </property>
+        <property name="cronExpression">
+        	每隔10分钟触发
+            <value>0 0/10 * * * ?</value>
+        </property>
+    </bean> -->
+    
+    <!-- 系统清理购物车任务 -->
+    <!-- <bean id="jobClearCart" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="adminJob"/>
+        <property name="targetMethod" value="jobClearCart"/>
+    </bean>
+    <bean id="jobClearCartTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="jobClearCart"/>
+        </property>
+        <property name="cronExpression">
+        	每天2:10触发一次
+            <value>0 10 2 * * ?</value>
+        </property>
+    </bean> -->
+   
+
+    <!-- 定时任务系统自动取消24小时没有付款订单 -->
+    <!-- <bean id="jobSystemCancelOrder" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="adminJob"/>
+        <property name="targetMethod" value="jobSystemCancelOrder"/>
+    </bean>
+    <bean id="jobSystemCancelOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="jobSystemCancelOrder"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 5/10 * * * ?</value>
+            每隔3小时触发一次
+            <value>0 */3 * * *  ?</value>
+            每隔3分钟触发一次
+            <value>0 0/3 * * *  ?</value>
+        </property>
+    </bean> -->
+    
+
+
+    <bean id="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+            <!--
+                <ref bean="jobCreditTrigger"/>
+                <ref bean="jobOutDoorOrders"/>
+                <ref bean="jobSendFailOrderMail"/> 
+                <ref bean="jobSettlementTrigger"/>
+                <ref bean="jobSystemFinishOrderTrigger"/>
+                <ref bean="jobClearCartTrigger"/>
+                <ref bean="jobSearchSolrTrigger"/>
+                <ref bean="jobSetSellerScoreTrigger"/>
+                <ref bean="jobSystemCancelOrderTrigger"/>
+                <ref bean="jobSellerStatisticsTrigger"/>
+                <ref bean="jobUpdateSearchRecordIndexTrigger"/>
+            	<ref bean="sendMessageToMemberTrigger"/>
+            	<ref bean="sendMessageToEffectiveCunstomerTrigger"/>
+            	-->
+            </list>
+        </property>
+        <property name="taskExecutor" ref="executor"/>
+    </bean>
+    <bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="10"/>
+        <property name="maxPoolSize" value="100"/>
+        <property name="queueCapacity" value="500"/>
+    </bean>
+</beans>
