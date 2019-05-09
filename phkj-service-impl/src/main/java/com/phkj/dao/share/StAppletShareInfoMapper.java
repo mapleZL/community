@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface StAppletShareInfoMapper {
@@ -22,5 +23,5 @@ public interface StAppletShareInfoMapper {
 
     int updateByPrimaryKey(StAppletShareInfo record);
 
-    List<StAppletShareInfo> selectByUserId(@Param("userId") String userId);
+    List<Map> selectByUserId(@Param("userId") String userId);
 }

@@ -59,15 +59,11 @@
 
 		<property name="plugins">
 			<array>
-				<!-- 分页插件配置 -->
-				<bean id="paginationInterceptor"
-					  class="com.baomidou.mybatisplus.plugins.PaginationInterceptor"/>
-				<!-- 乐观锁插件 -->
-				<bean id="optimisticLockerInterceptor"
-					  class="com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor">
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>dialect=mysql</value>
+					</property>
 				</bean>
-				<bean id="performanceInterceptor"
-					  class="com.baomidou.mybatisplus.plugins.PerformanceInterceptor"/>
 			</array>
 		</property>
 	</bean>
@@ -120,6 +116,15 @@
 			</list>
 		</property>
 
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>dialect=mysql</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 
 	</bean>
 
