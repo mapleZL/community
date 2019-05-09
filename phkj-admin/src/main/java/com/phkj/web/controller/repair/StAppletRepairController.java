@@ -1,8 +1,5 @@
 package com.phkj.web.controller.repair;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.phkj.core.ConstantsEJS;
 import com.phkj.core.ResponseStateEnum;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.response.ResponseUtil;
@@ -11,9 +8,7 @@ import com.phkj.service.repair.IStAppletRepairService;
 import com.phkj.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author ：zl
@@ -38,13 +33,32 @@ public class StAppletRepairController extends BaseController {
      * @Param: stAppletRepair
      */
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    public String index(@RequestBody StAppletRepair stAppletRepair) {
+    @ResponseBody
+    public ResponseUtil save(@RequestBody StAppletRepair stAppletRepair) {
         boolean flag = checkParam(stAppletRepair);
         if (!flag) {
-            return ResponseUtil.responseJSONString(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), null);
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true,null);
         }
         ServiceResult<Integer> result = stAppletRepairService.saveStAppletRepair(stAppletRepair);
-        return ResponseUtil.responseJSONString(true);
+        return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(),ResponseStateEnum.STATUS_OK.getMsg(),true,result.getResult());
+    }
+
+    /**
+     * create by: zl
+     * description: 添加物业报修
+     * create time:
+     *
+     * @return
+     * @Param: stAppletRepair
+     */
+    @RequestMapping(value = "/get", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResponseUtil get(Integer id) {
+        if (id == null) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true,null);
+        }
+        ServiceResult<StAppletRepair> result = stAppletRepairService.getStAppletRepairById(1);
+        return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(),ResponseStateEnum.STATUS_OK.getMsg(),true,result.getResult());
     }
 
     private boolean checkParam(StAppletRepair stAppletRepair) {

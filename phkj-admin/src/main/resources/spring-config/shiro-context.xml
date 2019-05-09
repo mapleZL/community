@@ -43,6 +43,7 @@
             <value>
                 /share/** = anon
                 /resources/** = anon <!-- 不需要认证 -->
+                /admin/property/repair/** = anon
                 /admin/login.html = anon
                 /admin/doLogin = anon
                 /verify.html = anon
