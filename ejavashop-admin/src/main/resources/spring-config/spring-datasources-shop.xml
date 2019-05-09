@@ -107,12 +107,12 @@
 	</bean>
 
 	<bean name="shopMapperScannerWrite" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.ejavashop.dao.shop.write" />
+		<property name="basePackage" value="com.ejavashop.dao.*" />
 		<property name="sqlSessionFactoryBeanName" value="shopWriteSqlSessionFactory" />
 	</bean>
 	
 	<bean name="shopMapperScannerRead" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.ejavashop.dao.shop.read" />
+		<property name="basePackage" value="com.ejavashop.dao.*" />
 		<property name="sqlSessionFactoryBeanName" value="shopReadSqlSessionFactory" />
 	</bean>
 
