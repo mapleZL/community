@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
-    <context:component-scan base-package="com.ejavashop.web.controller">
+    <context:component-scan base-package="com.phkj.web.controller">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
@@ -91,20 +91,20 @@
     <bean id="freemarkerStaticModelsProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="location" value="classpath:properties-config/freemarkerStatic.properties"/>
     </bean>
-    <bean id="freemarkerStaticModels" class="com.ejavashop.web.util.freemarker.FreemarkerStaticModels"
+    <bean id="freemarkerStaticModels" class="com.phkj.web.util.freemarker.FreemarkerStaticModels"
           factory-method="getInstance">
         <property name="staticModels" ref="freemarkerStaticModelsProps"/>
     </bean>
     <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
     <!-- freemarkerConfig配置-->
-    <bean id="freemarkerConfig" class="com.ejavashop.web.util.freemarker.CustomFreeMarkerConfigurer">
+    <bean id="freemarkerConfig" class="com.phkj.web.util.freemarker.CustomFreeMarkerConfigurer">
         <property name="defaultEncoding" value="utf-8"></property>
         <property name="templateLoaderPath" value="/WEB-INF/views/"></property>
         <property name="freemarkerVariables">
             <map>
                 <entry key="xml_escape" value-ref="fmXmlEscape"/>
                 <entry key="initJSCodeContainer">
-                    <bean class="com.ejavashop.web.util.freemarker.InitJSCodeContainerTemplateMethodModel"/>
+                    <bean class="com.phkj.web.util.freemarker.InitJSCodeContainerTemplateMethodModel"/>
                 </entry>
             </map>
         </property>
@@ -142,7 +142,7 @@
     -->
 
     <!--  字典表 -->
-    <bean id="codeManager" class="com.ejavashop.web.util.freemarkerutil.CodeManager"
+    <bean id="codeManager" class="com.phkj.web.util.freemarkerutil.CodeManager"
           init-method="init">
         <property name="codeService" ref="codeService"/>
     </bean>

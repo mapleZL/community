@@ -17,7 +17,7 @@
         </property>
     </bean>
 
-    <context:component-scan base-package="com.ejavashop.service,com.ejavashop.model,com.ejavashop.util">
+    <context:component-scan base-package="com.phkj.service,com.phkj.model,com.phkj.util">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
@@ -27,7 +27,7 @@
     <import resource="spring-scheduler.xml"/>
     <import resource="shiro-context.xml"/>
 
-    <bean id="domainUrlUtil" class="com.ejavashop.core.freemarkerutil.DomainUrlUtil">
+    <bean id="domainUrlUtil" class="com.phkj.core.freemarkerutil.DomainUrlUtil">
         <property name="EJS_URL_RESOURCES" value="http://127.0.0.1:8081"/>
         <property name="EJS_STATIC_RESOURCES" value="http://127.0.0.1:8081"/>
         <property name="EJS_IMAGE_RESOURCES" value="https://images2.dawawang.com"/>
@@ -35,6 +35,6 @@
     </bean>
     
     <!-- 配置SpringContext,便于手动取得注入的bean -->
-    <bean id="SpringContextUtil " class="com.ejavashop.web.util.SpringContextUtil " scope="singleton"/>
+    <bean id="SpringContextUtil " class="com.phkj.web.util.SpringContextUtil " scope="singleton"/>
     
 </beans>
