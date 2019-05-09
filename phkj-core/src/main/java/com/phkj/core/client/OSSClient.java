@@ -2,6 +2,8 @@ package com.phkj.core.client;
 
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.PutObjectResult;
+import com.phkj.core.freemarkerutil.DomainUrlUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +37,8 @@ public class OSSClient implements FactoryClient {
     private com.aliyun.oss.OSSClient getClient() {
         com.aliyun.oss.OSSClient ossClient = null;
         try {
-            ossClient = new com.aliyun.oss.OSSClient(ClientCst.oss_endpoint, ClientCst.oss_accessKeyId,
-                    ClientCst.oss_accessKeySecret);
+            ossClient = new com.aliyun.oss.OSSClient(DomainUrlUtil.OSS_ENDPOINT, DomainUrlUtil.OSS_ACCESSKEYID,
+                DomainUrlUtil.OSS_ACCESSKEYSECRET);
         } catch (Exception e) {
             LOGGER.error("OSSClient bean create error.", e);
             ossClient = null;
@@ -61,7 +63,7 @@ public class OSSClient implements FactoryClient {
             if (null == ossClient) {
                 return null;
             }
-            boolean flag = ossClient.doesObjectExist(ClientCst.oss_bucketName, objKey);
+            boolean flag = ossClient.doesObjectExist(DomainUrlUtil.OSS_BUCKETNAME, objKey);
             if (!flag) {
                 LOGGER.info(objKey + " 代表的object在bucket：" + ClientCst.oss_bucketName + " 中不存在。");
                 return null;
@@ -69,7 +71,7 @@ public class OSSClient implements FactoryClient {
             if (ClientCst.validity == -1) {
                 expiration = new Date(Long.MAX_VALUE);
             }
-            url = ossClient.generatePresignedUrl(ClientCst.oss_bucketName, objKey, expiration);
+            url = ossClient.generatePresignedUrl(DomainUrlUtil.OSS_BUCKETNAME, objKey, expiration);
         } finally {
             if (ossClient != null) {
                 ossClient.shutdown();
@@ -98,7 +100,7 @@ public class OSSClient implements FactoryClient {
 //            if (isContains) {
 //                return code;
 //            }
-            ossClient.putObject(ClientCst.oss_bucketName, code, inputStream);
+            ossClient.putObject(DomainUrlUtil.OSS_BUCKETNAME, code, inputStream);
         } finally {
             if (ossClient != null) {
                 ossClient.shutdown();
@@ -123,7 +125,7 @@ public class OSSClient implements FactoryClient {
             if (null == ossClient) {
                 return false;
             }
-            PutObjectResult putObjectResult = ossClient.putObject(ClientCst.oss_bucketName, code, inputStream);
+            PutObjectResult putObjectResult = ossClient.putObject(DomainUrlUtil.OSS_BUCKETNAME, code, inputStream);
         } finally {
             if (ossClient != null) {
                 ossClient.shutdown();
@@ -147,12 +149,12 @@ public class OSSClient implements FactoryClient {
             if (null == ossClient) {
                 return false;
             }
-            boolean flag = ossClient.doesObjectExist(ClientCst.oss_bucketName, code);
+            boolean flag = ossClient.doesObjectExist(DomainUrlUtil.OSS_BUCKETNAME, code);
             if (!flag) {
-                LOGGER.info(code + " 代表的object在bucket：" + ClientCst.oss_bucketName + " 中不存在。");
+                LOGGER.info(code + " 代表的object在bucket：" + DomainUrlUtil.OSS_BUCKETNAME + " 中不存在。");
                 return false;
             }
-            ossClient.deleteObject(ClientCst.oss_bucketName, code);
+            ossClient.deleteObject(DomainUrlUtil.OSS_BUCKETNAME, code);
         } finally {
             if (ossClient != null) {
                 ossClient.shutdown();
@@ -176,7 +178,7 @@ public class OSSClient implements FactoryClient {
             if (null == ossClient) {
                 return false;
             }
-            return ossClient.doesObjectExist(ClientCst.oss_bucketName, code);
+            return ossClient.doesObjectExist(DomainUrlUtil.OSS_BUCKETNAME, code);
         } finally {
             if (ossClient != null) {
                 ossClient.shutdown();
@@ -204,7 +206,7 @@ public class OSSClient implements FactoryClient {
             LOGGER.info("获取oss客户端耗时：", endTime - startTime);
 
             startTime = System.currentTimeMillis();
-            OSSObject ossObject = ossClient.getObject(ClientCst.oss_bucketName, ossKey);
+            OSSObject ossObject = ossClient.getObject(DomainUrlUtil.OSS_BUCKETNAME, ossKey);
             inputStream = ossObject.getObjectContent();
 
             ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
