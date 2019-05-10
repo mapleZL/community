@@ -3,12 +3,16 @@ package com.phkj.service.impl.share;
 import com.github.pagehelper.ISelect;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.phkj.dao.share.StAppletShareApplyMapper;
 import com.phkj.dao.share.StAppletShareInfoMapper;
+import com.phkj.entity.share.StAppletShareApply;
 import com.phkj.entity.share.StAppletShareInfo;
 import com.phkj.service.share.ShareService;
+import com.sun.mail.imap.protocol.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +24,9 @@ public class ShareServiceImpl implements ShareService {
      */
     @Autowired
     private StAppletShareInfoMapper stAppletShareInfoMapper;
+
+    @Autowired
+    private StAppletShareApplyMapper stAppletShareApplyMapper;
 
     /**
      * @param userId
@@ -105,6 +112,59 @@ public class ShareServiceImpl implements ShareService {
         StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
 
         return shareInfo;
+    }
+
+    /**
+     * @param
+     * @return
+     */
+    @Override
+    public boolean addShareInfo(StAppletShareInfo shareInfo) {
+        boolean flag = false;
+        // app发布更新时间
+        shareInfo.setCreateTime(new Date());
+        shareInfo.setShareType("1"); //1居民 2 物业社区
+        shareInfo.setSts("1"); //任务状态 0删除 1.正常
+        int i = stAppletShareInfoMapper.insertSelective(shareInfo);
+        if (i > 0) {
+            flag = true;
+        }
+        return flag;
+    }
+
+
+    /**
+     * @param id1
+     * @param id
+     * @param userId
+     * @param userName
+     * @param telePhone
+     * @param address
+     * @return
+     */
+    @Override
+    public boolean applyShareInfo(String id, String userId, String userName, String telePhone, String address, String IDCard) {
+
+        boolean flag = false;
+        // 查询当前任务信息
+        StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
+
+        // 创建一条申请信息
+        StAppletShareApply shareApply = new StAppletShareApply();
+        shareApply.setInfoId(shareInfo.getId());
+        shareApply.setCreateUserId(Long.valueOf(userId));
+        shareApply.setUserName(userName);
+        shareApply.setTelephone(telePhone);
+        shareApply.setAddress(address);
+        shareApply.setIdCard(IDCard);
+        shareApply.setSts("1"); // 申请状态 1.申请中 2.申请通过 3.拒绝申请
+        shareApply.setCreateTime(new Date());
+        int i = stAppletShareApplyMapper.insert(shareApply);
+        if (i > 0) {
+            flag = true;
+        }
+
+        return flag;
     }
 
 

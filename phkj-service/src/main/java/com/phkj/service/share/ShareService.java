@@ -16,4 +16,8 @@ public interface ShareService {
 
 
     StAppletShareInfo getShareInfoDetail(String id);
+
+    boolean addShareInfo(StAppletShareInfo stAppletShareInfo);
+
+    boolean applyShareInfo(String id, String userId, String userName, String telePhone, String address ,String IDCard);
 }

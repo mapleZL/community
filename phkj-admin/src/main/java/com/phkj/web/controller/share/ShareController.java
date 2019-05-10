@@ -4,10 +4,12 @@ package com.phkj.web.controller.share;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.share.StAppletShareInfo;
 import com.phkj.service.share.ShareService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -106,7 +108,7 @@ public class ShareController {
      * 获取详情页面
      */
     @ResponseBody
-    @RequestMapping("/getShareInfoDetail")
+    @RequestMapping(value = "/getShareInfoDetail", method = RequestMethod.GET)
     public ResponseUtil getShareInfoDetail(HttpServletRequest request) {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
@@ -121,5 +123,127 @@ public class ShareController {
         }
         return responseUtil;
     }
+
+
+    /**
+     * app用户端口发布共享信息
+     *
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/publishShareInfo", method = RequestMethod.POST)
+    public ResponseUtil publishShareInfo(@RequestBody StAppletShareInfo shareInfo) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+
+            String msg = checkParam(shareInfo);
+            if (StringUtils.isNotBlank(msg)) {
+                responseUtil.setSuccess(false);
+                responseUtil.setMsg(msg);
+                return responseUtil;
+            }
+            if (shareService.addShareInfo(shareInfo)) {
+                responseUtil.setSuccess(true);
+            } else {
+                responseUtil.setSuccess(false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("用户发布信息失败! 错误信息 :" + e);
+            responseUtil.setSuccess(false);
+        }
+        return responseUtil;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/applyShareInfo", method = RequestMethod.GET)
+    public ResponseUtil applyShareInfo(HttpServletRequest request) {
+        String id = request.getParameter("id");
+        String userId = request.getParameter("userId");
+        String userName = request.getParameter("userName");
+        String telePhone = request.getParameter("telePhone");
+        String address = request.getParameter("address");
+        String IDCard = request.getParameter("IDCard");
+
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            if (shareService.applyShareInfo(id, userId, userName, telePhone, address, IDCard)) {
+                responseUtil.setSuccess(true);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("用户发布信息失败! 错误信息 :" + e);
+            responseUtil.setSuccess(false);
+        }
+        return responseUtil;
+    }
+
+    /**
+     * 参数校验
+     *
+     * @param shareInfo
+     * @return
+     */
+    private String checkParam(StAppletShareInfo shareInfo) {
+        String msg = "";
+        String taskType = shareInfo.getTaskType();
+        if (StringUtils.isBlank(shareInfo.getTitle())) {
+            msg = "标题不能为空!";
+        }
+        if (StringUtils.isBlank(shareInfo.getTelephone())) {
+            msg = "联系方式不能为空!";
+        }
+        if (StringUtils.isBlank(shareInfo.getContact())) {
+            msg = "联系人不能为空!";
+        }
+
+        if ("1".equals(taskType)) {
+            if (null == shareInfo.getStartTime()) {
+                msg = "预约开始时间不能为空!";
+            }
+            if (null == shareInfo.getEndTime()) {
+                msg = "预约结束时间不能为空!";
+            }
+        } else if ("2".equals(taskType)) {
+            if (StringUtils.isBlank(shareInfo.getCarNum())) {
+                msg = "车牌号不能为空!";
+            }
+            if (StringUtils.isBlank(shareInfo.getDepartPlace())) {
+                msg = "出发地不能为空!";
+            }
+            if (StringUtils.isBlank(shareInfo.getDestination())) {
+                msg = "目的地不能为空!";
+            }
+            if (null == shareInfo.getStartTime()) {
+                msg = "发车时间不能为空!";
+            }
+        } else if ("3".equals(taskType)) {
+            if (StringUtils.isBlank(shareInfo.getSkill())) {
+                msg = "技能不能为空!";
+            }
+            if (null == shareInfo.getStartTime()) {
+                msg = "互换开始时间不能为空!";
+            }
+            if (null == shareInfo.getEndTime()) {
+                msg = "互换结束时间不能为空!";
+            }
+        } else if ("4".equals(taskType)) {
+            if (StringUtils.isBlank(shareInfo.getContent())) {
+                msg = "共享内容!";
+            }
+            if (null == shareInfo.getStartTime()) {
+                msg = "共享开始时间不能为空!";
+            }
+            if (null == shareInfo.getEndTime()) {
+                msg = "共享结束时间不能为空!";
+            }
+
+        }
+        return msg;
+    }
+
 
 }

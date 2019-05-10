@@ -1,5 +1,7 @@
 package com.phkj.entity.share;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -40,7 +42,7 @@ public class StAppletShareInfo implements Serializable {
     private String taskType;
 
     /**
-     * 门禁
+     * 门禁 0无 1.有
      */
     private String doorLock;
 
@@ -52,15 +54,17 @@ public class StAppletShareInfo implements Serializable {
     /**
      * 共享开始时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     /**
      * 共享结束时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
     /**
-     * 车位锁
+     * 车位锁 0.无 1.有
      */
     private String carLock;
 
@@ -107,6 +111,7 @@ public class StAppletShareInfo implements Serializable {
     /**
      * 发布时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
@@ -123,6 +128,11 @@ public class StAppletShareInfo implements Serializable {
      * 修改时间
      */
     private Date modifyTime;
+
+    /**
+     * 申请状态 0.未申请 1.已申请
+     */
+    private String shareStatus;
 
     /**
      * 图片路径
@@ -321,6 +331,14 @@ public class StAppletShareInfo implements Serializable {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getShareStatus() {
+        return shareStatus;
+    }
+
+    public void setShareStatus(String shareStatus) {
+        this.shareStatus = shareStatus;
     }
 
     public String getImgUrl() {

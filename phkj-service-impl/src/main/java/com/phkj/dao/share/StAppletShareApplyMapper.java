@@ -1,7 +1,9 @@
 package com.phkj.dao.share;
 
 import com.phkj.entity.share.StAppletShareApply;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface StAppletShareApplyMapper {
     int deleteByPrimaryKey(Long id);
 
