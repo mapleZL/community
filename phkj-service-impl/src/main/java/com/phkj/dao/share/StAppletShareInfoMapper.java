@@ -24,4 +24,6 @@ public interface StAppletShareInfoMapper {
     int updateByPrimaryKey(StAppletShareInfo record);
 
     List<Map> selectByUserId(@Param("userId") String userId);
+
+    List<Map> selectAllShareInfo(@Param("taskType") String taskType);
 }

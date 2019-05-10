@@ -1,7 +1,6 @@
 package com.phkj.service.impl.share;
 
 import com.github.pagehelper.ISelect;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.phkj.dao.share.StAppletShareInfoMapper;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -23,7 +21,12 @@ public class ShareServiceImpl implements ShareService {
     @Autowired
     private StAppletShareInfoMapper stAppletShareInfoMapper;
 
-
+    /**
+     * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @Override
     public Map<String, Object> getMeShareInfo(String userId, Integer pageNum, Integer pageSize) {
 
@@ -63,4 +66,46 @@ public class ShareServiceImpl implements ShareService {
 
         return flag;
     }
+
+
+    /**
+     * @param taskType
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Map<String, Object> getAllShareInfo(String taskType, Integer pageNum, Integer pageSize) {
+
+        //
+        int pageNumber = pageNum == 0 ? 1 : pageNum;
+        int size = pageSize == 0 ? 5 : pageSize;
+        PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
+            @Override
+            public void doSelect() {
+                stAppletShareInfoMapper.selectAllShareInfo(taskType);
+            }
+        });
+
+        // 处理数据
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("total", pageInfo.getTotal());
+        returnMap.put("list", pageInfo.getList());
+        return returnMap;
+    }
+
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public StAppletShareInfo getShareInfoDetail(String id) {
+
+        StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
+
+        return shareInfo;
+    }
+
+
 }
