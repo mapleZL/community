@@ -38,6 +38,7 @@ C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\CsrfToke
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\AuthenticatedTag.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\news\AdminNewsController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\seller\AdminSellerController.java
+C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\repair\StAppletCommentController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\HasPermissionTag.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\WebAdminSession.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminRoleController.java

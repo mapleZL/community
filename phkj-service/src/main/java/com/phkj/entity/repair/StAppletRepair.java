@@ -271,7 +271,7 @@ public class StAppletRepair implements Serializable {
 	public String getImg(){
 		return this.img;
 	}
- 		
+
 	/**
      * 设置图片
      */

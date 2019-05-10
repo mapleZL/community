@@ -99,5 +99,18 @@
 			#{img}
 		)
 	</insert>
+
+	<select id="getStAppletRepairList" parameterType="java.util.Map" resultMap="StAppletRepairResult">
+		select
+		*
+		from `st_applet_repair`
+		<where>
+			<if test="createUserId != null and createUserId !=''">
+				and create_user_id = #{createUserId}
+			</if>
+		</where>
+		order by `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
 	
 </mapper>

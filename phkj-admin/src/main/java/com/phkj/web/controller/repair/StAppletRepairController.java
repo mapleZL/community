@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author ：zl
  * @date ：Created in 2019/5/9 19:50
@@ -46,7 +48,7 @@ public class StAppletRepairController extends BaseController {
 
     /**
      * create by: zl
-     * description: 添加物业报修
+     * description: 查看物业报修
      * create time:
      *
      * @return
@@ -59,6 +61,26 @@ public class StAppletRepairController extends BaseController {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
         }
         ServiceResult<StAppletRepair> result = stAppletRepairService.getStAppletRepairById(id);
+        return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
+    }
+
+    /**
+     * create by: zl
+     * description: 查看物业报修列表记录
+     * create time:
+     *
+     * @return
+     * @Param: stAppletRepair
+     */
+    @RequestMapping(value = "/list", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResponseUtil list(String createUserId, int pageNum, int pageSize) {
+        if (StringUtils.isBlank(createUserId)) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "createUserId is blank", true, null);
+        }
+        pageNum = pageNum == 0 ? 1 : pageNum;
+        pageSize = pageSize == 0 ? 10 : pageSize;
+        ServiceResult<List<StAppletRepair>> result = stAppletRepairService.getStAppletRepairList(createUserId, pageNum, pageSize);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
     }
 

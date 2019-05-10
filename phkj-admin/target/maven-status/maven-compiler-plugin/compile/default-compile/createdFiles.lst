@@ -28,6 +28,7 @@ com\phkj\web\controller\share\ShareController.class
 com\phkj\web\shiro\tag\NotAuthenticatedTag.class
 com\phkj\web\util\WebAdminSession.class
 com\phkj\web\shiro\tag\UserTag.class
+com\phkj\web\controller\repair\StAppletCommentController.class
 com\phkj\web\util\UploadUtil.class
 com\phkj\web\shiro\tag\PrincipalTag.class
 com\phkj\web\util\UEditorUploaderImage.class
