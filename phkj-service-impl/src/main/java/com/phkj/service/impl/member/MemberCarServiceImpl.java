@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +58,8 @@ public class MemberCarServiceImpl implements IMemberCarService {
     public ServiceResult<Integer> saveMemberCar(MemberCar memberCar) {
         ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
+            memberCar.setCreateDate(new Date());
+            memberCar.setStatus(1);
             result.setResult(memberCarModel.saveMemberCar(memberCar));
         } catch (BusinessException e) {
             result.setSuccess(false);

@@ -1,5 +1,6 @@
 package com.phkj.web.controller.member;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.phkj.entity.system.SystemAdmin;
+import com.phkj.web.util.WebAdminSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,8 +83,14 @@ public class MemberHouseController extends BaseController{
     @RequestMapping(value = "/passInfo", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<Boolean> pass(HttpServletRequest request,
                                                       HttpServletResponse response, Integer id) {
-
-        ServiceResult<Boolean> serviceResult = memberHouseService.changeStatus(id, MemberPropertyStatus.STATE_2);
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        Integer userId = adminUser.getId();
+        MemberHouse memberHouse = new MemberHouse();
+        memberHouse.setId(id);
+        memberHouse.setExamineDate(new Date());
+        memberHouse.setExamineUserId(userId);
+        memberHouse.setStatus(MemberPropertyStatus.STATE_2);
+        ServiceResult<Integer> serviceResult = memberHouseService.updateMemberHouse(memberHouse);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());
@@ -104,8 +113,14 @@ public class MemberHouseController extends BaseController{
     @RequestMapping(value = "/noPassInfo", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<Boolean> noPass(HttpServletRequest request,
                                                       HttpServletResponse response, Integer id) {
-
-        ServiceResult<Boolean> serviceResult = memberHouseService.changeStatus(id, MemberPropertyStatus.STATE_0);
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        Integer userId = adminUser.getId();
+        MemberHouse memberHouse = new MemberHouse();
+        memberHouse.setId(id);
+        memberHouse.setExamineDate(new Date());
+        memberHouse.setExamineUserId(userId);
+        memberHouse.setStatus(MemberPropertyStatus.STATE_0);
+        ServiceResult<Integer> serviceResult = memberHouseService.updateMemberHouse(memberHouse);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());
