@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @Service(value = "stAppletRepairService")
 public class StAppletRepairServiceImpl implements IStAppletRepairService {
@@ -50,6 +51,10 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
      public ServiceResult<Integer> saveStAppletRepair(StAppletRepair stAppletRepair) {
      	ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
+            Date date = new Date();
+            stAppletRepair.setModifyTime(date);
+            stAppletRepair.setCreateTime(date);
+            stAppletRepair.setSts(1);
             result.setResult(stAppletRepairModel.saveStAppletRepair(stAppletRepair));
         } catch (BusinessException e) {
             result.setSuccess(false);
@@ -72,6 +77,7 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
      public ServiceResult<Integer> updateStAppletRepair(StAppletRepair stAppletRepair) {
      	ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
+            stAppletRepair.setModifyTime(new Date());
             result.setResult(stAppletRepairModel.updateStAppletRepair(stAppletRepair));
         } catch (BusinessException e) {
             result.setSuccess(false);

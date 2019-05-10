@@ -6,6 +6,7 @@ import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.repair.StAppletRepair;
 import com.phkj.service.repair.IStAppletRepairService;
 import com.phkj.web.controller.BaseController;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -35,12 +36,12 @@ public class StAppletRepairController extends BaseController {
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
     @ResponseBody
     public ResponseUtil save(@RequestBody StAppletRepair stAppletRepair) {
-        boolean flag = checkParam(stAppletRepair);
-        if (!flag) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true,null);
+        ResponseUtil flag = checkParam(stAppletRepair);
+        if (flag != null) {
+            return flag;
         }
         ServiceResult<Integer> result = stAppletRepairService.saveStAppletRepair(stAppletRepair);
-        return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(),ResponseStateEnum.STATUS_OK.getMsg(),true,result.getResult());
+        return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
     }
 
     /**
@@ -55,14 +56,28 @@ public class StAppletRepairController extends BaseController {
     @ResponseBody
     public ResponseUtil get(Integer id) {
         if (id == null) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true,null);
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
         }
-        ServiceResult<StAppletRepair> result = stAppletRepairService.getStAppletRepairById(1);
-        return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(),ResponseStateEnum.STATUS_OK.getMsg(),true,result.getResult());
+        ServiceResult<StAppletRepair> result = stAppletRepairService.getStAppletRepairById(id);
+        return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
     }
 
-    private boolean checkParam(StAppletRepair stAppletRepair) {
-
-        return false;
+    private ResponseUtil checkParam(StAppletRepair stAppletRepair) {
+        if (stAppletRepair == null) {
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
+        }
+        if (StringUtils.isBlank(stAppletRepair.getCommunityName()) || StringUtils.isBlank(stAppletRepair.getHouseName())) {
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "communityName or houseName is blank", true, null);
+        }
+        if (StringUtils.isBlank(stAppletRepair.getTelPhone()) || StringUtils.isBlank(stAppletRepair.getUserName())) {
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "userName or telPhone is blank", true, null);
+        }
+        if (StringUtils.isBlank(stAppletRepair.getType())) {
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "type is blank", true, null);
+        }
+        if (stAppletRepair.getStartTime() == null || stAppletRepair.getEndTime() == null) {
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "startTime or  endTime is blank", true, null);
+        }
+        return null;
     }
 }
