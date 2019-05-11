@@ -28,7 +28,7 @@ import java.util.Map;
  * gaowei
  */
 @Controller
-@RequestMapping("/share")
+@RequestMapping("/admin/share")
 public class ShareController {
     private final static Logger LOGGER = LogManager.getLogger(ShareController.class);
 
