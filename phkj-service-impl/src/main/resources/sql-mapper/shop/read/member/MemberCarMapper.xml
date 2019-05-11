@@ -17,12 +17,12 @@
 	<select id="get" parameterType="Integer" resultMap="MemberCarResult">
 		select
 		   *
-		from `member_car`
+		from `st_applet_member_car`
 		where `id` = #{id}
 	</select>
 	
 	<update id="update" parameterType="com.phkj.entity.member.MemberCar">
-        update `member_car` 
+        update `st_applet_member_car` 
     	<set>
 			<if test="id != null">`id`= #{id},</if>
 			<if test="memberId != null">`member_id`= #{memberId},</if>
@@ -39,12 +39,12 @@
 	</update>
 
 	<update id="changeState">
-	    update `member_car` set `status`= #{status} where id = #{id}
+	    update `st_applet_member_car` set `status`= #{status} where id = #{id}
 	</update>
 	
 	<insert id="insert" parameterType="com.phkj.entity.member.MemberCar" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into 
-		`member_car`
+		`st_applet_member_car`
 		(
 			
 			`member_id`,
@@ -82,14 +82,14 @@
 	<select id="getMemberCarCount" parameterType="java.util.Map" resultType="Integer">
 		select
 		count(*)
-		from `member_car`
+		from `st_applet_member_car`
 		<include refid="getCondition"/>
 	</select>
 
 	<select id="getMemberCarList" parameterType="java.util.Map" resultMap="MemberCarResult">
 		select
 		*
-		from `member_car`
+		from `st_applet_member_car`
 		<include refid="getCondition"/>
 		order by `create_date` desc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>

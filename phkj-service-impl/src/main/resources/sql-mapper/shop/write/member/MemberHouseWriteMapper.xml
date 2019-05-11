@@ -17,7 +17,7 @@
 	</resultMap>
 	
 	<update id="update" parameterType="com.phkj.entity.member.MemberHouse">
-        update `member_house` 
+        update `st_applet_member_house` 
     	<set>
 			<if test="id != null">`id`= #{id},</if>
 			<if test="memberId != null">`member_id`= #{memberId},</if>
@@ -37,7 +37,7 @@
 	
 	<insert id="insert" parameterType="com.phkj.entity.member.MemberHouse" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into 
-		`member_house`
+		`st_applet_member_house`
 		(
 			
 			`member_id`,
@@ -70,7 +70,7 @@
 	</insert>
 	
 	<update id="changeState">
-	    update `member_house` set `status`= #{status} where id = #{id}
+	    update `st_applet_member_house` set `status`= #{status} where id = #{id}
 	</update>
 	
 </mapper>

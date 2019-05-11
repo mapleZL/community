@@ -11,7 +11,7 @@ import java.util.List;
 public interface StAppletRepairDao {
  
 	StAppletRepair get(Integer id);
-	
+
 	Integer insert(StAppletRepair stAppletRepair);
 	
 	Integer update(StAppletRepair stAppletRepair);

@@ -3,7 +3,9 @@ package com.phkj.service.impl.repair;
 import com.phkj.core.ConstantsEJS;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.exception.BusinessException;
+import com.phkj.entity.flow.StAppletRecord;
 import com.phkj.entity.repair.StAppletRepair;
+import com.phkj.model.flow.StAppletRecordModel;
 import com.phkj.model.repair.StAppletRepairModel;
 import com.phkj.service.repair.IStAppletRepairService;
 import org.apache.log4j.LogManager;
@@ -20,6 +22,9 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
 
     @Resource
     private StAppletRepairModel stAppletRepairModel;
+
+    @Resource
+    private StAppletRecordModel stAppletRecordModel;
 
     /**
      * 根据id取得st_applet_repair对象
@@ -59,6 +64,13 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
             stAppletRepair.setCreateTime(date);
             stAppletRepair.setSts(1);
             result.setResult(stAppletRepairModel.saveStAppletRepair(stAppletRepair));
+            // 向流水表中插入数据
+            StAppletRecord stAppletRecord = new StAppletRecord();
+            stAppletRecord.setRId(String.valueOf(stAppletRepair.getId()));
+            stAppletRecord.setCreateUserId(stAppletRepair.getCreateUserId());
+            stAppletRecord.setCreateUserName(stAppletRepair.getUserName());
+            stAppletRecord.setType("物业报修");
+            stAppletRecordModel.saveStAppletRecord(stAppletRecord);
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());

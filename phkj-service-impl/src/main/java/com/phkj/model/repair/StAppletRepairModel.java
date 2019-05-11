@@ -36,7 +36,8 @@ public class StAppletRepairModel {
      */
     public Integer saveStAppletRepair(StAppletRepair stAppletRepair) {
         this.dbConstrains(stAppletRepair);
-        return stAppletRepairDao.insert(stAppletRepair);
+        stAppletRepairDao.insert(stAppletRepair);
+        return stAppletRepair.getId();
     }
 
     /**

@@ -54,7 +54,7 @@ public class StAppletRepairController extends BaseController {
      * @return
      * @Param: stAppletRepair
      */
-    @RequestMapping(value = "/get", method = {RequestMethod.GET})
+    @RequestMapping(value = "/detail", method = {RequestMethod.GET})
     @ResponseBody
     public ResponseUtil get(Integer id) {
         if (id == null) {
