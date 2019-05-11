@@ -43,7 +43,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 					$.messager.progress({text:"提交中..."});
 					$.ajax({
 						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/share/deleteShareInfo",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/deleteShareInfo",
 						dataType: "json",
 					    data: "id=" + selected.id,
 					    cache:false,
@@ -60,8 +60,18 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 			    }
 			});
 		});
-		
-		// 解冻商家
+
+		// 查看详情跳转
+        $("#btn-gridDetail").click(function(){
+            var selectedCode = $('#dataGrid').datagrid('getSelected');
+            if(!selectedCode){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            window.location.href="${(domainUrlUtil.EJS_URL_RESOURCES)!}/admin/share/system/getShareInfoDetail?id="+selectedCode.id;
+        });
+
+        // 解冻商家
 		$('#btn_unfreeze').click(function () {
 			var selected = $('#dataGrid').datagrid('getSelected');
 	 		if(!selected){
@@ -135,7 +145,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 						,pagination:true
 						,pageSize:${pageSize}
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/share/getShareInfoList'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/getShareInfoList'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
@@ -160,6 +170,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 		<a id="btn_freeze" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>
 		</@shiro.hasPermission>
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+		<a id="btn-gridDetail" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查看详情</a>
 	</div>
 	
 	<div class="wrapper" id="editWin">

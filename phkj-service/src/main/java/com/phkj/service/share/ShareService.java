@@ -22,4 +22,6 @@ public interface ShareService {
     boolean applyShareInfo(String id, String userId, String userName, String telePhone, String address ,String IDCard);
 
     Map<String,Object> getShareInfoList(String taskType, String status, Integer pageNum, Integer pageSize);
+
+    Map<String,Object> getShareDetail(String id);
 }

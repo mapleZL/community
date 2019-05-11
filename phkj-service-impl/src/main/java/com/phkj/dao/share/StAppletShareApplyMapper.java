@@ -3,6 +3,8 @@ package com.phkj.dao.share;
 import com.phkj.entity.share.StAppletShareApply;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface StAppletShareApplyMapper {
     int deleteByPrimaryKey(Long id);
@@ -18,4 +20,6 @@ public interface StAppletShareApplyMapper {
     int updateByPrimaryKeyWithBLOBs(StAppletShareApply record);
 
     int updateByPrimaryKey(StAppletShareApply record);
+
+    List<StAppletShareApply> selectApplyByInfoId(Long id);
 }

@@ -2,6 +2,7 @@ package com.phkj.service.impl.share;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -169,7 +170,8 @@ public class ShareServiceImpl implements ShareService {
 
 
     /**
-     *   后台管理列表页面
+     * 后台管理列表页面
+     *
      * @param taskType
      * @param status
      * @param pageNum
@@ -193,6 +195,23 @@ public class ShareServiceImpl implements ShareService {
         returnMap.put("total", String.valueOf(pageInfo.getTotal()));
         returnMap.put("list", pageInfo.getList());
 
+        return returnMap;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Map<String, Object> getShareDetail(String id) {
+        Map<String, Object> returnMap = new HashMap<>();
+        StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
+        if (shareInfo != null) {
+            // 查询所有的申请 用于列表页展示
+            List<StAppletShareApply> list = stAppletShareApplyMapper.selectApplyByInfoId(shareInfo.getId());
+            returnMap.put("applyList" , list);
+        }
+        returnMap.put("shareInfo" , shareInfo);
         return returnMap;
     }
 
