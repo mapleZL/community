@@ -1,9 +1,11 @@
 package com.phkj.web.controller.repair;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,14 @@ import com.phkj.core.ServiceResult;
 import com.phkj.core.WebUtil;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.core.response.ResponseUtil;
+import com.phkj.echarts.component.MemberPropertyStatus;
+import com.phkj.entity.member.MemberHouse;
 import com.phkj.entity.repair.StAppletRepairMember;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.repair.IStAppletRepairMemberService;
 import com.phkj.web.controller.BaseController;
+import com.phkj.web.util.WebAdminSession;
+import com.phkj.web.util.freemarkerutil.CodeManager;
 
 /**
  * 
@@ -33,7 +40,7 @@ import com.phkj.web.controller.BaseController;
  *
  */
 @Controller
-@RequestMapping(value = "admin/repair/member/")
+@RequestMapping(value = "/admin/repair/member")
 public class StAppletRepairMemberController extends BaseController {
 
     @Autowired
@@ -52,16 +59,34 @@ public class StAppletRepairMemberController extends BaseController {
     }    
     
     /**
+     * 新增物业报修人员跳转
+     * @param dataMap
+     * @return
+     */
+    @RequestMapping(value = "/add", method = {RequestMethod.GET})
+    public String add(Map<String, Object> dataMap) {
+        return "/admin/repair/member/repairmemberadd";
+    }
+    
+    /**
      * 新增物业报修人员
      * @param stAppletRepair
      * @return
      */
-    @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    @ResponseBody
-    public ResponseUtil save(StAppletRepairMember stAppletRepairMember) {
-        ServiceResult<Integer> result = iStAppletRepairMemberService.saveStAppletRepairMember(stAppletRepairMember);
-        return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
+    @RequestMapping(value = "/create", method = {RequestMethod.POST})
+    public String create(Map<String, Object> dataMap, HttpServletRequest request) {
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        StAppletRepairMember stAppletRepairMember = new StAppletRepairMember();
+        stAppletRepairMember.setUserName(request.getParameter("userName"));
+        stAppletRepairMember.setSchedulingDay(Integer.valueOf(request.getParameter("schedulingDay")));
+        stAppletRepairMember.setCreateUserId(adminUser.getId());
+        stAppletRepairMember.setCreateTime(new Date());
+        stAppletRepairMember.setSts(1);
+        iStAppletRepairMemberService.saveStAppletRepairMember(stAppletRepairMember);
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+        return "admin/repair/member/repairmemberlist";
     }
+    
 
     @RequestMapping(value = "/get", method = {RequestMethod.GET})
     @ResponseBody
@@ -78,12 +103,6 @@ public class StAppletRepairMemberController extends BaseController {
      * @param createUserId
      * @param pageNum
      * @param pageSize
-     * @return
-     */
-    /**
-     * gridDatalist数据
-     * @param request
-     * @param dataMap
      * @return
      */
     @RequestMapping(value = "/list", method = { RequestMethod.GET })
@@ -104,6 +123,58 @@ public class StAppletRepairMemberController extends BaseController {
         jsonResult.setRows((List<StAppletRepairMember>) serviceResult.getResult());
         jsonResult.setTotal(pager.getRowsCount());
 
+        return jsonResult;
+    }
+    
+    /**
+     * 房屋认证-通过
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/enable", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<Boolean> enable(HttpServletRequest request,
+                                                      HttpServletResponse response, Integer id) {
+        StAppletRepairMember stAppletRepairMember = new StAppletRepairMember();
+        stAppletRepairMember.setId(id);
+        stAppletRepairMember.setSts(MemberPropertyStatus.STATE_2);
+        ServiceResult<Integer> serviceResult = iStAppletRepairMemberService.updateRepairMember(stAppletRepairMember);
+        if (!serviceResult.getSuccess()) {
+            if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
+                throw new RuntimeException(serviceResult.getMessage());
+            } else {
+                throw new BusinessException(serviceResult.getMessage());
+            }
+        }
+
+        HttpJsonResult<Boolean> jsonResult = new HttpJsonResult<Boolean>();
+        jsonResult.setData(true);
+        return jsonResult;
+    }
+    
+    /**
+     * 房屋认证-不通过
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/forbidden", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<Boolean> forbidden(HttpServletRequest request,
+                                                      HttpServletResponse response, Integer id) {
+        StAppletRepairMember stAppletRepairMember = new StAppletRepairMember();
+        stAppletRepairMember.setId(id);
+        stAppletRepairMember.setSts(MemberPropertyStatus.STATE_3);
+        ServiceResult<Integer> serviceResult = iStAppletRepairMemberService.updateRepairMember(stAppletRepairMember);
+        if (!serviceResult.getSuccess()) {
+            if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
+                throw new RuntimeException(serviceResult.getMessage());
+            } else {
+                throw new BusinessException(serviceResult.getMessage());
+            }
+        }
+
+        HttpJsonResult<Boolean> jsonResult = new HttpJsonResult<Boolean>();
+        jsonResult.setData(true);
         return jsonResult;
     }
 
