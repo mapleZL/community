@@ -11,9 +11,6 @@ import java.util.List;
 
 @Component
 public class StAppletCommentModel {
-
-	private static org.apache.log4j.Logger log = org.apache.log4j.LogManager
-                                                   .getLogger(StAppletCommentModel.class);
     
     @Resource
     private StAppletCommentDao stAppletCommentDao;

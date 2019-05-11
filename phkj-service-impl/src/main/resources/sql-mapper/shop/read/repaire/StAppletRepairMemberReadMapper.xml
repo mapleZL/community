@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.read.repaire.StAppletRepairMemberReadDao">
+	<resultMap id="StAppletRepairMemberResult" type="com.phkj.entity.repair.StAppletRepairMember">
+			<result property="id" column="id" />
+			<result property="userId" column="user_id" />
+			<result property="userName" column="user_name" />
+			<result property="schedulingDay" column="scheduling_day" />
+			<result property="createUserId" column="create_user_id" />
+			<result property="createTime" column="create_time" />
+			<result property="modifyUserId" column="modify_user_id" />
+			<result property="modifyTime" column="modify_time" />
+			<result property="sts" column="sts" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="StAppletRepairMemberResult">
+		select
+		   *
+		from `st_applet_repair_member`
+		where `id` = #{id}
+	</select>
+	
+	<sql id="getCondition">
+        <where>
+             <if test="queryMap.q_user_name != null and queryMap.q_user_name !=''">
+                and user_name = #{queryMap.q_user_name}
+          	 </if>
+        </where>
+    </sql>
+	
+	<select id="getRepaitMemberCount" parameterType="java.util.Map" resultType="Integer">
+	    select
+		   count(*)
+		from `st_applet_repair_member`
+		<include refid="getCondition"/>
+	</select>
+	
+	<select id="getRepaitMemberList" parameterType="java.util.Map" resultMap="MemberHouseResult">
+		select
+		   *
+		from `st_applet_repair_member`
+		<include refid="getCondition"/>
+		order by `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
+</mapper>

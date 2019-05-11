@@ -12,9 +12,6 @@ import java.util.List;
 @Component
 public class StAppletRepairModel {
 
-    private static org.apache.log4j.Logger log = org.apache.log4j.LogManager
-            .getLogger(StAppletRepairModel.class);
-
     @Resource
     private StAppletRepairDao stAppletRepairDao;
 

@@ -109,7 +109,16 @@
 		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>
-	
+	<@shiro.hasPermission name="/admin_menu_repair">
+	<div title="物业管理" class="ra_div">
+		<@shiro.hasPermission name="admin/repair/member/">
+		<a id='67' href="javascript:void(0);" onclick="addTab('维修人员管理', '${domainUrlUtil.EJS_URL_RESOURCES}admin/repair/member/')">维修人员管理</a>
+		</@shiro.hasPermission>
+		<@shiro.hasPermission name="/admin/seller/manage">
+		<a id='68' href="javascript:void(0);" onclick="addTab('社区报修管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage')">社区报修管理</a>
+		</@shiro.hasPermission>
+	</div>
+	</@shiro.hasPermission>
 	<@shiro.hasPermission name="/admin_menu_promotion">
 	<div title="客户信息" class="ra_div">
 		<@shiro.hasPermission name="/admin/member/car">
@@ -168,19 +177,7 @@
 		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>
-	<@shiro.hasPermission name="/admin_menu_mobile">
-	<div title="移动端管理" class="ra_div">
-		<@shiro.hasPermission name="/admin/mindex/banner">
-		<a id='404' href="javascript:void(0);" onclick="addTab('首页轮播图', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/mindex/banner')">首页轮播图</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/mindex/floor">
-		<a id='408' href="javascript:void(0);" onclick="addTab('移动端首页楼层', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/mindex/floor')">移动端首页楼层</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/mindex/floordata">
-		<a id='412' href="javascript:void(0);" onclick="addTab('楼层数据', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/mindex/floordata')">楼层数据</a>
-		</@shiro.hasPermission>
-	</div>
-	</@shiro.hasPermission>
+
 	<@shiro.hasPermission name="/admin_menu_pcindex">
 	<div title="PC端首页管理" class="ra_div">
 		<@shiro.hasPermission name="/admin/pcindex/banner">

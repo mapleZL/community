@@ -18,7 +18,14 @@ import com.phkj.entity.member.MemberHouse;
 import com.phkj.model.member.MemberHouseModel;
 import com.phkj.service.member.IMemberHouseService;
 
-
+/**
+ * 
+ *                       
+ * @Filename: MemberHouseServiceImpl.java
+ * @Version: 1.0
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
+ *
+ */
 @Service(value = "memberHouseService")
 public class MemberHouseServiceImpl implements IMemberHouseService {
 	private static Logger      log = LogManager.getLogger(MemberHouseServiceImpl.class);
