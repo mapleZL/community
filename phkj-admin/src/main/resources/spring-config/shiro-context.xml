@@ -41,7 +41,7 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
-                /share/** = anon
+                /admin/share/** = anon
                 /resources/** = anon <!-- 不需要认证 -->
                 /admin/property/repair/** = anon
                 /admin/file/** = anon
