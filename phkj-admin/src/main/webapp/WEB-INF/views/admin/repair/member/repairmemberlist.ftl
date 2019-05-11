@@ -4,8 +4,8 @@
 	var workdayBox;
 	$(function() {
 		<#noescape>
-		codeBox = eval('(${initJSCodeContainer("MEMBER_PROPERY_STATE")})');
-		
+		codeBox = eval('(${initJSCodeContainer("REPAIRE_MEMBER_STATE")})');
+		workdayBox = eval('(${initJSCodeContainer("SCHEDULING_DAY")})');
 		</#noescape>
 		
 		// 查询按钮
@@ -13,25 +13,25 @@
 			$('#dataGrid').datagrid('reload',queryParamsHandler());
 		});
 		
-		// 审核通过
-		$('#btn_pass').click(function () {
-			debugger;
+		// 使用账号
+		$('#btn_use').click(function () {
 			var selected = $('#dataGrid').datagrid('getSelected');
 	 		if(!selected){
 				$.messager.alert('提示','请选择操作行。');
 				return;
 			}
-			// 判断是否是已经审核通过的数据
-			if(selected.status != 1){
+	 		alert(selected.sts);
+			// 判断是否是已经启动
+			if(selected.sts == 2){
 				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
-	 		$.messager.confirm('确认', '确定审核通过该条申请吗', function(r){
+	 		$.messager.confirm('确认', '确定使用该维修人员', function(r){
 				if (r){
 					$.messager.progress({text:"提交中..."});
 					$.ajax({
 						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/house/passInfo",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/repair/member/enable",
 						dataType: "json",
 					    data: "id=" + selected.id,
 					    cache:false,
@@ -49,24 +49,28 @@
 			});
 		});
 		
-		// 审核不通过
-		$('#btn_noPass').click(function () {
+		$("#a-gridAdd").click(function(){
+	 		window.location.href="${(domainUrlUtil.EJS_URL_RESOURCES)!}/admin/repair/member/add";
+		});
+		
+		// 禁用账号
+		$('#btn_forbidden').click(function () {
 			var selected = $('#dataGrid').datagrid('getSelected');
 	 		if(!selected){
 				$.messager.alert('提示','请选择操作行。');
 				return;
 			}
 			// 判断是否是已经审核通过的数据
-			if(selected.status != 1){
+			if(selected.status == 3){
 				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
-	 		$.messager.confirm('确认', '确定驳回该条申请吗？', function(r){
+	 		$.messager.confirm('确认', '确定禁用该维修人员？', function(r){
 				if (r){
 					$.messager.progress({text:"提交中..."});
 					$.ajax({
 						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/house/noPassInfo",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/repair/member/forbidden",
 						dataType: "json",
 					    data: "id=" + selected.id,
 					    cache:false,
@@ -87,7 +91,12 @@
 	});
 
 	function getState(value, row, index) {
-		var box = codeBox["MEMBER_PROPERY_STATE"][value];
+		var box = codeBox["REPAIRE_MEMBER_STATE"][value];
+		return box;
+	}
+	
+	function getWorkDay(value, row, index) {
+		var box = workdayBox["SCHEDULING_DAY"][value];
 		return box;
 	}
 </script>
@@ -95,7 +104,7 @@
 <div id="searchbar" data-options="region:'north'" style="margin:0 auto;"
 	border="false">
 	<h2 class="h2-title">
-		房屋信息列表 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
+		维修人员列表 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
 	</h2>
 	<div id="searchbox" class="head-seachbox">
 		<div class="w-p99 marauto searchCont">
@@ -103,7 +112,7 @@
 				id="queryForm" name="queryForm">
 				<div class="fluidbox">
 					<p class="p4 p-item">
-						<label class="lab-item">业主名 :</label> <input type="text"
+						<label class="lab-item">维修人员姓名 :</label> <input type="text"
 							class="txt" id="q_user_name" name="q_user_name" value="${q_user_name!''}" />
 					</p>
 				</div>
@@ -124,27 +133,30 @@
 						,pagination:true
 						,pageSize:'${pageSize}'
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}admin/repair/member/list'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/repair/member/list'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
 		<thead>
 			<tr>
 				<th field="id" hidden="hidden"></th>
-				<th field="memberName" width="120" align="center">维修人员姓名</th>
-				<th field="villageName" width="150" align="center">创建时间</th>
-				<th field="houseBlock" width="70" align="center" formatter="getWorkDay">排班规则</th>
-				<th field="houseUnit" width="70" align="center" formatter="getState">状态</th>
+				<th field="userName" width="120" align="center">维修人员姓名</th>
+				<th field="createTime" width="150" align="center">创建时间</th>
+				<th field="schedulingDay" width="70" align="center" formatter="getWorkDay">排班规则</th>
+				<th field="sts" width="70" align="center" formatter="getState">状态</th>
 			</tr>
 		</thead>
 	</table>
 
 	<div id="gridTools">
-	<@shiro.hasPermission name="/admin/seller/manage/unfreeze">
-		<a id="btn_pass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">审核通过</a>
+	<@shiro.hasPermission name="/admin/repair/member/add">
+		<a id="a-gridAdd" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/seller/manage/freeze">
-		<a id="btn_noPass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">审核不通过</a>
+		<@shiro.hasPermission name="/admin/repair/member/enable">
+		<a id="btn_use" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">使用</a>
+		</@shiro.hasPermission>
+		<@shiro.hasPermission name="/admin/repair/member/forbidden">
+		<a id="btn_forbidden" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">禁用</a>
 		</@shiro.hasPermission>
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
 	</div>

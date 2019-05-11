@@ -10,4 +10,9 @@ public class MemberPropertyStatus {
 
     /** 审核通过状态 */
     public static final int   STATE_2          = 2;
+    
+    /**
+     * 禁用状态
+     */
+    public static final int   STATE_3          = 3;
 }

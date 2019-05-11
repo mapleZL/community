@@ -45,4 +45,11 @@ public interface IStAppletRepairMemberService {
      * @return
      */
     ServiceResult<List<StAppletRepairMember>> page(Map<String, String> queryMap, PagerInfo pager);
+
+    /**
+     * 更新状态
+     * @param stAppletRepairMember
+     * @return
+     */
+    ServiceResult<Integer> updateRepairMember(StAppletRepairMember stAppletRepairMember);
 }

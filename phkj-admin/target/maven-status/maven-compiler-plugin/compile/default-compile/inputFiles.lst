@@ -22,6 +22,7 @@ C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\freemarkerutil
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\shiro\ShiroDbRealm.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminResourceController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\filter\SessionFilter.java
+C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\file\FIleController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminLoginController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminRegionsController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\repair\StAppletRepairMemberController.java

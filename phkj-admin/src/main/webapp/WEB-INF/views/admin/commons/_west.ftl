@@ -111,11 +111,11 @@
 	</@shiro.hasPermission>
 	<@shiro.hasPermission name="/admin_menu_repair">
 	<div title="物业管理" class="ra_div">
-		<@shiro.hasPermission name="admin/repair/member/">
-		<a id='67' href="javascript:void(0);" onclick="addTab('维修人员管理', '${domainUrlUtil.EJS_URL_RESOURCES}admin/repair/member/')">维修人员管理</a>
+		<@shiro.hasPermission name="/admin/repair/member">
+		<a href="javascript:void(0);" onclick="addTab('维修人员管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/repair/member')">维修人员管理</a>
 		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/seller/manage">
-		<a id='68' href="javascript:void(0);" onclick="addTab('社区报修管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage')">社区报修管理</a>
+		<a href="javascript:void(0);" onclick="addTab('社区报修管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage')">社区报修管理</a>
 		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>

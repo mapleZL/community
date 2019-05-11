@@ -119,4 +119,21 @@ public class StAppletRepairMemberServiceImpl implements IStAppletRepairMemberSer
         }
         return serviceResult;
     }
+
+    @Override
+    public ServiceResult<Integer> updateRepairMember(StAppletRepairMember stAppletRepairMember) {
+        ServiceResult<Integer> result = new ServiceResult<Integer>();
+        try {
+            result.setResult(stAppletRepairMemberModel.updateStAppletRepairMember(stAppletRepairMember));
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error("[stAppletRepairMemberModel][updateRepairMember]更新维修人员表时出现异常："
+                      + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
+            log.error("[stAppletRepairMemberModel][updateRepairMember]更新维修人员表时出现异常:", e);
+        }
+        return result;
+    }
 }
