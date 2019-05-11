@@ -28,10 +28,10 @@
     <import resource="shiro-context.xml"/>
 
     <bean id="domainUrlUtil" class="com.phkj.core.freemarkerutil.DomainUrlUtil">
-        <property name="EJS_URL_RESOURCES" value="http://127.0.0.1:8081"/>
-        <property name="EJS_STATIC_RESOURCES" value="http://127.0.0.1:8081"/>
-        <property name="EJS_IMAGE_RESOURCES" value="https://images2.dawawang.com"/>
-        <property name="EJS_COOKIE_DOMAIN" value=".phkj.com"/>
+        <property name="EJS_URL_RESOURCES" value="http://118.126.66.195:8081"/>
+        <property name="EJS_STATIC_RESOURCES" value="http://118.126.66.195:8081"/>
+        <property name="EJS_IMAGE_RESOURCES" value="http://images2.dawawang.com"/>
+        <property name="EJS_COOKIE_DOMAIN" value="phkj.com"/>
         <property name="OSS_ENDPOINT" value="http://oss-cn-beijing.aliyuncs.com"/>
         <property name="OSS_ACCESSKEYID" value="LTAIkSc7CUIulce0"/>
         <property name="OSS_ACCESSKEYSECRET" value="jRPzHauftvtRLerrJj57rwEEaY6nY8"/>
