@@ -33,7 +33,9 @@ public class FileServiceImpl implements IFileService {
             for (MultipartFile file : files) {
                 InputStream inputStream = file.getInputStream();
                 String originalFilename = file.getOriginalFilename();
+                log.info("uploadFiles, originalFilename:{}" + originalFilename);
                 String url = client.uploadIfNotExits(inputStream, originalFilename);
+                log.info("uploadFiles, url:{}" + url);
                 set.add(url);
             }
             return set;
