@@ -35,7 +35,7 @@
 		<include refid="getCondition"/>
 	</select>
 	
-	<select id="getRepaitMemberList" parameterType="java.util.Map" resultMap="MemberHouseResult">
+	<select id="getRepaitMemberList" parameterType="java.util.Map" resultMap="StAppletRepairMemberResult">
 		select
 		   *
 		from `st_applet_repair_member`
