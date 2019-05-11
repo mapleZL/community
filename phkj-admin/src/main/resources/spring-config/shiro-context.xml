@@ -44,6 +44,7 @@
                 /share/** = anon
                 /resources/** = anon <!-- 不需要认证 -->
                 /admin/property/repair/** = anon
+                /admin/file/** = anon
                 /admin/member/car/** = anon
                 /admin/comment/** = anon
                 /admin/member/house/** = anon

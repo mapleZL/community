@@ -38,7 +38,7 @@ public class OSSClient implements FactoryClient {
         com.aliyun.oss.OSSClient ossClient = null;
         try {
             ossClient = new com.aliyun.oss.OSSClient(DomainUrlUtil.OSS_ENDPOINT, DomainUrlUtil.OSS_ACCESSKEYID,
-                DomainUrlUtil.OSS_ACCESSKEYSECRET);
+                    DomainUrlUtil.OSS_ACCESSKEYSECRET);
         } catch (Exception e) {
             LOGGER.error("OSSClient bean create error.", e);
             ossClient = null;
@@ -91,6 +91,7 @@ public class OSSClient implements FactoryClient {
      */
     public String uploadIfNotExits(InputStream inputStream, String code) {
         com.aliyun.oss.OSSClient ossClient = null;
+        String url;
         try {
             ossClient = getClient();
             if (null == ossClient) {
@@ -101,12 +102,13 @@ public class OSSClient implements FactoryClient {
 //                return code;
 //            }
             ossClient.putObject(DomainUrlUtil.OSS_BUCKETNAME, code, inputStream);
+            url = getUrl(code);
         } finally {
             if (ossClient != null) {
                 ossClient.shutdown();
             }
         }
-        return code;
+        return url;
     }
 
     /**
