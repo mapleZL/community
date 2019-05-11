@@ -19,7 +19,7 @@
 	<select id="get" parameterType="Integer" resultMap="MemberHouseResult">
 		select
 		   *
-		from `member_house`
+		from `st_applet_member_house`
 		where `id` = #{id}
 	</select>
 	
@@ -34,7 +34,7 @@
 	<select id="getMemberHouseList" parameterType="java.util.Map" resultMap="MemberHouseResult">
 		select
 		   *
-		from `member_house`
+		from `st_applet_member_house`
 		<include refid="getCondition"/>
 		order by `create_date` desc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
@@ -43,7 +43,7 @@
 	<select id="getMemberHouseCount" parameterType="java.util.Map" resultType="Integer">
 		select
 		   count(*)
-		from `member_house`
+		from `st_applet_member_house`
 		<include refid="getCondition"/>
 	</select>
 	
