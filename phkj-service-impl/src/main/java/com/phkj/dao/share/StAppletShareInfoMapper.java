@@ -26,4 +26,7 @@ public interface StAppletShareInfoMapper {
     List<Map> selectByUserId(@Param("userId") String userId);
 
     List<Map> selectAllShareInfo(@Param("taskType") String taskType);
+
+
+    List<Map> selectByTaskType(@Param("taskType") String taskType, @Param("status") String status);
 }
