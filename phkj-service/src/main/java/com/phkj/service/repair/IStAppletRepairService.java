@@ -1,10 +1,12 @@
 package com.phkj.service.repair;
 
 
+import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.repair.StAppletRepair;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IStAppletRepairService {
 
@@ -41,4 +43,12 @@ public interface IStAppletRepairService {
      * @return
      */
     ServiceResult<List<StAppletRepair>> getStAppletRepairList(String createUserId, int pageNum, int pageSize);
+
+    /**
+     * 后台查询维修记录列表
+     * @param queryMap
+     * @param pager
+     * @return
+     */
+    ServiceResult<List<StAppletRepair>> page(Map<String, String> queryMap, PagerInfo pager);
 }

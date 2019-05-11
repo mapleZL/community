@@ -1,17 +1,27 @@
 package com.phkj.web.controller.repair;
 
+import com.phkj.core.ConstantsEJS;
+import com.phkj.core.HttpJsonResult;
+import com.phkj.core.PagerInfo;
 import com.phkj.core.ResponseStateEnum;
 import com.phkj.core.ServiceResult;
+import com.phkj.core.WebUtil;
+import com.phkj.core.exception.BusinessException;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.repair.StAppletRepair;
+import com.phkj.entity.repair.StAppletRepairMember;
 import com.phkj.service.repair.IStAppletRepairService;
 import com.phkj.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author ：zl
@@ -21,11 +31,23 @@ import java.util.List;
  * @version: 0.0.1$
  */
 @Controller
-@RequestMapping(value = "admin/property/repair")
+@RequestMapping(value = "/admin/property/repair")
 public class StAppletRepairController extends BaseController {
 
     @Autowired
     IStAppletRepairService stAppletRepairService;
+    
+    /**
+     * 初始化列表页面
+     * @param dataMap
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "", method = { RequestMethod.GET })
+    public String getList(Map<String, Object> dataMap) throws Exception {
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+        return "admin/repair/member/repairrecordlist";
+    }  
 
     /**
      * create by: zl
@@ -51,6 +73,34 @@ public class StAppletRepairController extends BaseController {
             result = stAppletRepairService.saveStAppletRepair(stAppletRepair);
         }
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
+    }
+    
+    /**
+     * 物业维修人员列表查询
+     * @param createUserId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/repairList", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<List<StAppletRepair>> repairList(HttpServletRequest request,
+                                                                    ModelMap dataMap) {
+        Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
+        PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
+        ServiceResult<List<StAppletRepair>> serviceResult = stAppletRepairService.page(queryMap, pager);
+        if (!serviceResult.getSuccess()) {
+            if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
+                throw new RuntimeException(serviceResult.getMessage());
+            } else {
+                throw new BusinessException(serviceResult.getMessage());
+            }
+        }
+
+        HttpJsonResult<List<StAppletRepair>> jsonResult = new HttpJsonResult<List<StAppletRepair>>();
+        jsonResult.setRows((List<StAppletRepair>) serviceResult.getResult());
+        jsonResult.setTotal(pager.getRowsCount());
+
+        return jsonResult;
     }
 
     /**

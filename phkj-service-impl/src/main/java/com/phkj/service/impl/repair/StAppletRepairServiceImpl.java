@@ -1,6 +1,18 @@
 package com.phkj.service.impl.repair;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSON;
 import com.phkj.core.ConstantsEJS;
+import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.entity.flow.StAppletRecord;
@@ -8,13 +20,6 @@ import com.phkj.entity.repair.StAppletRepair;
 import com.phkj.model.flow.StAppletRecordModel;
 import com.phkj.model.repair.StAppletRepairModel;
 import com.phkj.service.repair.IStAppletRepairService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
 
 @Service(value = "stAppletRepairService")
 public class StAppletRepairServiceImpl implements IStAppletRepairService {
@@ -133,5 +138,26 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
                     e);
         }
         return result;
+    }
+
+    @Override
+    public ServiceResult<List<StAppletRepair>> page(Map<String, String> queryMap, PagerInfo pager) {
+        ServiceResult<List<StAppletRepair>> serviceResult = new ServiceResult<List<StAppletRepair>>();
+        serviceResult.setPager(pager);
+        try {
+            Integer start = 0, size = 0;
+            if (pager != null) {
+                pager.setRowsCount(stAppletRepairModel.getRepairtCount(queryMap));
+                start = pager.getStart();
+                size = pager.getPageSize();
+            }
+            serviceResult.setResult(stAppletRepairModel.getRepairList(queryMap, start, size));
+        } catch (Exception e) {
+            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
+            log.error("[IStAppletRepairService][page]param1:" + JSON.toJSONString(queryMap)
+                      + " &param2:" + JSON.toJSONString(pager));
+            log.error("[IStAppletRepairService][page]查询会员信息发生异常:", e);
+        }
+        return serviceResult;
     }
 }

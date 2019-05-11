@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class StAppletRepairModel {
@@ -74,5 +75,14 @@ public class StAppletRepairModel {
      */
     public List<StAppletRepair> getStAppletRepairList(String createUserId, int pageNum, int pageSize) {
         return stAppletRepairDao.getStAppletRepairList(createUserId, pageNum, pageSize);
+    }
+
+    public int getRepairtCount(Map<String, String> queryMap) {
+        return stAppletRepairDao.getRepairCount(queryMap);
+    }
+
+    public List<StAppletRepair> getRepairList(Map<String, String> queryMap, Integer start,
+                                                    Integer size) {
+        return stAppletRepairDao.getRepairList(queryMap, start, size);
     }
 }
