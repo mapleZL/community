@@ -103,7 +103,6 @@ public class OSSClient implements FactoryClient {
 //            }
             ossClient.putObject(DomainUrlUtil.OSS_BUCKETNAME, code, inputStream);
             url = getUrl(code);
-            LOGGER.info("文件上传code：" + code);
             LOGGER.info("文件上传后url：" + url);
         } finally {
             if (ossClient != null) {

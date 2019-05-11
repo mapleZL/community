@@ -113,4 +113,31 @@
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 	
+	<sql id="getCondition">
+        <where>
+             <if test="queryMap.q_detail != null and queryMap.q_detail !=''">
+                and detail like CONCAT('%',#{queryMap.q_detail},'%')
+          	 </if>
+          	 <if test="queryMap.q_house_name != null and queryMap.q_house_name !=''">
+                and house_name = #{queryMap.q_house_name}
+          	 </if>
+        </where>
+    </sql>
+	
+	<select id="getRepairCount" parameterType="java.util.Map" resultType="Integer">
+	    select
+		   count(*)
+		from `st_applet_repair`
+		<include refid="getCondition"/>
+	</select>
+	
+	<select id="getRepairList" parameterType="java.util.Map" resultMap="StAppletRepairResult">
+		select
+		   *
+		from `st_applet_repair`
+		<include refid="getCondition"/>
+		order by `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+	
 </mapper>

@@ -114,8 +114,8 @@
 		<@shiro.hasPermission name="/admin/repair/member">
 		<a href="javascript:void(0);" onclick="addTab('维修人员管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/repair/member')">维修人员管理</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/seller/manage">
-		<a href="javascript:void(0);" onclick="addTab('社区报修管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage')">社区报修管理</a>
+		<@shiro.hasPermission name="/admin/property/repair">
+		<a href="javascript:void(0);" onclick="addTab('社区报修管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair')">社区报修管理</a>
 		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>
