@@ -132,6 +132,19 @@
 		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>
+
+
+    <!--
+            --gaowei --邻居共享页面
+        -->
+	<@shiro.hasPermission name="/admin_menu_shareInfo">
+		<div title="邻里共享" class="ra_div">
+			<@shiro.hasPermission name="/admin/member/car">
+                <a href="javascript:void(0);" onclick="addTab('共享大厅', '${domainUrlUtil.EJS_URL_RESOURCES}/share/')">共享大厅</a>
+			</@shiro.hasPermission>
+        </div>
+	</@shiro.hasPermission>
+
 	
 	<@shiro.hasPermission name="/admin_menu_member">
 	<div title="会员管理" class="ra_div">

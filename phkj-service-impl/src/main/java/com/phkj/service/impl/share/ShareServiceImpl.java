@@ -168,4 +168,32 @@ public class ShareServiceImpl implements ShareService {
     }
 
 
+    /**
+     *   后台管理列表页面
+     * @param taskType
+     * @param status
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Map<String, Object> getShareInfoList(String taskType, String status, Integer pageNum, Integer pageSize) {
+
+        int pageNumber = pageNum == 0 ? 1 : pageNum;
+        int size = pageSize == 0 ? 20 : pageSize;
+        // 根据当前倒叙查询列表
+        PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
+            @Override
+            public void doSelect() {
+                stAppletShareInfoMapper.selectByTaskType(taskType, status);
+            }
+        });
+        // 处理数据
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("total", String.valueOf(pageInfo.getTotal()));
+        returnMap.put("list", pageInfo.getList());
+
+        return returnMap;
+    }
+
 }

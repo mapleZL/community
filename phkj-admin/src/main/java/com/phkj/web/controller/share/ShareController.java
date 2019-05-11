@@ -1,20 +1,27 @@
 package com.phkj.web.controller.share;
 
 
+import com.phkj.core.HttpJsonResult;
 import com.phkj.core.response.ResponseUtil;
+import com.phkj.entity.member.MemberCar;
 import com.phkj.entity.share.StAppletShareInfo;
 import com.phkj.service.share.ShareService;
+import com.sun.corba.se.spi.ior.ObjectKey;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +34,57 @@ public class ShareController {
 
     @Autowired
     private ShareService shareService;
+
+    /**
+     * 后台管理页面
+     *
+     * @param request
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String getShareInfo(HttpServletRequest request, Integer pageNum,
+                               Integer pageSize, ModelMap modelMap) {
+        try {
+            modelMap.put("pageNum", "1");
+            modelMap.put("pageSize", "30");
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("查询失败! 错误信息" + e);
+        }
+        return "/admin/share/shareInfoList";
+    }
+
+
+    /**
+     * 后台管理页面
+     *
+     * @param request
+     * @param page
+     * @param rows
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getShareInfoList", method = RequestMethod.GET)
+    public HttpJsonResult<List<Map>> getShareInfoList(HttpServletRequest request, Integer page,
+                                                      Integer rows) {
+        HttpJsonResult<List<Map>> jsonResult = new HttpJsonResult<List<Map>>();
+        try {
+            String taskType = request.getParameter("q_taskType");
+            String status = request.getParameter("q_status");
+            Map<String, Object> returnMap = shareService.getShareInfoList(taskType, status, page, rows);
+            String total = (String) returnMap.get("total");
+            List<Map> list = (List<Map>) returnMap.get("list");
+            jsonResult.setRows(list);
+            jsonResult.setTotal(Integer.valueOf(total));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("查询失败! 错误信息" + e);
+        }
+        return jsonResult;
+    }
+
 
     /**
      * 查询我的发布信息
@@ -201,13 +259,6 @@ public class ShareController {
         }
 
         if ("1".equals(taskType)) {
-            if (null == shareInfo.getStartTime()) {
-                msg = "预约开始时间不能为空!";
-            }
-            if (null == shareInfo.getEndTime()) {
-                msg = "预约结束时间不能为空!";
-            }
-        } else if ("2".equals(taskType)) {
             if (StringUtils.isBlank(shareInfo.getCarNum())) {
                 msg = "车牌号不能为空!";
             }
@@ -219,6 +270,13 @@ public class ShareController {
             }
             if (null == shareInfo.getStartTime()) {
                 msg = "发车时间不能为空!";
+            }
+        } else if ("2".equals(taskType)) {
+            if (null == shareInfo.getStartTime()) {
+                msg = "预约开始时间不能为空!";
+            }
+            if (null == shareInfo.getEndTime()) {
+                msg = "预约结束时间不能为空!";
             }
         } else if ("3".equals(taskType)) {
             if (StringUtils.isBlank(shareInfo.getSkill())) {
