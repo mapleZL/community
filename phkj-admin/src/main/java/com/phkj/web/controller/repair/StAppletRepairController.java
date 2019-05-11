@@ -42,7 +42,14 @@ public class StAppletRepairController extends BaseController {
         if (flag != null) {
             return flag;
         }
-        ServiceResult<Integer> result = stAppletRepairService.saveStAppletRepair(stAppletRepair);
+        ServiceResult<Integer> result;
+        if (stAppletRepair.getId() != null && stAppletRepair.getId() != 0) {
+            // 编辑
+            result = stAppletRepairService.updateStAppletRepair(stAppletRepair);
+        } else {
+            // 新增
+            result = stAppletRepairService.saveStAppletRepair(stAppletRepair);
+        }
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
     }
 
