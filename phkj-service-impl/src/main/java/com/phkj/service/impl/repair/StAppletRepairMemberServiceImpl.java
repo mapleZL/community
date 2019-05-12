@@ -115,7 +115,7 @@ public class StAppletRepairMemberServiceImpl implements IStAppletRepairMemberSer
             serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
             log.error("[IStAppletRepairMemberService][page]param1:" + JSON.toJSONString(queryMap)
                       + " &param2:" + JSON.toJSONString(pager));
-            log.error("[IStAppletRepairMemberService][page]查询会员信息发生异常:", e);
+            log.error("[IStAppletRepairMemberService][page]查询维修人员列表信息发生异常:", e);
         }
         return serviceResult;
     }
@@ -135,5 +135,16 @@ public class StAppletRepairMemberServiceImpl implements IStAppletRepairMemberSer
             log.error("[stAppletRepairMemberModel][updateRepairMember]更新维修人员表时出现异常:", e);
         }
         return result;
+    }
+
+    @Override
+    public List<StAppletRepairMember> list() {
+        List<StAppletRepairMember> list = null;
+        try {
+            list = stAppletRepairMemberModel.getUseRepairMemberList();
+        }  catch (Exception e) {
+            log.error("[IStAppletRepairMemberService]查询维修人员列表信息发生异常:", e);
+        }
+        return list;
     }
 }

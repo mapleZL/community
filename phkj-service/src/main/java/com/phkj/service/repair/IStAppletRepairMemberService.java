@@ -52,4 +52,10 @@ public interface IStAppletRepairMemberService {
      * @return
      */
     ServiceResult<Integer> updateRepairMember(StAppletRepairMember stAppletRepairMember);
+
+    /**
+     * 查询在使用的维修人员列表（全查）
+     * @return
+     */
+    List<StAppletRepairMember> list();
 }

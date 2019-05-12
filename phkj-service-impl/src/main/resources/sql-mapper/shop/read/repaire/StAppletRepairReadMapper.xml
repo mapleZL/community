@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.phkj.dao.index.read.repair.StAppletRepairDao">
+<mapper namespace="com.phkj.dao.shop.read.repaire.StAppletRepairReadDao">
 	<resultMap id="StAppletRepairResult" type="com.phkj.entity.repair.StAppletRepair">
 			<result property="id" column="id" />
 			<result property="communityName" column="community_name" />
@@ -10,6 +10,7 @@
 			<result property="examineId" column="examine_id" />
 			<result property="examineTime" column="examine_time" />
 			<result property="repairId" column="repair_id" />
+			<result property="repairName" column="repair_name" />
 			<result property="createTime" column="create_time" />
 			<result property="modifyTime" column="modify_time" />
 			<result property="type" column="type" />
@@ -28,77 +29,6 @@
 		from `st_applet_repair`
 		where `id` = #{id}
 	</select>
-	
-	<update id="update" parameterType="com.phkj.entity.repair.StAppletRepair">
-        update `st_applet_repair` 
-    	<set>
-			<if test="id != null">`id`= #{id},</if>
-			<if test="communityName != null">`community_name`= #{communityName},</if>
-			<if test="houseName != null">`house_name`= #{houseName},</if>
-			<if test="createUserId != null">`create_user_id`= #{createUserId},</if>
-			<if test="userName != null">`user_name`= #{userName},</if>
-			<if test="examineId != null">`examine_id`= #{examineId},</if>
-			<if test="examineTime != null">`examine_time`= #{examineTime},</if>
-			<if test="repairId != null">`repair_id`= #{repairId},</if>
-			<if test="createTime != null">`create_time`= #{createTime},</if>
-			<if test="modifyTime != null">`modify_time`= #{modifyTime},</if>
-			<if test="type != null">`type`= #{type},</if>
-			<if test="title != null">`title`= #{title},</if>
-			<if test="telPhone != null">`tel_phone`= #{telPhone},</if>
-			<if test="startTime != null">`start_time`= #{startTime},</if>
-			<if test="endTime != null">`end_time`= #{endTime},</if>
-			<if test="sts != null">`sts`= #{sts},</if>
-			<if test="detail != null">`detail`= #{detail},</if>
-			<if test="img != null">`img`= #{img}</if>
-	    </set>
-        where `id` = #{id}
-	</update>
-	
-	<insert id="insert" parameterType="com.phkj.entity.repair.StAppletRepair" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-		insert into 
-		`st_applet_repair`
-		(
-			
-			`community_name`,
-			`house_name`,
-			`create_user_id`,
-			`user_name`,
-			`examine_id`,
-			`examine_time`,
-			`repair_id`,
-			`create_time`,
-			`modify_time`,
-			`type`,
-			`title`,
-			`tel_phone`,
-			`start_time`,
-			`end_time`,
-			`sts`,
-			`detail`,
-			`img`
-		)
-		values
-		(
-			
-			#{communityName},
-			#{houseName},
-			#{createUserId},
-			#{userName},
-			#{examineId},
-			#{examineTime},
-			#{repairId},
-			#{createTime},
-			#{modifyTime},
-			#{type},
-			#{title},
-			#{telPhone},
-			#{startTime},
-			#{endTime},
-			#{sts},
-			#{detail},
-			#{img}
-		)
-	</insert>
 
 	<select id="getStAppletRepairList" parameterType="java.util.Map" resultMap="StAppletRepairResult">
 		select
@@ -120,6 +50,12 @@
           	 </if>
           	 <if test="queryMap.q_house_name != null and queryMap.q_house_name !=''">
                 and house_name = #{queryMap.q_house_name}
+          	 </if>
+          	 <if test="queryMap.q_repair_id != null and queryMap.q_repair_id !=''">
+          	    and repair_id = #{queryMap.q_requir_id}
+          	 </if>
+          	 <if test="queryMap.q_sts != null and queryMap.q_sts !=''">
+          	     and sts = #{queryMap.q_sts}
           	 </if>
         </where>
     </sql>

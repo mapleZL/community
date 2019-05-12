@@ -23,13 +23,12 @@ import com.phkj.core.WebUtil;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.MemberPropertyStatus;
-import com.phkj.entity.member.MemberHouse;
 import com.phkj.entity.repair.StAppletRepairMember;
 import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.repair.IStAppletRepairMemberService;
+import com.phkj.service.system.ISystemAdminService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
-import com.phkj.web.util.freemarkerutil.CodeManager;
 
 /**
  * 
@@ -44,7 +43,9 @@ import com.phkj.web.util.freemarkerutil.CodeManager;
 public class StAppletRepairMemberController extends BaseController {
 
     @Autowired
-    IStAppletRepairMemberService iStAppletRepairMemberService;
+    IStAppletRepairMemberService stAppletRepairMemberService;
+    @Autowired
+    ISystemAdminService systemAdminService;
     
     /**
      * 初始化列表页面
@@ -65,6 +66,9 @@ public class StAppletRepairMemberController extends BaseController {
      */
     @RequestMapping(value = "/add", method = {RequestMethod.GET})
     public String add(Map<String, Object> dataMap) {
+        // 查询系统维修人员
+        ServiceResult<List<SystemAdmin>> result = systemAdminService.getSystemAdminByRoleId("5");
+        dataMap.put("repairs", result.getResult());
         return "/admin/repair/member/repairmemberadd";
     }
     
@@ -82,7 +86,7 @@ public class StAppletRepairMemberController extends BaseController {
         stAppletRepairMember.setCreateUserId(adminUser.getId());
         stAppletRepairMember.setCreateTime(new Date());
         stAppletRepairMember.setSts(1);
-        iStAppletRepairMemberService.saveStAppletRepairMember(stAppletRepairMember);
+        stAppletRepairMemberService.saveStAppletRepairMember(stAppletRepairMember);
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         return "admin/repair/member/repairmemberlist";
     }
@@ -94,7 +98,7 @@ public class StAppletRepairMemberController extends BaseController {
         if (id == null) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
         }
-        ServiceResult<StAppletRepairMember> result = iStAppletRepairMemberService.getStAppletRepairMemberById(id);
+        ServiceResult<StAppletRepairMember> result = stAppletRepairMemberService.getStAppletRepairMemberById(id);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
     }
 
@@ -110,7 +114,7 @@ public class StAppletRepairMemberController extends BaseController {
                                                                     ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
-        ServiceResult<List<StAppletRepairMember>> serviceResult = iStAppletRepairMemberService.page(queryMap, pager);
+        ServiceResult<List<StAppletRepairMember>> serviceResult = stAppletRepairMemberService.page(queryMap, pager);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());
@@ -127,7 +131,7 @@ public class StAppletRepairMemberController extends BaseController {
     }
     
     /**
-     * 房屋认证-通过
+     * 启用维修人员
      * @param request
      * @param response
      * @return
@@ -138,7 +142,7 @@ public class StAppletRepairMemberController extends BaseController {
         StAppletRepairMember stAppletRepairMember = new StAppletRepairMember();
         stAppletRepairMember.setId(id);
         stAppletRepairMember.setSts(MemberPropertyStatus.STATE_2);
-        ServiceResult<Integer> serviceResult = iStAppletRepairMemberService.updateRepairMember(stAppletRepairMember);
+        ServiceResult<Integer> serviceResult = stAppletRepairMemberService.updateRepairMember(stAppletRepairMember);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());
@@ -153,7 +157,7 @@ public class StAppletRepairMemberController extends BaseController {
     }
     
     /**
-     * 房屋认证-不通过
+     * 禁用账号
      * @param request
      * @param response
      * @return
@@ -164,7 +168,7 @@ public class StAppletRepairMemberController extends BaseController {
         StAppletRepairMember stAppletRepairMember = new StAppletRepairMember();
         stAppletRepairMember.setId(id);
         stAppletRepairMember.setSts(MemberPropertyStatus.STATE_3);
-        ServiceResult<Integer> serviceResult = iStAppletRepairMemberService.updateRepairMember(stAppletRepairMember);
+        ServiceResult<Integer> serviceResult = stAppletRepairMemberService.updateRepairMember(stAppletRepairMember);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());

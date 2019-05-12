@@ -1,20 +1,25 @@
 package com.phkj.model.repair;
 
 
-import com.phkj.core.StringUtil;
-import com.phkj.dao.index.read.repair.StAppletRepairDao;
-import com.phkj.entity.repair.StAppletRepair;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
+import com.phkj.core.StringUtil;
+import com.phkj.dao.shop.read.repaire.StAppletRepairReadDao;
+import com.phkj.dao.shop.write.repaire.StAppletRepairWriteDao;
+import com.phkj.entity.repair.StAppletRepair;
 
 @Component
 public class StAppletRepairModel {
 
     @Resource
-    private StAppletRepairDao stAppletRepairDao;
+    private StAppletRepairWriteDao stAppletRepairWriteDao;
+    @Resource
+    private StAppletRepairReadDao stAppletRepairReadDao;
 
     /**
      * 根据id取得st_applet_repair对象
@@ -23,7 +28,7 @@ public class StAppletRepairModel {
      * @return
      */
     public StAppletRepair getStAppletRepairById(Integer stAppletRepairId) {
-        return stAppletRepairDao.get(stAppletRepairId);
+        return stAppletRepairReadDao.get(stAppletRepairId);
     }
 
     /**
@@ -34,7 +39,7 @@ public class StAppletRepairModel {
      */
     public Integer saveStAppletRepair(StAppletRepair stAppletRepair) {
         this.dbConstrains(stAppletRepair);
-        stAppletRepairDao.insert(stAppletRepair);
+        stAppletRepairWriteDao.insert(stAppletRepair);
         return stAppletRepair.getId();
     }
 
@@ -46,7 +51,7 @@ public class StAppletRepairModel {
      */
     public Integer updateStAppletRepair(StAppletRepair stAppletRepair) {
         this.dbConstrains(stAppletRepair);
-        return stAppletRepairDao.update(stAppletRepair);
+        return stAppletRepairWriteDao.update(stAppletRepair);
     }
 
     private void dbConstrains(StAppletRepair stAppletRepair) {
@@ -74,15 +79,15 @@ public class StAppletRepairModel {
      * @Param: pageSize
      */
     public List<StAppletRepair> getStAppletRepairList(String createUserId, int pageNum, int pageSize) {
-        return stAppletRepairDao.getStAppletRepairList(createUserId, pageNum, pageSize);
+        return stAppletRepairReadDao.getStAppletRepairList(createUserId, pageNum, pageSize);
     }
 
     public int getRepairtCount(Map<String, String> queryMap) {
-        return stAppletRepairDao.getRepairCount(queryMap);
+        return stAppletRepairReadDao.getRepairCount(queryMap);
     }
 
     public List<StAppletRepair> getRepairList(Map<String, String> queryMap, Integer start,
                                                     Integer size) {
-        return stAppletRepairDao.getRepairList(queryMap, start, size);
+        return stAppletRepairReadDao.getRepairList(queryMap, start, size);
     }
 }

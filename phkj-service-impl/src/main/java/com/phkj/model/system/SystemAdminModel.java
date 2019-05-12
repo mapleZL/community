@@ -91,4 +91,13 @@ public class SystemAdminModel {
         return systemAdminReadDao.getByName(name);
     }
 
+    /**
+     * 根据角色类型获取账户
+     * @param roleId
+     * @return
+     */
+    public List<SystemAdmin> getSystemAdminByRoleId(String roleId) {
+        return systemAdminReadDao.getSystemAdminByRoleId(roleId);
+    }
+
 }

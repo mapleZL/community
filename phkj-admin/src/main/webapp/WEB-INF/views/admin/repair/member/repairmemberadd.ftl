@@ -12,8 +12,8 @@ $(function(){
 	$("#add").click(function(){
 		
 		if($("#addForm").form('validate')){
-
-			var prefix = $("#userName").val();
+			$('#userName').val($("#userId").find("option:selected").text());
+			var userName = $("#userName").val();
 			if (!userName) {
 				$.messager.alert('提示','维修人员姓名必填');
 				return;
@@ -31,8 +31,7 @@ $(function(){
   		}
 	});
 
-	<#if message??>$.messager.progress('close');$.messager.alert('提示','${message}');</#if>
-})
+});
 
 </script>
 
@@ -49,8 +48,15 @@ $(function(){
 					<div class="fluidbox">
 						<p class="p12 p-item">
 							<label class="lab-item"><font class="red">*</font>维修人员姓名：</label>
-							<input class="easyui-validatebox txt w280" type="text" id="userName" name="userName" value="${(repaireMember.userName)!''}" data-options="required:true,validType:'length[0,100]'" >
+							<select id="userId" name="userId" level="0" class="txt w290" 
+									onchange="$('#userName').val(this.options[this.selectedIndex].text);">
+									<option value="0">请选择</option>
+									<#list repairs as repair>
+										<option value="${repair.id!}" >${repair.name!}</option> 
+									</#list>
+							</select>
 						</p>
+						<input id="userName" name="userName" type="hidden" />
 					</div>
 					<br/>
 					<div class="fluidbox">

@@ -62,4 +62,11 @@ public interface ISystemAdminService {
      * @return
      */
     ServiceResult<List<SystemAdmin>> getSystemAdminByName(String name);
+    
+    /**
+     * 根据角色类型获取账户列表
+     * @param roleId
+     * @return
+     */
+    ServiceResult<List<SystemAdmin>> getSystemAdminByRoleId(String roleId);
 }

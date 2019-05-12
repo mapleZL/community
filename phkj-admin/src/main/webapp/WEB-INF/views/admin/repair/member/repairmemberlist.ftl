@@ -20,7 +20,6 @@
 				$.messager.alert('提示','请选择操作行。');
 				return;
 			}
-	 		alert(selected.sts);
 			// 判断是否是已经启动
 			if(selected.sts == 2){
 				$.messager.alert('提示','该条申请已处理,请不要重复操作。');

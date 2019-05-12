@@ -7,7 +7,8 @@ import java.io.Serializable;
  */
 public class StAppletRepair implements Serializable {
  
- 	private Integer id;
+    private static final long serialVersionUID = 1L;
+    private Integer id;
  	private String communityName;
  	private String houseName;
  	private String createUserId;
@@ -15,6 +16,7 @@ public class StAppletRepair implements Serializable {
  	private String examineId;
  	private java.util.Date examineTime;
  	private String repairId;
+ 	private String repairName;
  	private java.util.Date createTime;
  	private java.util.Date modifyTime;
  	private String type;
@@ -278,4 +280,13 @@ public class StAppletRepair implements Serializable {
 	public void setImg(String img){
 		this.img = img;
 	}
+
+    public String getRepairName() {
+        return repairName;
+    }
+
+    public void setRepairName(String repairName) {
+        this.repairName = repairName;
+    }
+	
  }

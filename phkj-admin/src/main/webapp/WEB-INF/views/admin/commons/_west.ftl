@@ -117,6 +117,9 @@
 		<@shiro.hasPermission name="/admin/property/repair">
 		<a href="javascript:void(0);" onclick="addTab('社区报修管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair')">社区报修管理</a>
 		</@shiro.hasPermission>
+		<@shiro.hasPermission name="/admin/property/repair/undo">
+		<a href="javascript:void(0);" onclick="addTab('待确认报修', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/undo')">待确认报修</a>
+		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>
 	<@shiro.hasPermission name="/admin_menu_promotion">

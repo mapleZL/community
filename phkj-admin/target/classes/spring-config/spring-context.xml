@@ -28,14 +28,14 @@
     <import resource="shiro-context.xml"/>
 
     <bean id="domainUrlUtil" class="com.phkj.core.freemarkerutil.DomainUrlUtil">
-        <property name="EJS_URL_RESOURCES" value="${ejs.url.resources}"/>
-        <property name="EJS_STATIC_RESOURCES" value="${ejs.static.resources}"/>
-        <property name="EJS_IMAGE_RESOURCES" value="${ejs.image.resources}"/>
-        <property name="EJS_COOKIE_DOMAIN" value="${ejs.cookie.domain}"/>
-        <property name="OSS_ENDPOINT" value="${phkj.oss.endpoint}"/>
-        <property name="OSS_ACCESSKEYID" value="${phkj.oss.accessKeyId}"/>
-        <property name="OSS_ACCESSKEYSECRET" value="${phkj.oss.accessKeySecret}"/>
-        <property name="OSS_BUCKETNAME" value="${phkj.oss.bucketName}"/>
+        <property name="EJS_URL_RESOURCES" value="http://127.0.0.1:8081"/>
+        <property name="EJS_STATIC_RESOURCES" value="http://127.0.0.1:8081"/>
+        <property name="EJS_IMAGE_RESOURCES" value="https://images2.dawawang.com"/>
+        <property name="EJS_COOKIE_DOMAIN" value=".phkj.com"/>
+        <property name="OSS_ENDPOINT" value="http://oss-cn-beijing.aliyuncs.com"/>
+        <property name="OSS_ACCESSKEYID" value="LTAIkSc7CUIulce0"/>
+        <property name="OSS_ACCESSKEYSECRET" value="jRPzHauftvtRLerrJj57rwEEaY6nY8"/>
+        <property name="OSS_BUCKETNAME" value="community-pic"/>
     </bean>
     
     <!-- 配置SpringContext,便于手动取得注入的bean -->

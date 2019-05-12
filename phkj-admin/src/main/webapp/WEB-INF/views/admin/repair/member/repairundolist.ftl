@@ -13,26 +13,26 @@
 			$('#dataGrid').datagrid('reload',queryParamsHandler());
 		});
 		
-		// 审核不通过
-		$('#btn_nopass').click(function () {
+		// 接收报修
+		$('#btn_accept').click(function () {
 			var selected = $('#dataGrid').datagrid('getSelected');
 	 		if(!selected){
 				$.messager.alert('提示','请选择操作行。');
 				return;
 			}
 			// 判断是否是已经启动
-			if(selected.sts != 1){
-				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
+			if(selected.sts != 2){
+				$.messager.alert('提示','请确定该条维修记录为已下发。');
 				return;
 			}
-	 		$.messager.confirm('确认', '确定使用该维修人员', function(r){
+	 		$.messager.confirm('确认', '确认接收该条维修信息', function(r){
 				if (r){
 					$.messager.progress({text:"提交中..."});
 					$.ajax({
 						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/nopass",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/changeStatus",
 						dataType: "json",
-					    data: "id=" + selected.id,
+					    data: "id=" + selected.id +"&sts=4",
 					    cache:false,
 						success:function(data, textStatus){
 							if (data.success) {
@@ -48,33 +48,42 @@
 			});
 		});
 		
-		$('#btn_dev').click(function() {
+		// 确认完成
+		$('#btn_sure').click(function () {
 			var selected = $('#dataGrid').datagrid('getSelected');
-			if (!selected) {
-				$.messager.alert('提示', '请选择操作行。');
+	 		if(!selected){
+				$.messager.alert('提示','请选择操作行。');
 				return;
 			}
-			var state = selected.sts;
-			if(state != 1){
-				$.messager.alert('提示', '只有待审核状态才可以分配维修人员');
+			// 判断是否是已经审核通过的数据
+			if(selected.status == 4){
+				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
-			$("#devWin").window({
-				width :400,
-				height : 210,
-				href : '${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/delivery?id=' + selected.id,
-				title : "选择维修人员",
-				closed : true,
-				shadow : false,
-				modal : true,
-				collapsible : false,
-				minimizable : false,
-				maximizable : false
-			}).window('open');
+	 		$.messager.confirm('确认', '确定禁用该维修人员？', function(r){
+				if (r){
+					$.messager.progress({text:"提交中..."});
+					$.ajax({
+						type:"GET",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/changeStatus",
+						dataType: "json",
+					    data: "id=" + selected.id + "&sts=5",
+					    cache:false,
+						success:function(data, textStatus){
+							if (data.success) {
+								$('#dataGrid').datagrid('reload');
+						    } else {
+						    	$.messager.alert('提示',data.message);
+						    	$('#dataGrid').datagrid('reload');
+						    }
+							$.messager.progress('close');
+						}
+					});
+			    }
+			});
 		});
+	})
 		
-	});
-	
 
 	function getState(value, row, index) {
 		var box = codeBox["REPAIRE_RECORD_STATE"][value];
@@ -82,7 +91,6 @@
 	}
 </script>
 
-<div id="devWin"></div>
 
 <div id="searchbar" data-options="region:'north'" style="margin:0 auto;"
 	border="false">
@@ -98,6 +106,7 @@
 						<label class="lab-item">维修详情 :</label> <input type="text"
 							class="txt" id="q_detail" name="q_detail" value="${q_detail!''}" />
 					</p>
+					<!-- <input type="hidden" id="q_sts" name="q_sts" value="2"/> -->
 				</div>
 			</form>
 		</div>
@@ -138,10 +147,10 @@
 
 	<div id="gridTools">
 		<@shiro.hasPermission name="/admin/property/repair/delivery">
-		<a id="btn_dev" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true">分配维修人员</a>
+		<a id="btn_accept" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">确认接收</a>
 		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/property/repair/nopass">
-		<a id="btn_nopass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">审核不通过</a>
+		<a id="btn_sure" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">确认完成</a>
 		</@shiro.hasPermission>
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
 	</div>

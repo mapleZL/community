@@ -64,4 +64,10 @@
 		from `system_admin`
 		where `name` = #{name}
 	</select>
+	
+	<select id="getSystemAdminByRoleId" parameterType="java.lang.String" resultMap="SystemAdminResult">
+	    select * 
+		from `system_admin`
+		where `role_id` = #{roleId}
+	</select>
 </mapper>

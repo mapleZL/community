@@ -44,4 +44,10 @@
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 	
+	<select id="getUseRepairMemberList" resultMap="StAppletRepairMemberResult">
+	    select
+		   *
+		from `st_applet_repair_member` where sts=2 order by `create_time` desc
+	</select>
+	
 </mapper>

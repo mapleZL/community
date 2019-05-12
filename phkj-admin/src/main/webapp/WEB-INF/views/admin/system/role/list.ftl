@@ -22,6 +22,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/role"/>
 			$("#rolesName").val('');
 			$("#roleCode").val('');
 			$("#rolesName").attr('disabled',false);
+			$("#rolesCode").attr('disabled',false);
 			$("#content").val('');
 			$("#addRole").window({
 				width : 600,

@@ -7,7 +7,14 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.phkj.entity.repair.StAppletRepairMember;
-
+/**
+ * 
+ *                       
+ * @Filename: StAppletRepairMemberReadDao.java
+ * @Version: 1.0
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
+ *
+ */
 @Repository
 public interface StAppletRepairMemberReadDao {
  
@@ -17,5 +24,7 @@ public interface StAppletRepairMemberReadDao {
 
     List<StAppletRepairMember> getRepaitMemberList(@Param("start") Integer start, @Param("size") Integer size,
                                                   @Param("queryMap") Map<String, String> queryMap);
+
+    List<StAppletRepairMember> getUseRepairMemberList();
 	
 }

@@ -1,4 +1,4 @@
-package com.phkj.dao.index.read.repair;
+package com.phkj.dao.shop.read.repaire;
 
 
 import com.phkj.entity.repair.StAppletRepair;
@@ -7,15 +7,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ *                       
+ * @Filename: StAppletRepairReadDao.java
+ * @Version: 1.0
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
+ *
+ */
 @Repository
-public interface StAppletRepairDao {
+public interface StAppletRepairReadDao {
  
 	StAppletRepair get(Integer id);
-
-	Integer insert(StAppletRepair stAppletRepair);
-	
-	Integer update(StAppletRepair stAppletRepair);
 
     List<StAppletRepair> getStAppletRepairList(@Param("createUserId")String createUserId, @Param("start") int pageNum, @Param("size") int pageSize);
 

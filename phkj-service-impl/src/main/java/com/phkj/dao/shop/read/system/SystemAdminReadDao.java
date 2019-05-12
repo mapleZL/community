@@ -22,4 +22,6 @@ public interface SystemAdminReadDao {
     
     SystemAdmin getByNamePwd(Map<String, Object> queryMap);
 
+    List<SystemAdmin> getSystemAdminByRoleId(@Param("roleId")String roleId);
+
 }

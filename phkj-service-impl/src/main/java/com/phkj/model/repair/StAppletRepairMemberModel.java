@@ -62,4 +62,12 @@ public class StAppletRepairMemberModel {
                                                          Integer start, Integer size) {
         return stAppletRepairMemberReadDao.getRepaitMemberList(start, size, queryMap);
     }
+
+    /**
+     * 全查维修人员列表
+     * @return
+     */
+    public List<StAppletRepairMember> getUseRepairMemberList() {
+        return stAppletRepairMemberReadDao.getUseRepairMemberList();
+    }
 }
