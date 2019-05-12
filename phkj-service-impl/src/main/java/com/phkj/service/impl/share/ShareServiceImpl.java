@@ -136,7 +136,7 @@ public class ShareServiceImpl implements ShareService {
 
 
     /**
-     * @param id1
+     * @param
      * @param id
      * @param userId
      * @param userName
@@ -277,13 +277,38 @@ public class ShareServiceImpl implements ShareService {
             // 如果有申请中的任务全部拒绝
             if (applyList != null) {
                 for (StAppletShareApply shareApply : applyList) {
-                    shareApply.setSts("3");
+                    shareApply.setSts("4");
                     stAppletShareApplyMapper.updateByPrimaryKeySelective(shareApply);
                 }
             }
             flag = i == 0 ? false : true;
         }
         return flag;
+    }
+
+    /**
+     * @param status
+     * @param userId
+     * @return
+     */
+    @Override
+    public Map<String, Object> getMeApplyInfoList(String status, String userId, Integer pageNum, Integer pageSize) {
+
+        int pageNumber = pageNum == 0 ? 1 : pageNum;
+        int size = pageSize == 0 ? 20 : pageSize;
+        // 根据当前倒叙查询列表
+        PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
+            @Override
+            public void doSelect() {
+                stAppletShareApplyMapper.selectMeApplyInfoList(status , userId);
+            }
+        });
+
+        // 处理数据
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("total", String.valueOf(pageInfo.getTotal()));
+        returnMap.put("list", pageInfo.getList());
+        return returnMap;
     }
 
 }

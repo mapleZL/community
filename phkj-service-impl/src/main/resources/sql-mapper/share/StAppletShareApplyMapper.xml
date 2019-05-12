@@ -28,6 +28,35 @@
     img_url
   </sql>
 
+
+    <select id="selectMeApplyInfoList"  parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+            si.id as id,
+        CASE
+        si.task_type
+        WHEN '1' THEN
+        '拼车'
+        WHEN '2' THEN
+        '车位共享'
+        WHEN '3' THEN
+        '时间互换' ELSE '资源共享'
+        END AS taskType,
+        si.start_time as startTime ,
+        si.end_Time as endTime,
+        si.title as title ,
+         si.content  as content,
+         si.start_time as startTime,
+         si.end_time as endTime ,
+         case sa.sts  when '1' then '申请中' when '2' then '申请通过' when '3' then '拒绝' else '关闭申请' end  sts
+        FROM
+            st_applet_share_info si
+            INNER JOIN st_applet_share_apply sa ON si.id = sa.info_id  where 1=1
+        and  sa.create_user_id = #{userId}
+          <if test="status != null and status != ''">
+              and sa.sts = #{status}
+          </if>
+    </select>
+
   <select id="selectApplyByInfoId" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />

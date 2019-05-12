@@ -30,4 +30,6 @@ public interface ShareService {
     boolean createShareInfo(StAppletShareInfo shareInfo);
 
     boolean stopShareInfo(String id);
+
+    Map<String,Object> getMeApplyInfoList(String status, String userId ,Integer pageNum ,Integer pageSize);
 }

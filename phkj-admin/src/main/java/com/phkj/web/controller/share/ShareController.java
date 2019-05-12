@@ -113,21 +113,41 @@ public class ShareController {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            LOGGER.error("停止发布! 错误信息" + e);
+            responseUtil.setSuccess(false);
+        }
+        return responseUtil;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getMeApplyInfoList", method = RequestMethod.GET)
+    public ResponseUtil getMeApplyInfoList(HttpServletRequest request, Integer pageNum, Integer pageSize) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String status = request.getParameter("status");
+        String userId = request.getParameter("userId");
+        try {
+            Map<String, Object> returnMap = shareService.getMeApplyInfoList(status,userId,pageNum , pageSize);
+            responseUtil.setData(returnMap);
+            responseUtil.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
             LOGGER.error("查询失败! 错误信息" + e);
             responseUtil.setSuccess(false);
         }
         return responseUtil;
     }
 
+
     /**
-     *  发布新任务
+     * 发布新任务
+     *
      * @param request
      * @param shareInfo
      * @param modelMap
      * @return
      */
     @RequestMapping(value = "/system/addShare", method = RequestMethod.POST)
-    public String systemAddShare(HttpServletRequest request, StAppletShareInfo shareInfo,ModelMap modelMap) {
+    public String systemAddShare(HttpServletRequest request, StAppletShareInfo shareInfo, ModelMap modelMap) {
 
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         System.out.print(adminUser.getName());
@@ -137,7 +157,7 @@ public class ShareController {
         shareInfo.setCreateUserName(adminUser.getRoleName());
         shareInfo.setShareType("2");  // 物业发布信息
         boolean flag = shareService.createShareInfo(shareInfo);
-        modelMap.put("pageSize" , "30");
+        modelMap.put("pageSize", "30");
         return "/admin/share/comShareInfoList";
     }
 
