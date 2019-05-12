@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
@@ -74,7 +75,10 @@ public class OSSClient implements FactoryClient {
             url = ossClient.generatePresignedUrl(DomainUrlUtil.OSS_BUCKETNAME, objKey, expiration);
         } finally {
             if (ossClient != null) {
-                ossClient.shutdown();
+                try {
+                    ossClient.shutdown();
+                } catch (Exception e) {
+                }
             }
         }
         return url.toString();
@@ -106,7 +110,10 @@ public class OSSClient implements FactoryClient {
             LOGGER.info("文件上传后url：" + url);
         } finally {
             if (ossClient != null) {
-                ossClient.shutdown();
+                try {
+                    ossClient.shutdown();
+                } catch (Exception e) {
+                }
             }
         }
         return url;
@@ -160,7 +167,10 @@ public class OSSClient implements FactoryClient {
             ossClient.deleteObject(DomainUrlUtil.OSS_BUCKETNAME, code);
         } finally {
             if (ossClient != null) {
-                ossClient.shutdown();
+                try {
+                    ossClient.shutdown();
+                } catch (Exception e) {
+                }
             }
         }
         return true;
@@ -183,8 +193,11 @@ public class OSSClient implements FactoryClient {
             }
             return ossClient.doesObjectExist(DomainUrlUtil.OSS_BUCKETNAME, code);
         } finally {
-            if (ossClient != null) {
-                ossClient.shutdown();
+            try {
+                if (ossClient != null) {
+                    ossClient.shutdown();
+                }
+            } catch (Exception e) {
             }
         }
     }
@@ -225,11 +238,14 @@ public class OSSClient implements FactoryClient {
         } catch (Throwable e) {
             LOGGER.error("download exception!", e);
         } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
-            if (ossClient != null) {
-                ossClient.shutdown();
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (ossClient != null) {
+                    ossClient.shutdown();
+                }
+            } catch (IOException e) {
             }
         }
         return null;
