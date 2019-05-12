@@ -22,4 +22,6 @@ public interface StAppletShareApplyMapper {
     int updateByPrimaryKey(StAppletShareApply record);
 
     List<StAppletShareApply> selectApplyByInfoId(Long id);
+
+    List<StAppletShareApply> selectSUCCESSApplyByInfoId(Long id);
 }

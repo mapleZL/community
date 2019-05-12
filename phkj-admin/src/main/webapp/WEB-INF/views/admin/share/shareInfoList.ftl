@@ -68,7 +68,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                 $.messager.alert('提示','请选择操作行。');
                 return;
             }
-            window.location.href="${(domainUrlUtil.EJS_URL_RESOURCES)!}/admin/share/system/getShareInfoDetail?id="+selectedCode.id;
+            window.location.href="${(domainUrlUtil.EJS_URL_RESOURCES)!}/admin/share/system/getShareInfoDetail?id="+selectedCode.id ;
         });
 
         // 解冻商家

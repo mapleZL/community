@@ -26,4 +26,8 @@ public interface ShareService {
     Map<String,Object> getShareDetail(String id);
 
     Map<String,Object> getComShareInfoList(Integer userId, String taskType, String status, Integer page, Integer rows);
+
+    boolean createShareInfo(StAppletShareInfo shareInfo);
+
+    boolean stopShareInfo(String id);
 }

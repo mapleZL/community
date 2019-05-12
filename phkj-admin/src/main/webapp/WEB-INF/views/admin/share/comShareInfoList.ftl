@@ -38,6 +38,11 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 				$.messager.alert('提示','请选择操作行。');
 				return;
 			}
+
+            if(selected.sts == '已删除'){
+                $.messager.alert('提示','该发布已经被删除。');
+                return;
+            }
 	 		$.messager.confirm('确认', '确定删除该条发布信息吗？', function(r){
 				if (r){
 					$.messager.progress({text:"提交中..."});
@@ -61,6 +66,45 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 			});
 		});
 
+        // 停止共享信息
+        $('#a_stop_share').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            if(selected.sts == '已删除'){
+                $.messager.alert('提示','该发布已经被删除。');
+                return;
+            }
+            if(selected.shareStatus == '不可申请'){
+                $.messager.alert('提示','该发布已经停止申请。');
+                return;
+			}
+            $.messager.confirm('确认', '确定删除该条发布信息吗？', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/stopShareInfo",
+                        dataType: "json",
+                        data: "id=" + selected.id,
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                alert(data)
+                                $.messager.alert('提示',"更新失败!");
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
 		// 查看详情跳转
         $("#btn-gridDetail").click(function(){
             var selectedCode = $('#dataGrid').datagrid('getSelected');
@@ -68,7 +112,13 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                 $.messager.alert('提示','请选择操作行。');
                 return;
             }
-            window.location.href="${(domainUrlUtil.EJS_URL_RESOURCES)!}/admin/share/system/getShareInfoDetail?id="+selectedCode.id;
+            window.location.href="${(domainUrlUtil.EJS_URL_RESOURCES)!}/admin/share/system/getShareInfoDetail?id="+selectedCode.id+ "&pageType=dt";
+        });
+
+        // 添加共享
+        $("#a_submit_share").click(function(){
+
+            window.location.href="${(domainUrlUtil.EJS_URL_RESOURCES)!}/admin/share/system/add";
         });
 
         // 解冻商家
@@ -129,7 +179,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                     </p>
                     <p class="p4 p-item">
                         <label class="lab-item">发布人 :</label> <@cont.select id="q_createId"
-					codeDiv="SHARE_TASK_TYPE" name="q_createId" style="width:100px"/>
+					codeDiv="SHARE_TASK_CRUDID" name="q_createId" style="width:100px"/>
                     </p>
 				</div>
 			</form>
@@ -165,6 +215,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 				<th field="telephone" width="70" align="center">联系电话</th>
 				<th field="createTime" width="70" align="center">发布时间</th>
 				<th field="sts" width="70" align="center" >状态</th>
+				<th field="shareStatus" width="70" align="center" >申请状态</th>
 			</tr>
 		</thead>
 	</table>
@@ -175,6 +226,8 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 		</@shiro.hasPermission>
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
 		<a id="btn-gridDetail" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查看详情</a>
+        <a id="a_submit_share" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">发布共享</a>
+        <a id="a_stop_share" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">停止共享</a>
 	</div>
 
 	<div class="wrapper" id="editWin">

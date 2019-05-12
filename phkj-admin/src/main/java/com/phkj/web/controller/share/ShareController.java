@@ -12,14 +12,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +36,15 @@ public class ShareController {
 
     @Autowired
     private ShareService shareService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder, WebRequest request) {
+
+        //转换日期
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));// CustomDateEditor为自定义日期编辑器
+    }
+
 
     /**
      * 后台管理页面
@@ -66,13 +78,77 @@ public class ShareController {
      */
     @RequestMapping(value = "/system", method = RequestMethod.GET)
     public String getSystemShareInfo(HttpServletRequest request, Integer pageNum,
-                               Integer pageSize, ModelMap modelMap) {
-            modelMap.put("pageNum", "1");
-            modelMap.put("pageSize", "30");
+                                     Integer pageSize, ModelMap modelMap) {
+        modelMap.put("pageNum", "1");
+        modelMap.put("pageSize", "30");
         return "/admin/share/comShareInfoList";
     }
 
+    /**
+     * 跳转链接
+     *
+     * @return
+     */
+    @RequestMapping(value = "/system/add", method = RequestMethod.GET)
+    public String addShareInfo() {
 
+        return "/admin/share/shareadd";
+    }
+
+    /**
+     * 根据id删除 假删除
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/stopShareInfo", method = RequestMethod.GET)
+    public ResponseUtil stopShareInfo(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        try {
+            if (shareService.stopShareInfo(id)) {
+                responseUtil.setSuccess(true);
+            } else {
+                responseUtil.setSuccess(false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("查询失败! 错误信息" + e);
+            responseUtil.setSuccess(false);
+        }
+        return responseUtil;
+    }
+
+    /**
+     *  发布新任务
+     * @param request
+     * @param shareInfo
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/system/addShare", method = RequestMethod.POST)
+    public String systemAddShare(HttpServletRequest request, StAppletShareInfo shareInfo,ModelMap modelMap) {
+
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        System.out.print(adminUser.getName());
+        shareInfo.setCreateTime(new Date());
+        shareInfo.setShareStatus("0");
+        shareInfo.setCreateUserId(Long.valueOf(adminUser.getId()));
+        shareInfo.setCreateUserName(adminUser.getRoleName());
+        shareInfo.setShareType("2");  // 物业发布信息
+        boolean flag = shareService.createShareInfo(shareInfo);
+        modelMap.put("pageSize" , "30");
+        return "/admin/share/comShareInfoList";
+    }
+
+    /**
+     * 后台管理 获取发布大厅信息
+     *
+     * @param request
+     * @param page
+     * @param rows
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/system/getComShareInfoList")
     public HttpJsonResult<List<Map>> getComShareInfoList(HttpServletRequest request, Integer page,
@@ -87,7 +163,7 @@ public class ShareController {
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
             userId = adminUser.getId();
         }
-        Map<String, Object> returnMap = shareService.getComShareInfoList(userId,taskType, status, page, rows);
+        Map<String, Object> returnMap = shareService.getComShareInfoList(userId, taskType, status, page, rows);
         String total = (String) returnMap.get("total");
         List<Map> list = (List<Map>) returnMap.get("list");
         jsonResult.setRows(list);
@@ -132,11 +208,15 @@ public class ShareController {
     @RequestMapping("/system/getShareInfoDetail")
     public String systemGetShareInfoDetail(HttpServletRequest request, ModelMap modelMap) {
         String id = request.getParameter("id");
+        String pageType = request.getParameter("pageType");
         Map<String, Object> returnMap = shareService.getShareDetail(id);
         Object shareInfo = returnMap.get("shareInfo");
         Object applyList = returnMap.get("applyList");
         modelMap.put("shareInfo", shareInfo);
         modelMap.put("applyList", applyList);
+        if ("dt".equals(pageType)) {
+            return "/admin/share/comShareDetail";
+        }
         return "/admin/share/shareDetail";
     }
 

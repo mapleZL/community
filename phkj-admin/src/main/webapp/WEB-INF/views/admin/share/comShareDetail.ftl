@@ -3,7 +3,7 @@
     $(function(){
 
         $("#back").click(function(){
-            window.location.href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/";
+            window.location.href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system/";
         });
         $("#edit").click(function(){
             if($("#editForm").form('validate')){
@@ -54,7 +54,7 @@
 
 <div class="wrapper">
     <div class="formbox-a">
-        <h2 class="h2-title">发布详情<span class="s-poar"><a class="a-back" href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/">返回</a></span></h2>
+        <h2 class="h2-title">发布详情<span class="s-poar"><a class="a-back" href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system/">返回</a></span></h2>
 
 	<#--1.editForm----------------->
         <div class="form-contbox">
@@ -82,7 +82,7 @@
 
                             <p class="p6 p-item">
                                 <label class="lab-item">联系人 : </label>
-								${(shareInfo.contact)!}
+								${(shareInfo.contact)}
                             </p>
 
                             <p class="p6 p-item">
@@ -122,22 +122,27 @@
 					    <div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">创建人  ： </label>
-								${(shareInfo.createUserName)!}
+                                    <#--${shareInfo.createUserNamedefault('vakin')}-->
+								<#--<#if (shareInfo.createUserName) != ''>${(shareInfo.createUserName!)}</#if>-->
+								<#--<#if (shareInfo.createUserName) == ''> -- </#if>-->
                             </p>
                             <p class="p6 p-item">
                                 <label class="lab-item">车牌号码 ： </label>
-								${(shareInfo.carNum)!}
+								<#if (shareInfo.carNum) != ''>${(shareInfo.carNum)}</#if>
+								<#if (shareInfo.carNum) == ''> -- </#if>
                             </p>
                         </div>
 
                         <div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">出发地 ：</label>
-								${(shareInfo.departPlace)!}
+								<#if (shareInfo.departPlace) != ''>${(shareInfo.departPlace)}</#if>
+								<#if (shareInfo.departPlace) == ''> -- </#if>
                             </p>
                             <p class="p6 p-item">
                                 <label class="lab-item">目的地 ：</label>
-							    ${(shareInfo.destination)!}
+								<#if (shareInfo.destination) != ''>${(shareInfo.destination)}</#if>
+								<#if (shareInfo.destination) == ''> -- </#if>
                             </p>
                         </div>
 
@@ -151,7 +156,7 @@
                         <div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">详细内容 ：</label>
-                                <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)!}</textarea>
+                                <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)}</textarea>
                             </p>
                         </div>
 					</#if>
@@ -159,18 +164,21 @@
 					 <div class="fluidbox">
                          <p class="p6 p-item">
                              <label class="lab-item">创建人  ： </label>
-								${(shareInfo.createUserName)!}
+								<#if (shareInfo.createUserName) != ''>${(shareInfo.createUserName)}</#if>
+								<#if (shareInfo.createUserName) == ''> -- </#if>
                          </p>
                          <p class="p6 p-item">
                              <label class="lab-item">车位编号 ： </label>
-								${(shareInfo.carNum)!}
+								<#if (shareInfo.carNum) != ''>${(shareInfo.carNum)}</#if>
+								<#if (shareInfo.carNum) == ''> -- </#if>
                          </p>
                      </div>
 
 					 <div class="fluidbox">
                          <p class="p6 p-item">
                              <label class="lab-item">收费标准  ： </label>
-								${(shareInfo.price)!}
+								<#if (shareInfo.price) != ''>${(shareInfo.price)}</#if>
+								<#if (shareInfo.price) == ''> -- </#if>
                          </p>
                          <p class="p6 p-item">
                              <label class="lab-item">车位锁 ： </label>
@@ -194,7 +202,7 @@
 					 <div class="fluidbox">
                          <p class="p6 p-item">
                              <label class="lab-item">详细内容 ：</label>
-                             <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)!}</textarea>
+                             <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)}</textarea>
                          </p>
                      </div>
 					</#if>
@@ -202,7 +210,8 @@
 							 <div class="fluidbox">
                                  <p class="p6 p-item">
                                      <label class="lab-item">创建人  ： </label>
-								${(shareInfo.createUserName)!}
+								<#if (shareInfo.createUserName) != ''>${(shareInfo.createUserName)}</#if>
+								<#if (shareInfo.createUserName) == ''> -- </#if>
                                  </p>
                                  <p class="p6 p-item">
                                      <label class="lab-item">性别 ： </label>
@@ -226,19 +235,20 @@
 					 <div class="fluidbox">
                          <p class="p6 p-item">
                              <label class="lab-item">职业  ： </label>
-								${(shareInfo.profession)!}
-
+								<#if (shareInfo.profession) != ''>${(shareInfo.profession)}</#if>
+								<#if (shareInfo.profession) == ''> -- </#if>
                          </p>
                          <p class="p6 p-item">
                              <label class="lab-item">技能 ： </label>
-							  ${(shareInfo.skill)!}
+							  <#if (shareInfo.skill) != ''>${(shareInfo.skill)}</#if>
+								<#if (shareInfo.skill) == ''> -- </#if>
                          </p>
                      </div>
 
 						 <div class="fluidbox">
                              <p class="p6 p-item">
                                  <label class="lab-item">详细内容 ：</label>
-                                 <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)!}</textarea>
+                                 <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)}</textarea>
                              </p>
                          </div>
 
@@ -249,7 +259,7 @@
 						<div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">创建人  ： </label>
-						        ${(shareInfo.createUserName)!}
+								${(shareInfo.createUserName)!}
                             </p>
                             <p class="p6 p-item">
                                 <label class="lab-item">人脸门禁 ： </label>

@@ -45,7 +45,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareInfoMapper.selectByUserId(userId,taskType);
+                stAppletShareInfoMapper.selectByUserId(userId, taskType);
             }
         });
         // 处理数据
@@ -210,14 +210,13 @@ public class ShareServiceImpl implements ShareService {
         if (shareInfo != null) {
             // 查询所有的申请 用于列表页展示
             List<StAppletShareApply> list = stAppletShareApplyMapper.selectApplyByInfoId(shareInfo.getId());
-            returnMap.put("applyList" , list);
+            returnMap.put("applyList", list);
         }
-        returnMap.put("shareInfo" , shareInfo);
+        returnMap.put("shareInfo", shareInfo);
         return returnMap;
     }
 
     /**
-     *
      * @param userId
      * @param taskType
      * @param status
@@ -234,7 +233,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareInfoMapper.selectComShareInfoList(String.valueOf(userId),taskType, status);
+                stAppletShareInfoMapper.selectComShareInfoList(String.valueOf(userId), taskType, status);
             }
         });
 
@@ -243,6 +242,48 @@ public class ShareServiceImpl implements ShareService {
         returnMap.put("total", String.valueOf(pageInfo.getTotal()));
         returnMap.put("list", pageInfo.getList());
         return returnMap;
+    }
+
+    /**
+     * @param shareInfo
+     * @return
+     */
+    @Override
+    public boolean createShareInfo(StAppletShareInfo shareInfo) {
+
+        boolean flag = false;
+        shareInfo.setSts("1"); //任务状态 0删除 1.正常
+        int i = stAppletShareInfoMapper.insertSelective(shareInfo);
+        if (i > 0) {
+            flag = true;
+        }
+        return flag;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean stopShareInfo(String id) {
+
+        boolean flag = false;
+        StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
+        if (null != shareInfo) {
+            shareInfo.setShareStatus("2");
+            int i = stAppletShareInfoMapper.updateByPrimaryKeySelective(shareInfo);
+            List<StAppletShareApply> applyList =
+                    stAppletShareApplyMapper.selectSUCCESSApplyByInfoId(shareInfo.getId());
+            // 如果有申请中的任务全部拒绝
+            if (applyList != null) {
+                for (StAppletShareApply shareApply : applyList) {
+                    shareApply.setSts("3");
+                    stAppletShareApplyMapper.updateByPrimaryKeySelective(shareApply);
+                }
+            }
+            flag = i == 0 ? false : true;
+        }
+        return flag;
     }
 
 }

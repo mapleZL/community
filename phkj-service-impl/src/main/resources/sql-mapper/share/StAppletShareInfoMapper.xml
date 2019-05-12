@@ -58,6 +58,12 @@
     t.create_user_id as userId ,
     t.content,
     t.create_time AS createTime,
+    case  t.share_status
+    WHEN '0' THEN
+    '未申请'
+    WHEN '1' THEN
+    '已申请' ELSE '不可申请'
+    END  as shareStatus ,
     CASE
     t.sts
     WHEN '0' THEN
