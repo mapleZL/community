@@ -112,7 +112,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 <div id="searchbar" data-options="region:'north'" style="margin:0 auto;"
 	border="false">
 	<h2 class="h2-title">
-		共享列表 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
+		发布大厅 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
 	</h2>
 	<div id="searchbox" class="head-seachbox">
 		<div class="w-p99 marauto searchCont">
@@ -126,6 +126,10 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                     <p class="p4 p-item">
                         <label class="lab-item">发布类型 :</label> <@cont.select id="q_taskType"
 						codeDiv="SHARE_TASK_TYPE" name="q_taskType" style="width:100px"/>
+                    </p>
+                    <p class="p4 p-item">
+                        <label class="lab-item">发布人 :</label> <@cont.select id="q_createId"
+					codeDiv="SHARE_TASK_TYPE" name="q_createId" style="width:100px"/>
                     </p>
 				</div>
 			</form>
@@ -145,7 +149,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 						,pagination:true
 						,pageSize:${pageSize}
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/getShareInfoList'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system/getComShareInfoList'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">

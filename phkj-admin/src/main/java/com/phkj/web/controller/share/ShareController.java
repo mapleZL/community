@@ -2,9 +2,12 @@ package com.phkj.web.controller.share;
 
 
 import com.phkj.core.HttpJsonResult;
+import com.phkj.core.StringUtil;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.share.StAppletShareInfo;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.share.ShareService;
+import com.phkj.web.util.WebAdminSession;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -57,6 +60,45 @@ public class ShareController {
      * 后台管理页面
      *
      * @param request
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/system", method = RequestMethod.GET)
+    public String getSystemShareInfo(HttpServletRequest request, Integer pageNum,
+                               Integer pageSize, ModelMap modelMap) {
+            modelMap.put("pageNum", "1");
+            modelMap.put("pageSize", "30");
+        return "/admin/share/comShareInfoList";
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/system/getComShareInfoList")
+    public HttpJsonResult<List<Map>> getComShareInfoList(HttpServletRequest request, Integer page,
+                                                         Integer rows) {
+        HttpJsonResult<List<Map>> jsonResult = new HttpJsonResult<List<Map>>();
+        String taskType = request.getParameter("q_taskType");
+        String status = request.getParameter("q_status");
+        String createId = request.getParameter("q_createId");
+        Integer userId = null;
+        // 如果是查询自己发布 增加userId
+        if (StringUtils.isNotBlank(createId) && "2".equals(createId)) {
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            userId = adminUser.getId();
+        }
+        Map<String, Object> returnMap = shareService.getComShareInfoList(userId,taskType, status, page, rows);
+        String total = (String) returnMap.get("total");
+        List<Map> list = (List<Map>) returnMap.get("list");
+        jsonResult.setRows(list);
+        jsonResult.setTotal(Integer.valueOf(total));
+        return jsonResult;
+    }
+
+    /**
+     * 后台管理页面
+     *
+     * @param request
      * @param page
      * @param rows
      * @return
@@ -82,18 +124,19 @@ public class ShareController {
     }
 
     /**
-     *  后台管理查看详情
+     * 后台管理查看详情
+     *
      * @param request
      * @return
      */
     @RequestMapping("/system/getShareInfoDetail")
-    public String systemGetShareInfoDetail(HttpServletRequest request ,ModelMap modelMap) {
+    public String systemGetShareInfoDetail(HttpServletRequest request, ModelMap modelMap) {
         String id = request.getParameter("id");
-        Map<String,Object> returnMap = shareService.getShareDetail(id);
+        Map<String, Object> returnMap = shareService.getShareDetail(id);
         Object shareInfo = returnMap.get("shareInfo");
         Object applyList = returnMap.get("applyList");
-        modelMap.put("shareInfo" , shareInfo);
-        modelMap.put("applyList" , applyList);
+        modelMap.put("shareInfo", shareInfo);
+        modelMap.put("applyList", applyList);
         return "/admin/share/shareDetail";
     }
 
@@ -109,7 +152,8 @@ public class ShareController {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             String userId = request.getParameter("userId");
-            Map<String, Object> returnMap = shareService.getMeShareInfo(userId, pageNum, pageSize);
+            String taskType = request.getParameter("taskType");
+            Map<String, Object> returnMap = shareService.getMeShareInfo(userId, taskType, pageNum, pageSize);
             responseUtil.setSuccess(true);
             responseUtil.setData(returnMap);
         } catch (Exception e) {

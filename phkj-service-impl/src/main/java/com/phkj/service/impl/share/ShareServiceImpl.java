@@ -31,12 +31,13 @@ public class ShareServiceImpl implements ShareService {
 
     /**
      * @param userId
+     * @param taskType
      * @param pageNum
      * @param pageSize
      * @return
      */
     @Override
-    public Map<String, Object> getMeShareInfo(String userId, Integer pageNum, Integer pageSize) {
+    public Map<String, Object> getMeShareInfo(String userId, String taskType, Integer pageNum, Integer pageSize) {
 
         int pageNumber = pageNum == 0 ? 1 : pageNum;
         int size = pageSize == 0 ? 5 : pageSize;
@@ -44,7 +45,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareInfoMapper.selectByUserId(userId);
+                stAppletShareInfoMapper.selectByUserId(userId,taskType);
             }
         });
         // 处理数据
@@ -212,6 +213,35 @@ public class ShareServiceImpl implements ShareService {
             returnMap.put("applyList" , list);
         }
         returnMap.put("shareInfo" , shareInfo);
+        return returnMap;
+    }
+
+    /**
+     *
+     * @param userId
+     * @param taskType
+     * @param status
+     * @param page
+     * @param rows
+     * @return
+     */
+    @Override
+    public Map<String, Object> getComShareInfoList(Integer userId, String taskType, String status, Integer page,
+                                                   Integer rows) {
+        int pageNumber = page == 0 ? 1 : page;
+        int size = rows == 0 ? 20 : rows;
+        // 根据当前倒叙查询列表
+        PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
+            @Override
+            public void doSelect() {
+                stAppletShareInfoMapper.selectComShareInfoList(String.valueOf(userId),taskType, status);
+            }
+        });
+
+        // 处理数据
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("total", String.valueOf(pageInfo.getTotal()));
+        returnMap.put("list", pageInfo.getList());
         return returnMap;
     }
 

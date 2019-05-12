@@ -1,17 +1,17 @@
 <#include "/admin/commons/_detailheader.ftl" />
 <script language="javascript">
-    $(function(){
+$(function(){
 
-        $("#back").click(function(){
-            window.location.href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/";
-        });
-        $("#edit").click(function(){
-            if($("#editForm").form('validate')){
-                $("#editForm").attr("action", "${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/code/update")
-                        .attr("method", "POST")
-                        .submit();
-            }
-        });
+    $("#back").click(function(){
+	 		window.location.href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/";
+		});
+	$("#edit").click(function(){
+		if($("#editForm").form('validate')){
+	 		$("#editForm").attr("action", "${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/code/update")
+  				 .attr("method", "POST")
+  				 .submit();
+		}
+	});
 	<#if message??>$.messager.progress('close');alert('${message}');</#if>
 
 	<#if (shareInfo.taskType) == '2'>
@@ -42,82 +42,82 @@
 	</#if>
 
 
-	<#--<#if (shareInfo.gender) == '1' >-->
-	<#--$("input[name='gender'][value=1]").attr("checked",true);-->
+<#--<#if (shareInfo.gender) == '1' >-->
+	    <#--$("input[name='gender'][value=1]").attr("checked",true);-->
 	<#--</#if>-->
 	<#--<#if (shareInfo.gender) == '0' >-->
-	<#--$("input[name='gender'][value=0]").attr("checked",true);-->
+	    <#--$("input[name='gender'][value=0]").attr("checked",true);-->
 	<#--</#if>-->
 
-    })
+})
 </script>
 
 <div class="wrapper">
-    <div class="formbox-a">
-        <h2 class="h2-title">发布详情<span class="s-poar"><a class="a-back" href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/">返回</a></span></h2>
+	<div class="formbox-a">
+		<h2 class="h2-title">发布详情<span class="s-poar"><a class="a-back" href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/">返回</a></span></h2>
 
-	<#--1.editForm----------------->
-        <div class="form-contbox">
+		<#--1.editForm----------------->
+		<div class="form-contbox">
 
 			<@form.form method="post" class="validForm" id="editForm" name="editForm">
-                <input type="hidden" id="codeDiv" name="codeDiv" value="${(code.codeDiv)!''}" />
-                <input type="hidden" id="codeCd" name="codeCd" value="${(code.codeCd)!''}" />
-                <dl class="dl-group">
-                    <dt class="dt-group"><span class="s-icon"></span>基本信息</dt>
-                    <dd class="dd-group">
+			<input type="hidden" id="codeDiv" name="codeDiv" value="${(code.codeDiv)!''}" />
+			<input type="hidden" id="codeCd" name="codeCd" value="${(code.codeCd)!''}" />
+			<dl class="dl-group">
+				<dt class="dt-group"><span class="s-icon"></span>基本信息</dt>
+				<dd class="dd-group">
 
-                        <div class="fluidbox">
-                            <p class="p6 p-item">
-                                <label class="lab-item">分类 : </label>
+					<div class="fluidbox">
+						<p class="p6 p-item">
+							<label class="lab-item">分类 : </label>
 							<#if (shareInfo.taskType) == '1'>拼车</#if>
 							<#if (shareInfo.taskType) == '2'>车位共享</#if>
 							<#if (shareInfo.taskType) == '3'>时间互换</#if>
 							<#if (shareInfo.taskType) == '4'>资源共享</#if>
-                            </p>
-                            <p class="p6 p-item">
-                                <label class="lab-item">发布类型 : </label>
+						</p>
+						<p class="p6 p-item">
+							<label class="lab-item">发布类型 : </label>
 							<#if (shareInfo.shareType) == '1'>居民</#if>
 							<#if (shareInfo.shareType) == '2'>社区/物业</#if>
-                            </p>
+						</p>
 
-                            <p class="p6 p-item">
-                                <label class="lab-item">联系人 : </label>
-								${(shareInfo.contact)}
-                            </p>
+                        <p class="p6 p-item">
+                            <label class="lab-item">联系人 : </label>
+							${(shareInfo.contact)}
+                        </p>
 
-                            <p class="p6 p-item">
-                                <label class="lab-item">联系方式 : </label>
-								${(shareInfo.telephone)}
-                            </p>
+                        <p class="p6 p-item">
+                            <label class="lab-item">联系方式 : </label>
+							${(shareInfo.telephone)}
+                        </p>
 
-                            <p class="p6 p-item">
-                                <label class="lab-item">发布状态 : </label>
+                        <p class="p6 p-item">
+                            <label class="lab-item">发布状态 : </label>
 							<#if (shareInfo.sts) == '0'>删除</#if>
 							<#if (shareInfo.sts) == '1'>正常</#if>
-                            </p>
+                        </p>
 
-                            <p class="p6 p-item">
-                                <label class="lab-item">发布时间 : </label>
+                        <p class="p6 p-item">
+                            <label class="lab-item">发布时间 : </label>
 							<#if shareInfo.createTime??>${(shareInfo.createTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
-                            </p>
+                        </p>
 
-						<#--<div class="fluidbox">-->
-						<#--<p class="p12 p-item">-->
-						<#--<label class="lab-item"><font class="red">*</font>是否使用: </label>-->
-						<#--<@cont.radio id="useYn" value="${(code.useYn)!''}" codeDiv="USE_YN" />-->
-						<#--</p>-->
-						<#--</div>-->
-                        </div>
+					<#--<div class="fluidbox">-->
+                            <#--<p class="p12 p-item">-->
+                                <#--<label class="lab-item"><font class="red">*</font>是否使用: </label>-->
+							<#--<@cont.radio id="useYn" value="${(code.useYn)!''}" codeDiv="USE_YN" />-->
+                            <#--</p>-->
+                        <#--</div>-->
+					</div>
 
-                    </dd>
-                </dl>
-                <!--
-                1. 拼车
-                2. 共享车位
-                -->
-                <dl class="dl-group">
-                    <dt class="dt-group"><span class="s-icon"></span>详情</dt>
-                    <dd class="dd-group">
+				</dd>
+			</dl>
+			<!--
+			1. 拼车
+			2. 共享车位
+			-->
+			<dl class="dl-group">
+				<dt class="dt-group"><span class="s-icon"></span>详情</dt>
+				<dd class="dd-group">
 					<#if (shareInfo.taskType) == "1">
 					    <div class="fluidbox">
                             <p class="p6 p-item">
@@ -187,16 +187,16 @@
                      </div>
 
 					<div class="fluidbox">
-                        <p class="p6 p-item">
-                            <label class="lab-item">共享开始时间 ：</label>
+					 	<p class="p6 p-item">
+							<label class="lab-item">共享开始时间 ：</label>
 													<#if shareInfo.startTime??>${(shareInfo.startTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
-                        </p>
+						</p>
 
-                        <p class="p6 p-item">
-                            <label class="lab-item">共享结束时间 ：</label>
+						<p class="p6 p-item">
+							<label class="lab-item">共享结束时间 ：</label>
 													<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
-                        </p>
-                    </div>
+						</p>
+					</div>
 
 					 <div class="fluidbox">
                          <p class="p6 p-item">
@@ -220,16 +220,16 @@
                              </div>
 
 						<div class="fluidbox">
-                            <p class="p6 p-item">
-                                <label class="lab-item">互换开始时间 ：</label>
+							<p class="p6 p-item">
+								<label class="lab-item">互换开始时间 ：</label>
 														<#if shareInfo.startTime??>${(shareInfo.startTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
-                            </p>
+							</p>
 
-                            <p class="p6 p-item">
-                                <label class="lab-item">互换结束时间 ：</label>
+							<p class="p6 p-item">
+								<label class="lab-item">互换结束时间 ：</label>
 														<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
-                            </p>
-                        </div>
+							</p>
+						</div>
 
 					 <div class="fluidbox">
                          <p class="p6 p-item">
@@ -245,47 +245,47 @@
                      </div>
 
 						 <div class="fluidbox">
-                             <p class="p6 p-item">
-                                 <label class="lab-item">详细内容 ：</label>
-                                 <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)}</textarea>
-                             </p>
-                         </div>
+                         <p class="p6 p-item">
+                             <label class="lab-item">详细内容 ：</label>
+                             <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)}</textarea>
+                         </p>
+                    	 </div>
 
 					</#if>
 
 
 					<#if (shareInfo.taskType) == "4">
 						<div class="fluidbox">
-                            <p class="p6 p-item">
-                                <label class="lab-item">创建人  ： </label>
+							<p class="p6 p-item">
+                                 <label class="lab-item">创建人  ： </label>
 								<#if (shareInfo.createUserName) != ''>${(shareInfo.createUserName)}</#if>
 								<#if (shareInfo.createUserName) == ''> -- </#if>
-                            </p>
-                            <p class="p6 p-item">
-                                <label class="lab-item">人脸门禁 ： </label>
-                                <input type="radio" name="lock" value="1" /> 有
-                                <input type="radio" name="lock" value="0" />  无
-                            </p>
-                        </div>
-						<div class="fluidbox">
-                            <p class="p6 p-item">
-                                <label class="lab-item">共享开始时间 ：</label>
-														<#if shareInfo.startTime??>${(shareInfo.startTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
-                            </p>
-                            <p class="p6 p-item">
-                                <label class="lab-item">共享结束时间 ：</label>
-														<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
-                            </p>
-                        </div>
-						 <div class="fluidbox">
+                             </p>
                              <p class="p6 p-item">
-                                 <label class="lab-item">详细内容 ：</label>
-                                 <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)}</textarea>
+                                 <label class="lab-item">人脸门禁 ： </label>
+                                 <input type="radio" name="lock" value="1" /> 有
+                                 <input type="radio" name="lock" value="0" />  无
                              </p>
                          </div>
-					</#if>
-                    </dd>
-                </dl>
+						<div class="fluidbox">
+                        <p class="p6 p-item">
+                            <label class="lab-item">共享开始时间 ：</label>
+														<#if shareInfo.startTime??>${(shareInfo.startTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
+                        </p>
+                        <p class="p6 p-item">
+                            <label class="lab-item">共享结束时间 ：</label>
+														<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
+                        </p>
+                  	  	</div>
+						 <div class="fluidbox">
+                         <p class="p6 p-item">
+                             <label class="lab-item">详细内容 ：</label>
+                             <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)}</textarea>
+                         </p>
+                     </div>
+						</#if>
+				</dd>
+			</dl>
                 <dl class="dl-group">
                     <dt class="dt-group"><span class="s-icon"></span>共享申请</dt>
                     <dd class="dd-group">
@@ -296,12 +296,12 @@
                 </dl>
 
 			<#--2.batch button-------------->
-                <p class="p-item p-btn">
-                    <input type="button" id="back" class="btn" value="返回"/>
-                </p>
+			<p class="p-item p-btn">
+				<input type="button" id="back" class="btn" value="返回"/>
+			</p>
 			</@form.form>
-        </div>
-    </div>
+		</div>
+	</div>
 
 </div>
 

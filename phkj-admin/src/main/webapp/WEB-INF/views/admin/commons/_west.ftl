@@ -142,6 +142,9 @@
 			<@shiro.hasPermission name="/admin/share/">
                 <a href="javascript:void(0);" onclick="addTab('共享大厅', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/')">共享大厅</a>
 			</@shiro.hasPermission>
+			<@shiro.hasPermission name="/admin/share/system">
+                <a href="javascript:void(0);" onclick="addTab('物业发布', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system')">物业发布</a>
+			</@shiro.hasPermission>
         </div>
 	</@shiro.hasPermission>
 
