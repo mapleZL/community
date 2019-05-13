@@ -1,5 +1,6 @@
 package com.phkj.service.impl.member;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +64,9 @@ public class MemberParkingLotServiceImpl implements IMemberParkingLotService {
      public ServiceResult<Integer> saveMemberParkingLot(MemberParkingLot memberParkingLot) {
      	ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
+            memberParkingLot.setCreateDate(new Date());
+            memberParkingLot.setDeleted(1);
+            memberParkingLot.setStatus(1);
             result.setResult(memberParkingLotModel.saveMemberParkingLot(memberParkingLot));
         } catch (BusinessException e) {
             result.setSuccess(false);

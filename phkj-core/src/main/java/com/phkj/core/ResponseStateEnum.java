@@ -11,7 +11,8 @@ public enum ResponseStateEnum {
 
     STATUS_OK("200", "ok"),
     PARAM_EMPTY("101", "参数错误"),
-    STATUS_SERVER_ERROR("500", "服务器异常");
+    STATUS_SERVER_ERROR("500", "服务器异常"),
+    STATUS_SMS_CODE_ERROR("102","验证码错误");
 
     private String code;
     private String msg;

@@ -8,7 +8,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
 import org.apache.commons.lang.StringUtils;
+=======
+import com.phkj.core.response.ResponseUtil;
+import com.phkj.entity.member.MemberCar;
+import com.phkj.entity.system.SystemAdmin;
+import com.phkj.web.util.WebAdminSession;
+>>>>>>> d4ec8ee50cbc84e9b5fdb85041110c4ae36a5bce
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,6 +56,26 @@ public class MemberHouseController extends BaseController{
     public String getList(Map<String, Object> dataMap) throws Exception {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         return "admin/member/member/memberhouselist";
+    }
+
+
+    /**
+     * 新增房屋
+     *
+     * @param memberHouse
+     */
+    @RequestMapping(value = "/save", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseUtil save(@RequestBody MemberHouse memberHouse) {
+        ServiceResult<Integer> serviceResult;
+        if (memberHouse.getId() != null && memberHouse.getId() != 0) {
+            //编辑
+            serviceResult = memberHouseService.updateMemberHouse(memberHouse);
+        } else {
+            //新增
+            serviceResult = memberHouseService.saveMemberHouse(memberHouse);
+        }
+        return ResponseUtil.createResp(serviceResult.getCode(), serviceResult.getMessage(), true, serviceResult.getResult());
     }
     
     @RequestMapping(value = "/add", method = RequestMethod.POST)

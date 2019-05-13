@@ -1,5 +1,6 @@
 package com.phkj.service.impl.member;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +65,9 @@ public class MemberHouseServiceImpl implements IMemberHouseService {
      public ServiceResult<Integer> saveMemberHouse(MemberHouse memberHouse) {
      	ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
+            memberHouse.setStatus(1);
+            memberHouse.setDeleted("1");
+            memberHouse.setCreateDate(new Date());
             result.setResult(memberHouseModel.saveMemberHouse(memberHouse));
         } catch (BusinessException e) {
             result.setSuccess(false);
@@ -81,7 +85,6 @@ public class MemberHouseServiceImpl implements IMemberHouseService {
      * 更新member_house对象
      * @param  memberHouse
      * @return
-     * @see com.phkj.service.MemberHouseService#updateMemberHouse(MemberHouse)
      */
      @Override
      public ServiceResult<Integer> updateMemberHouse(MemberHouse memberHouse) {

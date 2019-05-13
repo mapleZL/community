@@ -5,7 +5,7 @@ package com.phkj.core.freemarkerutil;
  *                       
  * @Filename: DomainUrlUtil.java
  * @Version: 1.0
- * @Author: 王朋
+ * @Author: zl
  * @Email: wpjava@163.com
  *
  */
@@ -30,7 +30,11 @@ public class DomainUrlUtil {
     public static String                     OSS_ACCESSKEYID;
     public static String                     OSS_ACCESSKEYSECRET;
     public static String                     OSS_BUCKETNAME;
-    
+
+    public static String                     SPRING_REDIS_HOST;                 // redis ip
+    public static String                     SPRING_REDIS_PORT;                 // redis 端口
+    public static String                     SPRING_REDIS_PASSWORD;             // redis 密码
+
     public static String getEJS_URL_RESOURCES() {
         return EJS_URL_RESOURCES;
     }
@@ -150,5 +154,28 @@ public class DomainUrlUtil {
     public static void setOSS_BUCKETNAME(String oSS_BUCKETNAME) {
         OSS_BUCKETNAME = oSS_BUCKETNAME;
     }
-	
+
+    public static void setSPRING_REDIS_HOST(String sPRING_REDIS_HOST) {
+        SPRING_REDIS_HOST = sPRING_REDIS_HOST;
+    }
+
+    public static String getSPRING_REDIS_HOST() {
+        return SPRING_REDIS_HOST;
+    }
+
+    public static void setSPRING_REDIS_PORT(String sPRING_REDIS_PORT) {
+        SPRING_REDIS_PORT = sPRING_REDIS_PORT;
+    }
+
+    public static String getSPRING_REDIS_PORT() {
+        return SPRING_REDIS_PORT;
+    }
+
+    public static void setSPRING_REDIS_PASSWORD(String sPRING_REDIS_PASSWORD) {
+        SPRING_REDIS_PASSWORD = sPRING_REDIS_PASSWORD;
+    }
+
+    public static String getSPRING_REDIS_PASSWORD() {
+        return SPRING_REDIS_PASSWORD;
+    }
 }

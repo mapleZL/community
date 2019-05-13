@@ -1,4 +1,4 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
          xmlns="http://maven.apache.org/POM/4.0.0">
@@ -162,32 +162,61 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-        
+
         <!-- gson -->
         <dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-		</dependency>
-		
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>quartz</groupId>
             <artifactId>quartz</artifactId>
             <version>1.5.2</version>
         </dependency>
-	    
-	    <!-- shiro -->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-ehcache</artifactId>
-		</dependency>
+
+        <!-- shiro -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+        </dependency>
+
+        <!-- aliyun -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.0.6</version> <!-- 注：如提示报错，先升级基础包版，无法解决可联系技术支持 -->
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>aliyun-log-logback-appender</artifactId>
+            <version>0.1.13</version>
+        </dependency>
+
+        <!-- redis config -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.0.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -201,7 +230,7 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-        
+
         <plugins>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
@@ -218,17 +247,17 @@
                 </configuration>
             </plugin>
             <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-war-plugin</artifactId>
-	            <version>2.5</version>
-	            <configuration>
-	                <webResources>
-	                    <resource>
-	                        <directory>src/main/webapp/WEB-INF</directory>
-	                    </resource>
-	                </webResources>
-	            </configuration>
-	        </plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp/WEB-INF</directory>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -246,38 +275,43 @@
                 <phkj.oss.accessKeySecret>jRPzHauftvtRLerrJj57rwEEaY6nY8</phkj.oss.accessKeySecret>
                 <phkj.oss.bucketName>community-pic</phkj.oss.bucketName>
 
+                <phkj.spring.redis.host>118.126.66.195</phkj.spring.redis.host>
+                <phkj.spring.redis.port>6379</phkj.spring.redis.port>
+                <phkj.spring.redis.password>c428cb38d5f260853678922e</phkj.spring.redis.password>
+
+
                 <shop.write.url>jdbc:mysql://47.105.205.117:3306/dw</shop.write.url>
                 <shop.write.username>root</shop.write.username>
                 <shop.write.password>Lushuai@1992</shop.write.password>
-                
+
                 <shop.read.url>jdbc:mysql://47.105.205.117:3306/dw</shop.read.url>
                 <shop.read.username>root</shop.read.username>
                 <shop.read.password>Lushuai@1992</shop.read.password>
-                
+
                 <analysis.write.url>jdbc:mysql://47.105.205.117:3306/dw_analysis</analysis.write.url>
-                <analysis.write.username>root</analysis.write.username>																																																																																					
+                <analysis.write.username>root</analysis.write.username>
                 <analysis.write.password>Lushuai@1992</analysis.write.password>
-                
+
                 <analysis.read.url>jdbc:mysql://47.105.205.117:3306/dw_analysis</analysis.read.url>
                 <analysis.read.username>root</analysis.read.username>
                 <analysis.read.password>Lushuai@1992</analysis.read.password>
-                
+
                 <mobile.write.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.write.url>
                 <mobile.write.username>root</mobile.write.username>
                 <mobile.write.password>Lushuai@1992</mobile.write.password>
-                
+
                 <mobile.read.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.read.url>
                 <mobile.read.username>root</mobile.read.username>
                 <mobile.read.password>Lushuai@1992</mobile.read.password>
-				
+
                 <promotion.write.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.write.url>
                 <promotion.write.username>root</promotion.write.username>
                 <promotion.write.password>Lushuai@1992</promotion.write.password>
-                
+
                 <promotion.read.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.read.url>
                 <promotion.read.username>root</promotion.read.username>
                 <promotion.read.password>Lushuai@1992</promotion.read.password>
-                
+
                 <search.solr.url>http://114.55.88.189:8080/solr</search.solr.url>
                 <search.solr.server>ejavashopcore</search.solr.server>
 
@@ -285,7 +319,7 @@
                 <pom.log.level>info</pom.log.level>
             </properties>
         </profile>
-        
+
         <profile>
             <id>test</id>
             <properties>
@@ -299,39 +333,39 @@
                 <phkj.oss.accessKeyId>LTAIkSc7CUIulce0</phkj.oss.accessKeyId>
                 <phkj.oss.accessKeySecret>jRPzHauftvtRLerrJj57rwEEaY6nY8</phkj.oss.accessKeySecret>
                 <phkj.oss.bucketName>community-pic</phkj.oss.bucketName>
-                
+
                 <shop.write.url>jdbc:mysql://47.105.205.117:3306/dw</shop.write.url>
                 <shop.write.username>root</shop.write.username>
                 <shop.write.password>Lushuai@1992</shop.write.password>
-                
+
                 <shop.read.url>jdbc:mysql://47.105.205.117:3306/dw</shop.read.url>
                 <shop.read.username>root</shop.read.username>
                 <shop.read.password>Lushuai@1992</shop.read.password>
-                
+
                 <analysis.write.url>jdbc:mysql://47.105.205.117:3306/dw_analysis</analysis.write.url>
                 <analysis.write.username>root</analysis.write.username>
                 <analysis.write.password>Lushuai@1992</analysis.write.password>
-                
+
                 <analysis.read.url>jdbc:mysql://47.105.205.117:3306/dw_analysis</analysis.read.url>
                 <analysis.read.username>root</analysis.read.username>
                 <analysis.read.password>Lushuai@1992</analysis.read.password>
-                
+
                 <mobile.write.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.write.url>
                 <mobile.write.username>root</mobile.write.username>
                 <mobile.write.password>Lushuai@1992</mobile.write.password>
-                
+
                 <mobile.read.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.read.url>
                 <mobile.read.username>root</mobile.read.username>
                 <mobile.read.password>Lushuai@1992</mobile.read.password>
-				
+
                 <promotion.write.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.write.url>
                 <promotion.write.username>root</promotion.write.username>
                 <promotion.write.password>Lushuai@1992</promotion.write.password>
-                
+
                 <promotion.read.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.read.url>
                 <promotion.read.username>root</promotion.read.username>
                 <promotion.read.password>Lushuai@1992</promotion.read.password>
-                
+
                 <search.solr.url>http://47.105.205.117:8080/solr</search.solr.url>
                 <search.solr.server>ejavashopcore</search.solr.server>
 
@@ -339,7 +373,7 @@
                 <pom.log.level>info</pom.log.level>
             </properties>
         </profile>
-        
+
         <profile>
             <id>prd</id>
             <properties>
@@ -356,35 +390,35 @@
                 <shop.write.url>jdbc:mysql://10.168.119.162:3306/dw</shop.write.url>
                 <shop.write.username>root</shop.write.username>
                 <shop.write.password>Lushuai@1992</shop.write.password>
-                
+
                 <shop.read.url>jdbc:mysql://10.168.119.162:3306/dw</shop.read.url>
                 <shop.read.username>root</shop.read.username>
                 <shop.read.password>Lushuai@1992</shop.read.password>
-                
+
                 <analysis.write.url>jdbc:mysql://10.168.119.162:3306/dw_analysis</analysis.write.url>
                 <analysis.write.username>root</analysis.write.username>
                 <analysis.write.password>Lushuai@1992</analysis.write.password>
-                
+
                 <analysis.read.url>jdbc:mysql://10.168.119.162:3306/dw_analysis</analysis.read.url>
                 <analysis.read.username>root</analysis.read.username>
                 <analysis.read.password>Lushuai@1992</analysis.read.password>
-                
+
                 <mobile.write.url>jdbc:mysql://10.168.119.162:3306/dw_m</mobile.write.url>
                 <mobile.write.username>root</mobile.write.username>
                 <mobile.write.password>Lushuai@1992</mobile.write.password>
-                
+
                 <mobile.read.url>jdbc:mysql://10.168.119.162:3306/dw_m</mobile.read.url>
                 <mobile.read.username>root</mobile.read.username>
                 <mobile.read.password>Lushuai@1992</mobile.read.password>
-				
+
                 <promotion.write.url>jdbc:mysql://10.168.119.162:3306/dw_promotion</promotion.write.url>
                 <promotion.write.username>root</promotion.write.username>
                 <promotion.write.password>Lushuai@1992</promotion.write.password>
-                
+
                 <promotion.read.url>jdbc:mysql://10.168.119.162:3306/dw_promotion</promotion.read.url>
                 <promotion.read.username>root</promotion.read.username>
                 <promotion.read.password>Lushuai@1992</promotion.read.password>
-                
+
                 <search.solr.url>http://10.252.129.75:8079</search.solr.url>
                 <search.solr.server>dawacore</search.solr.server>
 

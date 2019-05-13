@@ -34,6 +34,7 @@ com\phkj\web\util\UploadUtil.class
 com\phkj\web\shiro\tag\PrincipalTag.class
 com\phkj\web\util\UEditorUploaderImage.class
 com\phkj\web\controller\file\FIleController.class
+com\phkj\web\controller\sms\SmsController.class
 com\phkj\web\shiro\tag\AuthenticatedTag.class
 com\phkj\web\controller\news\AdminNewsPartnerController.class
 com\phkj\web\shiro\ShiroDbRealm.class
