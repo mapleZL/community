@@ -10,9 +10,6 @@ import com.phkj.entity.product.ProductAttr;
 import com.phkj.entity.product.ProductGoods;
 import com.phkj.entity.product.ProductNormAttrOpt;
 import com.phkj.entity.product.ProductPicture;
-import com.phkj.vo.product.ListProductPriceVO1;
-import com.phkj.vo.product.ListProductPriceVO2;
-import com.phkj.vo.product.ListProductPriceVO3;
 
 /**
  * 商品服务
@@ -219,7 +216,4 @@ public interface IProductService {
     ServiceResult<String>omsProductCreate(Product product,ProductGoods goods);
     
     
-    ServiceResult<List<ListProductPriceVO1>> listProductPrice1();
-    ServiceResult<List<ListProductPriceVO2>> listProductPrice2();
-    ServiceResult<List<ListProductPriceVO3>> listProductPrice3();
 }

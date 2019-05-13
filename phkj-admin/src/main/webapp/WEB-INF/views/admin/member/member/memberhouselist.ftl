@@ -134,7 +134,7 @@
 				<div class="fluidbox">
 					<p class="p4 p-item">
 						<label class="lab-item">业主名 :</label> <input type="text"
-							class="txt" id="q_member_name" name="q_member_name" value="${q_member_name!''}" />
+							class="txt" id="q_search_word" name="q_search_word" value="${q_search_word!''}" />
 					</p>
 				</div>
 			</form>

@@ -8,20 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.phkj.dto.OrderDayDto;
 import com.phkj.dto.OrderFinanceDayDto;
-import com.phkj.dto.OrdersReturnDto;
-import com.phkj.dto.ProductSaleDto;
-import com.phkj.entity.member.Member;
 import com.phkj.entity.order.Orders;
-import com.phkj.entity.order.OrdersAndOrdersProductVO;
-import com.phkj.entity.order.OrdersTradeSerial;
-import com.phkj.entity.parter.CategorySalesVO;
-import com.phkj.entity.parter.ParterTuijian;
-import com.phkj.entity.parter.SalesDetailsVO;
-import com.phkj.entity.parter.SalesPersonVO;
-import com.phkj.entity.parter.SumParterSaleVO;
-import com.phkj.entity.product.Product;
-import com.phkj.vo.order.BookingSendGoodsVO;
-import com.phkj.vo.order.SendingGoodsVO;
 
 /**
  * 订单表
@@ -117,110 +104,5 @@ public interface OrdersReadDao {
      * @return
      */
     Integer getCountBySellerId(Integer sellerId);
-
-    /**
-     * 根据订单号获取商家ID
-     * @param orderSn
-     */
-    Orders getOrderByOrderSn(@Param("orderSn") String orderSn);
-
-    /**
-     * 获得用户的订单数量
-     * @param memberId
-     * @return
-     */
-    Integer getCountByMemberId(@Param("memberId") Integer memberId);
-    
-
-    List<Orders> getOrders2(@Param("queryMap") Map<String, Object> queryMap,
-            @Param("start") Integer start, @Param("size") Integer size);
-    
-    List<Orders> getOrders(@Param("queryMap") Map<String, Object> queryMap,
-            @Param("start") Integer start, @Param("size") Integer size);
-    
-    String getOrderStateComment();
-    
-    List<ProductSaleDto> getProductSale(Map<String, Object> queryMap);
-    
-    List<Product> getProductByOrderId(Integer orderid);
-    
-    BookingSendGoodsVO listUserInfo(Integer orderId);
-    
-    BookingSendGoodsVO listUserInfoLimit1(Integer orderId);
-    
-    List<SendingGoodsVO> listGoodsInfo(Integer ordersId);
-    
-    List<Orders> getordersInStore(@Param("queryMap")Map<String, Object> queryMap, @Param("start")Integer start, @Param("size")Integer size);
-
-    List<Orders>getWaitSendGoodsOrders();
-    
-    List<Orders>getOmsWaitSendGoodsOrders();
-    
-    
-    List<SumParterSaleVO>getSumParterSales(@Param("memberId") Integer memberId ,@Param("year") Integer year,@Param("signNo")String signNo);
-    
-    
-    List<SumParterSaleVO>getNewSumParterSalesYears(@Param("memberId") Integer memberId,@Param("type") Integer type,@Param("start") Integer start,@Param("size") Integer size,@Param("signNo")String signNo);
-    
-    Integer getSalesCount2(@Param("memberId") Integer memberId,@Param("signNo")String signNo);
-    
-    Integer getSalesPersonCount(@Param("memberId") Integer memberId,@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("signNo")String signNo,@Param("areaId")String areaId);
-    
-    List<SalesPersonVO>getSalesPerson(@Param("memberId") Integer memberId,@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("start") Integer start,@Param("size") Integer size,@Param("signNo")String signNo,@Param("areaId")String areaId);
-    
-    List<CategorySalesVO>getCategorySales(@Param("memberId") Integer memberId,@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("signNo")String signNo);
-    
-    List<SalesDetailsVO>getSalesDetails(@Param("memberId") Integer memberId,@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("start") Integer start,@Param("size") Integer size,@Param("signNo")String signNo,@Param("areaId")String areaId);
-    
-    Integer getSalesDetailsCount(@Param("memberId") Integer memberId,@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("signNo")String signNo,@Param("areaId")String areaId);
-    
-    List<SalesDetailsVO> getSalesDetailsByOrdersId(@Param("ordersId") Integer ordersId);
-
-    List<Orders> getAllRelationOrdersBgId(Integer id);
-	
-	
-    
-    /**
-     * 查询关联总订单号
-     */
-    OrdersTradeSerial getOrderSn(@Param("tradeSn") String tradeSn);
-    
-    /**
-     * 查询所有已经付款的定金订
-     * @param id
-     * @return
-     */
-    List<Orders> getActBiddingState5(@Param("actBiddingId") Integer actBiddingId);
-    
-    List<OrdersReturnDto> goodsReturnRate(Map<String, String> queryMap);
-    
-    /**
-     * 导出excel
-     * @param queryMap
-     * @param start
-     * @param size
-     * @return
-     */
-    List<OrdersAndOrdersProductVO> getOrdersAndOrdersProductVO(@Param("queryMap") Map<String, Object> queryMap,
-    		@Param("start") Integer start, @Param("size") Integer size);
-
-    /**
-     * 根据支付编码获取订单列表
-     * @param orderSn
-     * @return
-     */
-    List<Orders> getOrdersByTradeNo(@Param("tradeNo") String tradeNo);
-    
-    
-    List<ParterTuijian> getParterTuijianSales(@Param("areaId")String areaId,@Param("listStartTime")String listStartTime,@Param("listEndTime")String listEndTime
-    		,@Param("memberId")String memberId,@Param("memberTuijianId")String memberTuijianId,@Param("signNo")String signNo);
-
-    List<Orders> getUnPaiedOrdersLs(@Param("cancelTime")String cancelTime, @Param("limitTime")String limitTime);
-
-
-    Integer getCountByProductGoodsId(@Param("memberId")Integer memberId, @Param("productGoodsId")Integer productGoodsId, @Param("beginTime")String beginTime, @Param("endTime")String endTime, @Param("tFlag")Integer tFlag);
-
-    List<Member> getLastLoginMemberList(@Param("lastLoginTime") String lastLoginTime);
-    
     
 }

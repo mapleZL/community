@@ -21,9 +21,6 @@ import com.phkj.entity.product.ProductNormAttrOpt;
 import com.phkj.entity.product.ProductPicture;
 import com.phkj.model.product.ProductModel;
 import com.phkj.service.product.IProductService;
-import com.phkj.vo.product.ListProductPriceVO1;
-import com.phkj.vo.product.ListProductPriceVO2;
-import com.phkj.vo.product.ListProductPriceVO3;
 
 @Service(value = "productService")
 public class ProductServiceImpl implements IProductService {
@@ -564,51 +561,4 @@ public class ProductServiceImpl implements IProductService {
         return serviceResult;
 	}
 
-	@Override
-	public ServiceResult<List<ListProductPriceVO1>> listProductPrice1() {
-		ServiceResult<List<ListProductPriceVO1>> serviceResult = new ServiceResult<List<ListProductPriceVO1>>();
-        try {
-            serviceResult.setResult(productModel.listProductPrice1());
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-            ILog.error("[ProductServiceImpl][omsProductCreate]推送商品到oms发生错误:" + be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "推送商品到oms发生错误。");
-            ILog.error("[ProductServiceImpl][omsProductCreate]推送商品到oms发生错误:", e);
-        }
-        return serviceResult;
-	}
-
-	@Override
-	public ServiceResult<List<ListProductPriceVO2>> listProductPrice2() {
-		ServiceResult<List<ListProductPriceVO2>> serviceResult = new ServiceResult<List<ListProductPriceVO2>>();
-        try {
-            serviceResult.setResult(productModel.listProductPrice2());
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-            ILog.error("[ProductServiceImpl][omsProductCreate]推送商品到oms发生错误:" + be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "推送商品到oms发生错误。");
-            ILog.error("[ProductServiceImpl][omsProductCreate]推送商品到oms发生错误:", e);
-        }
-        return serviceResult;
-	}
-
-	@Override
-	public ServiceResult<List<ListProductPriceVO3>> listProductPrice3() {
-		ServiceResult<List<ListProductPriceVO3>> serviceResult = new ServiceResult<List<ListProductPriceVO3>>();
-        try {
-            serviceResult.setResult(productModel.listProductPrice3());
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-            ILog.error("[ProductServiceImpl][omsProductCreate]推送商品到oms发生错误:" + be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "推送商品到oms发生错误。");
-            ILog.error("[ProductServiceImpl][omsProductCreate]推送商品到oms发生错误:", e);
-        }
-        return serviceResult;
-	}
 }

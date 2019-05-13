@@ -16,15 +16,10 @@ import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.entity.member.Member;
-import com.phkj.entity.member.MemberBalanceLogs;
 import com.phkj.entity.member.MemberCollectionProduct;
 import com.phkj.entity.member.MemberCollectionSeller;
-import com.phkj.entity.member.MemberGradeConfig;
-import com.phkj.entity.member.MemberGradeIntegralLogs;
-import com.phkj.entity.member.MemberGradeUpLogs;
 import com.phkj.entity.member.MemberLoginLogs;
 import com.phkj.entity.member.MemberRule;
-import com.phkj.entity.system.SystemAdmin;
 import com.phkj.model.member.MemberModel;
 import com.phkj.service.member.IMemberService;
 import com.phkj.vo.member.FrontCheckPwdVO;
@@ -114,72 +109,8 @@ public class MemberServiceImpl implements IMemberService {
         return serviceResult;
     }
 
-    @Override
-    public ServiceResult<Boolean> updateMemberValue(MemberGradeIntegralLogs logs) {
-        ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
-        try {
-            Assert.notNull(memberModel, "Property 'memberModel' is required.");
 
-            return serviceResult;
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-            log.error("[MemberService][updateMemberValue]更新会员经验值与积分发生异常:", be);
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-            log.error("[MemberService][updateMemberValue]更新会员经验值与积分发生异常:", e);
-        }
-        return serviceResult;
-    }
-
-    @Override
-    public ServiceResult<List<MemberGradeUpLogs>> getMemberGradeUpLogs(Integer memberId,
-                                                                       PagerInfo pager) {
-        ServiceResult<List<MemberGradeUpLogs>> serviceResult = new ServiceResult<List<MemberGradeUpLogs>>();
-        serviceResult.setPager(pager);
-        try {
-            Assert.notNull(memberModel, "Property 'memberModel' is required.");
-            Integer start = 0, size = 0;
-            if (pager != null) {
-                start = pager.getStart();
-                size = pager.getPageSize();
-            }
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-            log.error("[MemberService][getMemberGradeUpLogs]查询会员等级升级日志发生异常:" + be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-            log.error("[MemberService][getMemberGradeUpLogs]查询会员等级升级日志发生异常:", e);
-        }
-        return serviceResult;
-    }
-
-    @Override
-    public ServiceResult<List<MemberGradeIntegralLogs>> getMemberGradeIntegralLogs(Integer memberId,
-                                                                                   Integer type,
-                                                                                   PagerInfo pager) {
-        ServiceResult<List<MemberGradeIntegralLogs>> serviceResult = new ServiceResult<List<MemberGradeIntegralLogs>>();
-        serviceResult.setPager(pager);
-        try {
-            Assert.notNull(memberModel, "Property 'memberModel' is required.");
-            Integer start = 0, size = 0;
-            if (pager != null) {
-                start = pager.getStart();
-                size = pager.getPageSize();
-            }
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-            log.error("[MemberService][getMemberGradeIntegralLogs]根据会员ID和类型取得会员经验值积分值变更日志发生异常:"
-                      + be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-            log.error("[MemberService][getMemberGradeIntegralLogs]根据会员ID和类型取得会员经验值积分值变更日志发生异常:", e);
-        }
-        return serviceResult;
-    }
-
+ 
     @Override
     public ServiceResult<List<MemberLoginLogs>> getMemberLoginLogs(Integer memberId,
                                                                    PagerInfo pager) {
@@ -252,25 +183,6 @@ public class MemberServiceImpl implements IMemberService {
     }
 
     @Override
-    public ServiceResult<Boolean> updateMemberBalance(MemberBalanceLogs logs,
-                                                      SystemAdmin systemAdmin) {
-        ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
-        try {
-            Assert.notNull(memberModel, "Property 'memberModel' is required.");
-
-            return serviceResult;
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-            log.error("[MemberService][updateMemberBalance]更新会员余额发生异常:" + be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-            log.error("[MemberService][updateMemberBalance]更新会员余额发生异常:", e);
-        }
-        return serviceResult;
-    }
-
-    @Override
     public ServiceResult<Member> memberLogin(String memberName, String password, String ip,
                                              Integer source) {
         ServiceResult<Member> serviceResult = new ServiceResult<Member>();
@@ -322,20 +234,6 @@ public class MemberServiceImpl implements IMemberService {
         }
         return serviceResult;
 
-    }
-
-    @Override
-    public ServiceResult<MemberGradeConfig> getMemberGradeConfig(Integer memberGradeConfigId) {
-        ServiceResult<MemberGradeConfig> serviceResult = new ServiceResult<MemberGradeConfig>();
-        try {
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-            log.error("[FrontMemberService][getMemberRule]根据ID获取商城会员等级配置发生异常:", e);
-        }
-        return serviceResult;
     }
 
     @Override

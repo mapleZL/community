@@ -1,7 +1,5 @@
 package com.phkj.service.order;
 
-import java.io.File;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -12,14 +10,8 @@ import com.phkj.dto.OrderFinanceDayDto;
 import com.phkj.entity.member.Member;
 import com.phkj.entity.order.Orders;
 import com.phkj.entity.order.OrdersAndOrdersProductVO;
-import com.phkj.entity.parter.CategorySalesVO;
-import com.phkj.entity.parter.SalesDetailsVO;
-import com.phkj.entity.parter.SalesPersonVO;
-import com.phkj.entity.parter.SumParterSaleVO;
 import com.phkj.entity.seller.SellerUser;
 import com.phkj.entity.system.SystemAdmin;
-import com.phkj.vo.order.BookingSendGoodsVO;
-import com.phkj.vo.order.OrderCommitVO;
 import com.phkj.vo.order.OrderSuccessVO;
 import com.phkj.vo.order.SendingGoodsVO;
 
@@ -165,19 +157,6 @@ public interface IOrdersService {
     ServiceResult<Orders> getOrderWithOPById(Integer orderId,String type);
 
     /**
-     * 用户提交订单<br>
-     * 1、判断是否使用余额、判断支付密码<br>
-     * 2、按商家拆分订单<br>
-     * 3、保存网单<br>
-     * 4、清除购物车<br>
-     * 5、如果使用余额，并且余额足够支付所有订单，修改支付状态、修改库存<br>
-     * @param orderCommitVO
-     * @return
-     * @throws Exception
-     */
-    ServiceResult<OrderSuccessVO> orderCommit(OrderCommitVO orderCommitVO, String ordersType);
-
-    /**
      * 确认收货
      * @param orderId
      * @param request
@@ -214,136 +193,4 @@ public interface IOrdersService {
      */
     ServiceResult<Boolean> jobSystemFinishOrder();
 
-    /**
-     * 系统自动取消24小时没有付款订单<br>
-     * @return
-     */
-    ServiceResult<Boolean> jobSystemCancelOrder();
-
-    /**
-     * 根据关联订单 查询订单信息 用于非在线支付 查询几个关联子订单之间的信息
-     * @param relationOrderSn
-     * @param request
-     * @return
-     */
-    ServiceResult<OrderSuccessVO> getOrdersByRelationOrderSn(String relationOrderSn,
-                                                             Integer memberId);
-
-    /**
-     * 支付之前的调用，获取订单列表，以及用余额支付等逻辑<br/>
-     * 假如余额够支付，那么直接更改订单的状态，返回支付成功页面
-     * @param relationOrderSn 订单号以逗号隔开
-     * @param isBalancePay 是否用余额支付
-     * @param balancePassword 余额密码，未加密
-     * @param member
-     * @return
-     */
-    ServiceResult<OrderSuccessVO> orderPayBefore(String relationOrderSn, boolean isBalancePay,
-                                                 String balancePassword, Member member);
-
-    /**
-     * 支付成功之后更改订单的状态
-     * @param trade_no 订单
-     * @param total_fee 金额
-     * @param paycode 支付方式
-     * @param payname 支付方式
-     * @param tradeSn 交易流水号
-     * @param tradeContent 交易返回信息
-     * @return
-     */
-    ServiceResult<Boolean> orderPayAfter(String trade_no, String total_fee, String paycode,
-                                         String payname, String tradeSn, String tradeContent);
-
-
-
-    /**
-     * 用户提交集合竞价订单<br>
-     * @param orderCommitVO
-     * @return
-     */
-    ServiceResult<OrderSuccessVO> orderCommitForBidding(OrderCommitVO orderCommitVO);
-
-    /**
-     * 保存网单价格
-     * @param orderId 
-     * @param opinfo
-     * @return
-     */
-    ServiceResult<Boolean> saveOrdersProductPrice(Integer orderId, String opinfo,String submitType);
-
-    /**
-     *查询会员地址信息 
-     */
-    ServiceResult<BookingSendGoodsVO> listUserInfo(Integer orderId);
-
-    /**
-     * 查询订单商品信息
-     */
-    ServiceResult<List<SendingGoodsVO>> listGoodsInfo(Integer orderId);
-
-    ServiceResult<Boolean> saveOrdersProductLabel(Integer orderId, String opinfo);
-
-
-    /**
-     * 第三方仓储发货计算邮费
-     * @param addressId
-     * @param numstrs
-     * @param orderSn 
-     * @return
-     */
-    ServiceResult<BigDecimal> getTransFee(String productIds, String numstrs, String orderSn,
-                                          String memberAddressId);
-
-    /**
-     * 用户登录时判断用户是否购买过
-     * @param memberId
-     * @return
-     */
-    ServiceResult<Integer> getOrdersByMemberId(Integer memberId);
-   
-
-    /**
-     * 退货保存
-     * @param orderId
-     * @param opinfo
-     * @param integer 
-     * @param submitType
-     * @return
-     */
-    ServiceResult<Boolean> saveOrdersReturn(Integer orderId, String opinfo, String returnInfo, Integer integer);
-    
-    
-    ServiceResult<List<SumParterSaleVO>>getSumParterSaleVO(Integer memberId,Integer year,String signNo);
-    
-    ServiceResult<List<SumParterSaleVO>>getNewSumParterSalesYears(Integer memberId,Integer type,PagerInfo pager,String signNo);
-    
-    ServiceResult<List<SalesPersonVO>> panerTotalPerson(Integer memberId,String startTime,String endTime,PagerInfo pager,String signNo,String areaId);
-
-    ServiceResult<List<CategorySalesVO>> getCategorySales(Integer memberId,String startTime,String endTime,String signNo);
-    
-    ServiceResult<List<SalesDetailsVO>> getSalesDetails(Integer memberId,String startTime,String endTime,PagerInfo pager,String signNo,String areaId);
-    
-    ServiceResult<List<SalesDetailsVO>> getSalesDetailsByOrdersId(Integer ordersId);
-    
-
-    ServiceResult<Boolean> sendMessageToMember();
-
-    ServiceResult<String> saveOrdersLeadingXls(File newFile);
-    
-    ServiceResult<Integer> getSalesDetailsFrontCount(Integer memberId, String startTime, String endTime, String signNo,String areaId);
-    
-    ServiceResult<List<SalesDetailsVO>> getSalesDetailsFront(Integer memberId, String startTime, String endTime, int start,int size,String signNo,String areaId);
-    
-    
-    ServiceResult<List<SalesPersonVO>>panerTotalPersonFront(Integer memberId, String startTime, String endTime,int start, int size, String signNo, String areaId);
-    
-    ServiceResult<Integer>panerTotalPersonFrontCount(Integer memberId, String startTime, String endTime, String signNo, String areaId);
-
-    void sendMessageToSeller(Orders orders);
-
-    ServiceResult<Boolean> deleteOrder(String orderId, Integer id, String name);
-    
-    ServiceResult<List<Orders>> getOrdersByTradeNo (String tradeNo);
-
-    ServiceResult<Boolean> sendMessageToEffectiveCunstomer();
 }

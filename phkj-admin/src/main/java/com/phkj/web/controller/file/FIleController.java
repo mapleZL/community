@@ -1,9 +1,11 @@
 package com.phkj.web.controller.file;
 
-import com.phkj.core.ResponseStateEnum;
-import com.phkj.core.response.ResponseUtil;
-import com.phkj.service.file.IFileService;
-import com.phkj.web.controller.BaseController;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.annotation.Resource;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -12,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import com.phkj.core.ResponseStateEnum;
+import com.phkj.core.response.ResponseUtil;
+import com.phkj.service.file.IFileService;
+import com.phkj.web.controller.BaseController;
 
 /**
  * 操作文件相关动作

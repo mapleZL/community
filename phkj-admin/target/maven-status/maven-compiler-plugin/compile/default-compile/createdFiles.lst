@@ -12,7 +12,6 @@ com\phkj\web\shiro\tag\ShiroTags.class
 com\phkj\web\controller\member\MemberHouseController.class
 com\phkj\web\util\freemarkerutil\CodeManager.class
 com\phkj\web\controller\member\MemberCarController.class
-com\phkj\web\controller\news\AdminNewsController.class
 com\phkj\web\controller\system\AdminUserController.class
 com\phkj\web\controller\mindex\MIndexBannerController.class
 com\phkj\web\util\freemarker\CustomFreeMarkerConfigurer.class
@@ -21,7 +20,6 @@ com\phkj\web\shiro\tag\LacksPermissionTag.class
 com\phkj\web\shiro\tag\SecureTag.class
 com\phkj\web\controller\BaseController$4.class
 com\phkj\job\AdminJob.class
-com\phkj\web\controller\news\AdminNewsTypeController.class
 com\phkj\web\controller\product\ProductController.class
 com\phkj\web\shiro\tag\HasAnyRolesTag.class
 com\phkj\web\controller\BaseController$1.class
@@ -36,7 +34,6 @@ com\phkj\web\util\UEditorUploaderImage.class
 com\phkj\web\controller\file\FIleController.class
 com\phkj\web\controller\sms\SmsController.class
 com\phkj\web\shiro\tag\AuthenticatedTag.class
-com\phkj\web\controller\news\AdminNewsPartnerController.class
 com\phkj\web\shiro\ShiroDbRealm.class
 com\phkj\web\util\freemarker\EscapeHtmlTemplateLoader.class
 com\phkj\web\util\freemarker\FreemarkerStaticModels.class

@@ -8,9 +8,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.phkj.entity.product.Product;
-import com.phkj.vo.product.ListProductPriceVO1;
-import com.phkj.vo.product.ListProductPriceVO2;
-import com.phkj.vo.product.ListProductPriceVO3;
 
 @Repository
 public interface ProductReadDao {
@@ -316,9 +313,6 @@ public interface ProductReadDao {
                  @Param("start")int start,
                  @Param("size")int size);
 		
-		List<ListProductPriceVO1> listProductPrice1 ();
-		List<ListProductPriceVO2> listProductPrice2 ();
-		List<ListProductPriceVO3> listProductPrice3 ();
 
         List<Product> page2(@Param("param1") Map<String, String> queryMap,
                             @Param("start") Integer start, @Param("size") Integer size);

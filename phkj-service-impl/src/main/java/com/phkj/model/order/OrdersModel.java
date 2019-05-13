@@ -1,7 +1,5 @@
 package com.phkj.model.order;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -19,7 +17,6 @@ import com.phkj.dao.shop.write.order.OrdersWriteDao;
 import com.phkj.dao.shop.write.product.ProductWriteDao;
 import com.phkj.dao.shop.write.seller.SellerWriteDao;
 import com.phkj.entity.order.Orders;
-import com.phkj.entity.order.OrdersAndOrdersProductVO;
 import com.phkj.model.member.MemberModel;
 
 
@@ -114,46 +111,7 @@ public class OrdersModel {
         return ordersReadDao.getOrdersCount1(queryMap);
     }
 
-    public List<Orders> getOrders(Map<String, String> queryMap, Integer start,
-                                  Integer size) throws Exception {
-        Map<String, Object> parammap = new HashMap<String, Object>(queryMap);
-        List<Orders> list = ordersReadDao.getOrders(parammap, start, size);
-        for (Orders o : list) {
-            o.setSellerName(sellerReadDao.get(o.getSellerId()).getSellerName());
-        }
-        return list;
-    }
-
-    /**
-     * 导出excel准备的
-     * @param queryMap
-     * @param start
-     * @param size
-     * @return
-     * @throws Exception
-     */
-    public List<OrdersAndOrdersProductVO> getOrdersAndOrdersProductVO(Map<String, String> queryMap,
-                                                                      Integer start,
-                                                                      Integer size) throws Exception {
-        Map<String, Object> parammap = new HashMap<String, Object>(queryMap);
-        List<OrdersAndOrdersProductVO> list = ordersReadDao.getOrdersAndOrdersProductVO(parammap,
-            start, size);
-        for (OrdersAndOrdersProductVO o : list) {
-            o.setSellerName(sellerReadDao.get(o.getSellerId()).getSellerName());
-        }
-        return list;
-    }
-
-    public List<Orders> getordersInStore(Map<String, String> queryMap, Integer start,
-                                         Integer size) throws Exception {
-        Map<String, Object> parammap = new HashMap<String, Object>(queryMap);
-        List<Orders> list = ordersReadDao.getordersInStore(parammap, start, size);
-        for (Orders o : list) {
-            o.setSellerName(sellerReadDao.get(o.getSellerId()).getSellerName());
-        }
-        return list;
-    }
-
+ 
     /**
      * 根据会员ID，订单状态获取 子订单 数量
      * @param memberId

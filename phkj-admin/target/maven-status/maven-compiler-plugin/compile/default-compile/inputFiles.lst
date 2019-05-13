@@ -1,7 +1,6 @@
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\member\MemberParkingLotController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\job\AdminJob.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\member\MemberCarController.java
-D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\news\AdminNewsTypeController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\UploadUtil.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\wx\RegisterController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\repair\StAppletRepairMemberController.java
@@ -10,12 +9,10 @@ D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\UEditorUploade
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\freemarker\FreemarkerStaticModels.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminResourceController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\UserTag.java
-D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\news\AdminNewsController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\GuestTag.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\order\AdminOrdersController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminReportController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\SecureTag.java
-D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\filter\SessionFilter.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\NotAuthenticatedTag.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\share\ShareController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\mindex\MIndexBannerController.java
@@ -48,7 +45,6 @@ D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\Authentic
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\HasAnyRolesTag.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminLoginController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\BaseController.java
-D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\news\AdminNewsPartnerController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\SyncController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\ShiroDbRealm.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\CsrfTokenManager.java
