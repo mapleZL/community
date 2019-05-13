@@ -5,7 +5,6 @@ import com.phkj.core.ServiceResult;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.repair.StAppletComment;
 import com.phkj.entity.repair.StAppletCommentParam;
-import com.phkj.entity.repair.StAppletRepair;
 import com.phkj.service.repair.IStAppletCommentService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
