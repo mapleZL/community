@@ -19,6 +19,7 @@ public class MemberParkingLot implements Serializable {
  	private java.lang.Integer examineUserId;
  	private java.lang.Integer deleted;
  	private java.lang.String phoneNum;
+ 	private String img;
  	
  		
 	/**
@@ -216,4 +217,12 @@ public class MemberParkingLot implements Serializable {
 	public void setPhoneNum(java.lang.String phoneNum){
 		this.phoneNum = phoneNum;
 	}
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
  }

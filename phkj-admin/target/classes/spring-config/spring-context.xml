@@ -37,12 +37,9 @@
         <property name="OSS_ACCESSKEYID" value="LTAIkSc7CUIulce0"/>
         <property name="OSS_ACCESSKEYSECRET" value="jRPzHauftvtRLerrJj57rwEEaY6nY8"/>
         <property name="OSS_BUCKETNAME" value="community-pic"/>
-<<<<<<< HEAD
-=======
         <property name="SPRING_REDIS_HOST" value="118.126.66.195"/>
         <property name="SPRING_REDIS_PORT" value="6379"/>
         <property name="SPRING_REDIS_PASSWORD" value="c428cb38d5f260853678922e"/>
->>>>>>> d4ec8ee50cbc84e9b5fdb85041110c4ae36a5bce
     </bean>
 
     <!-- 配置SpringContext,便于手动取得注入的bean -->

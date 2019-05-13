@@ -16,6 +16,7 @@
 			<result property="examineUserId" column="examine_user_id" />
 			<result property="deleted" column="deleted" />
 			<result property="phoneNum" column="phone_num" />
+			<result property="img" column="img" />
 	</resultMap>
 
 	
@@ -36,6 +37,7 @@
 			<if test="examineUserId != null">`examine_user_id`= #{examineUserId},</if>
 			<if test="deleted != null">`deleted`= #{deleted},</if>
 			<if test="phoneNum != null">`phone_num`= #{phoneNum}</if>
+			<if test="img != null">`img`= #{img}</if>
 	    </set>
         where `id` = #{id}
 	</update>
@@ -57,7 +59,8 @@
 			`examine_date`,
 			`examine_user_id`,
 			`deleted`,
-			`phone_num`
+			`phone_num`,
+			`img`
 		)
 		values
 		(
@@ -74,7 +77,8 @@
 			#{examineDate},
 			#{examineUserId},
 			#{deleted},
-			#{phoneNum}
+			#{phoneNum},
+			#{img}
 		)
 	</insert>
 	

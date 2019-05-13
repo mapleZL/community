@@ -45,6 +45,18 @@
 					});
 			    }
 			});
+	 		
+	 		$("#newstypeWin").window({
+				width : 750,
+				height : 420,
+				title : "房屋图片",
+				closed : true,
+				shadow : false,
+				modal : true,
+				collapsible : false,
+				minimizable : false,
+				maximizable : false
+			});
 		});
 		
 		// 审核不通过
@@ -83,6 +95,26 @@
 		});
 		
 	});
+	
+	function imageFormat(value, row, index) {
+		return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
+				+ value + "'>点击查看</a>";
+	}
+	
+	function showimg(href) {
+		if (href && href != 'null') {
+			var imgs = JSON.parse(href);
+			var html = '';
+			for (var i = 0; i < imgs.length; i++) {
+				html += "<img src='" + imgs[i] + "' >"
+			}
+			$("#newstypeTree").html(html);
+			$("#newstypeWin").window('open');
+		} else {
+			$.messager.alert('提示','该条记录暂无图片。');
+			return;
+		}
+	}
 
 	function getState(value, row, index) {
 		var box = codeBox["MEMBER_PROPERY_STATE"][value];
@@ -132,6 +164,7 @@
 				<th field="vehicleType" width="100" align="center">型号</th>
 				<th field="vehicleStructure" width="100" align="center">种类</th>
 				<th field="vehicleNumber" width="100" align="center">车牌</th>
+				<th field="img" width="100" align="center" formatter="imageFormat">图片</th>
 				<th field="status" width="100" align="center" formatter="getState">状态</th>
 			</tr>
 		</thead>
@@ -147,5 +180,11 @@
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
 	</div>
 	
+</div>
+<div id="newstypeWin">
+	<form id="newstypeForm" method="post">
+		<ul id="newstypeTree"
+			style="margin-top: 10px; margin-left: 10px; max-height: 370px; overflow: auto; border: 1px solid #86a3c4;"></ul>
+	</form>
 </div>
 <#include "/admin/commons/_detailfooter.ftl" />

@@ -7,7 +7,11 @@ import java.io.Serializable;
  */
 public class MemberCar implements Serializable {
  
- 	private Integer id;
+ 	/**
+     *Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 1L;
+    private Integer id;
  	private Integer memberId;
  	private String vehicleType;
  	private String vehicleStructure;
@@ -17,6 +21,7 @@ public class MemberCar implements Serializable {
  	private Integer examineUserId;
  	private Integer status;
  	private Integer deleted;
+ 	private String img;
  	
  		
 	/**
@@ -158,4 +163,13 @@ public class MemberCar implements Serializable {
 	public void setDeleted(Integer deleted){
 		this.deleted = deleted;
 	}
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+	
  }

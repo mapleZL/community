@@ -16,6 +16,7 @@
 			<result property="examineUserId" column="examine_user_id" />
 			<result property="deleted" column="deleted" />
 			<result property="phoneNum" column="phone_num" />
+			<result property="img" column="img" />
 	</resultMap>
 	
 	<select id="get" parameterType="Integer" resultMap="MemberParkingLotResult">

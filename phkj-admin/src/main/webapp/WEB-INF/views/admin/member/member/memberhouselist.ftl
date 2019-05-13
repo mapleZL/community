@@ -107,16 +107,18 @@
 	}
 	
 	function showimg(href) {
-		if (href) {
+		if (href && href != 'null') {
 			var imgs = JSON.parse(href);
-			console.log(imgs);
 			var html = '';
 			for (var i = 0; i < imgs.length; i++) {
 				html += "<img src='" + imgs[i] + "' >"
 			}
 			$("#newstypeTree").html(html);
+			$("#newstypeWin").window('open');
+		} else {
+			$.messager.alert('提示','该条记录暂无图片。');
+			return;
 		}
-		$("#newstypeWin").window('open');
 	}
 </script>
 
