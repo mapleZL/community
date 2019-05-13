@@ -4,16 +4,26 @@
 	<resultMap id="MemberHouseResult" type="com.phkj.entity.member.MemberHouse">
 			<result property="id" column="id" />
 			<result property="memberId" column="member_id" />
-			<result property="memberName" column="member_name" />
-			<result property="villageName" column="village_name" />
-			<result property="houseBlock" column="house_block" />
-			<result property="houseUnit" column="house_unit" />
-			<result property="houseNumber" column="house_number" />
+			<result property="region" column="region" />
+			<result property="street" column="street" />
+			<result property="community" column="community" />
+			<result property="village" column="village" />
+			<result property="building" column="building" />
+			<result property="unit" column="unit" />
+			<result property="room" column="room" />
+			<result property="identityInformation" column="identity_information" />
+			<result property="name" column="name" />
+			<result property="idNumber" column="id_number" />
+			<result property="phone" column="phone" />
 			<result property="createDate" column="create_date" />
 			<result property="examineDate" column="examine_date" />
 			<result property="examineUserId" column="examine_user_id" />
+			<result property="modifyId" column="modify_id" />
+			<result property="modifyName" column="modify_name" />
 			<result property="status" column="status" />
 			<result property="deleted" column="deleted" />
+			<result property="searchWord" column="search_word" />
+			<result property="img" column="img" />
 	</resultMap>
 	
 	<select id="get" parameterType="Integer" resultMap="MemberHouseResult">

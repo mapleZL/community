@@ -47,6 +47,18 @@
 			});
 		});
 		
+		$("#newstypeWin").window({
+			width : 750,
+			height : 420,
+			title : "房屋图片",
+			closed : true,
+			shadow : false,
+			modal : true,
+			collapsible : false,
+			minimizable : false,
+			maximizable : false
+		});
+		
 		// 审核不通过
 		$('#btn_noPass').click(function () {
 			var selected = $('#dataGrid').datagrid('getSelected');
@@ -87,6 +99,24 @@
 	function getState(value, row, index) {
 		var box = codeBox["MEMBER_PROPERY_STATE"][value];
 		return box;
+	}
+	
+	function imageFormat(value, row, index) {
+		return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
+				+ value + "'>点击查看</a>";
+	}
+	
+	function showimg(href) {
+		if (href) {
+			var imgs = JSON.parse(href);
+			console.log(imgs);
+			var html = '';
+			for (var i = 0; i < imgs.length; i++) {
+				html += "<img src='" + imgs[i] + "' >"
+			}
+			$("#newstypeTree").html(html);
+		}
+		$("#newstypeWin").window('open');
 	}
 </script>
 
@@ -129,11 +159,18 @@
 		<thead>
 			<tr>
 				<th field="id" hidden="hidden"></th>
-				<th field="memberName" width="120" align="center">业主姓名</th>
-				<th field="villageName" width="150" align="center">小区名称</th>
-				<th field="houseBlock" width="70" align="center">楼幢</th>
-				<th field="houseUnit" width="70" align="center">单元</th>
-				<th field="houseNumber" width="70" align="center">门牌号码</th>
+				<th field="name" width="30" align="center">业主姓名</th>
+				<th field="region" width="60" align="center">区域</th>
+				<th field="street" width="60" align="center">街道</th>
+				<th field="community" width="60" align="center">社区</th>
+				<th field="village" width="60" align="center">小区</th>
+				<th field="building" width="60" align="center">楼幢</th>
+				<th field="unit" width="60" align="center">单元</th>
+				<th field="room" width="60" align="center">室</th>
+				<th field="identityInformation" width="60" align="center">身份信息</th>
+				<th field="idNumber" width="60" align="center">身份证号</th>
+				<th field="phone" width="60" align="center">联系电话</th>
+				<th field="img" width="70" align="center" formatter="imageFormat">图片</th>
 				<th field="status" width="70" align="center" formatter="getState">状态</th>
 			</tr>
 		</thead>
@@ -149,5 +186,11 @@
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
 	</div>
 	
+</div>
+<div id="newstypeWin">
+	<form id="newstypeForm" method="post">
+		<ul id="newstypeTree"
+			style="margin-top: 10px; margin-left: 10px; max-height: 370px; overflow: auto; border: 1px solid #86a3c4;"></ul>
+	</form>
 </div>
 <#include "/admin/commons/_detailfooter.ftl" />
