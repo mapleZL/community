@@ -32,4 +32,6 @@ public interface StAppletShareApplyMapper {
     List<StAppletShareApply> selectSystemApplyByInfoId(Long id);
 
     List<StAppletShareApply> selectNOTINApplyById(@Param("infoId") Long infoId,@Param("id") Long id);
+
+    StAppletShareApply selectApplyByUserId(@Param("userId") String userId, @Param("infoId") String id);
 }

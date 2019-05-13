@@ -37,4 +37,6 @@ public interface ShareService {
     Map<String,Object> getAllApplyByPage(Integer page, Integer rows, String infoId);
 
     boolean examineApplyInfo(String id, String type, SystemAdmin adminUser);
+
+    Map<String,Object> getMeApplyDetail(String id, String userId);
 }

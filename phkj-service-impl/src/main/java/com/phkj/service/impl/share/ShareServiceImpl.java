@@ -399,4 +399,16 @@ public class ShareServiceImpl implements ShareService {
         return flag;
     }
 
+    @Override
+    public Map<String, Object> getMeApplyDetail(String id, String userId) {
+
+        Map<String, Object> returnMap = new HashMap<>();
+        StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
+
+        StAppletShareApply apply = stAppletShareApplyMapper.selectApplyByUserId(userId,shareInfo.getId().toString());
+        returnMap.put("shareInfo" , shareInfo);
+        returnMap.put("apply" ,apply);
+        return returnMap;
+    }
+
 }

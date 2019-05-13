@@ -93,6 +93,19 @@ public class ShareController {
     public String addShareInfo() {
 
         return "/admin/share/shareadd";
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getMeApplyDetail")
+    public ResponseUtil getMeApplyDetail(HttpServletRequest request){
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        String userId = request.getParameter("userId");
+        Map<String,Object> returnMap  = shareService.getMeApplyDetail(id,userId);
+        responseUtil.setSuccess(true);
+        responseUtil.setData(returnMap);
+        return responseUtil;
     }
 
     /**
@@ -118,6 +131,7 @@ public class ShareController {
         }
         return responseUtil;
     }
+
 
     @ResponseBody
     @RequestMapping(value = "/system/examineApplyInfo")
