@@ -29,7 +29,7 @@
   </sql>
 
 
-    <select id="selectMeApplyInfoList"  parameterType="java.lang.String" resultType="java.util.Map">
+  <select id="selectMeApplyInfoList"  parameterType="java.lang.String" resultType="java.util.Map">
         SELECT
             si.id as id,
         CASE
@@ -56,6 +56,42 @@
               and sa.sts = #{status}
           </if>
     </select>
+
+  <select id="selectSystemApplyByInfoId" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+       SELECT
+        id,
+        info_id,
+        create_user_id,
+        user_name,
+        examine_id,
+        telephone,
+        address,
+        id_card,
+    CASE
+        sts
+        WHEN '1' THEN
+        '申请中'
+        WHEN '2' THEN
+        '申请通过'
+        WHEN '3' THEN
+        '拒绝' ELSE '关闭申请'
+        END AS sts,
+        create_time,
+        update_time,
+    CASE
+        share_type
+        WHEN '1' THEN
+        '居民' ELSE '物业'
+        END AS share_type,
+        modify_user_id,
+        modify_time,
+        img_url
+    FROM
+        st_applet_share_apply
+    WHERE
+        info_id = #{id,jdbcType=BIGINT}
+  </select>
+
 
   <select id="selectApplyByInfoId" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select

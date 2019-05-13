@@ -32,4 +32,6 @@ public interface ShareService {
     boolean stopShareInfo(String id);
 
     Map<String,Object> getMeApplyInfoList(String status, String userId ,Integer pageNum ,Integer pageSize);
+
+    Map<String,Object> getAllApplyByPage(Integer page, Integer rows, String infoId);
 }

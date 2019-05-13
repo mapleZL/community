@@ -126,7 +126,7 @@ public class ShareController {
         String status = request.getParameter("status");
         String userId = request.getParameter("userId");
         try {
-            Map<String, Object> returnMap = shareService.getMeApplyInfoList(status,userId,pageNum , pageSize);
+            Map<String, Object> returnMap = shareService.getMeApplyInfoList(status, userId, pageNum, pageSize);
             responseUtil.setData(returnMap);
             responseUtil.setSuccess(true);
         } catch (Exception e) {
@@ -188,6 +188,28 @@ public class ShareController {
         List<Map> list = (List<Map>) returnMap.get("list");
         jsonResult.setRows(list);
         jsonResult.setTotal(Integer.valueOf(total));
+        return jsonResult;
+    }
+
+    /**
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/system/getAllApplyByPage")
+    public HttpJsonResult<List<Map>> getAllApplyByPage(HttpServletRequest request, Integer page, Integer rows) {
+
+        HttpJsonResult<List<Map>> jsonResult = new HttpJsonResult<List<Map>>();
+        try {
+            String infoId = request.getParameter("infoId");
+            Map<String, Object> returnMap = shareService.getAllApplyByPage(page, rows, infoId);
+            String total = (String) returnMap.get("total");
+            List<Map> list = (List<Map>) returnMap.get("list");
+            jsonResult.setRows(list);
+            jsonResult.setTotal(Integer.valueOf(total));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("查询失败!! " + e);
+        }
         return jsonResult;
     }
 
