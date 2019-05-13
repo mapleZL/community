@@ -18,15 +18,11 @@ import com.phkj.dao.shop.write.product.ProductWriteDao;
 import com.phkj.dao.shop.write.seller.SellerWriteDao;
 import com.phkj.entity.product.Product;
 import com.phkj.entity.product.ProductGoods;
-import com.phkj.vo.product.ListProductPriceVO1;
-import com.phkj.vo.product.ListProductPriceVO2;
-import com.phkj.vo.product.ListProductPriceVO3;
 
 @Service(value = "productModel")
 public class ProductModel {
     private static Logger                log = LogManager.getLogger(ProductModel.class);
     
-    private static final Logger  ILog = LogManager.getLogger("oms_interface");
     @Resource
     private ProductWriteDao              productWriteDao;
     @Resource
@@ -259,16 +255,6 @@ public class ProductModel {
 
             List<Product> product = productReadDao.getProductByProductCodebySort(searchKeyword, sort,start,size);
             return product;
-    }
-    
-    public List<ListProductPriceVO1> listProductPrice1 () {
-    	return productReadDao.listProductPrice1();
-    }
-    public List<ListProductPriceVO2> listProductPrice2 () {
-    	return productReadDao.listProductPrice2();
-    }
-    public List<ListProductPriceVO3> listProductPrice3 () {
-    	return productReadDao.listProductPrice3();
     }
 	
 }

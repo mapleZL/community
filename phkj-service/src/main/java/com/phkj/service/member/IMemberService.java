@@ -6,15 +6,10 @@ import java.util.Map;
 import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.member.Member;
-import com.phkj.entity.member.MemberBalanceLogs;
 import com.phkj.entity.member.MemberCollectionProduct;
 import com.phkj.entity.member.MemberCollectionSeller;
-import com.phkj.entity.member.MemberGradeConfig;
-import com.phkj.entity.member.MemberGradeIntegralLogs;
-import com.phkj.entity.member.MemberGradeUpLogs;
 import com.phkj.entity.member.MemberLoginLogs;
 import com.phkj.entity.member.MemberRule;
-import com.phkj.entity.system.SystemAdmin;
 import com.phkj.vo.member.FrontCheckPwdVO;
 import com.phkj.vo.member.FrontMemberProductBehaveStatisticsVO;
 
@@ -49,39 +44,6 @@ public interface IMemberService {
     */
     ServiceResult<Boolean> updateMember(Member member);
 
-    /**
-     * 会员经验值、积分变更</br>
-     * <li>1、会员ID必须
-     * <li>2、经验值或积分值必须
-     * <li>3、具体操作类型必须：1、会员注册；2、会员登录；3、商品购买；4、商品评论；5、系统添加；6、系统减少
-     * <li>4、操作的类型必须：1、经验值；2、积分
-     * <li>5、会员名称不能为null
-     * <li>6、操作描述不能为null
-     * <li>7、具体操作类型中6是减少经验值或积分，其余都是增加，经验值或积分值都是正整数
-     * <li>8、当动作是减少时，判断是否够扣减，不够时返回false及错误信息
-     * @param memberGradeIntegralLogs
-     * @return
-     */
-    ServiceResult<Boolean> updateMemberValue(MemberGradeIntegralLogs memberGradeIntegralLogs);
-
-    /**
-     * 根据会员ID取得会员等级升级日志
-     * @param memberId 会员ID
-     * @param pager 分页信息
-     * @return
-     */
-    ServiceResult<List<MemberGradeUpLogs>> getMemberGradeUpLogs(Integer memberId, PagerInfo pager);
-
-    /**
-     * 根据会员ID和类型取得会员经验值积分值变更日志
-     * @param memberId 会员ID
-     * @param type 类型：1、经验值；2、积分
-     * @param pager 分页信息
-     * @return
-     */
-    ServiceResult<List<MemberGradeIntegralLogs>> getMemberGradeIntegralLogs(Integer memberId,
-                                                                            Integer type,
-                                                                            PagerInfo pager);
 
     /**
      * 根据会员ID获取会员登录日志
@@ -109,21 +71,6 @@ public interface IMemberService {
     ServiceResult<List<MemberCollectionProduct>> getMemberCollectionProducts(Integer memberId,
                                                                              PagerInfo pager);
 
-    /**
-     * 会员余额变更</br>
-     * <li>1、会员ID必须
-     * <li>2、变更金额必须且传正数（money字段）
-     * <li>3、具体动作类型必须：1、充值；2、退款；3、消费；4、提款；5、系统添加；6、系统减少
-     * <li>4、会员名称不能为null
-     * <li>5、操作描述不能为null
-     * <li>6、具体动作类型中3、4、6是扣除余额，其余都是增加，变更金额都是正数
-     * <li>7、当动作是减少余额时，判断是否够扣减，不够时返回false及错误信息
-     * @param memberBalanceLogs
-     * @param systemAdmin 
-     * @return
-     */
-    ServiceResult<Boolean> updateMemberBalance(MemberBalanceLogs memberBalanceLogs,
-                                               SystemAdmin systemAdmin);
 
     /**
      * 会员登录，修改会员登录信息，记录登录日志
@@ -152,12 +99,6 @@ public interface IMemberService {
      */
     ServiceResult<List<Member>> getMemberByName(String name);
 
-    /**
-     * 根据id取得商城会员等级配置
-     * @param  memberGradeConfigId
-     * @return
-     */
-    ServiceResult<MemberGradeConfig> getMemberGradeConfig(Integer memberGradeConfigId);
 
     /**
      * 根据id取得会员经验值和积分规则

@@ -45,18 +45,18 @@
 					});
 			    }
 			});
-	 		
-	 		$("#newstypeWin").window({
-				width : 750,
-				height : 420,
-				title : "房屋图片",
-				closed : true,
-				shadow : false,
-				modal : true,
-				collapsible : false,
-				minimizable : false,
-				maximizable : false
-			});
+		});
+		
+		$("#newstypeWin").window({
+			width : 750,
+			height : 420,
+			title : "车辆图片",
+			closed : true,
+			shadow : false,
+			modal : true,
+			collapsible : false,
+			minimizable : false,
+			maximizable : false
 		});
 		
 		// 审核不通过

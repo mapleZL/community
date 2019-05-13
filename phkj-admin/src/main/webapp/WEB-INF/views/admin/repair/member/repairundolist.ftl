@@ -46,6 +46,18 @@
 					});
 			    }
 			});
+	 		
+	 		$("#newstypeWin").window({
+				width : 750,
+				height : 420,
+				title : "报修图片",
+				closed : true,
+				shadow : false,
+				modal : true,
+				collapsible : false,
+				minimizable : false,
+				maximizable : false
+			});
 		});
 		
 		// 确认完成
@@ -82,8 +94,27 @@
 			    }
 			});
 		});
-	})
-		
+	});
+	
+	function imageFormat(value, row, index) {
+		return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
+				+ value + "'>点击查看</a>";
+	}
+	
+	function showimg(href) {
+		if (href && href != 'null') {
+			var imgs = JSON.parse(href);
+			var html = '';
+			for (var i = 0; i < imgs.length; i++) {
+				html += "<img src='" + imgs[i] + "' >"
+			}
+			$("#newstypeTree").html(html);
+			$("#newstypeWin").window('open');
+		} else {
+			$.messager.alert('提示','该条记录暂无图片。');
+			return;
+		}
+	}
 
 	function getState(value, row, index) {
 		var box = codeBox["REPAIRE_RECORD_STATE"][value];
@@ -140,6 +171,7 @@
 				<th field="startTime" width="90" align="center">预约起始时间</th>
 				<th field="endTime" width="90" align="center">预约结束时间</th>
 				<th field="detail" width="190" align="center">报修详情</th>
+				<th field="img" width="100" align="center" formatter="imageFormat">图片</th>
 				<th field="sts" width="70" align="center" formatter="getState">状态</th>
 			</tr>
 		</thead>
@@ -155,5 +187,11 @@
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
 	</div>
 	
+</div>
+<div id="newstypeWin">
+	<form id="newstypeForm" method="post">
+		<ul id="newstypeTree"
+			style="margin-top: 10px; margin-left: 10px; max-height: 370px; overflow: auto; border: 1px solid #86a3c4;"></ul>
+	</form>
 </div>
 <#include "/admin/commons/_detailfooter.ftl" />

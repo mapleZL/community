@@ -51,27 +51,8 @@ public class MemberHouseController extends BaseController{
         return "admin/member/member/memberhouselist";
     }
 
-
-    /**
-     * 新增房屋
-     *
-     * @param memberHouse
-     */
-    @RequestMapping(value = "/save", method = {RequestMethod.POST})
-    @ResponseBody
-    public ResponseUtil save(@RequestBody MemberHouse memberHouse) {
-        ServiceResult<Integer> serviceResult;
-        if (memberHouse.getId() != null && memberHouse.getId() != 0) {
-            //编辑
-            serviceResult = memberHouseService.updateMemberHouse(memberHouse);
-        } else {
-            //新增
-            serviceResult = memberHouseService.saveMemberHouse(memberHouse);
-        }
-        return ResponseUtil.createResp(serviceResult.getCode(), serviceResult.getMessage(), true, serviceResult.getResult());
-    }
     
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public ResponseUtil add(@RequestBody MemberHouse memberHouse, HttpServletRequest request){
         ResponseUtil result = checkParam(memberHouse);
