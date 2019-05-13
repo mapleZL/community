@@ -28,4 +28,6 @@ public interface StAppletShareApplyMapper {
     List<StAppletShareApply> selectSUCCESSApplyByInfoId(Long id);
 
     List<Map> selectMeApplyInfoList(@Param("status") String status, @Param("userId") String userId);
+
+    List<StAppletShareApply> selectSystemApplyByInfoId(Long id);
 }
