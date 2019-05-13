@@ -12,6 +12,90 @@
                         .submit();
             }
         });
+
+        // 删除信息
+        $('#examine_del').click(function () {
+            var selected = $('#lbs').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            if(selected.sts == '关闭申请' ){
+                $.messager.alert('提示','该申请不可以被操作。');
+                return;
+            } if(selected.sts == '申请通过' ){
+                $.messager.alert('提示','该申请不可以被操作。');
+                return;
+            }
+            $.messager.confirm('确认', '确定拒绝该申请吗？', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system/examineApplyInfo",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=del",
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#lbs').datagrid('reload');
+                            } else {
+                               // $.messager.alert('提示',data.message);
+                                $.messager.alert('提示','操作失败!');
+                                $('#lbs').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
+
+        // 删除信息
+        $('#examine_add').click(function () {
+            var selected = $('#lbs').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            if(selected.sts == '关闭申请' ){
+                $.messager.alert('提示','该申请不可以被操作。');
+                return;
+            }
+            if(selected.sts == '申请通过' ){
+                $.messager.alert('提示','该申请已经通过。');
+                return;
+            }
+            if(selected.sts == '申请拒绝' ){
+                $.messager.alert('提示','该申请已被拒绝。');
+                return;
+            }
+            $.messager.confirm('确认', '确定拒绝该申请吗？', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system/examineApplyInfo",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=add",
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#lbs').datagrid('reload');
+                            } else {
+                                // $.messager.alert('提示',data.message);
+                                $.messager.alert('提示','操作失败!');
+                                $('#lbs').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
+
 	<#if message??>$.messager.progress('close');alert('${message}');</#if>
 
 	<#if (shareInfo.taskType) == '2'>
@@ -288,7 +372,7 @@
                 </dl>
 
 
-                    <table class="easyui-datagrid" title="申请列表"
+                    <table id="lbs" class="easyui-datagrid" title="申请列表"
                            data-options="rownumbers:true
 						,idField :'id'
 						,singleSelect:true
@@ -318,8 +402,16 @@
                             <th field="modifyTime" width="70" align="center" >修改时间</th>
                         </tr>
                         </thead>
-                    </table>
 
+                    </table>
+                <div id="gridTools">
+                    <@shiro.hasPermission name="/admin/share/examine_del">
+                    <a id="examine_del" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">拒绝</a>
+                    </@shiro.hasPermission>
+                      <@shiro.hasPermission name="/admin/share/examine_add">
+                    <a id="examine_add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">通过</a>
+                      </@shiro.hasPermission>
+                </div>
 
 			<#--2.batch button-------------->
                 <p class="p-item p-btn">

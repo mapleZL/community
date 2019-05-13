@@ -120,6 +120,35 @@ public class ShareController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/system/examineApplyInfo")
+    public ResponseUtil examineApplyInfo(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String type = request.getParameter("type");
+        String id = request.getParameter("id");
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        try {
+            if (shareService.examineApplyInfo(id,type,adminUser)) {
+                responseUtil.setSuccess(true);
+            } else {
+                responseUtil.setSuccess(false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("审核失败! 错误信息" + e);
+            responseUtil.setSuccess(false);
+        }
+        return responseUtil;
+    }
+
+    /**
+     * 后台管理-物业发布-获取当前发布所有申请
+     *
+     * @param request
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @ResponseBody
     @RequestMapping(value = "/getMeApplyInfoList", method = RequestMethod.GET)
     public ResponseUtil getMeApplyInfoList(HttpServletRequest request, Integer pageNum, Integer pageSize) {
         ResponseUtil responseUtil = new ResponseUtil();
@@ -150,7 +179,6 @@ public class ShareController {
     public String systemAddShare(HttpServletRequest request, StAppletShareInfo shareInfo, ModelMap modelMap) {
 
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
-        System.out.print(adminUser.getName());
         shareInfo.setCreateTime(new Date());
         shareInfo.setShareStatus("0");
         shareInfo.setCreateUserId(Long.valueOf(adminUser.getId()));

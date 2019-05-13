@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.phkj.entity.system.SystemAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -300,7 +301,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareApplyMapper.selectMeApplyInfoList(status , userId);
+                stAppletShareApplyMapper.selectMeApplyInfoList(status, userId);
             }
         });
 
@@ -312,7 +313,8 @@ public class ShareServiceImpl implements ShareService {
     }
 
     /**
-     *   查询所有申请
+     * 查询所有申请
+     *
      * @param page
      * @param rows
      * @param infoId
@@ -336,6 +338,39 @@ public class ShareServiceImpl implements ShareService {
         returnMap.put("total", String.valueOf(pageInfo.getTotal()));
         returnMap.put("list", pageInfo.getList());
         return returnMap;
+    }
+
+    /**
+     * @param id
+     * @param type
+     * @param adminUser
+     * @return
+     */
+    @Override
+    public boolean examineApplyInfo(String id, String type, SystemAdmin adminUser) {
+
+        /**
+         * 判断拒绝 还是通过 --type
+         * 1.申请中
+         * 2.通过
+         * 3.拒绝
+         * 4.关闭申请
+         */
+        boolean flag = false;
+        StAppletShareApply shareApply = stAppletShareApplyMapper.selectByPrimaryKey(Long.valueOf(id));
+        if ("del".equals(type)) {
+            shareApply.setSts("3");
+        } else {
+            shareApply.setSts("2");
+        }
+        shareApply.setUpdateTime(new Date());
+        shareApply.setExamineId(String.valueOf(adminUser.getId()));
+        shareApply.setImgUrl(adminUser.getName());
+        int i = stAppletShareApplyMapper.updateByPrimaryKeySelective(shareApply);
+        if (i > 0) {
+            flag = true;
+        }
+        return flag;
     }
 
 }
