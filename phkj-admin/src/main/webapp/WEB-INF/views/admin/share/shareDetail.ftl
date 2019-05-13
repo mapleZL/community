@@ -16,38 +16,31 @@
 
 	<#if (shareInfo.taskType) == '2'>
 		<#if (shareInfo.carLock) == '1' >
-	    $("input[name='Status'][value=1]").attr("checked",true);
+	    $("input[name='Status1'][value=1]").attr("checked",true);
 		</#if>
 		<#if (shareInfo.carLock) == '0' >
-	    $("input[name='Status'][value=0]").attr("checked",true);
+	    $("input[name='Status0'][value=0]").attr("checked",true);
 		</#if>
 	</#if>
 
 	<#if (shareInfo.taskType) == '3'>
 		<#if (shareInfo.gender) == '1' >
-		$("input[name='gender'][value=1]").attr("checked",true);
+		$("input[name='gender1'][value=1]").attr("checked",true);
 		</#if>
 		<#if (shareInfo.gender) == '0' >
-		$("input[name='gender'][value=0]").attr("checked",true);
+		$("input[name='gender0'][value=0]").attr("checked",true);
 		</#if>
 	</#if>
 
 	<#if (shareInfo.taskType) == '4'>
 		<#if (shareInfo.doorLock) == '1' >
-		$("input[name='lock'][value=1]").attr("checked",true);
+		$("input[name='lock1'][value=1]").attr("checked",true);
 		</#if>
 		<#if (shareInfo.doorLock) == '0' >
-		$("input[name='lock'][value=0]").attr("checked",true);
+		$("input[name='lock0'][value=0]").attr("checked",true);
 		</#if>
 	</#if>
 
-
-	<#--<#if (shareInfo.gender) == '1' >-->
-	<#--$("input[name='gender'][value=1]").attr("checked",true);-->
-	<#--</#if>-->
-	<#--<#if (shareInfo.gender) == '0' >-->
-	<#--$("input[name='gender'][value=0]").attr("checked",true);-->
-	<#--</#if>-->
 
     })
 </script>
@@ -124,30 +117,31 @@
                                 <label class="lab-item">创建人  ： </label>
 								${(shareInfo.createUserName)!}
                             </p>
+                        </div>
+                        <div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">车牌号码 ： </label>
-								${(shareInfo.carNum)!}
+                                ${(shareInfo.carNum)!}
                             </p>
                         </div>
-
                         <div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">出发地 ：</label>
 								${(shareInfo.departPlace)!}
                             </p>
+                        </div>
+                        <div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">目的地 ：</label>
-							    ${(shareInfo.destination)!}
+                                ${(shareInfo.destination)!}
                             </p>
                         </div>
-
                         <div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">发车时间 ：</label>
 								<#if shareInfo.startTime??>${(shareInfo.startTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
                             </p>
                         </div>
-
                         <div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">详细内容 ：</label>
@@ -155,42 +149,45 @@
                             </p>
                         </div>
 					</#if>
+
 					<#if (shareInfo.taskType) == "2">
 					 <div class="fluidbox">
                          <p class="p6 p-item">
                              <label class="lab-item">创建人  ： </label>
 								${(shareInfo.createUserName)!}
                          </p>
+                     </div>
+					 <div class="fluidbox">
                          <p class="p6 p-item">
                              <label class="lab-item">车位编号 ： </label>
-								${(shareInfo.carNum)!}
+                             ${(shareInfo.carNum)!}
                          </p>
                      </div>
-
 					 <div class="fluidbox">
                          <p class="p6 p-item">
                              <label class="lab-item">收费标准  ： </label>
 								${(shareInfo.price)!}
                          </p>
-                         <p class="p6 p-item">
-                             <label class="lab-item">车位锁 ： </label>
-                             <input type="radio" name="Status" value="1" /> 启用
-                             <input type="radio" name="Status" value="0" />  禁用
-                         </p>
                      </div>
-
+					<div class="fluidbox">
+                        <p class="p6 p-item">
+                            <label class="lab-item">车位锁 ： </label>
+                            <input type="radio" name="Status1" value="1" /> 启用
+                            <input type="radio" name="Status0" value="0" />  禁用
+                        </p>
+                    </div>
 					<div class="fluidbox">
                         <p class="p6 p-item">
                             <label class="lab-item">共享开始时间 ：</label>
 													<#if shareInfo.startTime??>${(shareInfo.startTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
                         </p>
-
-                        <p class="p6 p-item">
-                            <label class="lab-item">共享结束时间 ：</label>
-													<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
-                        </p>
                     </div>
-
+					 <div class="fluidbox">
+                         <p class="p6 p-item">
+                             <label class="lab-item">共享结束时间 ：</label>
+													<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
+                         </p>
+                     </div>
 					 <div class="fluidbox">
                          <p class="p6 p-item">
                              <label class="lab-item">详细内容 ：</label>
@@ -199,51 +196,50 @@
                      </div>
 					</#if>
 					<#if (shareInfo.taskType) == "3">
-							 <div class="fluidbox">
-                                 <p class="p6 p-item">
-                                     <label class="lab-item">创建人  ： </label>
-								${(shareInfo.createUserName)!}
-                                 </p>
-                                 <p class="p6 p-item">
-                                     <label class="lab-item">性别 ： </label>
-                                     <input type="radio" name="gender" value="1" /> 男
-                                     <input type="radio" name="gender" value="0" />  女
-                                 </p>
-                             </div>
-
+                        <div class="fluidbox">
+                            <p class="p6 p-item">
+                                <label class="lab-item">创建人 ： </label>
+                                ${(shareInfo.createUserName)!}
+                            </p>
+                        </div>
+						<div class="fluidbox">
+                            <p class="p6 p-item">
+                                <label class="lab-item">性别 ： </label>
+                                <input type="radio" name="gender1" value="1"/> 男
+                                <input type="radio" name="gender0" value="0"/> 女
+                            </p>
+                        </div>
 						<div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">互换开始时间 ：</label>
 														<#if shareInfo.startTime??>${(shareInfo.startTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
                             </p>
-
+                        </div>
+                        <div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">互换结束时间 ：</label>
 														<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
                             </p>
                         </div>
-
-					 <div class="fluidbox">
-                         <p class="p6 p-item">
-                             <label class="lab-item">职业  ： </label>
-								${(shareInfo.profession)!}
-
-                         </p>
-                         <p class="p6 p-item">
-                             <label class="lab-item">技能 ： </label>
-							  ${(shareInfo.skill)!}
-                         </p>
-                     </div>
-
+					     <div class="fluidbox">
+                             <p class="p6 p-item">
+                                 <label class="lab-item">职业 ： </label>
+                                 ${(shareInfo.profession)!}
+                             </p>
+                         </div>
+						 <div class="fluidbox">
+                             <p class="p6 p-item">
+                                 <label class="lab-item">技能 ： </label>
+                                 ${(shareInfo.skill)!}
+                             </p>
+                         </div>
 						 <div class="fluidbox">
                              <p class="p6 p-item">
                                  <label class="lab-item">详细内容 ：</label>
                                  <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)!}</textarea>
                              </p>
                          </div>
-
 					</#if>
-
 
 					<#if (shareInfo.taskType) == "4">
 						<div class="fluidbox">
@@ -251,10 +247,12 @@
                                 <label class="lab-item">创建人  ： </label>
 						        ${(shareInfo.createUserName)!}
                             </p>
+                        </div>
+                        <div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">人脸门禁 ： </label>
-                                <input type="radio" name="lock" value="1" /> 有
-                                <input type="radio" name="lock" value="0" />  无
+                                <input type="radio" name="lock1" value="1" /> 有
+                                <input type="radio" name="lock0" value="0" />  无
                             </p>
                         </div>
 						<div class="fluidbox">
@@ -262,11 +260,13 @@
                                 <label class="lab-item">共享开始时间 ：</label>
 														<#if shareInfo.startTime??>${(shareInfo.startTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
                             </p>
-                            <p class="p6 p-item">
-                                <label class="lab-item">共享结束时间 ：</label>
-														<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
-                            </p>
                         </div>
+						 <div class="fluidbox">
+                             <p class="p6 p-item">
+                                 <label class="lab-item">共享结束时间 ：</label>
+														<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
+                             </p>
+                         </div>
 						 <div class="fluidbox">
                              <p class="p6 p-item">
                                  <label class="lab-item">详细内容 ：</label>
@@ -280,7 +280,7 @@
                     <dt class="dt-group"><span class="s-icon"></span>共享申请</dt>
                     <dd class="dd-group">
                         <div class="fluidbox">
-                            <label class="lab-item">帮助信息。</label>
+                            <label class="lab-item">暂无申请</label>
                         </div>
                     </dd>
                 </dl>

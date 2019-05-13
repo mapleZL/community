@@ -113,6 +113,16 @@
     and  sts != '3'
   </select>
 
+  <select id="selectNOTINApplyById" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_share_apply
+    where info_id = #{infoId,jdbcType=BIGINT}
+    and  id != #{id}
+  </select>
+
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select 

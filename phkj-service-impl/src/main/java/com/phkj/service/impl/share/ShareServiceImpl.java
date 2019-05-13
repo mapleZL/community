@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import com.phkj.entity.system.SystemAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -363,12 +364,37 @@ public class ShareServiceImpl implements ShareService {
         } else {
             shareApply.setSts("2");
         }
+
+        /**\
+         * 设置发布不可再申请
+         */
+        StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectShareByInfo(shareApply.getInfoId());
+        shareInfo.setModifyTime(new Date());
+        shareInfo.setModifyUserId(Long.valueOf(adminUser.getId()));
+        shareInfo.setShareStatus("2");
+        stAppletShareInfoMapper.updateByPrimaryKeySelective(shareInfo);
+        /**
+         *  修改状态
+         */
         shareApply.setUpdateTime(new Date());
         shareApply.setExamineId(String.valueOf(adminUser.getId()));
         shareApply.setImgUrl(adminUser.getName());
+        shareApply.setModifyUserId(Long.valueOf(adminUser.getId()));
         int i = stAppletShareApplyMapper.updateByPrimaryKeySelective(shareApply);
         if (i > 0) {
             flag = true;
+        }
+
+        List<StAppletShareApply> list = stAppletShareApplyMapper.selectNOTINApplyById(shareApply.getInfoId(), shareApply.getId());
+        if (list != null && list.size() > 0) {
+            for (StAppletShareApply apply : list) {
+                apply.setSts("3");
+                apply.setImgUrl(adminUser.getName());
+                apply.setExamineId(adminUser.getId().toString());
+                apply.setModifyTime(new Date());
+                apply.setModifyUserId(Long.valueOf(adminUser.getId()));
+                stAppletShareApplyMapper.updateByPrimaryKeySelective(apply);
+            }
         }
         return flag;
     }
