@@ -1,5 +1,5 @@
 <#include "/admin/commons/_detailheader.ftl" />
-<script language="javascript">
+<script language="javascript" xmlns="http://www.w3.org/1999/html">
     $(function(){
 
         $("#back").click(function(){
@@ -286,14 +286,40 @@
 					</#if>
                     </dd>
                 </dl>
-                <dl class="dl-group">
-                    <dt class="dt-group"><span class="s-icon"></span>共享申请</dt>
-                    <dd class="dd-group">
-                        <div class="fluidbox">
-                            <label class="lab-item">帮助信息。</label>
-                        </div>
-                    </dd>
-                </dl>
+
+
+                    <table class="easyui-datagrid" title="申请列表"
+                           data-options="rownumbers:true
+						,idField :'id'
+						,singleSelect:true
+						,autoRowHeight:false
+						,fitColumns:true
+						,toolbar:'#gridTools'
+						,striped:true
+						,pagination:true
+					    ,pageSize:30
+						,fit:true
+						,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system/getAllApplyByPage?infoId='+${shareInfo.id}
+						,onLoadSuccess:dataGridLoadSuccess
+    					,method:'get'
+                        ">
+                        <thead>
+                        <tr>
+                            <th field="createUserId" hidden="hidden"></th>
+                            <th field="id" hidden="hidden"></th>
+                            <th field="userName" width="50" align="center">申请人</th>
+                            <th field="idCard" width="70" align="center">申请人证件号码</th>
+                            <th field="telephone" width="70" align="center">申请人联系方式</th>
+                            <th field="address" width="150" align="center">申请人房屋地址</th>
+                            <th field="imgUrl" width="70" align="center">审核人</th>
+                            <th field="sts" width="70" align="center">申请状态</th>
+                            <th field="shareType" width="70" align="center">申请人类型</th>
+                            <th field="createTime" width="70" align="center" >创建时间</th>
+                            <th field="modifyTime" width="70" align="center" >修改时间</th>
+                        </tr>
+                        </thead>
+                    </table>
+
 
 			<#--2.batch button-------------->
                 <p class="p-item p-btn">
@@ -303,6 +329,10 @@
         </div>
     </div>
 
+
+
 </div>
+
+
 
 <#include "/admin/commons/_detailfooter.ftl" />

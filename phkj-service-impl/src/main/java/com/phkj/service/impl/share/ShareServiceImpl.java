@@ -311,4 +311,31 @@ public class ShareServiceImpl implements ShareService {
         return returnMap;
     }
 
+    /**
+     *   查询所有申请
+     * @param page
+     * @param rows
+     * @param infoId
+     * @return
+     */
+    @Override
+    public Map<String, Object> getAllApplyByPage(Integer page, Integer rows, String infoId) {
+
+        int pageNumber = page == 0 ? 1 : page;
+        int size = rows == 0 ? 20 : rows;
+        // 根据当前倒叙查询列表
+        PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
+            @Override
+            public void doSelect() {
+                stAppletShareApplyMapper.selectSystemApplyByInfoId(Long.valueOf(infoId));
+            }
+        });
+
+        // 处理数据
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("total", String.valueOf(pageInfo.getTotal()));
+        returnMap.put("list", pageInfo.getList());
+        return returnMap;
+    }
+
 }
