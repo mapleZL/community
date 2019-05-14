@@ -27,6 +27,7 @@
     <result column="modify_user_id" jdbcType="BIGINT" property="modifyUserId" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="share_status" jdbcType="VARCHAR" property="shareStatus" />
+    <result column="apply_num" jdbcType="BIGINT" property="applyNum" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.phkj.entity.share.StAppletShareInfo">
     <result column="img_url" jdbcType="LONGVARCHAR" property="imgUrl" />
@@ -35,7 +36,7 @@
     id, create_user_name, share_type, contact, telephone, title, task_type, door_lock, 
     content, start_time, end_time, car_lock, price, car_num, depart_place, destination, 
     gender, profession, skill, sts, create_time, create_user_id, modify_user_id, modify_time, 
-    share_status
+    share_status,apply_num
   </sql>
   <sql id="Blob_Column_List">
     img_url
@@ -67,6 +68,7 @@
     t.create_user_id as userId ,
     t.content,
     t.create_time AS createTime,
+    apply_num as applyNum,
     case  t.share_status
     WHEN '0' THEN
     '未申请'
@@ -219,7 +221,7 @@
       destination, gender, profession, 
       skill, sts, create_time, 
       create_user_id, modify_user_id, modify_time, 
-      share_status, img_url)
+      share_status, img_url, apply_num)
     values (#{id,jdbcType=BIGINT}, #{createUserName,jdbcType=VARCHAR}, #{shareType,jdbcType=VARCHAR}, 
       #{contact,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{taskType,jdbcType=VARCHAR}, #{doorLock,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
@@ -228,7 +230,7 @@
       #{destination,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
       #{skill,jdbcType=VARCHAR}, #{sts,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUserId,jdbcType=BIGINT}, #{modifyUserId,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{shareStatus,jdbcType=VARCHAR}, #{imgUrl,jdbcType=LONGVARCHAR})
+      #{shareStatus,jdbcType=VARCHAR}, #{imgUrl,jdbcType=LONGVARCHAR} #{applyNum})
   </insert>
   <insert id="insertSelective" parameterType="com.phkj.entity.share.StAppletShareInfo">
     insert into st_applet_share_info

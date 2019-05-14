@@ -153,6 +153,8 @@ public class ShareServiceImpl implements ShareService {
         // 查询当前任务信息
         StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
 
+        // stAppletShareApplyMapper.selectApplyByInfoId();
+
         // 创建一条申请信息
         StAppletShareApply shareApply = new StAppletShareApply();
         shareApply.setInfoId(shareInfo.getId());

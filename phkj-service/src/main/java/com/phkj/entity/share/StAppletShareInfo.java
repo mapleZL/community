@@ -135,11 +135,26 @@ public class StAppletShareInfo implements Serializable {
     private String shareStatus;
 
     /**
+     * 预约数量
+     */
+    private int apply_num;
+
+    public int getApply_num() {
+        return apply_num;
+    }
+
+    public void setApply_num(int apply_num) {
+        this.apply_num = apply_num;
+    }
+
+    /**
      * 图片路径
      */
     private String imgUrl;
 
     private static final long serialVersionUID = 1L;
+
+
 
     public Long getId() {
         return id;
