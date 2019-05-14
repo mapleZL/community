@@ -8,12 +8,11 @@ import com.phkj.core.ServiceResult;
 import com.phkj.entity.system.Code;
 
 /**
- * 字典服务类
  *                       
- * @Filename: CodeService.java
+ * @Filename: ICodeService.java
  * @Version: 1.0
- * @Author: 王朋
- * @Email: wpjava@163.com
+ * @date: 2019年5月14日
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
  *
  */
 public interface ICodeService {
@@ -49,4 +48,10 @@ public interface ICodeService {
     ServiceResult<Boolean> updateCode(Code code);
     
     List<Map<String, Object>> customReport(String sql); 
+    
+    /**
+     * 获取全部字典配置
+     * @return
+     */
+    List<Code> getAllCodes();
 }

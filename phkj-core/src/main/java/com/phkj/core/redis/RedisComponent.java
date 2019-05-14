@@ -64,6 +64,15 @@ public class RedisComponent {
     public void setStringExpire(String redisKey, String value, long expireTime) {
         stringRedisTemplate.opsForValue().set(redisKey, value, expireTime, TimeUnit.MILLISECONDS);
     }
+    
+    /**
+     * 将字典表数据放入缓存
+     * @param redisKey
+     * @param value
+     */
+    public void setStringPersistence(String redisKey, String value) {
+        stringRedisTemplate.opsForValue().set(redisKey, value);
+    }
 
     /**
      * create by: zl

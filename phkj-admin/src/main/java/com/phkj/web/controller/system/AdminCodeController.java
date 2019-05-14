@@ -26,12 +26,11 @@ import com.phkj.web.util.WebAdminSession;
 import com.phkj.web.util.freemarkerutil.CodeManager;
 
 /**
- * 数据字典
  *                       
  * @Filename: AdminCodeController.java
  * @Version: 1.0
- * @Author: 王朋
- * @Email: wangpeng@phkj.com
+ * @date: 2019年5月14日
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
  *
  */
 @Controller

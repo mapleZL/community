@@ -9,19 +9,19 @@
     
     
     <!-- 系统完成订单任务 -->
-    <!-- <bean id="jobSystemFinishOrder" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <bean id="jobUpdateCode" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="adminJob"/>
-        <property name="targetMethod" value="jobSystemFinishOrder"/>
+        <property name="targetMethod" value="jobUpdateCode"/>
     </bean>
-    <bean id="jobSystemFinishOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <bean id="jobSystemCodeUpdateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail">
-            <ref bean="jobSystemFinishOrder"/>
+            <ref bean="jobUpdateCode"/>
         </property>
         <property name="cronExpression">
         	每隔10分钟触发
-            <value>0 0/10 * * * ?</value>
+            <value>0 0/30 * * * ?</value>
         </property>
-    </bean> -->
+    </bean>
     
     <!-- 系统清理购物车任务 -->
     <!-- <bean id="jobClearCart" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -62,6 +62,7 @@
     <bean id="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
+                <ref bean="jobSystemCodeUpdateTrigger"/>
             <!--
                 <ref bean="jobCreditTrigger"/>
                 <ref bean="jobOutDoorOrders"/>

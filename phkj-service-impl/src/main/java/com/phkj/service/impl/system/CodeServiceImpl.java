@@ -119,4 +119,9 @@ public class CodeServiceImpl implements ICodeService {
     public List<Map<String, Object>> customReport(String sql) {
         return codeModel.customReport(sql);
     }
+
+    @Override
+    public List<Code> getAllCodes() {
+        return codeModel.getAllCodes();
+    }
 }

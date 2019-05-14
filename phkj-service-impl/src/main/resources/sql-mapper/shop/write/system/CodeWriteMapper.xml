@@ -47,6 +47,14 @@
 		</where>	
 	</select>
 	
+	<select id="getAllCodes" resultType="com.phkj.entity.system.Code">
+	    select 	t1.`code_div`, t1.`code_cd`, t1.`code_text`, 
+				t1.`sort_order`, t1.`use_yn`, 
+				t1.`create_user_id`, t1.`create_user`, t1.`create_time`,
+				t1.`update_user_id`, t1.`update_user`, t1.`update_time`
+		from 	`code_master` t1 where use_yn = 1
+	</select>
+	
 	<select id="getCode" resultType="com.phkj.entity.system.Code">
 		select 	t1.`code_div`, t1.`code_cd`, t1.`code_text`, 
 				t1.`sort_order`, t1.`use_yn`, 

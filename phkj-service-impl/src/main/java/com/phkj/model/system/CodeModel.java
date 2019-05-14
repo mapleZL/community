@@ -40,6 +40,14 @@ public class CodeModel {
         }
         return codeDao.getCodes(queryMap, start, size);
     }
+    
+    /**
+     * 获取所有的字典
+     * @return
+     */
+    public List<Code> getAllCodes() {
+        return codeDao.getAllCodes();
+    }
 
     public Code getCode(String codeDiv, String codeCd) {
         Assert.notNull(codeDao, "Property 'codeDao' is required.");

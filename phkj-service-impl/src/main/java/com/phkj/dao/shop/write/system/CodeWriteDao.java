@@ -71,4 +71,10 @@ public interface CodeWriteDao {
      * @return
      */
     public List<Map<String, Object>> customReport(@Param("customSql") String customSql);
+
+    /**
+     * 获取所有字典
+     * @return
+     */
+    public List<Code> getAllCodes();
 }
