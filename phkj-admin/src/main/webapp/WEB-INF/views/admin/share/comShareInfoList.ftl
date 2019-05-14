@@ -221,13 +221,19 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 	</table>
 
 	<div id="gridTools">
-		<@shiro.hasPermission name="/admin/share/deleteShareInfo">
+			<@shiro.hasPermission name="/admin/share/deleteShareInfo">
 		<a id="btn_freeze" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>
-		</@shiro.hasPermission>
+			</@shiro.hasPermission>
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+			<@shiro.hasPermission name="/admin/share/detail">
 		<a id="btn-gridDetail" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查看详情</a>
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name="/admin/share/aSubmitShare">
         <a id="a_submit_share" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">发布共享</a>
-        <a id="a_stop_share" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">停止共享</a>
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name="/admin/share/aStopShare">
+        <a id="aStopShare" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">停止共享</a>
+			</@shiro.hasPermission>
 	</div>
 
 	<div class="wrapper" id="editWin">

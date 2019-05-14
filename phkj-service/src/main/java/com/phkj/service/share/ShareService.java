@@ -1,6 +1,7 @@
 package com.phkj.service.share;
 
 import com.phkj.entity.share.StAppletShareInfo;
+import com.phkj.entity.system.SystemAdmin;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -34,4 +35,8 @@ public interface ShareService {
     Map<String,Object> getMeApplyInfoList(String status, String userId ,Integer pageNum ,Integer pageSize);
 
     Map<String,Object> getAllApplyByPage(Integer page, Integer rows, String infoId);
+
+    boolean examineApplyInfo(String id, String type, SystemAdmin adminUser);
+
+    Map<String,Object> getMeApplyDetail(String id, String userId);
 }

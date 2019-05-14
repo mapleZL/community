@@ -21,7 +21,7 @@
     <result column="img_url" jdbcType="LONGVARCHAR" property="imgUrl" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, info_id, create_user_id, user_name, examine_id, telephone, address, id_card, 
+    id, info_id, create_user_id, user_name, examine_id, telephone, address, id_card,
     sts, create_time, update_time, share_type, modify_user_id, modify_time
   </sql>
   <sql id="Blob_Column_List">
@@ -111,6 +111,26 @@
     from st_applet_share_apply
     where info_id = #{id,jdbcType=BIGINT}
     and  sts != '3'
+  </select>
+
+  <select id="selectApplyByUserId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_share_apply
+    where create_user_id = #{userId}
+    and info_id = #{infoId}
+  </select>
+
+  <select id="selectNOTINApplyById" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_share_apply
+    where info_id = #{infoId,jdbcType=BIGINT}
+    and  id != #{id}
   </select>
 
 

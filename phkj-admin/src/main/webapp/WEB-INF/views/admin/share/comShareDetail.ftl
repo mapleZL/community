@@ -12,33 +12,114 @@
                         .submit();
             }
         });
+
+        // 删除信息
+        $('#examine_del').click(function () {
+            var selected = $('#lbs').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            if(selected.sts == '关闭申请' ){
+                $.messager.alert('提示','该申请不可以被操作。');
+                return;
+            } if(selected.sts == '申请通过' ){
+                $.messager.alert('提示','该申请不可以被操作。');
+                return;
+            }
+            $.messager.confirm('确认', '确定拒绝该申请吗？', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system/examineApplyInfo",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=del",
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#lbs').datagrid('reload');
+                            } else {
+                               // $.messager.alert('提示',data.message);
+                                $.messager.alert('提示','操作失败!');
+                                $('#lbs').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
+
+        // 删除信息
+        $('#examine_add').click(function () {
+            var selected = $('#lbs').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            if(selected.sts == '关闭申请' ){
+                $.messager.alert('提示','该申请不可以被操作。');
+                return;
+            }
+            if(selected.sts == '申请通过' ){
+                $.messager.alert('提示','该申请已经通过。');
+                return;
+            }
+            if(selected.sts == '拒绝' ){
+                $.messager.alert('提示','该申请已被拒绝。');
+                return;
+            }
+            $.messager.confirm('确认', '确定拒绝该申请吗？', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system/examineApplyInfo",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=add",
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#lbs').datagrid('reload');
+                            } else {
+                                // $.messager.alert('提示',data.message);
+                                $.messager.alert('提示','操作失败!');
+                                $('#lbs').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
+
 	<#if message??>$.messager.progress('close');alert('${message}');</#if>
 
 	<#if (shareInfo.taskType) == '2'>
-		<#if (shareInfo.carLock) == '1' >
-	    $("input[name='Status'][value=1]").attr("checked",true);
-		</#if>
-		<#if (shareInfo.carLock) == '0' >
-	    $("input[name='Status'][value=0]").attr("checked",true);
-		</#if>
+        if (shareInfo.carLock == "1"){
+            $("input[name='Status'][value=1]").attr("checked",true);
+        }else {
+            $("input[name='Status'][value=0]").attr("checked",true);
+        }
 	</#if>
-
 	<#if (shareInfo.taskType) == '3'>
-		<#if (shareInfo.gender) == '1' >
-		$("input[name='gender'][value=1]").attr("checked",true);
-		</#if>
-		<#if (shareInfo.gender) == '0' >
-		$("input[name='gender'][value=0]").attr("checked",true);
-		</#if>
+       if(shareInfo.gender == "1"){
+           $("input[name='gender'][value=1]").attr("checked",true);
+       }else {
+           $("input[name='gender'][value=0]").attr("checked",true);
+       }
 	</#if>
 
-	<#if (shareInfo.taskType) == '4'>
-		<#if (shareInfo.doorLock) == '1' >
-		$("input[name='lock'][value=1]").attr("checked",true);
-		</#if>
-		<#if (shareInfo.doorLock) == '0' >
-		$("input[name='lock'][value=0]").attr("checked",true);
-		</#if>
+	 <#if (shareInfo.taskType) == '4'>
+        <#if (shareInfo.doorLock =='1')>
+             $("input[name='lock1'][value=1]").attr("checked",true);
+        </#if>
+         <#if (shareInfo.doorLock =='0')>
+             $("input[name='lock0'][value=1]").attr("checked",true);
+         </#if>
 	</#if>
 
 
@@ -95,7 +176,7 @@
 							<#if (shareInfo.sts) == '0'>删除</#if>
 							<#if (shareInfo.sts) == '1'>正常</#if>
                             </p>
-
+                            sts
                             <p class="p6 p-item">
                                 <label class="lab-item">发布时间 : </label>
 							<#if shareInfo.createTime??>${(shareInfo.createTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
@@ -261,34 +342,41 @@
                                 <label class="lab-item">创建人  ： </label>
 								${(shareInfo.createUserName)!}
                             </p>
-                            <p class="p6 p-item">
-                                <label class="lab-item">人脸门禁 ： </label>
-                                <input type="radio" name="lock" value="1" /> 有
-                                <input type="radio" name="lock" value="0" />  无
-                            </p>
                         </div>
+                    <div class="fluidbox">
+                     <p class="p6 p-item">
+                         <label class="lab-item">人脸门禁 ： </label>
+                         <input type="radio" id="lock1" name="lock1" value="1" /> 有
+                         <input type="radio" id = "lock0"name="lock0" value="0" />  无
+                     </p>
+                    </div>
 						<div class="fluidbox">
                             <p class="p6 p-item">
                                 <label class="lab-item">共享开始时间 ：</label>
 														<#if shareInfo.startTime??>${(shareInfo.startTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
                             </p>
-                            <p class="p6 p-item">
-                                <label class="lab-item">共享结束时间 ：</label>
-														<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
-                            </p>
+
                         </div>
+                     <div class="fluidbox">
+                         <p class="p6 p-item">
+                             <label class="lab-item">共享结束时间 ：</label>
+														<#if shareInfo.endTime??>${(shareInfo.endTime)?string("yyyy-MM-dd HH:mm:ss")}</#if>
+                         </p>
+                     </div>
 						 <div class="fluidbox">
-                             <p class="p6 p-item">
-                                 <label class="lab-item">详细内容 ：</label>
-                                 <textarea name="reworkmes"   cols="60"  rows="5" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)!}</textarea>
-                             </p>
+
                          </div>
+                    <p class="p12 p-item">
+                        <label class="lab-item">详细内容 ：</label>
+                        <textarea name="reworkmes"   cols="60"  rows="6" readonly="true"  style="OVERFLOW:   hidden">${(shareInfo.content)!}</textarea>
+                        <#--<input type="text" value = "${(shareInfo.content)!}"    cols="60"  rows="5">-->
+                    </p>
 					</#if>
                     </dd>
                 </dl>
 
 
-                    <table class="easyui-datagrid" title="申请列表"
+                    <table id="lbs" class="easyui-datagrid" title="申请列表"
                            data-options="rownumbers:true
 						,idField :'id'
 						,singleSelect:true
@@ -318,8 +406,16 @@
                             <th field="modifyTime" width="70" align="center" >修改时间</th>
                         </tr>
                         </thead>
-                    </table>
 
+                    </table>
+                <div id="gridTools">
+                    <@shiro.hasPermission name="/admin/share/examine_del">
+                    <a id="examine_del" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">拒绝</a>
+                    </@shiro.hasPermission>
+                      <@shiro.hasPermission name="/admin/share/examine_add">
+                    <a id="examine_add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">通过</a>
+                      </@shiro.hasPermission>
+                </div>
 
 			<#--2.batch button-------------->
                 <p class="p-item p-btn">

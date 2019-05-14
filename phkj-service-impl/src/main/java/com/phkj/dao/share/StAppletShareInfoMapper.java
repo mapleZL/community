@@ -32,4 +32,6 @@ public interface StAppletShareInfoMapper {
 
     List<Map> selectComShareInfoList(@Param("userId") String userId, @Param("taskType") String taskType,
                                      @Param("status") String status);
+
+    StAppletShareInfo selectShareByInfo(@Param("infoId") Long infoId);
 }

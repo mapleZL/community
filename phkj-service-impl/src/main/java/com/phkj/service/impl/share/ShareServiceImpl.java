@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
+import com.phkj.entity.system.SystemAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -300,7 +302,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareApplyMapper.selectMeApplyInfoList(status , userId);
+                stAppletShareApplyMapper.selectMeApplyInfoList(status, userId);
             }
         });
 
@@ -312,7 +314,8 @@ public class ShareServiceImpl implements ShareService {
     }
 
     /**
-     *   查询所有申请
+     * 查询所有申请
+     *
      * @param page
      * @param rows
      * @param infoId
@@ -335,6 +338,76 @@ public class ShareServiceImpl implements ShareService {
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("total", String.valueOf(pageInfo.getTotal()));
         returnMap.put("list", pageInfo.getList());
+        return returnMap;
+    }
+
+    /**
+     * @param id
+     * @param type
+     * @param adminUser
+     * @return
+     */
+    @Override
+    public boolean examineApplyInfo(String id, String type, SystemAdmin adminUser) {
+
+        /**
+         * 判断拒绝 还是通过 --type
+         * 1.申请中
+         * 2.通过
+         * 3.拒绝
+         * 4.关闭申请
+         */
+        boolean flag = false;
+        StAppletShareApply shareApply = stAppletShareApplyMapper.selectByPrimaryKey(Long.valueOf(id));
+        if ("del".equals(type)) {
+            shareApply.setSts("3");
+        } else {
+            shareApply.setSts("2");
+        }
+
+        /**\
+         * 设置发布不可再申请
+         */
+        StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectShareByInfo(shareApply.getInfoId());
+        shareInfo.setModifyTime(new Date());
+        shareInfo.setModifyUserId(Long.valueOf(adminUser.getId()));
+        shareInfo.setShareStatus("2");
+        stAppletShareInfoMapper.updateByPrimaryKeySelective(shareInfo);
+        /**
+         *  修改状态
+         */
+        shareApply.setUpdateTime(new Date());
+        shareApply.setExamineId(String.valueOf(adminUser.getId()));
+        shareApply.setImgUrl(adminUser.getName());
+        shareApply.setModifyUserId(Long.valueOf(adminUser.getId()));
+        int i = stAppletShareApplyMapper.updateByPrimaryKeySelective(shareApply);
+        if (i > 0) {
+            flag = true;
+        }
+
+        List<StAppletShareApply> list = stAppletShareApplyMapper.selectNOTINApplyById(shareApply.getInfoId(), shareApply.getId());
+        if (list != null && list.size() > 0) {
+            for (StAppletShareApply apply : list) {
+                apply.setSts("3");
+                apply.setImgUrl(adminUser.getName());
+                apply.setExamineId(adminUser.getId().toString());
+                apply.setModifyTime(new Date());
+                apply.setModifyUserId(Long.valueOf(adminUser.getId()));
+                stAppletShareApplyMapper.updateByPrimaryKeySelective(apply);
+            }
+        }
+        return flag;
+    }
+
+    @Override
+    public Map<String, Object> getMeApplyDetail(String id, String userId) {
+
+        Map<String, Object> returnMap = new HashMap<>();
+        StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
+
+        StAppletShareApply apply = stAppletShareApplyMapper.selectApplyByUserId(userId,shareInfo.getId().toString());
+        returnMap.put("shareInfo" , shareInfo);
+        returnMap.put("apply" ,apply);
         return returnMap;
     }
 

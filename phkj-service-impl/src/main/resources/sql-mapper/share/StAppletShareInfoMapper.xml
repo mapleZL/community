@@ -41,6 +41,15 @@
     img_url
   </sql>
 
+  <select id="selectShareByInfo" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_share_info
+    where id = #{infoId,jdbcType=BIGINT}
+  </select>
+
 
   <select id="selectComShareInfoList" parameterType="java.lang.String" resultType="java.util.Map">
     select
@@ -196,6 +205,7 @@
     from st_applet_share_info
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from st_applet_share_info
     where id = #{id,jdbcType=BIGINT}
