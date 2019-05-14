@@ -67,7 +67,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 		});
 
         // 停止共享信息
-        $('#a_stop_share').click(function () {
+        $('#aStopShare').click(function () {
             var selected = $('#dataGrid').datagrid('getSelected');
             if(!selected){
                 $.messager.alert('提示','请选择操作行。');
@@ -104,6 +104,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                 }
             });
         });
+
 
 		// 查看详情跳转
         $("#btn-gridDetail").click(function(){
@@ -214,8 +215,9 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 				<th field="contact" width="70" align="center">联系人</th>
 				<th field="telephone" width="70" align="center">联系电话</th>
 				<th field="createTime" width="70" align="center">发布时间</th>
-				<th field="sts" width="70" align="center" >状态</th>
-				<th field="shareStatus" width="70" align="center" >申请状态</th>
+                <th field="applyNum" width="70" align="center" >申请数量</th>
+                <th field="sts" width="70" align="center" >状态</th>
+                <th field="shareStatus" width="70" align="center" >申请状态</th>
 			</tr>
 		</thead>
 	</table>

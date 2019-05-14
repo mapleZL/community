@@ -98,11 +98,11 @@ public class ShareController {
 
     @ResponseBody
     @RequestMapping(value = "/getMeApplyDetail")
-    public ResponseUtil getMeApplyDetail(HttpServletRequest request){
+    public ResponseUtil getMeApplyDetail(HttpServletRequest request) {
         ResponseUtil responseUtil = new ResponseUtil();
         String id = request.getParameter("id");
         String userId = request.getParameter("userId");
-        Map<String,Object> returnMap  = shareService.getMeApplyDetail(id,userId);
+        Map<String, Object> returnMap = shareService.getMeApplyDetail(id, userId);
         responseUtil.setSuccess(true);
         responseUtil.setData(returnMap);
         return responseUtil;
@@ -141,7 +141,7 @@ public class ShareController {
         String id = request.getParameter("id");
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         try {
-            if (shareService.examineApplyInfo(id,type,adminUser)) {
+            if (shareService.examineApplyInfo(id, type, adminUser)) {
                 responseUtil.setSuccess(true);
             } else {
                 responseUtil.setSuccess(false);
@@ -340,8 +340,9 @@ public class ShareController {
     public ResponseUtil deleteShareInfo(HttpServletRequest request) {
         ResponseUtil responseUtil = new ResponseUtil();
         String id = request.getParameter("id");
+        String type = request.getParameter("type");
         try {
-            if (shareService.deleteShareInfo(id)) {
+            if (shareService.deleteShareInfo(id,type)) {
                 responseUtil.setSuccess(true);
             } else {
                 responseUtil.setSuccess(false);
@@ -446,10 +447,14 @@ public class ShareController {
 
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (shareService.applyShareInfo(id, userId, userName, telePhone, address, IDCard)) {
+            String msg = shareService.applyShareInfo(id, userId, userName, telePhone, address, IDCard);
+            if (StringUtils.isBlank(msg)) {
                 responseUtil.setSuccess(true);
+                responseUtil.setMsg("申请成功!");
+            } else {
+                responseUtil.setSuccess(false);
+                responseUtil.setMsg(msg);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("用户发布信息失败! 错误信息 :" + e);

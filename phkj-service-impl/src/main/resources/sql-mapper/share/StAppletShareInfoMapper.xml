@@ -27,7 +27,7 @@
     <result column="modify_user_id" jdbcType="BIGINT" property="modifyUserId" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="share_status" jdbcType="VARCHAR" property="shareStatus" />
-    <result column="apply_num" jdbcType="BIGINT" property="applyNum" />
+    <result column="apply_num" jdbcType="VARCHAR" property="applyNum" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.phkj.entity.share.StAppletShareInfo">
     <result column="img_url" jdbcType="LONGVARCHAR" property="imgUrl" />
@@ -73,7 +73,7 @@
     WHEN '0' THEN
     '未申请'
     WHEN '1' THEN
-    '已申请' ELSE '不可申请'
+    '已申请' when '2' then '关闭申请' ELSE '共享完成'
     END  as shareStatus ,
     CASE
     t.sts
@@ -117,6 +117,7 @@
     t.create_user_id as userId ,
     t.content,
     t.create_time AS createTime,
+    t.img_url as imgUrl,
     CASE
     t.sts
     WHEN '0' THEN
@@ -230,7 +231,7 @@
       #{destination,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
       #{skill,jdbcType=VARCHAR}, #{sts,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUserId,jdbcType=BIGINT}, #{modifyUserId,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{shareStatus,jdbcType=VARCHAR}, #{imgUrl,jdbcType=LONGVARCHAR} #{applyNum})
+      #{shareStatus,jdbcType=VARCHAR}, #{imgUrl,jdbcType=LONGVARCHAR}, #{applyNum,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.phkj.entity.share.StAppletShareInfo">
     insert into st_applet_share_info

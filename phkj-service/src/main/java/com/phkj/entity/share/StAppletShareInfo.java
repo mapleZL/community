@@ -137,14 +137,14 @@ public class StAppletShareInfo implements Serializable {
     /**
      * 预约数量
      */
-    private int apply_num;
+    private String applyNum;
 
-    public int getApply_num() {
-        return apply_num;
+    public String getApplyNum() {
+        return applyNum;
     }
 
-    public void setApply_num(int apply_num) {
-        this.apply_num = apply_num;
+    public void setApplyNum(String applyNum) {
+        this.applyNum = applyNum;
     }
 
     /**

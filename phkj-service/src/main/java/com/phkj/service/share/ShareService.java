@@ -11,7 +11,7 @@ public interface ShareService {
 
     Map<String, Object> getMeShareInfo(String userId, String taskType, Integer pageNum, Integer pageSize);
 
-    boolean deleteShareInfo(String id);
+    boolean deleteShareInfo(String id,String type);
 
     Map<String, Object> getAllShareInfo(String taskType, Integer pageNum, Integer pageSize);
 
@@ -20,7 +20,7 @@ public interface ShareService {
 
     boolean addShareInfo(StAppletShareInfo stAppletShareInfo);
 
-    boolean applyShareInfo(String id, String userId, String userName, String telePhone, String address ,String IDCard);
+    String applyShareInfo(String id, String userId, String userName, String telePhone, String address ,String IDCard);
 
     Map<String,Object> getShareInfoList(String taskType, String status, Integer pageNum, Integer pageSize);
 
