@@ -18,7 +18,6 @@
             <ref bean="jobUpdateCode"/>
         </property>
         <property name="cronExpression">
-<<<<<<< HEAD
             <value>0 0/30 * * * ?</value>
         </property>
     </bean>
@@ -32,45 +31,9 @@
             <ref bean="jobSynchroSpinner"/>
         </property>
         <property name="cronExpression">
-=======
->>>>>>> e475941281c16ee61c1fe8f6cb38f5b1f184f95d
             <value>0 0/30 * * * ?</value>
         </property>
     </bean>
-    
-    <!-- 系统清理购物车任务 -->
-    <!-- <bean id="jobClearCart" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="adminJob"/>
-        <property name="targetMethod" value="jobClearCart"/>
-    </bean>
-    <bean id="jobClearCartTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail">
-            <ref bean="jobClearCart"/>
-        </property>
-        <property name="cronExpression">
-        	每天2:10触发一次
-            <value>0 10 2 * * ?</value>
-        </property>
-    </bean> -->
-   
-
-    <!-- 定时任务系统自动取消24小时没有付款订单 -->
-    <!-- <bean id="jobSystemCancelOrder" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="adminJob"/>
-        <property name="targetMethod" value="jobSystemCancelOrder"/>
-    </bean>
-    <bean id="jobSystemCancelOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail">
-            <ref bean="jobSystemCancelOrder"/>
-        </property>
-        <property name="cronExpression">
-            <value>0 5/10 * * * ?</value>
-            每隔3小时触发一次
-            <value>0 */3 * * *  ?</value>
-            每隔3分钟触发一次
-            <value>0 0/3 * * *  ?</value>
-        </property>
-    </bean> -->
     
 
 
@@ -79,21 +42,6 @@
             <list>
                 <ref bean="jobSystemCodeUpdateTrigger"/>
                 <ref bean="jobSystemSpinnerTrigger"/>
-            <!--
-                <ref bean="jobCreditTrigger"/>
-                <ref bean="jobOutDoorOrders"/>
-                <ref bean="jobSendFailOrderMail"/> 
-                <ref bean="jobSettlementTrigger"/>
-                <ref bean="jobSystemFinishOrderTrigger"/>
-                <ref bean="jobClearCartTrigger"/>
-                <ref bean="jobSearchSolrTrigger"/>
-                <ref bean="jobSetSellerScoreTrigger"/>
-                <ref bean="jobSystemCancelOrderTrigger"/>
-                <ref bean="jobSellerStatisticsTrigger"/>
-                <ref bean="jobUpdateSearchRecordIndexTrigger"/>
-            	<ref bean="sendMessageToMemberTrigger"/>
-            	<ref bean="sendMessageToEffectiveCunstomerTrigger"/>
-            	-->
             </list>
         </property>
         <property name="taskExecutor" ref="executor"/>

@@ -4,12 +4,19 @@
 	<resultMap id="MemberHouseResult" type="com.phkj.entity.member.MemberHouse">
 			<result property="id" column="id" />
 			<result property="memberId" column="member_id" />
+			<result property="regionId" column="region_id" />
 			<result property="region" column="region" />
+			<result property="streetId" column="street_id" />
 			<result property="street" column="street" />
+			<result property="communityId" column="community_id" />
 			<result property="community" column="community" />
+			<result property="villageId" column="village_id" />
 			<result property="village" column="village" />
+			<result property="buildingId" column="building_id" />
 			<result property="building" column="building" />
+			<result property="unitId" column="unit_id" />
 			<result property="unit" column="unit" />
+			<result property="roomId" column="room_id" />
 			<result property="room" column="room" />
 			<result property="identityInformation" column="identity_information" />
 			<result property="name" column="name" />

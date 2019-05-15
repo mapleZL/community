@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shopm.read.relate.StBaseinfoPersonStockDao">
+	<resultMap id="StBaseinfoPersonStockResult" type="com.phkj.entity.relate.StBaseinfoPersonStock">
+			<result property="id" column="id" />
+			<result property="residentiaId" column="residentia_id" />
+			<result property="subareaId" column="subarea_id" />
+			<result property="name" column="name" />
+			<result property="sex" column="sex" />
+			<result property="householdType" column="household_type" />
+			<result property="nativePlace" column="native_place" />
+			<result property="idNumber" column="id_number" />
+			<result property="idAddress" column="id_address" />
+			<result property="birthDate" column="birth_date" />
+			<result property="nation" column="nation" />
+			<result property="age" column="age" />
+			<result property="ageSegment" column="age_segment" />
+			<result property="validBegin" column="valid_begin" />
+			<result property="validEnd" column="valid_end" />
+			<result property="ever" column="ever" />
+			<result property="mobile" column="mobile" />
+			<result property="sourceTable" column="source_table" />
+			<result property="sourceId" column="source_id" />
+			<result property="capturePicId" column="capture_pic_id" />
+			<result property="personType" column="person_type" />
+			<result property="effectiveState" column="effective_state" />
+			<result property="createTime" column="create_time" />
+			<result property="createUserId" column="create_user_id" />
+			<result property="modifyTime" column="modify_time" />
+			<result property="modifyUserId" column="modify_user_id" />
+			<result property="sts" column="sts" />
+			<result property="hkPersonId" column="hk_person_id" />
+			<result property="hkGroupPersonId" column="hk_group_person_id" />
+			<result property="hkPersonNo" column="hk_person_no" />
+			<result property="encryptionIdNumber" column="encryption_id_number" />
+			<result property="personIdcardDataId" column="person_idcard_data_id" />
+			<result property="orgCode" column="org_code" />
+			<result property="topOrgCode" column="top_org_code" />
+			<result property="hkGroupPersonFlag" column="hk_group_person_flag" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="StBaseinfoPersonStockResult">
+		select
+		   *
+		from `st_baseinfo_person_stock`
+		where `id` = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.phkj.entity.relate.StBaseinfoPersonStock">
+        update `st_baseinfo_person_stock` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="residentiaId != null">`residentia_id`= #{residentiaId},</if>
+			<if test="subareaId != null">`subarea_id`= #{subareaId},</if>
+			<if test="name != null">`name`= #{name},</if>
+			<if test="sex != null">`sex`= #{sex},</if>
+			<if test="householdType != null">`household_type`= #{householdType},</if>
+			<if test="nativePlace != null">`native_place`= #{nativePlace},</if>
+			<if test="idNumber != null">`id_number`= #{idNumber},</if>
+			<if test="idAddress != null">`id_address`= #{idAddress},</if>
+			<if test="birthDate != null">`birth_date`= #{birthDate},</if>
+			<if test="nation != null">`nation`= #{nation},</if>
+			<if test="age != null">`age`= #{age},</if>
+			<if test="ageSegment != null">`age_segment`= #{ageSegment},</if>
+			<if test="validBegin != null">`valid_begin`= #{validBegin},</if>
+			<if test="validEnd != null">`valid_end`= #{validEnd},</if>
+			<if test="ever != null">`ever`= #{ever},</if>
+			<if test="mobile != null">`mobile`= #{mobile},</if>
+			<if test="sourceTable != null">`source_table`= #{sourceTable},</if>
+			<if test="sourceId != null">`source_id`= #{sourceId},</if>
+			<if test="capturePicId != null">`capture_pic_id`= #{capturePicId},</if>
+			<if test="personType != null">`person_type`= #{personType},</if>
+			<if test="effectiveState != null">`effective_state`= #{effectiveState},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
+			<if test="createUserId != null">`create_user_id`= #{createUserId},</if>
+			<if test="modifyTime != null">`modify_time`= #{modifyTime},</if>
+			<if test="modifyUserId != null">`modify_user_id`= #{modifyUserId},</if>
+			<if test="sts != null">`sts`= #{sts},</if>
+			<if test="hkPersonId != null">`hk_person_id`= #{hkPersonId},</if>
+			<if test="hkGroupPersonId != null">`hk_group_person_id`= #{hkGroupPersonId},</if>
+			<if test="hkPersonNo != null">`hk_person_no`= #{hkPersonNo},</if>
+			<if test="encryptionIdNumber != null">`encryption_id_number`= #{encryptionIdNumber},</if>
+			<if test="personIdcardDataId != null">`person_idcard_data_id`= #{personIdcardDataId},</if>
+			<if test="orgCode != null">`org_code`= #{orgCode},</if>
+			<if test="topOrgCode != null">`top_org_code`= #{topOrgCode},</if>
+			<if test="hkGroupPersonFlag != null">`hk_group_person_flag`= #{hkGroupPersonFlag}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.phkj.entity.relate.StBaseinfoPersonStock" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`st_baseinfo_person_stock`
+		(
+			
+			`residentia_id`,
+			`subarea_id`,
+			`name`,
+			`sex`,
+			`household_type`,
+			`native_place`,
+			`id_number`,
+			`id_address`,
+			`birth_date`,
+			`nation`,
+			`age`,
+			`age_segment`,
+			`valid_begin`,
+			`valid_end`,
+			`ever`,
+			`mobile`,
+			`source_table`,
+			`source_id`,
+			`capture_pic_id`,
+			`person_type`,
+			`effective_state`,
+			`create_time`,
+			`create_user_id`,
+			`modify_time`,
+			`modify_user_id`,
+			`sts`,
+			`hk_person_id`,
+			`hk_group_person_id`,
+			`hk_person_no`,
+			`encryption_id_number`,
+			`person_idcard_data_id`,
+			`org_code`,
+			`top_org_code`,
+			`hk_group_person_flag`
+		)
+		values
+		(
+			
+			#{residentiaId},
+			#{subareaId},
+			#{name},
+			#{sex},
+			#{householdType},
+			#{nativePlace},
+			#{idNumber},
+			#{idAddress},
+			#{birthDate},
+			#{nation},
+			#{age},
+			#{ageSegment},
+			#{validBegin},
+			#{validEnd},
+			#{ever},
+			#{mobile},
+			#{sourceTable},
+			#{sourceId},
+			#{capturePicId},
+			#{personType},
+			#{effectiveState},
+			#{createTime},
+			#{createUserId},
+			#{modifyTime},
+			#{modifyUserId},
+			#{sts},
+			#{hkPersonId},
+			#{hkGroupPersonId},
+			#{hkPersonNo},
+			#{encryptionIdNumber},
+			#{personIdcardDataId},
+			#{orgCode},
+			#{topOrgCode},
+			#{hkGroupPersonFlag}
+		)
+	</insert>
+	
+</mapper>

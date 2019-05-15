@@ -1,14 +1,7 @@
 package com.phkj.web.controller.wx;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.phkj.core.ResponseStateEnum;
-import com.phkj.core.ServiceResult;
-import com.phkj.core.ip.IPUtil;
-import com.phkj.core.response.ResponseUtil;
-import com.phkj.entity.member.Member;
-import com.phkj.entity.member.MemberParam;
-import com.phkj.service.member.IMemberService;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import com.phkj.core.ResponseStateEnum;
+import com.phkj.core.ServiceResult;
+import com.phkj.core.ip.IPUtil;
+import com.phkj.core.response.ResponseUtil;
+import com.phkj.entity.member.Member;
+import com.phkj.entity.member.MemberParam;
+import com.phkj.service.member.IMemberService;
 
 /**
  * @author ：zl

@@ -1,6 +1,7 @@
 package com.phkj.web.controller.member;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.phkj.core.AESHelper;
 import com.phkj.core.ConstantsEJS;
 import com.phkj.core.HttpJsonResult;
 import com.phkj.core.PagerInfo;
@@ -26,19 +28,34 @@ import com.phkj.core.exception.BusinessException;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.MemberPropertyStatus;
 import com.phkj.entity.member.MemberHouse;
+import com.phkj.entity.relate.StBaseinfoPersonStock;
+import com.phkj.entity.relate.StBaseinfoResidentHouse;
 import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.member.IMemberHouseService;
+import com.phkj.service.relate.IStBaseinfoPersonStockService;
+import com.phkj.service.relate.IStBaseinfoResidentHouseService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
-
+/**
+ * 房屋处理
+ *                       
+ * @Filename: MemberHouseController.java
+ * @Version: 1.0
+ * @date: 2019年5月15日
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
+ *
+ */
 @Controller
 @RequestMapping(value = "/admin/member/house")
-public class MemberHouseController extends BaseController{
-    
-    @Resource
-    IMemberHouseService memberHouseService;
+public class MemberHouseController extends BaseController {
 
-    
+    @Resource
+    IMemberHouseService             memberHouseService;
+    @Resource
+    IStBaseinfoResidentHouseService residentHouseService;
+    @Resource
+    IStBaseinfoPersonStockService   personStockService;
+
     /**
      * 初始化列表页面
      * @param dataMap
@@ -51,24 +68,55 @@ public class MemberHouseController extends BaseController{
         return "admin/member/member/memberhouselist";
     }
 
-    
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseUtil add(@RequestBody MemberHouse memberHouse, HttpServletRequest request){
+    public ResponseUtil add(@RequestBody MemberHouse memberHouse, HttpServletRequest request) {
+        // 校验信息是否填写完整
         ResponseUtil result = checkParam(memberHouse);
         if (result != null) {
             return result;
         }
-        ServiceResult<Integer> serviceResult = null;
-        if (memberHouse.getId() != null) {
-            serviceResult = memberHouseService.updateMemberHouse(memberHouse);
-        } else {
-            serviceResult = memberHouseService.saveMemberHouse(memberHouse);
+        // 认证房屋与用户信息是否匹配
+        result = authenticationHouseholder(memberHouse);
+
+        if (result.isSuccess()) {
+            memberHouseService.saveMemberHouse(memberHouse);
         }
-        return ResponseUtil.createResp(serviceResult.getCode(), serviceResult.getMessage(), true,
-            serviceResult.getResult());
+        
+        return result;
     }
-    
+
+    // 认证用户房屋信息
+    private ResponseUtil authenticationHouseholder(MemberHouse memberHouse) {
+        Map<String, Object> queryMap = new HashMap<>();
+        queryMap.put("houseId", memberHouse.getRoomId());
+        queryMap.put("residentiaId", memberHouse.getVillageId());
+        // 根据房屋信息查询用户房屋信息
+        StBaseinfoResidentHouse stBaseinfoResidentHouse = residentHouseService
+            .getResidentBouseByParam(queryMap);
+        if (stBaseinfoResidentHouse != null) {
+            // 根据关联用户信息查找用户
+            StBaseinfoPersonStock personStock = personStockService
+                .getStBaseinfoPersonStockById(stBaseinfoResidentHouse.getPersonStockId())
+                .getResult();
+            if (personStock != null) {
+                // 身份证账号解密
+                String idNo = AESHelper.Encrypt(personStock.getEncryptionIdNumber());
+                if (personStock.getName().equals(memberHouse.getName())
+                    && idNo.equals(memberHouse.getIdNumber())) {
+                    return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "认证成功", true, null);
+                } else {
+                    return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "认证失败", false, null);
+                }
+            } else {
+                return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "您还没有在物业处登记身份，请先去登记身份", false, null);
+            }
+        } else {
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "房屋信息查询失败", false, null);
+        }
+
+    }
+
     /**
      * 校验必填参数
      * @param memberHouse
@@ -80,52 +128,52 @@ public class MemberHouseController extends BaseController{
                 ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getRegion())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "region is empity", true, null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "region is empity",
+                true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getCommunity())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "community is empity", true, null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "community is empity",
+                true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getBuilding())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "building is empity", true, null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "building is empity",
+                true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getRoom())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "room is empity", true, null);     
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "room is empity", true,
+                null);
         }
         if (StringUtils.isEmpty(memberHouse.getIdentityInformation())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
                 "identityInformation is empity", true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getIdNumber())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "idNumber is empity", true, null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "idNumber is empity",
+                true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getStreet())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "street is empity", true, null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "street is empity",
+                true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getVillage())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "village is empity", true, null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "village is empity",
+                true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getUnit())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "unit is empity", true, null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "unit is empity", true,
+                null);
         }
         if (StringUtils.isEmpty(memberHouse.getPhone())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "phone is empity", true, null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phone is empity",
+                true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getName())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "name is empity", true, null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "name is empity", true,
+                null);
         }
         if (StringUtils.isEmpty(memberHouse.getImg())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "img is empity", true, null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "img is empity", true,
+                null);
         }
         return null;
     }
@@ -138,7 +186,7 @@ public class MemberHouseController extends BaseController{
      */
     @RequestMapping(value = "/list", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<List<MemberHouse>> list(HttpServletRequest request,
-                                                                    ModelMap dataMap) {
+                                                                ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.page(queryMap, pager);
@@ -156,9 +204,9 @@ public class MemberHouseController extends BaseController{
 
         return jsonResult;
     }
-    
+
     /**
-     * 房屋认证-通过
+     * 房屋认证-通过（暂时弃用，采用数据对比的方式直接进行）
      * @param request
      * @param response
      * @return
@@ -186,16 +234,16 @@ public class MemberHouseController extends BaseController{
         jsonResult.setData(true);
         return jsonResult;
     }
-    
+
     /**
-     * 房屋认证-不通过
+     * 房屋认证-不通过（暂时弃用，采用数据对比的方式直接进行）
      * @param request
      * @param response
      * @return
      */
     @RequestMapping(value = "/noPassInfo", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<Boolean> noPass(HttpServletRequest request,
-                                                      HttpServletResponse response, Integer id) {
+                                                        HttpServletResponse response, Integer id) {
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         Integer userId = adminUser.getId();
         MemberHouse memberHouse = new MemberHouse();
