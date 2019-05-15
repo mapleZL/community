@@ -237,6 +237,24 @@ public class MemberServiceImpl implements IMemberService {
     }
 
     @Override
+    public ServiceResult<Member> getMemberByPhone(String phone) {
+        ServiceResult<Member> serviceResult = new ServiceResult<>();
+        try {
+            serviceResult.setResult(memberModel.getMemberByPhone(phone));
+        } catch (BusinessException be) {
+            serviceResult.setSuccess(false);
+            serviceResult.setMessage(be.getMessage());
+            log.error("[MemberService][getMemberByPhone]根据会员名称取会员时发生异常:" + be.getMessage());
+        } catch (Exception e) {
+            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
+            log.error("[MemberService][getMemberByPhone]phone:" + phone);
+            log.error("[MemberService][getMemberByPhone]根据会员名称取会员时发生异常:", e);
+        }
+        return serviceResult;
+
+    }
+
+    @Override
     public ServiceResult<MemberRule> getMemberRule(Integer memberRuleId, Integer state) {
         ServiceResult<MemberRule> serviceResult = new ServiceResult<MemberRule>();
         try {

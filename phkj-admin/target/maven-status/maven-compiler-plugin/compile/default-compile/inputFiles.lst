@@ -45,5 +45,6 @@ C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\freemarker\Cus
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\order\AdminOrdersController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\member\MemberCarController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminUserController.java
+C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\wx\LoginController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\BaseController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\SecureTag.java

@@ -50,11 +50,26 @@ public interface MemberReadDao {
     List<Member> getByNameAndPwd(@Param("name") String name, @Param("password") String password);
 
     /**
+     * 根据手机号和密码获取用户
+     * @param phone
+     * @param password
+     * @return
+     */
+    List<Member> getByPhoneAndPwd(@Param("phone") String phone, @Param("password") String password);
+
+    /**
      * 根据会员name获取会员
      * @param name
      * @return
      */
     List<Member> getByName(@Param("name") String name);
+
+    /**
+     * 根据会员phone获取会员
+     * @param phone
+     * @return
+     */
+    Member getByPhone(@Param("phone") String phone);
 
     Member getMemberBySellerId(@Param("sellerId") Integer sellerId);
     
