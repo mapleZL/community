@@ -2,7 +2,7 @@ package com.phkj.model.repair;
 
 
 import com.phkj.core.StringUtil;
-import com.phkj.dao.index.read.repair.StAppletCommentDao;
+import com.phkj.dao.shop.read.repaire.StAppletCommentDao;
 import com.phkj.entity.repair.StAppletComment;
 import org.springframework.stereotype.Component;
 

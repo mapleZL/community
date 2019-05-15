@@ -55,10 +55,7 @@ import com.phkj.entity.product.ProductType;
 import com.phkj.entity.product.ProductTypeAttr;
 import com.phkj.entity.product.WmsClassify;
 import com.phkj.entity.seller.Seller;
-import com.phkj.entity.shopm.MIndexFloorData;
-import com.phkj.entity.shopm.pcindex.PcIndexFloorData;
 import com.phkj.service.member.IMemberService;
-import com.phkj.service.mindex.IMIndexService;
 import com.phkj.service.product.IProductService;
 import com.phkj.service.seller.ISellerService;
 import com.phkj.service.system.ISystemLogsService;
@@ -75,8 +72,6 @@ public class ProductController extends BaseController {
     private IMemberService         memberService;
     @Resource
     private ISellerService         sellerService;
-    @Resource
-    private IMIndexService          mIndexService;
     @Resource
     private ISystemLogsService         systemLogsService;
     
@@ -212,7 +207,7 @@ public class ProductController extends BaseController {
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);//{ pageIndex:1, pageSize:20, rowsCount:0 }
         ServiceResult<List<Product>> serviceResult = null;
         int exceptNumber = 0;
-        if(channel!=null && "h5floordata".equals(channel)){//移动端楼层数据，则商品列表中不应该存在已经设置过的楼层数据
+        /*if(channel!=null && "h5floordata".equals(channel)){//移动端楼层数据，则商品列表中不应该存在已经设置过的楼层数据
         	queryMap.put("q_dataType", "1");
         	ServiceResult<List<MIndexFloorData>> serviceResultFloorData = mIndexService.getMIndexFloorDatas(
                     queryMap, null);
@@ -239,7 +234,7 @@ public class ProductController extends BaseController {
         	serviceResult = productService.pageproductBypcfloordata(queryMap, pager,productIds);
         }else{
         	serviceResult = productService.pageProduct(queryMap, pager);
-        }
+        }*/
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());

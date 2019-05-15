@@ -378,46 +378,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${version-maven-javadoc-plugin}</version>
-                <configuration>
-                    <quiet>true</quiet>
-                    <failOnError>false</failOnError>
-                    <stylesheet>maven</stylesheet>
-                    <tags>
-                        <tag>
-                            <name>Author</name>
-                            <placement>a</placement>
-                            <head>Author</head>
-                        </tag>
-                        <tag>
-                            <name>Date</name>
-                            <placement>a</placement>
-                            <head>Date</head>
-                        </tag>
-                        <tag>
-                            <name>Version</name>
-                            <placement>a</placement>
-                            <head>Version</head>
-                        </tag>
-                        <tag>
-                            <name>Email</name>
-                            <placement>a</placement>
-                            <head>Email</head>
-                        </tag>
-                    </tags>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${version-maven-compiler-plugin}</version>
                 <configuration>

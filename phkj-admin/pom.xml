@@ -288,29 +288,13 @@
                 <shop.read.username>root</shop.read.username>
                 <shop.read.password>Lushuai@1992</shop.read.password>
 
-                <analysis.write.url>jdbc:mysql://47.105.205.117:3306/dw_analysis</analysis.write.url>
-                <analysis.write.username>root</analysis.write.username>
-                <analysis.write.password>Lushuai@1992</analysis.write.password>
+                <mobile.write.url>jdbc:mysql://112.17.164.97:8858/st_dev</mobile.write.url>
+                <mobile.write.username>st_epiboly</mobile.write.username>
+                <mobile.write.password>fxy001</mobile.write.password>
 
-                <analysis.read.url>jdbc:mysql://47.105.205.117:3306/dw_analysis</analysis.read.url>
-                <analysis.read.username>root</analysis.read.username>
-                <analysis.read.password>Lushuai@1992</analysis.read.password>
-
-                <mobile.write.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.write.url>
-                <mobile.write.username>root</mobile.write.username>
-                <mobile.write.password>Lushuai@1992</mobile.write.password>
-
-                <mobile.read.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.read.url>
-                <mobile.read.username>root</mobile.read.username>
-                <mobile.read.password>Lushuai@1992</mobile.read.password>
-
-                <promotion.write.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.write.url>
-                <promotion.write.username>root</promotion.write.username>
-                <promotion.write.password>Lushuai@1992</promotion.write.password>
-
-                <promotion.read.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.read.url>
-                <promotion.read.username>root</promotion.read.username>
-                <promotion.read.password>Lushuai@1992</promotion.read.password>
+                <mobile.read.url>jdbc:mysql://112.17.164.97:8858/st_dev</mobile.read.url>
+                <mobile.read.username>st_epiboly</mobile.read.username>
+                <mobile.read.password>fxy001</mobile.read.password>
 
                 <search.solr.url>http://114.55.88.189:8080/solr</search.solr.url>
                 <search.solr.server>ejavashopcore</search.solr.server>
@@ -350,13 +334,13 @@
                 <analysis.read.username>root</analysis.read.username>
                 <analysis.read.password>Lushuai@1992</analysis.read.password>
 
-                <mobile.write.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.write.url>
-                <mobile.write.username>root</mobile.write.username>
-                <mobile.write.password>Lushuai@1992</mobile.write.password>
+                <mobile.write.url>jdbc:mysql://112.17.164.97:8858/st_dev</mobile.write.url>
+                <mobile.write.username>st_epiboly</mobile.write.username>
+                <mobile.write.password>fxy001</mobile.write.password>
 
-                <mobile.read.url>jdbc:mysql://47.105.205.117:3306/dw_m</mobile.read.url>
-                <mobile.read.username>root</mobile.read.username>
-                <mobile.read.password>Lushuai@1992</mobile.read.password>
+                <mobile.read.url>jdbc:mysql://112.17.164.97:8858/st_dev</mobile.read.url>
+                <mobile.read.username>st_epiboly</mobile.read.username>
+                <mobile.read.password>fxy001</mobile.read.password>
 
                 <promotion.write.url>jdbc:mysql://47.105.205.117:3306/dw_promotion</promotion.write.url>
                 <promotion.write.username>root</promotion.write.username>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.read.share.StAppletShareApplyMapper">
+  <resultMap id="BaseResultMap" type="com.phkj.entity.share.StAppletShareApply">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="info_id" jdbcType="BIGINT" property="infoId" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="examine_id" jdbcType="VARCHAR" property="examineId" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="sts" jdbcType="CHAR" property="sts" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="share_type" jdbcType="VARCHAR" property="shareType" />
+    <result column="modify_user_id" jdbcType="BIGINT" property="modifyUserId" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.phkj.entity.share.StAppletShareApply">
+    <result column="img_url" jdbcType="LONGVARCHAR" property="imgUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, info_id, create_user_id, user_name, examine_id, telephone, address, id_card,
+    sts, create_time, update_time, share_type, modify_user_id, modify_time
+  </sql>
+  <sql id="Blob_Column_List">
+    img_url
+  </sql>
+
+
+  <select id="selectMeApplyInfoList"  parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+            si.id as id,
+        CASE
+        si.task_type
+        WHEN '1' THEN
+        '拼车'
+        WHEN '2' THEN
+        '车位共享'
+        WHEN '3' THEN
+        '时间互换' ELSE '资源共享'
+        END AS taskType,
+        si.start_time as startTime ,
+        si.end_Time as endTime,
+        si.title as title ,
+         si.content  as content,
+         si.start_time as startTime,
+         si.end_time as endTime ,
+         case sa.sts  when '1' then '申请中' when '2' then '申请通过' when '3' then '拒绝' else '关闭申请' end  sts
+        FROM
+            st_applet_share_info si
+            INNER JOIN st_applet_share_apply sa ON si.id = sa.info_id  where 1=1
+        and  sa.create_user_id = #{userId}
+          <if test="status != null and status != ''">
+              and sa.sts = #{status}
+          </if>
+    </select>
+
+  <select id="selectSystemApplyByInfoId" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+       SELECT
+        id,
+        info_id,
+        create_user_id,
+        user_name,
+        examine_id,
+        telephone,
+        address,
+        id_card,
+    CASE
+        sts
+        WHEN '1' THEN
+        '申请中'
+        WHEN '2' THEN
+        '申请通过'
+        WHEN '3' THEN
+        '拒绝' ELSE '关闭申请'
+        END AS sts,
+        create_time,
+        update_time,
+    CASE
+        share_type
+        WHEN '1' THEN
+        '居民' ELSE '物业'
+        END AS share_type,
+        modify_user_id,
+        modify_time,
+        img_url
+    FROM
+        st_applet_share_apply
+    WHERE
+        info_id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+  <select id="selectApplyByInfoId" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_share_apply
+    where info_id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+  <select id="selectSUCCESSApplyByInfoId" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_share_apply
+    where info_id = #{id,jdbcType=BIGINT}
+    and  sts != '3'
+  </select>
+
+  <select id="selectApplyByUserId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_share_apply
+    where create_user_id = #{userId}
+    and info_id = #{infoId}
+  </select>
+
+  <select id="selectNOTINApplyById" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_share_apply
+    where info_id = #{infoId,jdbcType=BIGINT}
+    and  id != #{id}
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_share_apply
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from st_applet_share_apply
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.phkj.entity.share.StAppletShareApply">
+    insert into st_applet_share_apply (id, info_id, create_user_id, 
+      user_name, examine_id, telephone, 
+      address, id_card, sts, 
+      create_time, update_time, share_type, 
+      modify_user_id, modify_time, img_url
+      )
+    values (#{id,jdbcType=BIGINT}, #{infoId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, 
+      #{userName,jdbcType=VARCHAR}, #{examineId,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{sts,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{shareType,jdbcType=VARCHAR}, 
+      #{modifyUserId,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, #{imgUrl,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.phkj.entity.share.StAppletShareApply">
+    insert into st_applet_share_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="infoId != null">
+        info_id,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="examineId != null">
+        examine_id,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="sts != null">
+        sts,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="shareType != null">
+        share_type,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="infoId != null">
+        #{infoId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="examineId != null">
+        #{examineId,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null">
+        #{sts,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareType != null">
+        #{shareType,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.phkj.entity.share.StAppletShareApply">
+    update st_applet_share_apply
+    <set>
+      <if test="infoId != null">
+        info_id = #{infoId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="examineId != null">
+        examine_id = #{examineId,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null">
+        sts = #{sts,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareType != null">
+        share_type = #{shareType,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.phkj.entity.share.StAppletShareApply">
+    update st_applet_share_apply
+    set info_id = #{infoId,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      examine_id = #{examineId,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      sts = #{sts,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      share_type = #{shareType,jdbcType=VARCHAR},
+      modify_user_id = #{modifyUserId,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      img_url = #{imgUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.phkj.entity.share.StAppletShareApply">
+    update st_applet_share_apply
+    set info_id = #{infoId,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      examine_id = #{examineId,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      sts = #{sts,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      share_type = #{shareType,jdbcType=VARCHAR},
+      modify_user_id = #{modifyUserId,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

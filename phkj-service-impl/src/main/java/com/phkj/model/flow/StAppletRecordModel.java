@@ -2,7 +2,7 @@ package com.phkj.model.flow;
 
 
 import com.phkj.core.StringUtil;
-import com.phkj.dao.index.read.flow.StAppletRecordDao;
+import com.phkj.dao.shop.read.flow.StAppletRecordDao;
 import com.phkj.entity.flow.StAppletRecord;
 import org.springframework.stereotype.Component;
 

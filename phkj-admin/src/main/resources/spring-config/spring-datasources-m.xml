@@ -42,7 +42,7 @@
     </bean>
 
 	<bean id="mobileReadSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="mapperLocations" value="classpath:sql-mapper/**/*.xml" />
+		<property name="mapperLocations" value="classpath:sql-mapper/shopm/read/**/*.xml" />
 		<property name="typeAliasesPackage" value="com.phkj.entity" />
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
 
@@ -102,7 +102,7 @@
     </bean>
 
 	<bean id="mobileWriteSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="mapperLocations" value="classpath:sql-mapper/**/*.xml" />
+		<property name="mapperLocations" value="classpath:sql-mapper/shopm/read/**/*.xml" />
 		<property name="typeAliasesPackage" value="com.phkj.entity" />
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
 

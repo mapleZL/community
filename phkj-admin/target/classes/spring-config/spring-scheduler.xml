@@ -8,7 +8,7 @@
     <bean id="adminJob" class="com.phkj.job.AdminJob"/>
     
     
-    <!-- 系统完成订单任务 -->
+    <!-- 字典表同步redis -->
     <bean id="jobUpdateCode" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="adminJob"/>
         <property name="targetMethod" value="jobUpdateCode"/>
@@ -18,8 +18,20 @@
             <ref bean="jobUpdateCode"/>
         </property>
         <property name="cronExpression">
-        	每隔10分钟触发
-            <value>0 0/30 * * * ?</value>
+            <value>0 0/3 * * * ?</value>
+        </property>
+    </bean>
+    
+    <bean id="jobSynchroSpinner" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="adminJob"/>
+        <property name="targetMethod" value="jobSynchroSpinner"/>
+    </bean>
+    <bean id="jobSystemSpinnerTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="jobSynchroSpinner"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 0/3 * * * ?</value>
         </property>
     </bean>
     
@@ -63,6 +75,7 @@
         <property name="triggers">
             <list>
                 <ref bean="jobSystemCodeUpdateTrigger"/>
+                <ref bean="jobSystemSpinnerTrigger"/>
             <!--
                 <ref bean="jobCreditTrigger"/>
                 <ref bean="jobOutDoorOrders"/>
