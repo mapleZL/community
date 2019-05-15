@@ -18,6 +18,7 @@
             <ref bean="jobUpdateCode"/>
         </property>
         <property name="cronExpression">
+<<<<<<< HEAD
             <value>0 0/30 * * * ?</value>
         </property>
     </bean>
@@ -31,6 +32,8 @@
             <ref bean="jobSynchroSpinner"/>
         </property>
         <property name="cronExpression">
+=======
+>>>>>>> e475941281c16ee61c1fe8f6cb38f5b1f184f95d
             <value>0 0/30 * * * ?</value>
         </property>
     </bean>

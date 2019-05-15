@@ -24,6 +24,11 @@ $(function(){
 				return;
 			}
 
+			var applyNum = $("#applyNum").val();
+			if (isNaN(applyNum)){
+                $.messager.alert('提示','申请数量必须为数字!');
+                return;
+            }
             var contact = $("#contact").val();
             if (contact == undefined || contact == null || contact == '') {
                 $.messager.alert('提示','联系人必须填写');
@@ -125,10 +130,17 @@ $(function(){
                     </div>
                     <div class="fluidbox">
                         <p class="p6 p-item">
+                            <label class="lab-item">可申请数量 ：</label>
+                            <input id="applyNum" name="applyNum"  />
+                        </p>
+                    </div>
+                    <div class="fluidbox">
+                        <p class="p6 p-item">
                             <label class="lab-item">详细内容 ：</label>
                             <textarea id="content" name="content"   cols="60"  rows="5"   style="OVERFLOW:   hidden"></textarea>
                         </p>
                     </div>
+
 				</dd>
 			</dl>
 

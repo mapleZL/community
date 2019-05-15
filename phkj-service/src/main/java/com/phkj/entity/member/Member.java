@@ -132,6 +132,9 @@ public class Member implements Serializable {
     private java.lang.String		dpAddinfo;					//店铺所在详细地址
     private java.lang.String 	isSyncOms;//是否开通oms账号
     private java.lang.String		isTransferBussiness;//是否开通代发业务权限
+
+    // add by zl
+    private java.lang.String 		headIcon;				    //头像
     
     
     /**
@@ -538,6 +541,14 @@ public class Member implements Serializable {
      */
     public void setStatus(java.lang.Integer status) {
         this.status = status;
+    }
+
+    public String getHeadIcon() {
+        return headIcon;
+    }
+
+    public void setHeadIcon(String headIcon) {
+        this.headIcon = headIcon;
     }
 
     /**

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import com.github.pagehelper.StringUtil;
 import com.phkj.entity.system.SystemAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,15 +65,21 @@ public class ShareServiceImpl implements ShareService {
      * @return
      */
     @Override
-    public boolean deleteShareInfo(String id) {
+    public boolean deleteShareInfo(String id,String type) {
 
         boolean flag = false;
         StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
         if (null != shareInfo) {
-            shareInfo.setSts("0");
+            //  停止共享
+            if ("2".equals(type)){
+                shareInfo.setSts("0");
+                shareInfo.setShareStatus("3");  //共享完成
+            }else {
+                shareInfo.setSts("0");
+            }
             int i = stAppletShareInfoMapper.updateByPrimaryKeySelective(shareInfo);
 
-            flag = i == 0 ? false : true;
+            flag = (i == 0) ? false : true;
         }
 
         return flag;
@@ -147,14 +154,36 @@ public class ShareServiceImpl implements ShareService {
      * @return
      */
     @Override
-    public boolean applyShareInfo(String id, String userId, String userName, String telePhone, String address, String IDCard) {
+    public String applyShareInfo(String id, String userId, String userName, String telePhone, String address, String IDCard) {
 
-        boolean flag = false;
+        String msg = "";
         // 查询当前任务信息
         StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
 
-        // stAppletShareApplyMapper.selectApplyByInfoId();
+        // 申请成功不可再次预约
+        if ("1".equals(shareInfo.getShareStatus())) {
+            msg = "共享信息已被预约,不可再申请!";
+            return msg;
+        }
 
+        //
+        if ("2".equals(shareInfo.getShareStatus())) {
+            msg = "共享已被关闭,不可再申请!";
+            return msg ;
+        }
+        // 查询申请任务id
+        String applyNum = shareInfo.getApplyNum();
+        if (StringUtil.isNotEmpty(applyNum)) {
+            Integer num = Integer.valueOf(applyNum);
+            /**
+             *  获取所有申请数量,如果申请数量+1(当前要发布数量,则修改任务)
+             */
+            List<StAppletShareApply> applyList = stAppletShareApplyMapper.selectApplyByInfoId(shareInfo.getId());
+            if (num == applyList.size()) {
+                msg = "共享申请已满,不在再申请!";
+                return msg;
+            }
+        }
         // 创建一条申请信息
         StAppletShareApply shareApply = new StAppletShareApply();
         shareApply.setInfoId(shareInfo.getId());
@@ -167,10 +196,10 @@ public class ShareServiceImpl implements ShareService {
         shareApply.setCreateTime(new Date());
         int i = stAppletShareApplyMapper.insert(shareApply);
         if (i > 0) {
-            flag = true;
+            msg = "申请失败!";
         }
 
-        return flag;
+        return msg;
     }
 
 
@@ -257,7 +286,7 @@ public class ShareServiceImpl implements ShareService {
 
         boolean flag = false;
         shareInfo.setSts("1"); //任务状态 0删除 1.正常
-        int i = stAppletShareInfoMapper.insertSelective(shareInfo);
+        int i = stAppletShareInfoMapper.insert(shareInfo);
         if (i > 0) {
             flag = true;
         }
@@ -407,9 +436,9 @@ public class ShareServiceImpl implements ShareService {
         Map<String, Object> returnMap = new HashMap<>();
         StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
 
-        StAppletShareApply apply = stAppletShareApplyMapper.selectApplyByUserId(userId,shareInfo.getId().toString());
-        returnMap.put("shareInfo" , shareInfo);
-        returnMap.put("apply" ,apply);
+        StAppletShareApply apply = stAppletShareApplyMapper.selectApplyByUserId(userId, shareInfo.getId().toString());
+        returnMap.put("shareInfo", shareInfo);
+        returnMap.put("apply", apply);
         return returnMap;
     }
 

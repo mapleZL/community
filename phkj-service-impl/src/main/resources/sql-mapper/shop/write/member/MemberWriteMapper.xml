@@ -50,6 +50,7 @@
 			<result property="dpAddinfo" column="dp_addinfo" />
 			<result property="isSyncOms" column="is_sync_oms" />
 			<result property="isTransferBussiness" column="is_transfer_bussiness" />
+			<result property="headIcon" column="head_icon" />
 	</resultMap>
 	
 	<sql id="getCondition">
@@ -118,7 +119,7 @@
 			<if test="grade != null">`grade`= #{grade},</if>
 			<if test="gradeValue != null">`grade_value`= #{gradeValue},</if>
 			<if test="integral != null">`integral`= #{integral},</if>
-			<!-- <if test="registerTime != null">`register_time`= #{registerTime},</if> -->
+			 <if test="headIcon != null">`head_icon`= #{head_icon},</if>
 			<if test="lastLoginTime != null">`last_login_time`= #{lastLoginTime},</if>
 			<if test="lastLoginIp != null">`last_login_ip`= #{lastLoginIp},</if>
 			<if test="loginNumber != null">`login_number`= #{loginNumber},</if>
@@ -232,7 +233,8 @@
 			`sale_code`,
 			`inviter_id`,
 			`is_sync_oms`,
-			`is_transfer_bussiness`
+			`is_transfer_bussiness`,
+			`head_icon`
 		)
 		values
 		(
@@ -269,7 +271,8 @@
 			#{saleCode},
 			#{inviterId},
 			#{isSyncOms},
-			#{isTransferBussiness}
+			#{isTransferBussiness},
+			#{headIcon}
 		)
 	</insert>
 

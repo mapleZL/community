@@ -50,6 +50,7 @@
 			<result property="dpAddinfo" column="dp_addinfo" />
 			<result property="isSyncOms" column="is_sync_oms" />
 			<result property="isTransferBussiness" column="is_transfer_bussiness" />
+			<result property="headIcon" column="head_icon" />
 	</resultMap>
 	
 	<sql id="getCondition">
@@ -124,14 +125,29 @@
 		where `name` = #{name}
 		and `password` = #{password}
 	</select>
-	
+
+	<select id="getByPhoneAndPwd" parameterType="String" resultMap="MemberResult">
+		select
+		   *
+		from `member`
+		where `phone` = #{phone}
+		and `password` = #{password}
+	</select>
+
 	<select id="getByName" parameterType="String" resultMap="MemberResult">
 		select
 		   *
 		from `member`
 		where `name` = #{name}
 	</select>
-	
+
+	<select id="getByPhone" parameterType="String" resultMap="MemberResult">
+		select
+		   *
+		from `member`
+		where `phone` = #{phone} limit 1
+	</select>
+
 	<select id="getMemberBySellerId" parameterType="Integer" resultMap="MemberResult">
 		select * from member where id = (select member_id from seller where id = #{sellerId})
 	</select>

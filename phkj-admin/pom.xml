@@ -318,6 +318,10 @@
                 <phkj.oss.accessKeySecret>jRPzHauftvtRLerrJj57rwEEaY6nY8</phkj.oss.accessKeySecret>
                 <phkj.oss.bucketName>community-pic</phkj.oss.bucketName>
 
+                <phkj.spring.redis.host>118.126.66.195</phkj.spring.redis.host>
+                <phkj.spring.redis.port>6379</phkj.spring.redis.port>
+                <phkj.spring.redis.password>c428cb38d5f260853678922e</phkj.spring.redis.password>
+
                 <shop.write.url>jdbc:mysql://47.105.205.117:3306/dw</shop.write.url>
                 <shop.write.username>root</shop.write.username>
                 <shop.write.password>Lushuai@1992</shop.write.password>

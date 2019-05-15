@@ -99,6 +99,13 @@ public interface IMemberService {
      */
     ServiceResult<List<Member>> getMemberByName(String name);
 
+    /**
+     * 根据会员名称取会员
+     * @param phone
+     * @return
+     */
+    ServiceResult<Member> getMemberByPhone(String phone);
+
 
     /**
      * 根据id取得会员经验值和积分规则
