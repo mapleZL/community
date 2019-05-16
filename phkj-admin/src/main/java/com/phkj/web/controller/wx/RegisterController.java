@@ -10,7 +10,6 @@ import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.member.Member;
 import com.phkj.entity.member.MemberParam;
 import com.phkj.service.member.IMemberService;
-import com.phkj.web.controller.sms.SmsController;
 import com.phkj.web.util.WeChatUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -37,7 +36,7 @@ import java.util.Date;
 @RequestMapping(value = "admin/user")
 public class RegisterController {
 
-    Logger logger = LoggerFactory.getLogger(SmsController.class);
+    Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
     @Autowired
     RedisComponent redisComponent;
