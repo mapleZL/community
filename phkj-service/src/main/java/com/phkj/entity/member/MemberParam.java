@@ -11,6 +11,10 @@ import java.io.Serializable;
  */
 public class MemberParam implements Serializable {
     /**
+     *Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 1L;
+    /**
      * 手机号
      */
     private String phoneNum;

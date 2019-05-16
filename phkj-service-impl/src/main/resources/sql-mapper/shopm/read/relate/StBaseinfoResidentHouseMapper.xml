@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shopm.read.relate.StBaseinfoResidentHouseDao">
+	<resultMap id="StBaseinfoResidentHouseResult" type="com.phkj.entity.relate.StBaseinfoResidentHouse">
+			<result property="id" column="id" />
+			<result property="personStockId" column="person_stock_id" />
+			<result property="residentId" column="resident_id" />
+			<result property="houseId" column="house_id" />
+			<result property="residentiaId" column="residentia_id" />
+			<result property="subareaId" column="subarea_id" />
+			<result property="houseType" column="house_type" />
+			<result property="relationship" column="relationship" />
+			<result property="peopleHouseSame" column="people_house_same" />
+			<result property="createTime" column="create_time" />
+			<result property="createUserId" column="create_user_id" />
+			<result property="modifyTime" column="modify_time" />
+			<result property="modifyUserId" column="modify_user_id" />
+			<result property="sts" column="sts" />
+			<result property="orgCode" column="org_code" />
+			<result property="topOrgCode" column="top_org_code" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="StBaseinfoResidentHouseResult">
+		select
+		   *
+		from `st_baseinfo_resident_house`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getResidentBouseByParam" resultMap="StBaseinfoResidentHouseResult">
+	    select * from `st_baseinfo_resident_house`
+	    <include refid="getCondition"/>
+	    limit 1
+	</select>
+	
+	<sql id="getCondition">
+        <where>
+             <if test="queryMap.houseId != null and queryMap.houseId !=''">
+                and house_id = #{queryMap.houseId}
+          	 </if>
+          	 <if test="queryMap.residentiaId != null and queryMap.residentiaId !=''">
+                and residentia_id = #{queryMap.residentiaId}
+          	 </if>
+        </where>
+    </sql>
+	
+	<update id="update" parameterType="com.phkj.entity.relate.StBaseinfoResidentHouse">
+        update `st_baseinfo_resident_house` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="personStockId != null">`person_stock_id`= #{personStockId},</if>
+			<if test="residentId != null">`resident_id`= #{residentId},</if>
+			<if test="houseId != null">`house_id`= #{houseId},</if>
+			<if test="residentiaId != null">`residentia_id`= #{residentiaId},</if>
+			<if test="subareaId != null">`subarea_id`= #{subareaId},</if>
+			<if test="houseType != null">`house_type`= #{houseType},</if>
+			<if test="relationship != null">`relationship`= #{relationship},</if>
+			<if test="peopleHouseSame != null">`people_house_same`= #{peopleHouseSame},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
+			<if test="createUserId != null">`create_user_id`= #{createUserId},</if>
+			<if test="modifyTime != null">`modify_time`= #{modifyTime},</if>
+			<if test="modifyUserId != null">`modify_user_id`= #{modifyUserId},</if>
+			<if test="sts != null">`sts`= #{sts},</if>
+			<if test="orgCode != null">`org_code`= #{orgCode},</if>
+			<if test="topOrgCode != null">`top_org_code`= #{topOrgCode}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.phkj.entity.relate.StBaseinfoResidentHouse" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`st_baseinfo_resident_house`
+		(
+			
+			`person_stock_id`,
+			`resident_id`,
+			`house_id`,
+			`residentia_id`,
+			`subarea_id`,
+			`house_type`,
+			`relationship`,
+			`people_house_same`,
+			`create_time`,
+			`create_user_id`,
+			`modify_time`,
+			`modify_user_id`,
+			`sts`,
+			`org_code`,
+			`top_org_code`
+		)
+		values
+		(
+			
+			#{personStockId},
+			#{residentId},
+			#{houseId},
+			#{residentiaId},
+			#{subareaId},
+			#{houseType},
+			#{relationship},
+			#{peopleHouseSame},
+			#{createTime},
+			#{createUserId},
+			#{modifyTime},
+			#{modifyUserId},
+			#{sts},
+			#{orgCode},
+			#{topOrgCode}
+		)
+	</insert>
+	
+</mapper>

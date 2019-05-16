@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +19,6 @@ import com.phkj.entity.product.ProductGoods;
 
 @Service(value = "productModel")
 public class ProductModel {
-    private static Logger                log = LogManager.getLogger(ProductModel.class);
     
     @Resource
     private ProductWriteDao              productWriteDao;
