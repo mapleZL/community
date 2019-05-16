@@ -11,9 +11,6 @@ import com.phkj.entity.system.SystemLogs;
 
 @Component
 public class SystemLogsModel {
-
-	private static org.apache.log4j.Logger log = org.apache.log4j.LogManager
-                                                   .getLogger(SystemLogsModel.class);
     
     @Resource
     private SystemLogsReadDao systemLogsReadDao;

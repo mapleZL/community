@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,14 +29,15 @@ import com.phkj.core.exception.BusinessException;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.MemberPropertyStatus;
 import com.phkj.entity.member.MemberHouse;
-import com.phkj.entity.relate.StBaseinfoPersonStock;
 import com.phkj.entity.relate.StBaseinfoResidentHouse;
+import com.phkj.entity.relate.StBaseinfoResidentinfo;
 import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.member.IMemberHouseService;
-import com.phkj.service.relate.IStBaseinfoPersonStockService;
 import com.phkj.service.relate.IStBaseinfoResidentHouseService;
+import com.phkj.service.relate.IStBaseinfoResidentinfoService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
+
 /**
  * 房屋处理
  *                       
@@ -53,8 +55,8 @@ public class MemberHouseController extends BaseController {
     IMemberHouseService             memberHouseService;
     @Resource
     IStBaseinfoResidentHouseService residentHouseService;
-    @Resource
-    IStBaseinfoPersonStockService   personStockService;
+    @Autowired
+    IStBaseinfoResidentinfoService  residentinfoSeervice;
 
     /**
      * 初始化列表页面
@@ -82,12 +84,13 @@ public class MemberHouseController extends BaseController {
         if (result.isSuccess()) {
             memberHouseService.saveMemberHouse(memberHouse);
         }
-        
+
         return result;
     }
 
     // 认证用户房屋信息
     private ResponseUtil authenticationHouseholder(MemberHouse memberHouse) {
+        // TODO 校验本地信息是否已经存在，避免重复验证
         Map<String, Object> queryMap = new HashMap<>();
         queryMap.put("houseId", memberHouse.getRoomId());
         queryMap.put("residentiaId", memberHouse.getVillageId());
@@ -95,24 +98,27 @@ public class MemberHouseController extends BaseController {
         StBaseinfoResidentHouse stBaseinfoResidentHouse = residentHouseService
             .getResidentBouseByParam(queryMap);
         if (stBaseinfoResidentHouse != null) {
-            // 根据关联用户信息查找用户
-            StBaseinfoPersonStock personStock = personStockService
-                .getStBaseinfoPersonStockById(stBaseinfoResidentHouse.getPersonStockId())
-                .getResult();
-            if (personStock != null) {
+            // 根据关联居民信息查找用户
+            StBaseinfoResidentinfo residentinfo = residentinfoSeervice
+                .getStBaseinfoResidentinfoById(stBaseinfoResidentHouse.getResidentId()).getResult();
+            if (residentinfo != null) {
                 // 身份证账号解密
-                String idNo = AESHelper.Encrypt(personStock.getEncryptionIdNumber());
-                if (personStock.getName().equals(memberHouse.getName())
+                String idNo = AESHelper.Encrypt(residentinfo.getEncryptionIdNumber());
+                if (residentinfo.getName().equals(memberHouse.getName())
                     && idNo.equals(memberHouse.getIdNumber())) {
-                    return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "认证成功", true, null);
+                    return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "认证成功",
+                        true, null);
                 } else {
-                    return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "认证失败", false, null);
+                    return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "认证失败",
+                        false, null);
                 }
             } else {
-                return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "您还没有在物业处登记身份，请先去登记身份", false, null);
+                return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(),
+                    "您还没有在物业处登记身份，请先去登记身份", false, null);
             }
         } else {
-            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "房屋信息查询失败", false, null);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "房屋信息查询失败", false,
+                null);
         }
 
     }

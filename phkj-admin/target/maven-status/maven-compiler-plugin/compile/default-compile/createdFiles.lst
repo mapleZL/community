@@ -48,6 +48,7 @@ com\phkj\web\controller\SyncController.class
 com\phkj\web\controller\system\AdminLoginController.class
 com\phkj\web\util\freemarker\InitJSCodeContainerTemplateMethodModel.class
 com\phkj\web\controller\BaseController$3.class
+com\phkj\web\controller\config\ConfigurationController.class
 com\phkj\web\shiro\ResourceCheckFilter.class
 com\phkj\web\controller\seller\AdminSellerController.class
 com\phkj\web\shiro\tag\LacksRoleTag.class

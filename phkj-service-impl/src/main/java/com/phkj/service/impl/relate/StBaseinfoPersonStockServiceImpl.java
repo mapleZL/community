@@ -86,4 +86,9 @@ public class StBaseinfoPersonStockServiceImpl implements IStBaseinfoPersonStockS
         }
         return result;
      }
+
+    @Override
+    public StBaseinfoPersonStock getStBaseinfoPersonStock(String phone) {
+        return stBaseinfoPersonStockModel.getStBaseinfoPersonStock(phone);
+    }
 }

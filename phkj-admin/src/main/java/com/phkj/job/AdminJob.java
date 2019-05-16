@@ -5,10 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
 import com.phkj.core.redis.RedisComponent;
@@ -35,17 +34,17 @@ import com.phkj.model.system.CodeModel;
  */
 public class AdminJob {
 
-    @Resource
+    @Autowired
     private CodeModel                   codeModel;
-    @Resource
+    @Autowired
     private StBaseinfoBuildingModel     stBaseinfoBuildingModel;
-    @Resource
+    @Autowired
     private StBaseinfoHousesModel       stBaseinfoHousesModel;
-    @Resource
+    @Autowired
     private StBaseinfoOrganizationModel stBaseinfoOrganizationModel;
-    @Resource
+    @Autowired
     private StBaseinfoUnitsModel        stBaseinfoUnitsModel;
-    @Resource
+    @Autowired
     private RedisComponent              redisComponent;
 
     private static final Logger         log = LogManager.getLogger(AdminJob.class);
@@ -86,82 +85,103 @@ public class AdminJob {
 
             if (organizations != null) {
                 // 解析省市区
-                Map<StBaseinfoOrganization, Map<StBaseinfoOrganization, List<StBaseinfoOrganization>>> treeMap = new HashMap<>();
-                Map<StBaseinfoOrganization, List<StBaseinfoOrganization>> cityMap = null;
+                Map<Integer, List<StBaseinfoOrganization>> tempMap = null;
                 List<StBaseinfoOrganization> areaList = null;
                 // 确定省级
+                tempMap = new HashMap<>();
                 for (StBaseinfoOrganization organization : organizations) {
                     if (organization.getRegion().equals("province")) {
-                        cityMap = new HashMap<>();
-                        treeMap.put(organization, cityMap);
-                    }
-                }
-                // 确定市级
-                for (StBaseinfoOrganization cityKey : treeMap.keySet()) {
-                    for (StBaseinfoOrganization organization : organizations) {
-                        if (organization.getRegion().equals("city")
-                            && organization.getTopId() == cityKey.getId()) {
-                            cityMap = treeMap.get(cityKey);
+                        if (tempMap.get(organization.getTopId()) == null) {
                             areaList = new ArrayList<>();
-                            cityMap.put(organization, areaList);
+                            tempMap.put(organization.getTopId(), areaList);
+                        } else {
+                            areaList = tempMap.get(organization.getTopId());
                         }
-                    }
-                }
-                // 确定区县
-                for (StBaseinfoOrganization cityKey : treeMap.keySet()) {
-                    cityMap = treeMap.get(cityKey);
-                    for (StBaseinfoOrganization areaKey : cityMap.keySet()) {
-                        for (StBaseinfoOrganization organization : organizations) {
-                            if (organization.getRegion().equals("county")
-                                && areaKey.getId() == organization.getTopId()) {
-                                areaList = cityMap.get(areaKey);
-                                areaList.add(organization);
-                            }
-                        }
+                        areaList.add(organization);
                     }
                 }
                 redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_PROVINCE_SYN,
-                    JSONObject.toJSONString(treeMap));
-                log.info("省市区同步成功！" + JSONObject.toJSONString(treeMap));
-                
+                    JSONObject.toJSONString(tempMap));
+                // 确定市级
+                tempMap = new HashMap<>();
+                for (StBaseinfoOrganization organization : organizations) {
+                    if (organization.getRegion().equals("city")) {
+                        if (tempMap.get(organization.getTopId()) == null) {
+                            areaList = new ArrayList<>();
+                            tempMap.put(organization.getTopId(), areaList);
+                        } else {
+                            areaList = tempMap.get(organization.getTopId());
+                        }
+                        areaList.add(organization);
+                    }
+                }
+                redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_CITY_SYN,
+                    JSONObject.toJSONString(tempMap));
+                // 确定区县
+                tempMap = new HashMap<>();
+                for (StBaseinfoOrganization organization : organizations) {
+                    if (organization.getRegion().equals("county")) {
+                        if (tempMap.get(organization.getTopId()) == null) {
+                            areaList = new ArrayList<>();
+                            tempMap.put(organization.getTopId(), areaList);
+                        } else {
+                            areaList = tempMap.get(organization.getTopId());
+                        }
+                        areaList.add(organization);
+                    }
+                }
+                redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_AREA_SYN,
+                    JSONObject.toJSONString(tempMap));
+                log.info("省市区同步成功！");
+
                 // 解析街道，社区，小区
-                treeMap = new HashMap<>();
-                Map<StBaseinfoOrganization, List<StBaseinfoOrganization>> communityMap = null;
-                List<StBaseinfoOrganization> residentiaList = null;
                 // 街道
+                tempMap = new HashMap<>();
                 for (StBaseinfoOrganization organization : organizations) {
                     if (organization.getRegion().equals("street")) {
-                        communityMap = new HashMap<>();
-                        treeMap.put(organization, communityMap);
-                    }
-                }
-                // 确定社区
-                for (StBaseinfoOrganization streetKey : treeMap.keySet()) {
-                    for (StBaseinfoOrganization organization : organizations) {
-                        if (organization.getRegion().equals("community")
-                            && organization.getTopId() == streetKey.getId()) {
-                            cityMap = treeMap.get(streetKey);
-                            residentiaList = new ArrayList<>();
-                            cityMap.put(organization, residentiaList);
+                        if (tempMap.get(organization.getTopId()) == null) {
+                            areaList = new ArrayList<>();
+                            tempMap.put(organization.getTopId(), areaList);
+                        } else {
+                            areaList = tempMap.get(organization.getTopId());
                         }
-                    }
-                }
-                // 确定区县
-                for (StBaseinfoOrganization streetKey : treeMap.keySet()) {
-                    communityMap = treeMap.get(streetKey);
-                    for (StBaseinfoOrganization residentiaKey : communityMap.keySet()) {
-                        for (StBaseinfoOrganization organization : organizations) {
-                            if (organization.getRegion().equals("residentia")
-                                && residentiaKey.getId() == organization.getTopId()) {
-                                residentiaList = cityMap.get(residentiaKey);
-                                residentiaList.add(organization);
-                            }
-                        }
+                        areaList.add(organization);
                     }
                 }
                 redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_STREET_SYN,
-                    JSONObject.toJSONString(treeMap));
-                log.info("街道社区小区下拉列表信息同步成功！" + JSONObject.toJSONString(treeMap));
+                    JSONObject.toJSONString(tempMap));
+                // 确定社区
+                tempMap = new HashMap<>();
+                for (StBaseinfoOrganization organization : organizations) {
+                    if (organization.getRegion().equals("community")) {
+                        if (tempMap.get(organization.getTopId()) == null) {
+                            areaList = new ArrayList<>();
+                            tempMap.put(organization.getTopId(), areaList);
+                        } else {
+                            areaList = tempMap.get(organization.getTopId());
+                        }
+                        areaList.add(organization);
+                    }
+                }
+                redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_COMMUNITY_SYN,
+                    JSONObject.toJSONString(tempMap));
+                // 确定小区
+                //TODO 此处先不处理分区的情况
+                tempMap = new HashMap<>();
+                for (StBaseinfoOrganization organization : organizations) {
+                    if (organization.getRegion().equals("residentia")) {
+                        if (tempMap.get(organization.getTopId()) == null) {
+                            areaList = new ArrayList<>();
+                            tempMap.put(organization.getTopId(), areaList);
+                        } else {
+                            areaList = tempMap.get(organization.getTopId());
+                        }
+                        areaList.add(organization);
+                    }
+                }
+                redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_RESIDENTIAN_SYN,
+                    JSONObject.toJSONString(tempMap));
+                log.info("街道社区小区下拉列表信息同步成功！" + JSONObject.toJSONString(tempMap));
             }
             // 获取楼幢
             List<StBaseinfoBuilding> buildings = stBaseinfoBuildingModel.getBuildings();
@@ -183,7 +203,7 @@ public class AdminJob {
             redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_BUILD_SYN,
                 JSONObject.toJSONString(buildingsMap));
             log.info("楼幢信息同步成功！");
-            
+
             Map<Long, List<StBaseinfoUnits>> unitMap = new HashMap<>();
             List<StBaseinfoUnits> unitList = null;
             for (StBaseinfoUnits unit : units) {
@@ -198,7 +218,7 @@ public class AdminJob {
             redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_UNIT_SYN,
                 JSONObject.toJSONString(unitMap));
             log.info("单元信息同步成功！");
-            
+
             Map<Long, Map<Long, List<StBaseinfoHouses>>> houseMap = new HashMap<>();
             Map<Long, List<StBaseinfoHouses>> unitsMap = null;
             List<StBaseinfoHouses> houseList = null;
@@ -223,7 +243,11 @@ public class AdminJob {
             redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_HOUSE_SYN,
                 JSONObject.toJSONString(houseMap));
             log.info("室同步成功！");
-        } catch (Exception e) {
+        } catch (
+
+        Exception e)
+
+        {
             log.error("房屋认证页面同步数据失败", e);
         }
     }

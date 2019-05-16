@@ -31,7 +31,7 @@
             <ref bean="jobSynchroSpinner"/>
         </property>
         <property name="cronExpression">
-            <value>0 0/30 * * * ?</value>
+            <value>0 0/3 * * * ?</value>
         </property>
     </bean>
     

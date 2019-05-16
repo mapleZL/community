@@ -43,6 +43,7 @@
             <value>
                 /admin/share/** = anon
                 /resources/** = anon <!-- 不需要认证 -->
+                /obtain/config/** = anon
                 /admin/property/repair/** = anon
                 /admin/file/** = anon
                 /admin/sms/** = anon

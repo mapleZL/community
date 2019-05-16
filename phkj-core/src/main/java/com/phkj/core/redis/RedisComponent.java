@@ -1,12 +1,12 @@
 package com.phkj.core.redis;
 
+import java.util.concurrent.TimeUnit;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author ：zl
@@ -21,6 +21,7 @@ public class RedisComponent {
 
     @Autowired
     StringRedisTemplate stringRedisTemplate;
+
 
     /**
      * create by: zl
@@ -37,7 +38,7 @@ public class RedisComponent {
         stringRedisTemplate.opsForHash().put(redisKey, key, object);
         stringRedisTemplate.opsForHash().getOperations().expire(redisKey, expire, TimeUnit.DAYS);
     }
-
+    
     /**
      * create by: zl
      * description: 获取redis中数据
@@ -73,7 +74,7 @@ public class RedisComponent {
     public void setStringPersistence(String redisKey, String value) {
         stringRedisTemplate.opsForValue().set(redisKey, value);
     }
-
+    
     /**
      * create by: zl
      * description: 获取redis数据

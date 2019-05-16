@@ -46,6 +46,13 @@
 		where `id` = #{id}
 	</select>
 	
+	<select id="getStBaseinfoPersonStock" resultMap="StBaseinfoPersonStockResult">
+	    select
+		   *
+		from `st_baseinfo_person_stock`
+		where `mobile` = #{phone}
+	</select>
+	
 	<update id="update" parameterType="com.phkj.entity.relate.StBaseinfoPersonStock">
         update `st_baseinfo_person_stock` 
     	<set>
