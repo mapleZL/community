@@ -10,10 +10,14 @@ import com.phkj.entity.member.MemberHouse;
 
 @Repository
 public interface MemberHouseReadDao {
- 
-	MemberHouse get(java.lang.Integer id);
+
+    MemberHouse get(java.lang.Integer id);
 
     int getMemberHouseCount(@Param("queryMap") Map<String, String> queryMap);
 
-    List<MemberHouse> getMemberHouseList(@Param("queryMap") Map<String, String> queryMap, @Param("start") Integer start, @Param("size") Integer size);
+    List<MemberHouse> getMemberHouseList(@Param("queryMap") Map<String, String> queryMap,
+                                         @Param("start") Integer start,
+                                         @Param("size") Integer size);
+
+    List<MemberHouse> getAllHouse(@Param("memberId") String memberId);
 }

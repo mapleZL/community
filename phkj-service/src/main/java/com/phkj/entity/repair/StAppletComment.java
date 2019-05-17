@@ -7,7 +7,11 @@ import java.io.Serializable;
  */
 public class StAppletComment implements Serializable {
  
- 	private Long id;
+ 	/**
+     *Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 1L;
+    private Long id;
  	private Long rId;
  	private Long createUserId;
  	private String createUserName;

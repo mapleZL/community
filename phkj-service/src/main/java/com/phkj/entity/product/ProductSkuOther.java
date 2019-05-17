@@ -17,7 +17,11 @@ import java.io.Serializable;
  */
 public class ProductSkuOther implements Serializable {
  
- 	private java.lang.Long id;
+ 	/**
+     *Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 1L;
+    private java.lang.Long id;
  	private java.lang.Integer productId;
  	private java.lang.String skuOther;
  	private java.util.Date createtime;

@@ -1,6 +1,7 @@
 package com.phkj.job;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,16 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSONObject;
 import com.phkj.core.redis.RedisComponent;
 import com.phkj.echarts.component.RedisSychroKeyConfig;
+import com.phkj.entity.notice.StBrowse;
 import com.phkj.entity.relate.StBaseinfoBuilding;
 import com.phkj.entity.relate.StBaseinfoHouses;
 import com.phkj.entity.relate.StBaseinfoOrganization;
 import com.phkj.entity.relate.StBaseinfoUnits;
+import com.phkj.entity.relate.StNoticeBulletinReleaseManage;
 import com.phkj.entity.system.Code;
+import com.phkj.model.notice.StBrowseModel;
 import com.phkj.model.relate.StBaseinfoBuildingModel;
 import com.phkj.model.relate.StBaseinfoHousesModel;
 import com.phkj.model.relate.StBaseinfoOrganizationModel;
 import com.phkj.model.relate.StBaseinfoUnitsModel;
 import com.phkj.model.system.CodeModel;
+import com.phkj.service.relate.IStNoticeBulletinReleaseManageService;
 
 /**
  * 
@@ -35,19 +40,23 @@ import com.phkj.model.system.CodeModel;
 public class AdminJob {
 
     @Autowired
-    private CodeModel                   codeModel;
+    private CodeModel                             codeModel;
     @Autowired
-    private StBaseinfoBuildingModel     stBaseinfoBuildingModel;
+    private StBaseinfoBuildingModel               stBaseinfoBuildingModel;
     @Autowired
-    private StBaseinfoHousesModel       stBaseinfoHousesModel;
+    private StBaseinfoHousesModel                 stBaseinfoHousesModel;
     @Autowired
-    private StBaseinfoOrganizationModel stBaseinfoOrganizationModel;
+    private StBaseinfoOrganizationModel           stBaseinfoOrganizationModel;
     @Autowired
-    private StBaseinfoUnitsModel        stBaseinfoUnitsModel;
+    private StBaseinfoUnitsModel                  stBaseinfoUnitsModel;
     @Autowired
-    private RedisComponent              redisComponent;
+    private RedisComponent                        redisComponent;
+    @Autowired
+    private StBrowseModel                         stBrowseModel;
+    @Autowired
+    private IStNoticeBulletinReleaseManageService noticeBulletinReleaseManageService;
 
-    private static final Logger         log = LogManager.getLogger(AdminJob.class);
+    private static final Logger                   log = LogManager.getLogger(AdminJob.class);
 
     /**
      * 字典定时更新
@@ -249,6 +258,42 @@ public class AdminJob {
 
         {
             log.error("房屋认证页面同步数据失败", e);
+        }
+    }
+
+    /**
+     * 更新redis头条流量进数据库
+     */
+    public void BrowseUpdateRedisJob() {
+        StBrowse stBrowse = null;
+        String redisKey  = null;
+        Long count = 0L;
+        try {
+            List<StNoticeBulletinReleaseManage> list = noticeBulletinReleaseManageService.pageList(0, 1000, "1").getResult();
+            if (list != null) {
+                for (StNoticeBulletinReleaseManage notice : list) {
+                    stBrowse = stBrowseModel.getBrowseByNoticeId(notice.getId());
+                    redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + "_" + stBrowse.getId();
+                    if (stBrowse != null && stBrowse.getId() > 0) {
+                        count = redisComponent.increment(redisKey, stBrowse.getBrowseVolume().longValue());
+                        stBrowse.setBrowseVolume(count);
+                        stBrowseModel.updateStBrowse(stBrowse);
+                    } else {
+                        count = redisComponent.increment(redisKey, 0L);
+                        stBrowse = new StBrowse();
+                        stBrowse.setNoticeId(notice.getId());
+                        stBrowse.setBrowseVolume(count);
+                        stBrowse.setCreateTime(new Date());
+                        stBrowseModel.saveStBrowse(stBrowse);
+                    }
+                    redisComponent.deleteBrowse(redisKey);
+                }
+                log.info("更新小区头条流量成功 ，共 ：" + list.size() + "条");
+            } else {
+                log.info("暂无需要更新小区头条记录");
+            }
+        } catch (Exception e) {
+            log.error("更细头条流量信息失败", e);
         }
     }
 }

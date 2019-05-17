@@ -39,4 +39,11 @@ public interface IStAppletCommentService {
      * @return
      */
     ServiceResult<List<StAppletComment>> getStAppletRepairList(Long rId, int pageNum, int pageSize);
+
+    /**
+     * 获取某条活动的评论数量
+     * @param id
+     * @return
+     */
+    ServiceResult<Long> getCountByRId(Long id, String rType);
 }

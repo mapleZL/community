@@ -210,6 +210,25 @@ public class MemberHouseController extends BaseController {
 
         return jsonResult;
     }
+    
+    /**
+     * 微信端获取指定居民名下所有房屋信息
+     * @param createUserId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/all", method = { RequestMethod.GET })
+    @ResponseBody
+    public ResponseUtil list(String memberId, HttpServletResponse response) {
+        if (StringUtils.isBlank(memberId)) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
+                "createUserId is blank", true, null);
+        }
+        ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.getAllHouse(memberId);
+        return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true,
+            serviceResult.getResult());
+    }
 
     /**
      * 房屋认证-通过（暂时弃用，采用数据对比的方式直接进行）

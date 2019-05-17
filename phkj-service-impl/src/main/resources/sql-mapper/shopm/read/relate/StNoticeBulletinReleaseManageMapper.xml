@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.entity.relate.StNoticeBulletinReleaseManage">
+	<resultMap id="StNoticeBulletinReleaseResult" type="com.phkj.entity.relate.StNoticeBulletinReleaseManage">
+			<result property="id" column="id" />
+			<result property="title" column="title" />
+			<result property="content" column="content" />
+			<result property="type" column="type" />
+			<result property="subType" column="sub_type" />
+			<result property="lvl" column="lvl" />
+			<result property="status" column="status" />
+			<result property="receiveType" column="receive_type" />
+			<result property="postBegin" column="post_begin" />
+			<result property="postEnd" column="post_end" />
+			<result property="orgCode" column="org_code" />
+			<result property="topOrgCode" column="top_org_code" />
+			<result property="createUserId" column="create_user_id" />
+			<result property="createTime" column="create_time" />
+			<result property="modifyUserId" column="modify_user_id" />
+			<result property="modifyTime" column="modify_time" />
+			<result property="sts" column="sts" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="StNoticeBulletinReleaseResult">
+		select
+		   *
+		from `st_notice_bulletin_release_manage`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getCount" resultType="Integer">
+	    select
+		   count(id)
+		from `st_notice_bulletin_release_manage`
+		<include refid="getCondition"/>
+	</select>
+	
+	<select id="getBuildings" resultMap="StNoticeBulletinReleaseResult">
+	    select
+		   *
+		from `st_notice_bulletin_release_manage`
+		<include refid="getCondition"/>
+		<if test="pageSize != null and pageSize &gt; 0">limit #{start},#{pageSize}</if>
+	</select>
+	
+	<sql id="getCondition">
+        <where>
+             <if test="type != null and type !=''">
+                and type = #{type}
+                <if test="type == 1">
+                    and post_begin &lt;= now() and post_end &gt;= now()
+                </if>
+          	 </if>
+        </where>
+    </sql>
+	
+</mapper>

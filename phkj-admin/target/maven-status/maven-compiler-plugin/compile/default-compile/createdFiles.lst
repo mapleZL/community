@@ -10,6 +10,7 @@ com\phkj\web\controller\system\AdminResourceController.class
 com\phkj\web\controller\order\AdminOrdersController.class
 com\phkj\web\shiro\tag\ShiroTags.class
 com\phkj\web\controller\member\MemberHouseController.class
+com\phkj\web\controller\notice\StAppletCollectionManageController.class
 com\phkj\web\util\freemarkerutil\CodeManager.class
 com\phkj\web\controller\member\MemberCarController.class
 com\phkj\web\controller\system\AdminUserController.class
@@ -25,6 +26,7 @@ com\phkj\web\shiro\tag\HasAnyRolesTag.class
 com\phkj\web\controller\BaseController$1.class
 com\phkj\web\controller\share\ShareController.class
 com\phkj\web\shiro\tag\NotAuthenticatedTag.class
+com\phkj\web\controller\notice\NoticeBulletinReleaseManageController.class
 com\phkj\web\util\WebAdminSession.class
 com\phkj\web\shiro\tag\UserTag.class
 com\phkj\web\controller\repair\StAppletCommentController.class

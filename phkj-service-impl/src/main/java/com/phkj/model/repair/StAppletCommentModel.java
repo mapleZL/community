@@ -63,4 +63,13 @@ public class StAppletCommentModel {
     public List<StAppletComment> getStAppletCommentList(Long rId, int pageNum, int pageSize) {
         return stAppletCommentDao.getStAppletCommentList(rId, pageNum, pageSize);
     }
+
+    /**
+     * 获取关联id的总评论数
+     * @param noticeId
+     * @return
+     */
+    public Long getCountByRId(Long noticeId, String rType) {
+        return stAppletCommentDao.getCountByRId(noticeId, rType);
+    }
 }

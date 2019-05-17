@@ -8,8 +8,8 @@ import java.util.ArrayList;
  *                       
  * @Filename: HttpJsonResult.java
  * @Version: 1.0
- * @Author: 王朋
- * @Email: wpjava@163.com
+ * @date: 2018年8月17日
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
  *
  */
 public class HttpJsonResult<T> implements Serializable {

@@ -17,11 +17,10 @@ import org.springframework.stereotype.Component;
  */
 @Component("RedisComponent")
 public class RedisComponent {
-    private Logger logger = LoggerFactory.getLogger(RedisComponent.class);
+    private Logger      logger = LoggerFactory.getLogger(RedisComponent.class);
 
     @Autowired
     StringRedisTemplate stringRedisTemplate;
-
 
     /**
      * create by: zl
@@ -34,11 +33,12 @@ public class RedisComponent {
      * @Param: object
      */
     public void setRedisHashData(String redisKey, String key, String object, long expire) {
-        logger.info("setDataAndExpireTime,redisKey:{},uid:{},object:{},expire:{}", redisKey, key, object, expire);
+        logger.info("setDataAndExpireTime,redisKey:{},uid:{},object:{},expire:{}", redisKey, key,
+            object, expire);
         stringRedisTemplate.opsForHash().put(redisKey, key, object);
         stringRedisTemplate.opsForHash().getOperations().expire(redisKey, expire, TimeUnit.DAYS);
     }
-    
+
     /**
      * create by: zl
      * description: 获取redis中数据
@@ -50,6 +50,23 @@ public class RedisComponent {
      */
     public String getRedisHashData(String redisKey, String str) {
         return (String) stringRedisTemplate.opsForHash().get(redisKey, str);
+    }
+
+    /**
+     * 流量的原子性操作
+     * @param redisKey
+     * @return
+     */
+    public Long increment(String redisKey , Long increment) {
+        return stringRedisTemplate.opsForValue().increment(redisKey, increment);
+    }
+    
+    /**
+     * 删除redis存储的信息
+     * @param redisKey
+     */
+    public void deleteBrowse(String redisKey) {
+        stringRedisTemplate.delete(redisKey);
     }
 
     /**
@@ -65,7 +82,7 @@ public class RedisComponent {
     public void setStringExpire(String redisKey, String value, long expireTime) {
         stringRedisTemplate.opsForValue().set(redisKey, value, expireTime, TimeUnit.MILLISECONDS);
     }
-    
+
     /**
      * 将字典表数据放入缓存
      * @param redisKey
@@ -74,7 +91,7 @@ public class RedisComponent {
     public void setStringPersistence(String redisKey, String value) {
         stringRedisTemplate.opsForValue().set(redisKey, value);
     }
-    
+
     /**
      * create by: zl
      * description: 获取redis数据
