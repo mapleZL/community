@@ -15,6 +15,7 @@ D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\wx\Login
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\notice\StAppletActivitySignController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\order\AdminOrdersController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\SecureTag.java
+D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\member\MemberPetController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\NotAuthenticatedTag.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\share\ShareController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminUserController.java

@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.read.member.StAppletPetReadDao">
+  <resultMap id="BaseResultMap" type="com.phkj.entity.member.StAppletPet">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="raiser" jdbcType="VARCHAR" property="raiser" />
+    <result column="pet_breed" jdbcType="VARCHAR" property="petBreed" />
+    <result column="pet_name" jdbcType="VARCHAR" property="petName" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="sterilization" jdbcType="VARCHAR" property="sterilization" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="exemption_num" jdbcType="VARCHAR" property="exemptionNum" />
+    <result column="exemption_time" jdbcType="TIMESTAMP" property="exemptionTime" />
+    <result column="vaccine_type" jdbcType="VARCHAR" property="vaccineType" />
+    <result column="pet_regis_num" jdbcType="VARCHAR" property="petRegisNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId" />
+    <result column="sts" jdbcType="VARCHAR" property="sts" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.phkj.entity.member.StAppletPetWithBLOBs">
+    <result column="exemption_img" jdbcType="LONGVARCHAR" property="exemptionImg" />
+    <result column="pet_regIs_img" jdbcType="LONGVARCHAR" property="petRegisImg" />
+    <result column="pet_img" jdbcType="LONGVARCHAR" property="petImg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, raiser, pet_breed, pet_name, gender, sterilization, weight, address, exemption_num, 
+    exemption_time, vaccine_type, pet_regis_num, create_time, create_user_id, modify_time, 
+    modify_user_id, sts, msg
+  </sql>
+  <sql id="Blob_Column_List">
+    exemption_img, pet_regIs_img, pet_img
+  </sql>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    SELECT
+        id,
+        raiser,
+        pet_breed,
+        pet_name,
+    CASE
+        gender
+        WHEN '0' THEN
+        '雌' ELSE '雄'
+        END AS 'gender',
+    CASE
+        sterilization
+        WHEN '0' THEN
+        '未绝育' ELSE '已绝育' end  as 'sterilization',
+        weight,
+        address,
+        exemption_num,
+        exemption_time,
+        vaccine_type,
+        pet_regis_num,
+        create_time,
+        create_user_id,
+        modify_time,
+        modify_user_id,
+    CASE
+        sts
+        WHEN '0' THEN
+        '待审核'
+        WHEN '1' THEN
+        '已登记'
+        WHEN '2' THEN
+        '登记失败'
+        END AS 'sts',
+        msg,
+        exemption_img,
+        pet_regIs_img,
+        pet_img
+        FROM
+	st_applet_pet
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectMePetListByPage" parameterType="java.lang.String" resultType="java.util.Map">
+    select
+      	t.id AS id,
+        t.pet_breed AS petBreed,
+        t.pet_name AS petName,
+    CASE
+        t.gender
+        WHEN '1' THEN
+        '雄' ELSE '雌'
+        END AS gender,
+        t.exemption_num AS exemptionNum,
+    CASE
+        t.sts
+        WHEN '0' THEN
+        '待审核'
+        WHEN '1' THEN
+        '已登记'
+        WHEN '2' THEN
+        '登记失败'
+        WHEN '3' THEN
+        '申请退出登记'
+        WHEN '4' THEN
+        '退出登记'
+        END AS sts
+    from st_applet_pet as t
+    where create_user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from st_applet_pet
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.phkj.entity.member.StAppletPetWithBLOBs"  useGeneratedKeys="true" keyProperty="id">
+    insert into st_applet_pet (id, raiser, pet_breed, 
+      pet_name, gender, sterilization, 
+      weight, address, exemption_num, 
+      exemption_time, vaccine_type, pet_regis_num, 
+      create_time, create_user_id, modify_time, 
+      modify_user_id, sts, msg, 
+      exemption_img, pet_regIs_img, pet_img
+      )
+    values (#{id,jdbcType=BIGINT}, #{raiser,jdbcType=VARCHAR}, #{petBreed,jdbcType=VARCHAR}, 
+      #{petName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{sterilization,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{exemptionNum,jdbcType=VARCHAR}, 
+      #{exemptionTime,jdbcType=TIMESTAMP}, #{vaccineType,jdbcType=VARCHAR}, #{petRegisNum,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifyUserId,jdbcType=VARCHAR}, #{sts,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR}, 
+      #{exemptionImg,jdbcType=LONGVARCHAR}, #{petRegisImg,jdbcType=LONGVARCHAR}, #{petImg,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.phkj.entity.member.StAppletPetWithBLOBs">
+    insert into st_applet_pet
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="raiser != null">
+        raiser,
+      </if>
+      <if test="petBreed != null">
+        pet_breed,
+      </if>
+      <if test="petName != null">
+        pet_name,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="sterilization != null">
+        sterilization,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="exemptionNum != null">
+        exemption_num,
+      </if>
+      <if test="exemptionTime != null">
+        exemption_time,
+      </if>
+      <if test="vaccineType != null">
+        vaccine_type,
+      </if>
+      <if test="petRegisNum != null">
+        pet_regis_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="sts != null">
+        sts,
+      </if>
+      <if test="msg != null">
+        msg,
+      </if>
+      <if test="exemptionImg != null">
+        exemption_img,
+      </if>
+      <if test="petRegisImg != null">
+        pet_regIs_img,
+      </if>
+      <if test="petImg != null">
+        pet_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="raiser != null">
+        #{raiser,jdbcType=VARCHAR},
+      </if>
+      <if test="petBreed != null">
+        #{petBreed,jdbcType=VARCHAR},
+      </if>
+      <if test="petName != null">
+        #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="sterilization != null">
+        #{sterilization,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="exemptionNum != null">
+        #{exemptionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="exemptionTime != null">
+        #{exemptionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vaccineType != null">
+        #{vaccineType,jdbcType=VARCHAR},
+      </if>
+      <if test="petRegisNum != null">
+        #{petRegisNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null">
+        #{sts,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="exemptionImg != null">
+        #{exemptionImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="petRegisImg != null">
+        #{petRegisImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="petImg != null">
+        #{petImg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.phkj.entity.member.StAppletPetWithBLOBs">
+    update st_applet_pet
+    <set>
+      <if test="raiser != null">
+        raiser = #{raiser,jdbcType=VARCHAR},
+      </if>
+      <if test="petBreed != null">
+        pet_breed = #{petBreed,jdbcType=VARCHAR},
+      </if>
+      <if test="petName != null">
+        pet_name = #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="sterilization != null">
+        sterilization = #{sterilization,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="exemptionNum != null">
+        exemption_num = #{exemptionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="exemptionTime != null">
+        exemption_time = #{exemptionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vaccineType != null">
+        vaccine_type = #{vaccineType,jdbcType=VARCHAR},
+      </if>
+      <if test="petRegisNum != null">
+        pet_regis_num = #{petRegisNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null">
+        sts = #{sts,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="exemptionImg != null">
+        exemption_img = #{exemptionImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="petRegisImg != null">
+        pet_regIs_img = #{petRegisImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="petImg != null">
+        pet_img = #{petImg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.phkj.entity.member.StAppletPetWithBLOBs">
+    update st_applet_pet
+    set raiser = #{raiser,jdbcType=VARCHAR},
+      pet_breed = #{petBreed,jdbcType=VARCHAR},
+      pet_name = #{petName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      sterilization = #{sterilization,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      exemption_num = #{exemptionNum,jdbcType=VARCHAR},
+      exemption_time = #{exemptionTime,jdbcType=TIMESTAMP},
+      vaccine_type = #{vaccineType,jdbcType=VARCHAR},
+      pet_regis_num = #{petRegisNum,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+      sts = #{sts,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      exemption_img = #{exemptionImg,jdbcType=LONGVARCHAR},
+      pet_regIs_img = #{petRegisImg,jdbcType=LONGVARCHAR},
+      pet_img = #{petImg,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.phkj.entity.member.StAppletPet">
+    update st_applet_pet
+    set raiser = #{raiser,jdbcType=VARCHAR},
+      pet_breed = #{petBreed,jdbcType=VARCHAR},
+      pet_name = #{petName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      sterilization = #{sterilization,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      exemption_num = #{exemptionNum,jdbcType=VARCHAR},
+      exemption_time = #{exemptionTime,jdbcType=TIMESTAMP},
+      vaccine_type = #{vaccineType,jdbcType=VARCHAR},
+      pet_regis_num = #{petRegisNum,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+      sts = #{sts,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
