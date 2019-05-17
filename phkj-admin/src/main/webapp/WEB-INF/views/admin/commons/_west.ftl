@@ -46,24 +46,6 @@
 		<a id='310' href="javascript:void(0);" onclick="addTab('已删除商品', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/delSale')">已删除商品</a>
 		</@shiro.hasPermission>
 		
-		<@shiro.hasPermission name="/admin/product/sendgoods">
-		<a id='573' href="javascript:void(0);" onclick="addTab('商品预约发货', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/sendgoods')">商品预约发货</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/product/vertify">
-		<a id='591' href="javascript:void(0);" onclick="addTab('商品预约收货', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/vertify')">商品预约收货</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/product/badgoods">
-		<a id='598' href="javascript:void(0);" onclick="addTab('次品管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/badgoods')">次品管理</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/productbuystock">
-		<a href="javascript:void(0);" onclick="addTab('最低库存销售设定', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/productbuystock')">最低库存销售设定</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/personaltailor">
-		<a href="javascript:void(0);" onclick="addTab('私人订制采购', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/personaltailor')">私人订制采购</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/wmsclassify">
-		<a href="javascript:void(0);" onclick="addTab('wms分类管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/wmsclassify')">wms分类管理</a>
-		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/productattr">
 		<a href="javascript:void(0);" onclick="addTab('商品属性管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/productattr')">商品属性管理</a>
 		</@shiro.hasPermission>
@@ -122,6 +104,7 @@
 		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>
+	
 	<@shiro.hasPermission name="/admin_menu_promotion">
 	<div title="客户信息" class="ra_div">
 		<@shiro.hasPermission name="/admin/member/car">
@@ -136,7 +119,13 @@
 	</div>
 	</@shiro.hasPermission>
 
-
+	<@shiro.hasPermission name="/admin_menu_activity">
+	<div title="活动管理" class="ra_div">
+		<@shiro.hasPermission name="/notice/activity">
+		<a href="javascript:void(0);" onclick="addTab('活动审核', '${domainUrlUtil.EJS_URL_RESOURCES}/notice/activity')">活动审核</a>
+		</@shiro.hasPermission>
+	</div>
+	</@shiro.hasPermission>
     <!--
             --gaowei --邻居共享页面
         -->
@@ -197,34 +186,6 @@
 	</div>
 	</@shiro.hasPermission>
 
-	<@shiro.hasPermission name="/admin_menu_pcindex">
-	<div title="PC端首页管理" class="ra_div">
-		<@shiro.hasPermission name="/admin/pcindex/banner">
-		<a id='445' href="javascript:void(0);" onclick="addTab('PC首页轮播图', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/pcindex/banner')">PC首页轮播图</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/pcindex/recommend">
-		<a id='452' href="javascript:void(0);" onclick="addTab('PC推荐商品', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/pcindex/recommend')">PC推荐商品</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/pcindex/floor">
-		<a id='459' href="javascript:void(0);" onclick="addTab('PC首页楼层', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/pcindex/floor')">PC首页楼层</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/pcindex/floorclass">
-		<a id='466' href="javascript:void(0);" onclick="addTab('PC首页楼层分类', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/pcindex/floorclass')">PC首页楼层分类</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/pcindex/floordata">
-		<a id='474' href="javascript:void(0);" onclick="addTab('PC首页楼层分类数据', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/pcindex/floordata')">PC首页楼层分类数据</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/pcindex/floorpatch">
-		<a id='478' href="javascript:void(0);" onclick="addTab('PC首页楼层碎屑', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/pcindex/floorpatch')">PC首页楼层碎屑</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/pcindex/floorpatch">
-		<a id='479' href="javascript:void(0);" onclick="addTab('PC精品推荐管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/pcindex/jprecommend')">PC精品推荐管理</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/pcindex/floorpatch">
-		<a id='480' href="javascript:void(0);" onclick="addTab('PC首页楼层商品', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/pcindex/jprecommend1')">PC首页楼层商品</a>
-		</@shiro.hasPermission>
-	</div>
-	</@shiro.hasPermission>
 	<@shiro.hasPermission name="/admin_menu_operate">
 	<div title="运营管理" class="ra_div">
 		<@shiro.hasPermission name="/admin/operate/courierCompany">
@@ -253,47 +214,7 @@
 		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>
-	<@shiro.hasPermission name="/admin_menu_settlement">
-	<div title="统计结算" class="ra_div">
-	    <@shiro.hasPermission name="/admin/wmsinterface">
-		<a id='350' href="javascript:void(0);" onclick="addTab('wms推送管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/wmsinterface')">wms推送管理</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/settlement">
-		<a id='347' href="javascript:void(0);" onclick="addTab('结算管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/settlement')">结算管理</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/report/orderday">
-		<a id='364' href="javascript:void(0);" onclick="addTab('每日订单统计', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/report/orderday')">每日订单统计</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/report/productday">
-		<a id='365' href="javascript:void(0);" onclick="addTab('每日商品统计', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/report/productday')">每日商品统计</a>
-		</@shiro.hasPermission>
-		
-		<@shiro.hasPermission name="/admin/report/orders/orderOverview">
-		<a href="javascript:void(0);" onclick="addTab('订单概况', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/report/orders/orderOverview')">订单概况</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/report/product/productSale">
-		<a href="javascript:void(0);" onclick="addTab('商品销量统计', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/report/product/productSale')">商品销量统计</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/report/orders/saleOverview">
-		<a href="javascript:void(0);" onclick="addTab('订单销量统计', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/report/orders/saleOverview')">订单销量统计</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/report/product/phurchaseRate">
-		<a href="javascript:void(0);" onclick="addTab('购买率统计', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/report/product/phurchaseRate')">购买率统计</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/report/product/pvStatistics">
-		<a href="javascript:void(0);" onclick="addTab('商品浏览量统计', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/report/product/pvStatistics')">商品浏览量统计</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/report/orders/goodsReturnRate">
-		<a href="javascript:void(0);" onclick="addTab('退货率统计', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/report/orders/goodsReturnRate')">退货率统计</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/report/orders/CPIstatistics">
-		<a href="javascript:void(0);" onclick="addTab('人均消费统计', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/report/orders/CPIstatistics')">人均消费统计</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/report/orderfinanceday">
-		<a href="javascript:void(0);" onclick="addTab('每日收款统计', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/report/orderfinanceday')">每日收款统计</a>
-		</@shiro.hasPermission>
-	</div>
-	</@shiro.hasPermission>
+	
 	<@shiro.hasPermission name="/admin_menu_search">
 	<div title="搜索管理" class="ra_div">
 		<@shiro.hasPermission name="/admin/searchlogs">
@@ -356,25 +277,6 @@
 		<a id='65' href="javascript:void(0);" onclick="addTab('合作伙伴管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/newsParter')">合作伙伴管理</a>
 		</@shiro.hasPermission>
 	</div>
-	</@shiro.hasPermission>
-	<@shiro.hasPermission name="/admin_menu_parter">
-		<div title="合伙人报表" class="ra_div">
-			<@shiro.hasPermission name="/admin/member/parter/panerTotalMonth">
-				<a id='401' href="javascript:void(0);" onclick="addTab('每月销售汇总', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/parter/panerTotalMonth')">每月销售汇总</a>
-			</@shiro.hasPermission>
-			<@shiro.hasPermission name="/admin/member/parter/panerTotalDays">
-				<a id='402' href="javascript:void(0);" onclick="addTab('每日销售汇总', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/parter/panerTotalDays')">每日销售汇总</a>
-			</@shiro.hasPermission>
-			<@shiro.hasPermission name="/admin/member/parter/getSalesDetails">
-				<a id='403' href="javascript:void(0);" onclick="addTab('销售明细汇总', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/parter/getSalesDetails')">销售明细汇总</a>
-			</@shiro.hasPermission>
-			<@shiro.hasPermission name="/admin/member/parter/parterSalesSum">
-				<a id='404' href="javascript:void(0);" onclick="addTab('合伙人提点汇总', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/parter/parterSalesSum')">合伙人提点汇总</a>
-			</@shiro.hasPermission>
-			<@shiro.hasPermission name="/admin/member/parter/parterTuijian">
-				<a id='405' href="javascript:void(0);" onclick="addTab('推荐合伙人', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/parter/parterTuijian')">推荐合伙人</a>
-			</@shiro.hasPermission>
-		</div>
 	</@shiro.hasPermission>
 
 </div>

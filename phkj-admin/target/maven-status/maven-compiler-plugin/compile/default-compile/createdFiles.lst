@@ -1,6 +1,7 @@
 com\phkj\web\controller\system\AdminCodeController.class
 com\phkj\web\controller\CsrfTokenManager.class
 com\phkj\web\controller\system\AdminRoleController.class
+com\phkj\web\controller\notice\StAppletActivitySignController.class
 com\phkj\web\controller\BaseController$2.class
 com\phkj\web\shiro\tag\GuestTag.class
 com\phkj\web\controller\repair\StAppletRepairController.class

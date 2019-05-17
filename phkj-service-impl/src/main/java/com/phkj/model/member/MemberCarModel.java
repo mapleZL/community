@@ -13,9 +13,6 @@ import java.util.Map;
 @Component
 public class MemberCarModel {
 
-	private static org.apache.log4j.Logger log = org.apache.log4j.LogManager
-                                                   .getLogger(MemberCarModel.class);
-    
     @Resource
     private MemberCarDao memberCarDao;
 
