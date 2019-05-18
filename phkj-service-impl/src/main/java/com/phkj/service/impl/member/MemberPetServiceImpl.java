@@ -51,6 +51,8 @@ public class MemberPetServiceImpl implements IMemberPetService {
                 msg = "通过删除";
                 pet.setSts("4"); //退出登记
             }
+            pet.setModifyTime(new Date());
+            pet.setModifyUserId(userId.toString());
             int i = stAppletPetReadDao.updateByPrimaryKeySelective(pet);
             if (i > 0) {
                 StAppletRecord record = new StAppletRecord();
