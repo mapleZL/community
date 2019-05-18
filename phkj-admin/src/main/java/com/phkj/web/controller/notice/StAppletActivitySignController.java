@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -25,7 +26,9 @@ import com.phkj.core.WebUtil;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.echarts.component.MemberPropertyStatus;
 import com.phkj.entity.notice.StAppletActivitySign;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.notice.IStAppletActivitySignService;
+import com.phkj.web.util.WebAdminSession;
 
 @Controller
 @RequestMapping("/notice/activity")
@@ -54,7 +57,7 @@ public class StAppletActivitySignController {
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public @ResponseBody ServiceResult<Integer> Add(@RequestBody StAppletActivitySign stAppletActivitySign) {
+    public @ResponseBody ServiceResult<Integer> add(@RequestBody StAppletActivitySign stAppletActivitySign) {
         ServiceResult<Integer> serviceResult = new ServiceResult<>();
         try {
             stAppletActivitySign.setCreateTime(new Date());
@@ -69,11 +72,34 @@ public class StAppletActivitySignController {
     }
 
     /**
-     * 后台审核页面列表查询
+     * 审核活动
+     * @param id
+     * @param sts
      * @param request
-     * @param dataMap
+     * @param response
      * @return
      */
+    @RequestMapping(value = "/changeSts", method = RequestMethod.POST)
+    public @ResponseBody ServiceResult<Integer> examine(Integer id, Integer sts,
+                                                        HttpServletRequest request,
+                                                        HttpServletResponse response) {
+        ServiceResult<Integer> serviceResult = new ServiceResult<Integer>();
+        try {
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            StAppletActivitySign stAppletActivitySign = activitySignService
+                .getStAppletActivitySignById(id).getResult();
+            stAppletActivitySign.setExamineId(adminUser.getId());
+            stAppletActivitySign.setExamineTime(new Date());
+            stAppletActivitySign.setSts(sts);
+            serviceResult = activitySignService.updateStAppletActivitySign(stAppletActivitySign);
+        } catch (Exception e) {
+            log.error("审核活动失败", e);
+            serviceResult.setError(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), "审核活动失败");
+            serviceResult.setSuccess(false);
+        }
+        return serviceResult;
+    }
+
     @RequestMapping(value = "/list", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<List<StAppletActivitySign>> list(HttpServletRequest request,
                                                                          ModelMap dataMap) {

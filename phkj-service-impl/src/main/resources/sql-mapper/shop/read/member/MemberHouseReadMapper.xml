@@ -53,7 +53,7 @@
                 and member_name = #{queryMap.q_member_name}
           	 </if>
           	 <if test="queryMap.q_search_word != null and queryMap.q_search_word !=''">
-                and search_word = #{queryMap.q_search_word}
+                and search_word like CONCAT('%',#{queryMap.q_search_word},'%')
           	 </if>
         </where>
     </sql>

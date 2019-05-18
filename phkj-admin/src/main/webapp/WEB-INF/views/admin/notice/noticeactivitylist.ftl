@@ -20,7 +20,7 @@
 				return;
 			}
 			// 判断是否是已经审核通过的数据
-			if(selected.status != 1){
+			if(selected.sts != 1){
 				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
@@ -28,10 +28,10 @@
 				if (r){
 					$.messager.progress({text:"提交中..."});
 					$.ajax({
-						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/house/passInfo",
+						type:"POST",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/notice/activity/changeSts",
 						dataType: "json",
-					    data: "id=" + selected.id,
+					    data: "id=" + selected.id + "&sts=2",
 					    cache:false,
 						success:function(data, textStatus){
 							if (data.success) {
@@ -47,18 +47,6 @@
 			});
 		});
 		
-		$("#newstypeWin").window({
-			width : 750,
-			height : 420,
-			title : "房屋图片",
-			closed : true,
-			shadow : false,
-			modal : true,
-			collapsible : false,
-			minimizable : false,
-			maximizable : false
-		});
-		
 		// 审核不通过
 		$('#btn_noPass').click(function () {
 			var selected = $('#dataGrid').datagrid('getSelected');
@@ -67,7 +55,7 @@
 				return;
 			}
 			// 判断是否是已经审核通过的数据
-			if(selected.status != 1){
+			if(selected.sts != 1){
 				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
@@ -75,10 +63,10 @@
 				if (r){
 					$.messager.progress({text:"提交中..."});
 					$.ajax({
-						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/house/noPassInfo",
+						type:"POST",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/notice/activity/changeSts",
 						dataType: "json",
-					    data: "id=" + selected.id,
+					    data: "id=" + selected.id + "&sts=0",
 					    cache:false,
 						success:function(data, textStatus){
 							if (data.success) {
@@ -101,25 +89,6 @@
 		return box;
 	}
 	
-	function imageFormat(value, row, index) {
-		return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
-				+ value + "'>点击查看</a>";
-	}
-	
-	function showimg(href) {
-		if (href && href != 'null') {
-			var imgs = JSON.parse(href);
-			var html = '';
-			for (var i = 0; i < imgs.length; i++) {
-				html += "<img src='" + imgs[i] + "' >"
-			}
-			$("#newstypeTree").html(html);
-			$("#newstypeWin").window('open');
-		} else {
-			$.messager.alert('提示','该条记录暂无图片。');
-			return;
-		}
-	}
 </script>
 
 <div id="searchbar" data-options="region:'north'" style="margin:0 auto;"
@@ -134,7 +103,11 @@
 				<div class="fluidbox">
 					<p class="p4 p-item">
 						<label class="lab-item">业主名 :</label> <input type="text"
-							class="txt" id="q_search_word" name="q_search_word" value="${q_search_word!''}" />
+							class="txt" id="q_member_name" name="q_member_name" value="${q_member_name!''}" />
+					</p>
+					<p class="p4 p-item">
+						<label class="lab-item">活动名称 :</label> <input type="text"
+							class="txt" id="q_activity_title" name="q_activity_title" value="${q_activity_title!''}" />
 					</p>
 				</div>
 			</form>
@@ -166,26 +139,20 @@
 				<th field="createTime" width="60" align="center">申请时间</th>
 				<th field="activityTitle" width="120" align="center">活动标题</th>
 				<th field="houseInfo" width="80" align="center">申请人房屋信息</th>
-				<th field="status" width="70" align="center" formatter="getState">状态</th>
+				<th field="sts" width="70" align="center" formatter="getState">状态</th>
 			</tr>
 		</thead>
 	</table>
 
 	<div id="gridTools">
-	<@shiro.hasPermission name="/admin/seller/manage/unfreeze">
+	<@shiro.hasPermission name="/notice/activity/changeSts">
 		<a id="btn_pass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">审核通过</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/seller/manage/freeze">
+		<@shiro.hasPermission name="/notice/activity/changeSts">
 		<a id="btn_noPass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">审核不通过</a>
 		</@shiro.hasPermission>
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
 	</div>
 	
-</div>
-<div id="newstypeWin">
-	<form id="newstypeForm" method="post">
-		<ul id="newstypeTree"
-			style="margin-top: 10px; margin-left: 10px; max-height: 370px; overflow: auto; border: 1px solid #86a3c4;"></ul>
-	</form>
 </div>
 <#include "/admin/commons/_detailfooter.ftl" />
