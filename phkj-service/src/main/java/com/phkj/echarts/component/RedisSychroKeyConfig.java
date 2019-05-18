@@ -28,5 +28,5 @@ public class RedisSychroKeyConfig {
     // 室
     public static final String CODE_HOUSE_SYN           = "houseSynchroKey";
 
-    public static final String REDIS_CODE_BROWSE_PREFIX = "browseHeadlinesIdFlow";
+    public static final String REDIS_CODE_BROWSE_PREFIX = "browseHeadlinesIdFlow_";
 }

@@ -273,7 +273,7 @@ public class AdminJob {
             if (list != null) {
                 for (StNoticeBulletinReleaseManage notice : list) {
                     stBrowse = stBrowseModel.getBrowseByNoticeId(notice.getId());
-                    redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + "_" + stBrowse.getId();
+                    redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + stBrowse.getId();
                     if (stBrowse != null && stBrowse.getId() > 0) {
                         count = redisComponent.increment(redisKey, stBrowse.getBrowseVolume().longValue());
                         stBrowse.setBrowseVolume(count);
@@ -286,7 +286,7 @@ public class AdminJob {
                         stBrowse.setCreateTime(new Date());
                         stBrowseModel.saveStBrowse(stBrowse);
                     }
-                    redisComponent.deleteBrowse(redisKey);
+//                    redisComponent.deleteBrowse(redisKey);
                 }
                 log.info("更新小区头条流量成功 ，共 ：" + list.size() + "条");
             } else {

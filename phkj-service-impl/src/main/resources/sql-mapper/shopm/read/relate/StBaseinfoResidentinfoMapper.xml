@@ -50,7 +50,7 @@
 			<result property="warning" column="warning" />
 	</resultMap>
 	
-	<select id="get" parameterType="Integer" resultMap="StBaseinfoResidentinfoResult">
+	<select id="get" parameterType="Long" resultMap="StBaseinfoResidentinfoResult">
 		select
 		   *
 		from `st_baseinfo_residentinfo`

@@ -95,15 +95,23 @@ public class NoticeBulletinReleaseManageController {
         StBrowse stBrowse = null;
         Long collectionManage = null;
         Long comment = null;
+        Long browse = 0L;
         if (list != null) {
+            String redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX;
             for (StNoticeBulletinReleaseManage notice : list) {
                 // 获取流量
-                stBrowse = browseService.getBrowseByNoticeId(notice.getId()).getResult();
-                if (stBrowse != null && stBrowse.getBrowseVolume() > 0) {
-                    notice.setRate(stBrowse.getBrowseVolume());
-                } else {
-                    notice.setRate(0L);
+                redisKey += notice.getId();
+                browse = redisComponet.increment(redisKey, 0L);
+                if (browse == 0) {
+                    stBrowse = browseService.getBrowseByNoticeId(notice.getId()).getResult();
+                    if (stBrowse != null && stBrowse.getBrowseVolume() > 0) {
+                        redisComponet.increment(redisKey, stBrowse.getBrowseVolume());
+                    }
+                    browse = stBrowse.getBrowseVolume();
                 }
+                
+                notice.setRate(browse);
+                    
                 // 获取收藏数量
                 collectionManage = collectionManageService.getCountByNoticeid(notice.getId())
                     .getResult();
@@ -134,6 +142,12 @@ public class NoticeBulletinReleaseManageController {
         return jsonResult;
     }
 
+    /**
+     * 获取活动或者是头像详情
+     * @param id
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/detail", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<StNoticeBulletinReleaseManage> list(Long id,
                                                                             HttpServletResponse response) {

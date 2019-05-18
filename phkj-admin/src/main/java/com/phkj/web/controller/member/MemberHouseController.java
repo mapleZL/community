@@ -56,7 +56,7 @@ public class MemberHouseController extends BaseController {
     @Resource
     IStBaseinfoResidentHouseService residentHouseService;
     @Autowired
-    IStBaseinfoResidentinfoService  residentinfoSeervice;
+    IStBaseinfoResidentinfoService  residentinfoService;
 
     /**
      * 初始化列表页面
@@ -99,11 +99,11 @@ public class MemberHouseController extends BaseController {
             .getResidentBouseByParam(queryMap);
         if (stBaseinfoResidentHouse != null) {
             // 根据关联居民信息查找用户
-            StBaseinfoResidentinfo residentinfo = residentinfoSeervice
+            StBaseinfoResidentinfo residentinfo = residentinfoService
                 .getStBaseinfoResidentinfoById(stBaseinfoResidentHouse.getResidentId()).getResult();
             if (residentinfo != null) {
                 // 身份证账号解密
-                String idNo = AESHelper.Encrypt(residentinfo.getEncryptionIdNumber());
+                String idNo = AESHelper.Decrypt(residentinfo.getEncryptionIdNumber());
                 if (residentinfo.getName().equals(memberHouse.getName())
                     && idNo.equals(memberHouse.getIdNumber())) {
                     return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "认证成功",
@@ -117,7 +117,7 @@ public class MemberHouseController extends BaseController {
                     "您还没有在物业处登记身份，请先去登记身份", false, null);
             }
         } else {
-            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "房屋信息查询失败", false,
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "您还没有在物业处登记身份，请先去登记身份", false,
                 null);
         }
 
