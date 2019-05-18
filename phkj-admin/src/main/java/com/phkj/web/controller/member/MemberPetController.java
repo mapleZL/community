@@ -1,18 +1,23 @@
 package com.phkj.web.controller.member;
 
 import com.github.pagehelper.PageInfo;
+import com.phkj.core.HttpJsonResult;
 import com.phkj.core.StringUtil;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.member.StAppletPet;
 import com.phkj.entity.member.StAppletPetWithBLOBs;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.member.IMemberPetService;
 import com.phkj.web.controller.share.ShareController;
+import com.phkj.web.util.WebAdminSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,6 +43,64 @@ public class MemberPetController {
     @Autowired
     IMemberPetService iMemberPetService;
 
+    /**
+     * 管理业接口
+     *
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/system")
+    public String getSystem(ModelMap modelMap) {
+        modelMap.put("pageSize", 30);
+        modelMap.put("pageNum", 1);
+        return "admin/member/member/memberPetList";
+    }
+
+    /**
+     * 通过申请接口
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/system/updatePet")
+    public ResponseUtil systemUpdate(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        String type = request.getParameter("type");
+        try {
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            Integer userId = adminUser.getId();
+            String name = adminUser.getName();
+            if (iMemberPetService.systemUpdatePet(id, type,userId,name)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("审批失败!" + e);
+        }
+        return responseUtil;
+    }
+
+    /**
+     * 后台管理页面列表页
+     *
+     * @param request
+     * @param page
+     * @param rows
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/system/getAllPetList")
+    public HttpJsonResult<List<StAppletPetWithBLOBs>> getAllPetList(HttpServletRequest request, Integer page,
+                                                                    Integer rows) {
+        String sts = request.getParameter("q_status");
+        HttpJsonResult<List<StAppletPetWithBLOBs>> jsonResult = new HttpJsonResult<List<StAppletPetWithBLOBs>>();
+        PageInfo<StAppletPetWithBLOBs> pageInfo = iMemberPetService.getAllPetList(page, rows, sts);
+        String total = String.valueOf(pageInfo.getTotal());
+        jsonResult.setRows(pageInfo.getList());
+        jsonResult.setTotal(Integer.valueOf(total));
+        return jsonResult;
+    }
 
     /**
      * 更新宠物申请

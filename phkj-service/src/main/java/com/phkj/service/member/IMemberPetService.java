@@ -17,4 +17,8 @@ public interface IMemberPetService {
     boolean delPet(String id,String userId, String userName);
 
     boolean updatePet(StAppletPetWithBLOBs pet);
+
+    PageInfo<StAppletPetWithBLOBs> getAllPetList(Integer page, Integer rows, String sts);
+
+    boolean systemUpdatePet(String id, String type, Integer userId, String name);
 }

@@ -116,6 +116,9 @@
 		<@shiro.hasPermission name="/admin/member/house">
 		<a href="javascript:void(0);" onclick="addTab('房屋认证', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/house')">房屋认证</a>
 		</@shiro.hasPermission>
+		<@shiro.hasPermission name="/admin/member/pet/system">
+		<a href="javascript:void(0);" onclick="addTab('宠物登记', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/pet/system')">宠物登记</a>
+		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>
 
