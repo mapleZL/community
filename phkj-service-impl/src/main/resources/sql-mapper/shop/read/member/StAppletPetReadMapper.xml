@@ -35,47 +35,60 @@
     exemption_img, pet_regIs_img, pet_img
   </sql>
 
+  <select id="selectAllPetLsit" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+         SELECT
+          id,
+          raiser,
+          pet_breed,
+          pet_name,
+      CASE
+          gender
+          WHEN '0' THEN
+          '雌'
+          WHEN '1' THEN
+          '雄'
+          END AS 'gender',
+      CASE
+          sterilization
+          WHEN '0' THEN
+          '未绝育' ELSE '已绝育' end AS 'sterilization',
+          weight,
+          address,
+          exemption_num,
+          exemption_time,
+          vaccine_type,
+          pet_regis_num,
+          create_time,
+          create_user_id,
+          modify_time,
+          modify_user_id,
+      CASE
+          sts
+          WHEN '0' THEN
+          '待审核'
+          WHEN '1' THEN
+          '已登记'
+          WHEN '2' THEN
+          '拒绝登记'
+          WHEN '3' THEN
+          '申请删除登记' ELSE '退出登记'
+          END AS 'sts',
+          msg,
+    exemption_img, pet_regIs_img, pet_img
+      FROM
+          st_applet_pet  where 1=1
+          <if test="sts != null and sts != ''">
+            and sts = #{sts,jdbcType=VARCHAR}
+          </if>
+  </select>
+
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    SELECT
-        id,
-        raiser,
-        pet_breed,
-        pet_name,
-    CASE
-        gender
-        WHEN '0' THEN
-        '雌' ELSE '雄'
-        END AS 'gender',
-    CASE
-        sterilization
-        WHEN '0' THEN
-        '未绝育' ELSE '已绝育' end  as 'sterilization',
-        weight,
-        address,
-        exemption_num,
-        exemption_time,
-        vaccine_type,
-        pet_regis_num,
-        create_time,
-        create_user_id,
-        modify_time,
-        modify_user_id,
-    CASE
-        sts
-        WHEN '0' THEN
-        '待审核'
-        WHEN '1' THEN
-        '已登记'
-        WHEN '2' THEN
-        '登记失败'
-        END AS 'sts',
-        msg,
-        exemption_img,
-        pet_regIs_img,
-        pet_img
-        FROM
-	st_applet_pet
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from st_applet_pet
     where id = #{id,jdbcType=BIGINT}
   </select>
 
