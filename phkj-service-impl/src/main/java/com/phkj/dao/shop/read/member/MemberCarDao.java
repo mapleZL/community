@@ -21,4 +21,7 @@ public interface MemberCarDao {
 	List<MemberCar> getMemberCarList(@Param("queryMap") Map<String, String> queryMap, @Param("start") Integer start, @Param("size") Integer size);
 
 	Boolean changeState(@Param("id")Integer id, @Param("status") int status);
+
+    List<MemberCar> getMyMemberCarList(@Param("memberId") Integer memberId, @Param("start") int pageNum,
+									   @Param("size") int pageSize);
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.phkj.entity.member.MemberCar;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -147,4 +148,36 @@ public class MemberParkingLotServiceImpl implements IMemberParkingLotService {
          }
          return result;
      }
+
+    /**
+     * create by: zl
+     * description: 我的车位列表列表
+     * create time:
+     *
+     * @return
+     * @Param: memberId
+     * @Param: pageNum
+     * @Param: pageSize
+     */
+    @Override
+    public ServiceResult<List<MemberParkingLot>> getMyMemberLotList(Integer memberId, int pageNum, int pageSize) {
+        ServiceResult<List<MemberParkingLot>> result = new ServiceResult<>();
+        try {
+            pageNum = (pageNum - 1) * pageSize;
+            result.setResult(memberParkingLotModel.getMyMemberLotList(memberId, pageNum, pageSize));
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error(
+                    "[memberLotService][getMyMemberLotList]获取MemberParkingLot对象列表时出现未知异常："
+                            + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                    ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error(
+                    "[memberLotService][getMyMemberLotList]获取MemberParkingLot对象列表时出现未知异常：",
+                    e);
+        }
+        return result;
+    }
 }

@@ -1,25 +1,6 @@
 package com.phkj.web.controller.member;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.phkj.core.ConstantsEJS;
-import com.phkj.core.HttpJsonResult;
-import com.phkj.core.PagerInfo;
-import com.phkj.core.ServiceResult;
-import com.phkj.core.WebUtil;
+import com.phkj.core.*;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.MemberPropertyStatus;
@@ -28,6 +9,19 @@ import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.member.IMemberCarService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 我的车辆相关action
@@ -120,6 +114,26 @@ public class MemberCarController extends BaseController {
         jsonResult.setTotal(pager.getRowsCount());
 
         return jsonResult;
+    }
+
+    /**
+     * 我的车辆 -- 微信
+     *
+     * @param memberId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/my/cars", method = {RequestMethod.GET})
+    @ResponseBody
+    public  ResponseUtil myCars(Integer memberId, int pageNum, int pageSize) {
+        if (memberId == null || memberId == 0) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true, null);
+        }
+        pageNum = pageNum == 0 ? 1 : pageNum;
+        pageSize = pageSize == 0 ? 10 : pageSize;
+        ServiceResult<List<MemberCar>> result = memberCarService.getMyMemberCarList(memberId, pageNum, pageSize);
+        return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
     }
 
     /**

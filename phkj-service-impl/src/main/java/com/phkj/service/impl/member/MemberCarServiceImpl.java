@@ -6,6 +6,7 @@ import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.entity.member.MemberCar;
+import com.phkj.entity.repair.StAppletComment;
 import com.phkj.model.member.MemberCarModel;
 import com.phkj.service.member.IMemberCarService;
 import org.apache.log4j.LogManager;
@@ -146,6 +147,37 @@ public class MemberCarServiceImpl implements IMemberCarService {
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
             log.error("[memberCarService][changeStatus]审核车辆状态时发生异常:", e);
+        }
+        return result;
+    }
+
+    /**
+     * create by: zl
+     * description: 我的车辆列表列表
+     * create time:
+     *
+     * @return
+     * @Param: memberId
+     * @Param: pageNum
+     * @Param: pageSize
+     */
+    public ServiceResult<List<MemberCar>> getMyMemberCarList(Integer memberId, int pageNum, int pageSize) {
+        ServiceResult<List<MemberCar>> result = new ServiceResult<>();
+        try {
+            pageNum = (pageNum - 1) * pageSize;
+            result.setResult(memberCarModel.getMyMemberCarList(memberId, pageNum, pageSize));
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error(
+                    "[memberCarService][getMyMemberCarList]获取MemberCar对象列表时出现未知异常："
+                            + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                    ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error(
+                    "[memberCarService][getMyMemberCarList]获取MemberCar对象列表时出现未知异常：",
+                    e);
         }
         return result;
     }

@@ -98,5 +98,18 @@
 		order by `create_date` desc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
+
+	<select id="getMyMemberCarList" parameterType="java.util.Map" resultMap="MemberCarResult">
+		select
+		*
+		from `st_applet_member_car`
+		<where>
+			<if test="memberId != null and memberId !=''">
+				and member_id = #{memberId}
+			</if>
+		</where>
+		order by `create_date` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
 	
 </mapper>

@@ -3,6 +3,7 @@ package com.phkj.service.member;
 import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.member.MemberCar;
+import com.phkj.entity.repair.StAppletComment;
 
 import java.util.List;
 import java.util.Map;
@@ -46,9 +47,20 @@ public interface IMemberCarService {
 
     /**
      * 修改状态
+     *
      * @param id
      * @param state
      * @return
      */
     ServiceResult<Boolean> changeStatus(Integer id, int state);
+
+    /**
+     * 获取车辆列表
+     *
+     * @param memberId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ServiceResult<List<MemberCar>> getMyMemberCarList(Integer memberId, int pageNum, int pageSize);
 }

@@ -49,5 +49,18 @@
 		from `st_applet_member_parking_lot`
 		<include refid="getCondition"/>
 	</select>
+
+	<select id="getMyMemberLotList" parameterType="java.util.Map" resultMap="MemberParkingLotResult">
+		select
+		*
+		from `st_applet_member_parking_lot`
+		<where>
+			<if test="memberId != null and memberId !=''">
+				and member_id = #{memberId}
+			</if>
+		</where>
+		order by `create_date` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
 	
 </mapper>

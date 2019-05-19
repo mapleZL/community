@@ -10,24 +10,24 @@ import org.springframework.stereotype.Component;
 import com.phkj.dao.shop.read.member.MemberParkingLotReadDao;
 import com.phkj.dao.shop.write.member.MemberParkingLotWriteDao;
 import com.phkj.entity.member.MemberParkingLot;
+
 /**
- *                       
  * @Filename: MemberParkingLotModel.java
  * @Version: 1.0
  * @Author: 陆帅 * @Email: lu1632278229@sina.cn
- *
  */
 @Component
 public class MemberParkingLotModel {
 
     @Resource
-    private MemberParkingLotReadDao  memberParkingLotReadDao;
+    private MemberParkingLotReadDao memberParkingLotReadDao;
     @Resource
     private MemberParkingLotWriteDao memberParkingLotWriteDao;
 
     /**
      * 根据id取得member_parking_lot对象
-     * @param  memberParkingLotId
+     *
+     * @param memberParkingLotId
      * @return
      */
     public MemberParkingLot getMemberParkingLotById(Integer memberParkingLotId) {
@@ -36,7 +36,8 @@ public class MemberParkingLotModel {
 
     /**
      * 保存member_parking_lot对象
-     * @param  memberParkingLot
+     *
+     * @param memberParkingLot
      * @return
      */
     public Integer saveMemberParkingLot(MemberParkingLot memberParkingLot) {
@@ -44,16 +45,18 @@ public class MemberParkingLotModel {
     }
 
     /**
-    * 更新member_parking_lot对象
-    * @param  memberParkingLot
-    * @return
-    */
+     * 更新member_parking_lot对象
+     *
+     * @param memberParkingLot
+     * @return
+     */
     public Integer updateMemberParkingLot(MemberParkingLot memberParkingLot) {
         return memberParkingLotWriteDao.update(memberParkingLot);
     }
 
     /**
      * 获取总数量
+     *
      * @param queryMap
      * @return
      */
@@ -63,6 +66,7 @@ public class MemberParkingLotModel {
 
     /**
      * 获取查询列表
+     *
      * @param queryMap
      * @param start
      * @param size
@@ -75,6 +79,7 @@ public class MemberParkingLotModel {
 
     /**
      * 更新车位锁状态
+     *
      * @param id
      * @param state
      * @return
@@ -83,4 +88,7 @@ public class MemberParkingLotModel {
         return memberParkingLotWriteDao.updateStatus(id, state);
     }
 
+    public List<MemberParkingLot> getMyMemberLotList(Integer memberId, int pageNum, int pageSize) {
+        return memberParkingLotReadDao.getMyMemberLotList(memberId, pageNum, pageSize);
+    }
 }
