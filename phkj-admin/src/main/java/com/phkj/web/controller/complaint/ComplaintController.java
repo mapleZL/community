@@ -1,0 +1,123 @@
+package com.phkj.web.controller.complaint;
+
+import com.github.pagehelper.PageInfo;
+import com.phkj.core.HttpJsonResult;
+import com.phkj.core.response.ResponseUtil;
+import com.phkj.entity.complaint.StAppletComSugges;
+import com.phkj.service.complaint.ComplaintService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author gaowei
+ * 投诉
+ */
+@Controller
+@RequestMapping("/admin/complaint")
+public class ComplaintController {
+
+    private final static Logger LOGGER = LogManager.getLogger(ComplaintController.class);
+
+    @Autowired
+    ComplaintService complaintService;
+
+    /**
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/system")
+    public String system(ModelMap modelMap) {
+        modelMap.put("pageSize", 30);
+        modelMap.put("pageNum", "1");
+        return "/admin/complaint/compAndSuggess";
+    }
+
+    /**
+     * 后台管理
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/system/getAllComplaint")
+    public HttpJsonResult<List<StAppletComSugges>> getAllComAndSugg(HttpServletRequest request, Integer page,
+                                                                    Integer rows) {
+        HttpJsonResult<List<StAppletComSugges>> resultJson = new HttpJsonResult<>();
+        String type = request.getParameter("q_type");
+        PageInfo<StAppletComSugges> pageInfo = complaintService.getAllComAndSugg(page, rows,type);
+        String total = String.valueOf(pageInfo.getTotal());
+        resultJson.setRows(pageInfo.getList());
+        resultJson.setTotal(Integer.valueOf(total));
+        return resultJson;
+    }
+
+
+    /**
+     * 发布投诉或者建议
+     *
+     * @param stAppletComSugges
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/addComOrSugg", method = RequestMethod.POST)
+    public ResponseUtil addComorSuggess(@RequestBody StAppletComSugges stAppletComSugges) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        if ("1".equals(stAppletComSugges.getType())) {
+            if (StringUtils.isBlank(stAppletComSugges.getContent())) {
+                responseUtil.setMsg("投诉内容不能为空");
+            }
+            if (StringUtils.isBlank(stAppletComSugges.getComplaintTarget())) {
+                responseUtil.setMsg("投诉对象不能为空");
+            }
+        } else {
+            if (StringUtils.isBlank(stAppletComSugges.getContent())) {
+                responseUtil.setMsg("意见内容不能为空");
+            }
+        }
+        try {
+            if (complaintService.addComorSuggess(stAppletComSugges)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("添加失败!" + e);
+        }
+        return null;
+    }
+
+    /**
+     * 查询我的投诉建议
+     *
+     * @param request
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getAllMeComSugg", method = RequestMethod.GET)
+    public ResponseUtil getAllMeComplaint(HttpServletRequest request, Integer pageNum, Integer pageSize) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            String type = request.getParameter("type");
+            String userId = request.getParameter("userId");
+            Map<String, Object> returnMap = complaintService.getAllMeComplaint(pageNum, pageSize, type, userId);
+            responseUtil.setSuccess(true);
+            responseUtil.setData(returnMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("查询失败!");
+        }
+        return responseUtil;
+    }
+}

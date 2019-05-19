@@ -141,7 +141,19 @@
                 <a href="javascript:void(0);" onclick="addTab('物业发布', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system')">物业发布</a>
 			</@shiro.hasPermission>
         </div>
+
 	</@shiro.hasPermission>
+		<@shiro.hasPermission name="/admin_menu_complaint">
+		<div title="意见投诉" class="ra_div">
+			<@shiro.hasPermission name="/admin/complaint/system">
+                <a href="javascript:void(0);" onclick="addTab('投诉信息', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/complaint/system')">意见投诉</a>
+			</@shiro.hasPermission>
+		<#--<@shiro.hasPermission name="/admin/suggess/system">
+            <a href="javascript:void(0);" onclick="addTab('意见反馈', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/complaint/system')">意见反馈</a>
+        </@shiro.hasPermission>-->
+        </div>
+		</@shiro.hasPermission>
+
 
 	<#-- 移动端管理 -->
 	<@shiro.hasPermission name="/admin_menu_mobile">

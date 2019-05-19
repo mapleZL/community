@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.write.complaint.StAppletComSuggesWriteDao">
+  <resultMap id="BaseResultMap" type="com.phkj.entity.complaint.StAppletComSugges">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="titel" jdbcType="VARCHAR" property="titel" />
+    <result column="complaint_target" jdbcType="VARCHAR" property="complaintTarget" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="sts" jdbcType="VARCHAR" property="sts" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId" />
+    <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, titel, complaint_target, content, email, type, sts, create_time, create_user_id,
+    create_name, modify_user_id, modify_user_name, modify_time,img_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from st_applet_com_sugges
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from st_applet_com_sugges
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.phkj.entity.complaint.StAppletComSugges">
+    insert into st_applet_com_sugges (id, titel, complaint_target,
+      content, email, type, 
+      sts, create_time, create_user_id, 
+      create_name, modify_user_id, modify_user_name, 
+      modify_time,img_url)
+    values (#{id,jdbcType=BIGINT}, #{titel,jdbcType=VARCHAR}, #{complaintTarget,jdbcType=VARCHAR},
+      #{content,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{sts,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=VARCHAR}, 
+      #{createName,jdbcType=VARCHAR}, #{modifyUserId,jdbcType=VARCHAR}, #{modifyUserName,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP} ,  #{imgUrl})
+  </insert>
+  <insert id="insertSelective" parameterType="com.phkj.entity.complaint.StAppletComSugges">
+    insert into st_applet_com_sugges
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="titel != null">
+        titel,
+      </if>
+      <if test="complaintTarget != null">
+        complaint_target,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="sts != null">
+        sts,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="modifyUserName != null">
+        modify_user_name,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="titel != null">
+        #{titel,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintTarget != null">
+        #{complaintTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null">
+        #{sts,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserName != null">
+        #{modifyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.phkj.entity.complaint.StAppletComSugges">
+    update st_applet_com_sugges
+    <set>
+      <if test="titel != null">
+        titel = #{titel,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintTarget != null">
+        complaint_target = #{complaintTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null">
+        sts = #{sts,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserName != null">
+        modify_user_name = #{modifyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.phkj.entity.complaint.StAppletComSugges">
+    update st_applet_com_sugges
+    set titel = #{titel,jdbcType=VARCHAR},
+      complaint_target = #{complaintTarget,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      sts = #{sts,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      create_name = #{createName,jdbcType=VARCHAR},
+      modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+      modify_user_name = #{modifyUserName,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

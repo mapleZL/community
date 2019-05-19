@@ -115,7 +115,6 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 		
 	});
 
-    alert(value)
     function imageFormat(value, row, index) {
         return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
                 + value + "'>点击查看</a>";
