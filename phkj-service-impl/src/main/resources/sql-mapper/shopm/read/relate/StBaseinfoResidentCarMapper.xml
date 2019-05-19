@@ -20,14 +20,14 @@
 			<result property="isOtherCity" column="is_other_city" />
 	</resultMap>
 	
-	<select id="get" parameterType="Integer" resultMap="StBaseinfoResidentCarResult">
+	<select id="get" parameterType="Long" resultMap="StBaseinfoResidentCarResult">
 		select
 		   *
 		from `st_baseinfo_resident_car`
 		where `id` = #{id}
 	</select>
 	
-	<select id="getAllCarByOwner" parameterType="Integer" resultMap="StBaseinfoResidentCarResult">
+	<select id="getAllCarByOwner" parameterType="Long" resultMap="StBaseinfoResidentCarResult">
 	    select
 		   *
 		from `st_baseinfo_resident_car`
