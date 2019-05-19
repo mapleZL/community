@@ -252,11 +252,7 @@ public class AdminJob {
             redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_HOUSE_SYN,
                 JSONObject.toJSONString(houseMap));
             log.info("室同步成功！");
-        } catch (
-
-        Exception e)
-
-        {
+        } catch (Exception e) {
             log.error("房屋认证页面同步数据失败", e);
         }
     }
@@ -274,10 +270,16 @@ public class AdminJob {
                 for (StNoticeBulletinReleaseManage notice : list) {
                     stBrowse = stBrowseModel.getBrowseByNoticeId(notice.getId());
                     redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + stBrowse.getId();
+                    // 判断redis是否已经存在该条流量信息
                     if (stBrowse != null && stBrowse.getId() > 0) {
-                        count = redisComponent.increment(redisKey, stBrowse.getBrowseVolume().longValue());
-                        stBrowse.setBrowseVolume(count);
-                        stBrowseModel.updateStBrowse(stBrowse);
+                        count = redisComponent.increment(redisKey, 0L);
+                        // 可能是redis服务异常无数据，将数据库原有的信息更新进去
+                        if (count < 1) {
+                            redisComponent.increment(redisKey, stBrowse.getBrowseVolume());
+                        } else {
+                            stBrowse.setBrowseVolume(count);
+                            stBrowseModel.updateStBrowse(stBrowse);
+                        }
                     } else {
                         count = redisComponent.increment(redisKey, 0L);
                         stBrowse = new StBrowse();
@@ -286,7 +288,6 @@ public class AdminJob {
                         stBrowse.setCreateTime(new Date());
                         stBrowseModel.saveStBrowse(stBrowse);
                     }
-//                    redisComponent.deleteBrowse(redisKey);
                 }
                 log.info("更新小区头条流量成功 ，共 ：" + list.size() + "条");
             } else {

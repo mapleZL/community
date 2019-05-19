@@ -2,25 +2,26 @@ package com.phkj.service.impl.relate;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.phkj.core.ServiceResult;
-import com.phkj.dao.shopm.read.relate.StNoticeBulletinReleaseManageDao;
 import com.phkj.entity.relate.StNoticeBulletinReleaseManage;
+import com.phkj.model.relate.StNoticeBullentinReleaseManageModel;
 import com.phkj.service.relate.IStNoticeBulletinReleaseManageService;
 
 @Service(value = "stNoticeBulletinReleaseManageService")
 public class IStNoticeBulletinReleaseManageServiceImpl implements
                                                        IStNoticeBulletinReleaseManageService {
     
-    @Autowired
-    private StNoticeBulletinReleaseManageDao stNoticeBulletinReleaseManageDao;
+    @Resource
+    private StNoticeBullentinReleaseManageModel stNoticeBullentinReleaseManageModel;
 
     @Override
     public ServiceResult<StNoticeBulletinReleaseManage> getNoticeById(Long id) {
         ServiceResult<StNoticeBulletinReleaseManage> result = new ServiceResult<StNoticeBulletinReleaseManage>();
-        result.setResult(stNoticeBulletinReleaseManageDao.getNoticeById(id));
+        result.setResult(stNoticeBullentinReleaseManageModel.getNoticeById(id));
         return result;
     }
 
@@ -29,13 +30,13 @@ public class IStNoticeBulletinReleaseManageServiceImpl implements
                                                                                      Integer pageSize,
                                                                                      String type) {
         ServiceResult<List<StNoticeBulletinReleaseManage>> serviceResult = new ServiceResult<List<StNoticeBulletinReleaseManage>>();
-        serviceResult.setResult(stNoticeBulletinReleaseManageDao.pageList(start, pageSize, type));
+        serviceResult.setResult(stNoticeBullentinReleaseManageModel.pageList(start, pageSize, type));
         return serviceResult;
     }
 
     @Override
     public Integer getCount(String type) {
-        return stNoticeBulletinReleaseManageDao.getCount(type);
+        return stNoticeBullentinReleaseManageModel.getCount(type);
     }
 
 }

@@ -99,15 +99,14 @@ public class NoticeBulletinReleaseManageController {
         if (list != null) {
             String redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX;
             for (StNoticeBulletinReleaseManage notice : list) {
-                // 获取流量
+                // 获取流量，先从redis查询，查询无果从MySQL查询
                 redisKey += notice.getId();
                 browse = redisComponet.increment(redisKey, 0L);
                 if (browse == 0) {
                     stBrowse = browseService.getBrowseByNoticeId(notice.getId()).getResult();
-                    if (stBrowse != null && stBrowse.getBrowseVolume() > 0) {
-                        redisComponet.increment(redisKey, stBrowse.getBrowseVolume());
+                    if (stBrowse!=null) {
+                        browse = stBrowse.getBrowseVolume();
                     }
-                    browse = stBrowse.getBrowseVolume();
                 }
                 
                 notice.setRate(browse);

@@ -14,7 +14,7 @@ public class StNoticeBulletinReleaseManage implements Serializable {
     private String            title;
     private String            content;
     private String            type;
-    private String            ubType;
+    private String            subType;
     private Integer           lvl;
     private String            status;
     private String            receiveType;
@@ -66,12 +66,12 @@ public class StNoticeBulletinReleaseManage implements Serializable {
         this.type = type;
     }
 
-    public String getUbType() {
-        return ubType;
+    public String getSubType() {
+        return subType;
     }
 
-    public void setUbType(String ubType) {
-        this.ubType = ubType;
+    public void setSubType(String subType) {
+        this.subType = subType;
     }
 
     public Integer getLvl() {
