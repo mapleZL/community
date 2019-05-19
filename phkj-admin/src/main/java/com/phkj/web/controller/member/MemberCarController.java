@@ -60,6 +60,20 @@ public class MemberCarController extends BaseController {
     }
 
     /**
+     * 详情
+     *
+     * @param memberCarId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/detail", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResponseUtil detail(Integer memberCarId) {
+        ServiceResult<MemberCar> result = memberCarService.getMemberCarById(memberCarId);
+        return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
+    }
+
+    /**
      * 新增车辆
      *
      * @param memberCar

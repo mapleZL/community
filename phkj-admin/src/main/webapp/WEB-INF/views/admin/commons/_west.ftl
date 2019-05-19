@@ -143,7 +143,21 @@
         </div>
 	</@shiro.hasPermission>
 
-	
+	<#-- 移动端管理 -->
+	<@shiro.hasPermission name="/admin_menu_mobile">
+		<div title="移动端管理" class="ra_div">
+			<@shiro.hasPermission name="/admin/mindex/banner">
+				<a id='404' href=" " onclick="addTab('首页轮播图', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/mindex/banner')">首页轮播图</ a>
+			</@shiro.hasPermission>
+			<#--<@shiro.hasPermission name="/admin/mindex/floor">-->
+				<#--<a id='408' href="javascript:void(0);" onclick="addTab('移动端首页楼层', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/mindex/floor')">移动端首页楼层</ a>-->
+			<#--</@shiro.hasPermission>-->
+			<#--<@shiro.hasPermission name="/admin/mindex/floordata">-->
+				<#--<a id='412' href="javascript:void(0);" onclick="addTab('楼层数据', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/mindex/floordata')">楼层数据</ a>-->
+			<#--</@shiro.hasPermission>-->
+		</div>
+	</@shiro.hasPermission>
+
 	<@shiro.hasPermission name="/admin_menu_member">
 	<div title="会员管理" class="ra_div">
 		<@shiro.hasPermission name="/admin/member/member">
