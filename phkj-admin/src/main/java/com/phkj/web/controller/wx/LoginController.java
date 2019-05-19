@@ -2,6 +2,7 @@ package com.phkj.web.controller.wx;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,15 @@ public class LoginController {
             String ip = IPUtil.getIpAddr(httpServletRequest);
             // source为6表示微信登录
             ServiceResult<Member> result = memberService.memberLogin(phoneNum, password, ip, 6);
-            return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
+            Member member = result.getResult();
+            JSONObject jsonObject = new JSONObject();
+            if(member != null){
+                jsonObject.put("id",member.getId());
+                jsonObject.put("name",member.getName());
+                jsonObject.put("phoneNum",member.getPhone());
+                jsonObject.put("headIcon",member.getHeadIcon());
+            }
+            return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, jsonObject);
         } catch (Exception e) {
             logger.error("用户登录异常, exception:{}", e);
             return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);

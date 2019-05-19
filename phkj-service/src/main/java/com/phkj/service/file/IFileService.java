@@ -21,4 +21,12 @@ public interface IFileService {
      * @return
      */
     Set<String> uploadFiles(List<MultipartFile> files);
+
+    /**
+     * 上传文件
+     *
+     * @param file
+     * @return
+     */
+    String uploadFile(MultipartFile file);
 }

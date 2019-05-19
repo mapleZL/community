@@ -1,4 +1,5 @@
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\PermissionTag.java
+C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\wx\WXPublicUtils.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\shiro\ResourceCheckFilter.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\job\AdminJob.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\SyncController.java
@@ -21,12 +22,14 @@ C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\notice\S
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\notice\StAppletCollectionManageController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\sms\SmsController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\freemarkerutil\CodeManager.java
+C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\wx\AesException.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\shiro\ShiroDbRealm.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminResourceController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\file\FIleController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\mindex\banner\MIndexBannerController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminLoginController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminRegionsController.java
+C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\complaint\ComplaintController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\repair\StAppletRepairMemberController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\freemarker\EscapeHtmlTemplateLoader.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\GuestTag.java
@@ -42,7 +45,10 @@ C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\seller\A
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\wx\RegisterController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\notice\NoticeBulletinReleaseManageController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\repair\StAppletCommentController.java
+C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\wx\SHA1.java
+C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\wx\WxPublicController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\HasPermissionTag.java
+C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\wx\WXPublicConstants.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\WebAdminSession.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminRoleController.java
 C:\work\demo\community\phkj-admin\src\main\java\com\phkj\web\util\freemarker\CustomFreeMarkerConfigurer.java

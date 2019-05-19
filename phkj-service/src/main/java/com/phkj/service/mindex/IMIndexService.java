@@ -2,10 +2,12 @@ package com.phkj.service.mindex;
 
 import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
+import com.phkj.entity.member.MemberCar;
 import com.phkj.entity.mindex.MIndexBanner;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public interface IMIndexService {
@@ -64,4 +66,11 @@ public interface IMIndexService {
 
     ServiceResult<MIndexBanner> getPopupForView(String type);
 
+    /**
+     * 获取首页轮播图
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ServiceResult<Set<String>> getBannerList(int pageNum, int pageSize);
 }

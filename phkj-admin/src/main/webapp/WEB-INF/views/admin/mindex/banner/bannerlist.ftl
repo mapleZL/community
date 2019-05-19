@@ -166,7 +166,7 @@
 	}
 
 	function showimg(href) {
-		$("#newstypeTree").html("<img src='${domainUrlUtil.EJS_IMAGE_RESOURCES}/"+href+"' >");
+		$("#newstypeTree").html("<img src='"+href+"' >");
 		$("#newstypeWin").window('open');
 	}
 

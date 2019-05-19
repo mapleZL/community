@@ -42,4 +42,23 @@ public class FileServiceImpl implements IFileService {
             return new HashSet<>();
         }
     }
+
+    /**
+     * 上传文件
+     *
+     * @param file
+     * @return
+     */
+    @Override
+    public String uploadFile(MultipartFile file) {
+        try {
+            FactoryClient client = new OSSClient();
+            InputStream inputStream = file.getInputStream();
+            String originalFilename = file.getOriginalFilename();
+            return client.uploadIfNotExits(inputStream, originalFilename);
+        } catch (IOException e) {
+            log.error("文件上传异常,exception:{}", e);
+            return null;
+        }
+    }
 }
