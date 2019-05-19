@@ -240,13 +240,15 @@ public class AdminJob {
             for (Long buildingId : houseMap.keySet()) {
                 Map<Long, List<StBaseinfoHouses>> temHouse = houseMap.get(buildingId);
                 for (StBaseinfoHouses house : houses) {
-                    if (temHouse.keySet().contains(house.getUnitId())) {
-                        houseList = temHouse.get(house.getUnitId());
-                    } else {
-                        houseList = new ArrayList<>();
-                        temHouse.put(house.getUnitId(), houseList);
+                    if (house.getBuildingId().longValue() == buildingId.longValue()) {
+                        if (temHouse.keySet().contains(house.getUnitId())) {
+                            houseList = temHouse.get(house.getUnitId());
+                        } else {
+                            houseList = new ArrayList<>();
+                            temHouse.put(house.getUnitId(), houseList);
+                        }
+                        houseList.add(house);
                     }
-                    houseList.add(house);
                 }
             }
             redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_HOUSE_SYN,

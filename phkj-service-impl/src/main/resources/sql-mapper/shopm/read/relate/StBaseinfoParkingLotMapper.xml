@@ -21,7 +21,7 @@
 			<result property="parkingStatus" column="parking_status" />
 	</resultMap>
 	
-	<select id="get" parameterType="Integer" resultMap="StBaseinfoParkingLotResult">
+	<select id="get" parameterType="Long" resultMap="StBaseinfoParkingLotResult">
 		select
 		   *
 		from `st_baseinfo_parking_lot`

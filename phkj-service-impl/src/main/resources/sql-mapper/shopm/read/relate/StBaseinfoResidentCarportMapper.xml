@@ -17,7 +17,7 @@
 			<result property="topOrgCode" column="top_org_code" />
 	</resultMap>
 	
-	<select id="get" parameterType="Integer" resultMap="StBaseinfoResidentCarportResult">
+	<select id="get" parameterType="Long" resultMap="StBaseinfoResidentCarportResult">
 		select
 		   *
 		from `st_baseinfo_resident_carport`
