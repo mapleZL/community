@@ -1,19 +1,19 @@
 package com.phkj.service.impl.file;
 
-import com.phkj.core.client.FactoryClient;
-import com.phkj.core.client.OSSClient;
-import com.phkj.service.file.IFileService;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import com.phkj.core.client.FactoryClient;
+import com.phkj.core.client.OSSClient;
+import com.phkj.service.file.IFileService;
 
 @Service(value = "fileService")
 public class FileServiceImpl implements IFileService {

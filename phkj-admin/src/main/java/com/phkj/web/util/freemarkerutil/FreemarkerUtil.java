@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class FreemarkerUtil {
-    private static org.apache.log4j.Logger log = org.apache.log4j.LogManager
-        .getLogger(FreemarkerUtil.class);
 
     private static Calendar startTime = new GregorianCalendar();
     private static Calendar endTime   = new GregorianCalendar();

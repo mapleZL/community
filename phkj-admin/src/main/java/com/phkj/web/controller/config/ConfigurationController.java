@@ -22,14 +22,14 @@ import com.phkj.echarts.component.RedisSychroKeyConfig;
 import com.phkj.entity.relate.StBaseinfoBuilding;
 import com.phkj.entity.relate.StBaseinfoHouses;
 import com.phkj.entity.relate.StBaseinfoOrganization;
+import com.phkj.entity.relate.StBaseinfoParkingLot;
 import com.phkj.entity.relate.StBaseinfoPersonStock;
 import com.phkj.entity.relate.StBaseinfoResidentCar;
-import com.phkj.entity.relate.StBaseinfoResidentCarport;
 import com.phkj.entity.relate.StBaseinfoResidentinfo;
 import com.phkj.entity.relate.StBaseinfoUnits;
+import com.phkj.service.relate.IStBaseinfoParkingLotService;
 import com.phkj.service.relate.IStBaseinfoPersonStockService;
 import com.phkj.service.relate.IStBaseinfoResidentCarService;
-import com.phkj.service.relate.IStBaseinfoResidentCarportService;
 import com.phkj.service.relate.IStBaseinfoResidentinfoService;
 
 /**
@@ -57,7 +57,7 @@ public class ConfigurationController {
     @Autowired
     private IStBaseinfoResidentinfoService    residentinfoService;
     @Autowired
-    private IStBaseinfoResidentCarportService residentCarportService;
+    private IStBaseinfoParkingLotService      parkingLotService;
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/linkage", method = RequestMethod.GET)
@@ -132,11 +132,11 @@ public class ConfigurationController {
 
     @RequestMapping("/carportSpinner")
     public @ResponseBody ResponseUtil getStCarportList(@RequestParam("phone") String phone) {
-        List<StBaseinfoResidentCarport> list = null;
+        List<StBaseinfoParkingLot> list = null;
         try {
             StBaseinfoResidentinfo residentinfo = residentinfoService.getResidentinfo(phone);
             if (residentinfo != null) {
-                list = residentCarportService.getCarportList(residentinfo.getId()).getResult();
+                list = parkingLotService.getRelatedParkingLot(residentinfo.getId()).getResult();
             }
         } catch (Exception e) {
             log.error("查询居民对应车位列表失败：", e);

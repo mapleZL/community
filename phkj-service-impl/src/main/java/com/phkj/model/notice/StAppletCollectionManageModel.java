@@ -2,7 +2,6 @@ package com.phkj.model.notice;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.phkj.dao.shop.read.notice.StAppletCollectionManageReadDao;
@@ -59,7 +58,7 @@ public class StAppletCollectionManageModel {
      * @param memberId
      * @param noticeId
      */
-    public void cancelCollection(Integer memberId, Logger noticeId) {
+    public void cancelCollection(Integer memberId, Long noticeId) {
         stAppletCollectionManageWriteDao.cancelCollection(memberId, noticeId);
     }
 

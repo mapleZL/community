@@ -1,7 +1,6 @@
 package com.phkj.dao.shop.write.notice;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.phkj.entity.notice.StAppletCollectionManage;
@@ -15,5 +14,5 @@ public interface StAppletCollectionManageWriteDao {
 
     Integer update(StAppletCollectionManage stAppletCollectionManage);
 
-    void cancelCollection(@Param("memberId") Integer memberId, @Param("noticeId") Logger noticeId);
+    void cancelCollection(@Param("memberId") Integer memberId, @Param("noticeId") Long noticeId);
 }

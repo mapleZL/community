@@ -1,7 +1,5 @@
 package com.phkj.service.notice;
 
-import org.apache.log4j.Logger;
-
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.notice.StAppletCollectionManage;
 
@@ -50,7 +48,7 @@ public interface IStAppletCollectionManageService {
      * @param memberId
      * @param noticeId
      */
-    Boolean cancelCollection(Integer memberId, Logger noticeId);
+    Boolean cancelCollection(Integer memberId, Long noticeId);
 
     /**
      * 获取收藏量

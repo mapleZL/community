@@ -22,6 +22,7 @@
 			<result property="auditStatus" column="audit_status" />
 			<result property="storeSlide" column="store_slide" />
 	</resultMap>
+	
 	<select id="getSellerByMemberId" parameterType="Integer" resultMap="SellerResult">
 		select
 			*
@@ -29,25 +30,12 @@
 		where `member_id` = #{memberId}
 		limit 1
 	</select>
+	
 	<select id="get" parameterType="Integer" resultMap="SellerResult">
 		select
 		   *
 		from `seller`
 		where `id` = #{id}
-	</select>
-	
-	<select id="getSettlementSeller" resultMap="SellerResult">
-		select
-		   *
-		from `seller`
-		where `audit_status` > 1
-	</select>
-	
-	<select id="getByMemberId" parameterType="Integer" resultMap="SellerResult">
-		select
-		   *
-		from `seller`
-		where `member_id` = #{memberId}
 	</select>
 	
 	<select id="getSellersCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -76,23 +64,5 @@
 		</where>
 	</sql>
 	
-	<select id="getSellerByName" resultType="com.phkj.entity.seller.Seller">
-		select * from seller
-		where `name` = #{name}
-	</select>
-	
-	<select id="getSellerListAll" resultType="com.phkj.entity.seller.Seller">
-		select * from seller
-		where `audit_status` = 2
-	</select>
-	
-	<select id="getSellerBySellerName" resultType="com.phkj.entity.seller.Seller">
-		select * from seller
-		where `seller_name` = #{sellerName}
-	</select>
-	
-	<select id="checkSellerCode" resultType="com.phkj.entity.seller.Seller" parameterType="String">
-	select * from seller where `seller_code` = #{sellerCode}
-	</select>
 	
 </mapper>

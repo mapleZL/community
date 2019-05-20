@@ -1,15 +1,16 @@
 package com.phkj.model.member;
 
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
 import com.phkj.core.StringUtil;
 import com.phkj.dao.shop.read.member.MemberCarDao;
 import com.phkj.entity.member.MemberCar;
-import com.phkj.entity.repair.StAppletComment;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
 
 @Component
 public class MemberCarModel {
