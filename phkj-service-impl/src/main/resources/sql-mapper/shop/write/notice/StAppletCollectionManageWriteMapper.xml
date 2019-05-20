@@ -14,7 +14,7 @@
 	</resultMap>
 	
 	<delete id="cancelCollection">
-	    delete form `st_applet_collection_manage`
+	    delete from `st_applet_collection_manage`
 	    where `member_id` = #{memberId}
 	      and `notice_id` = #{noticeId}
 	</delete>

@@ -121,7 +121,7 @@ public class StAppletCollectionManageServiceImpl implements IStAppletCollectionM
     }
 
     @Override
-    public Boolean cancelCollection(Integer memberId, Logger noticeId) {
+    public Boolean cancelCollection(Integer memberId, Long noticeId) {
         try {
             stAppletCollectionManageModel.cancelCollection(memberId, noticeId);
         } catch (BusinessException e) {

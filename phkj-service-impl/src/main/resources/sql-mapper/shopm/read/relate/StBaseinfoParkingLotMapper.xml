@@ -28,6 +28,11 @@
 		where `id` = #{id}
 	</select>
 	
+	<select id="getRelatedParkingLot" resultMap="StBaseinfoParkingLotResult">
+	    SELECT * FROM st_baseinfo_parking_lot WHERE id IN
+	    	(SELECT parkinglot_id FROM st_baseinfo_resident_carport WHERE residentinfo_id = #{residentinfoId})
+	</select>
+	
 	<update id="update" parameterType="com.phkj.entity.relate.StBaseinfoParkingLot">
         update `st_baseinfo_parking_lot` 
     	<set>

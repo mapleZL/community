@@ -5,6 +5,7 @@ com\phkj\web\controller\member\MemberPetController.class
 com\phkj\web\controller\notice\StAppletActivitySignController.class
 com\phkj\web\controller\BaseController$2.class
 com\phkj\web\shiro\tag\GuestTag.class
+com\phkj\web\controller\complaint\ComplaintController.class
 com\phkj\web\controller\repair\StAppletRepairController.class
 com\phkj\web\controller\repair\StAppletRepairMemberController.class
 com\phkj\web\util\freemarkerutil\FreemarkerUtil.class

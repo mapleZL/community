@@ -1,5 +1,7 @@
 package com.phkj.service.impl.relate;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.LogManager;
@@ -86,4 +88,21 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
         }
         return result;
      }
+
+    @Override
+    public ServiceResult<List<StBaseinfoParkingLot>> getRelatedParkingLot(Long residentinfoId) {
+        ServiceResult<List<StBaseinfoParkingLot>> result = new ServiceResult<List<StBaseinfoParkingLot>>();
+        try {
+            result.setResult(stBaseinfoParkingLotModel.getRelatedParkingLot(residentinfoId));
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error("[IStBaseinfoParkingLotService][getRelatedParkingLot]根据id["+residentinfoId+"]取得车位信息时出现未知异常：" + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("[IStBaseinfoParkingLotService][getRelatedParkingLot]根据id["+residentinfoId+"]取得车位信息时出现未知异常：",
+                e);
+        }
+        return result;
+    }
 }

@@ -2,13 +2,11 @@ package com.phkj.web.controller.notice;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.phkj.core.ResponseStateEnum;
@@ -64,8 +62,7 @@ public class StAppletCollectionManageController extends BaseController {
      */
     @RequestMapping(value = "/cancel", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseUtil cancel(@RequestParam("memberId") Integer memberId,
-                               @RequestParam("noticeId") Logger noticeId,
+    public ResponseUtil cancel(Integer memberId, Long noticeId,
                                HttpServletRequest request) {
         collectionManageService.cancelCollection(memberId, noticeId);
         return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true, "");

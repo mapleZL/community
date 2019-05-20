@@ -62,7 +62,7 @@ public class NoticeBulletinReleaseManageController {
                                           HttpServletResponse response) {
         Long count = 0L;
         try {
-            String key = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + "_" + id;
+            String key = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + id;
             count = redisComponet.increment(key, 1L);
         } catch (Exception e) {
             log.error("流量操作失败", e);

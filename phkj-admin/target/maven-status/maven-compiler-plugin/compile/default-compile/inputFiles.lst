@@ -42,6 +42,7 @@ D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\freemarkerutil
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\LacksPermissionTag.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\PermissionTag.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\freemarker\EscapeHtmlTemplateLoader.java
+D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\complaint\ComplaintController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminRegionsController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\product\ProductController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\freemarker\CustomFreeMarkerConfigurer.java
