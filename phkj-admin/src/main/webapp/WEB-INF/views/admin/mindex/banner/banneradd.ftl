@@ -16,7 +16,9 @@ $(function(){
   				 .attr("method", "POST")
   				 .submit();
   		}
+		
 	});
+	
 
 	<#if message??>$.messager.progress('close');$.messager.alert('提示','${message}');</#if>
 })

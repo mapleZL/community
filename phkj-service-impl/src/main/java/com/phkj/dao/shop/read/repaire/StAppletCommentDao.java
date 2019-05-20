@@ -16,6 +16,7 @@ public interface StAppletCommentDao {
     Integer update(StAppletComment stAppletComment);
 
     List<StAppletComment> getStAppletCommentList(@Param("rId") Long rId,
+                                                 @Param("rType") String rType,
                                                  @Param("start") int pageNum,
                                                  @Param("size") int pageSize);
 

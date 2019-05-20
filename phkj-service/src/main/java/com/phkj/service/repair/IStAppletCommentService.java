@@ -1,6 +1,5 @@
 package com.phkj.service.repair;
 
-
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.repair.StAppletComment;
 
@@ -8,27 +7,26 @@ import java.util.List;
 
 public interface IStAppletCommentService {
 
-	/**
+    /**
      * 根据id取得st_applet_comment对象
      * @param  stAppletCommentId
      * @return
      */
     ServiceResult<StAppletComment> getStAppletCommentById(Long stAppletCommentId);
-    
+
     /**
      * 保存st_applet_comment对象
      * @param  stAppletComment
      * @return
      */
-     ServiceResult<Integer> saveStAppletComment(StAppletComment stAppletComment);
-     
-     /**
-     * 更新st_applet_comment对象
-     * @param  stAppletComment
-     * @return
-     */
-     ServiceResult<Integer> updateStAppletComment(StAppletComment stAppletComment);
+    ServiceResult<Integer> saveStAppletComment(StAppletComment stAppletComment);
 
+    /**
+    * 更新st_applet_comment对象
+    * @param  stAppletComment
+    * @return
+    */
+    ServiceResult<Integer> updateStAppletComment(StAppletComment stAppletComment);
 
     /**
      * 查询评论记录列表
@@ -38,7 +36,8 @@ public interface IStAppletCommentService {
      * @param pageSize
      * @return
      */
-    ServiceResult<List<StAppletComment>> getStAppletRepairList(Long rId, int pageNum, int pageSize);
+    ServiceResult<List<StAppletComment>> getStAppletRepairList(Long rId, String rType, int pageNum,
+                                                               int pageSize);
 
     /**
      * 获取某条活动的评论数量

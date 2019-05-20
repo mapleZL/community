@@ -4,6 +4,7 @@
 	<resultMap id="StAppletCommentResult" type="com.phkj.entity.repair.StAppletComment">
 		<result property="id" column="id" />
 		<result property="rId" column="r_id" />
+		<result property="parentId" column="parent_id" />
 		<result property="rType" column="r_type" />
 		<result property="createUserId" column="create_user_id" />
 		<result property="createUserName" column="create_user_name" />
@@ -29,6 +30,7 @@
     	<set>
 			<if test="id != null">`id`= #{id},</if>
 			<if test="rId != null">`r_id`= #{rId},</if>
+			<if test="parentId != null">`parent_id`= #{parentId},</if>
 			<if test="rType != null">`r_type`= #{rType},</if>
 			<if test="createUserId != null">`create_user_id`= #{createUserId},</if>
 			<if test="createUserName != null">`create_user_name`= #{createUserName},</if>
@@ -46,6 +48,7 @@
 			
 			`r_id`,
 			`r_type`,
+			`parent_id`,
 			`create_user_id`,
 			`create_user_name`,
 			`content`,
@@ -57,6 +60,7 @@
 			
 			#{rId},
 			#{rType},
+			#{parentId},
 			#{createUserId},
 			#{createUserName},
 			#{content},
@@ -65,7 +69,7 @@
 		)
 	</insert>
 
-	<select id="getStAppletCommentList" parameterType="java.util.Map" resultMap="StAppletCommentResult">
+	<select id="getStAppletCommentList" resultMap="StAppletCommentResult">
 		select
 		*
 		from `st_applet_comment`

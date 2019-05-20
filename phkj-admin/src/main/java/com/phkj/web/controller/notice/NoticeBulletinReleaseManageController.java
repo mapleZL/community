@@ -119,7 +119,7 @@ public class NoticeBulletinReleaseManageController {
                 }
                 notice.setCollect(collectionManage);
                 // 获取评论数量
-                comment = commentService.getCountByRId(notice.getId(), "Notice").getResult();
+                comment = commentService.getCountByRId(notice.getId(), "notice").getResult();
                 if (comment == null) {
                     comment = 0L;
                 }

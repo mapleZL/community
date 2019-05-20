@@ -110,12 +110,12 @@ public class StAppletCommentServiceImpl implements IStAppletCommentService {
      * @Param: pageSize
      */
     @Override
-    public ServiceResult<List<StAppletComment>> getStAppletRepairList(Long rId, int pageNum,
+    public ServiceResult<List<StAppletComment>> getStAppletRepairList(Long rId, String rType, int pageNum,
                                                                       int pageSize) {
         ServiceResult<List<StAppletComment>> result = new ServiceResult<>();
         try {
             pageNum = (pageNum - 1) * pageSize;
-            result.setResult(stAppletCommentModel.getStAppletCommentList(rId, pageNum, pageSize));
+            result.setResult(stAppletCommentModel.getStAppletCommentList(rId, rType, pageNum, pageSize));
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());

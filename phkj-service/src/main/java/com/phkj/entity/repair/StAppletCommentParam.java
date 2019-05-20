@@ -10,10 +10,16 @@ import java.io.Serializable;
  * @version: 0.0.1$
  */
 public class StAppletCommentParam implements Serializable {
-    private Long rId;
-    private Long createUserId;
-    private String createUserName;
-    private String content;
+    /**
+     *Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 1L;
+    private Long              rId;
+    private String            rtype;
+    private Integer           parentId;
+    private Long              createUserId;
+    private String            createUserName;
+    private String            content;
 
     public Long getrId() {
         return rId;
@@ -46,4 +52,21 @@ public class StAppletCommentParam implements Serializable {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String getRtype() {
+        return rtype;
+    }
+
+    public void setRtype(String rtype) {
+        this.rtype = rtype;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
 }
