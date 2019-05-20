@@ -2,11 +2,9 @@ D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\member\M
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\job\AdminJob.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\member\MemberCarController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\wx\WXPublicConstants.java
-D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\UploadUtil.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\wx\RegisterController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\repair\StAppletRepairMemberController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\sms\SmsController.java
-D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\UEditorUploaderImage.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\wx\SHA1.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\config\ConfigurationController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\freemarker\FreemarkerStaticModels.java

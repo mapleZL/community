@@ -34,9 +34,7 @@ com\phkj\web\controller\notice\NoticeBulletinReleaseManageController.class
 com\phkj\web\util\WebAdminSession.class
 com\phkj\web\shiro\tag\UserTag.class
 com\phkj\web\controller\repair\StAppletCommentController.class
-com\phkj\web\util\UploadUtil.class
 com\phkj\web\shiro\tag\PrincipalTag.class
-com\phkj\web\util\UEditorUploaderImage.class
 com\phkj\web\controller\file\FIleController.class
 com\phkj\web\controller\sms\SmsController.class
 com\phkj\web\controller\wx\WxPublicController.class

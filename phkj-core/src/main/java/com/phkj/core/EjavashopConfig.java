@@ -7,7 +7,6 @@ package com.phkj.core;
  *                       
  * @Filename: EjavashopConfig.java
  * @Version: 1.0
- * @Author: 王朋
  * @Email: wpjava@163.com
  *
  */

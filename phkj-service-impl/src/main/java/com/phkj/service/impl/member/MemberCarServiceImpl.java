@@ -1,23 +1,24 @@
 package com.phkj.service.impl.member;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
 import com.alibaba.fastjson.JSON;
 import com.phkj.core.ConstantsEJS;
 import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.entity.member.MemberCar;
-import com.phkj.entity.repair.StAppletComment;
 import com.phkj.model.member.MemberCarModel;
 import com.phkj.service.member.IMemberCarService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
-
-import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 @Service(value = "memberCarService")
 public class MemberCarServiceImpl implements IMemberCarService {
