@@ -30,7 +30,7 @@ public class MemberServiceImpl implements IMemberService {
     private static Logger log = LogManager.getLogger(MemberServiceImpl.class);
 
     @Resource
-    private MemberModel   memberModel;
+    private MemberModel memberModel;
 
     @Override
     public ServiceResult<Member> getMemberById(Integer memberId) {
@@ -41,7 +41,7 @@ public class MemberServiceImpl implements IMemberService {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());
             log.error(
-                "[MemberService][getMemberById]根据id[" + memberId + "]取得会员表时出现异常：" + e.getMessage());
+                    "[MemberService][getMemberById]根据id[" + memberId + "]取得会员表时出现异常：" + e.getMessage());
         } catch (Exception e) {
             serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
             log.error("[MemberService][getMemberById]根据id[" + memberId + "]取得会员表时出现未知异常：", e);
@@ -103,14 +103,13 @@ public class MemberServiceImpl implements IMemberService {
         } catch (Exception e) {
             serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
             log.error("[MemberService][getMembers]param1:" + JSON.toJSONString(queryMap)
-                      + " &param2:" + JSON.toJSONString(pager));
+                    + " &param2:" + JSON.toJSONString(pager));
             log.error("[MemberService][getMembers]查询会员信息发生异常:", e);
         }
         return serviceResult;
     }
 
 
- 
     @Override
     public ServiceResult<List<MemberLoginLogs>> getMemberLoginLogs(Integer memberId,
                                                                    PagerInfo pager) {
@@ -150,7 +149,7 @@ public class MemberServiceImpl implements IMemberService {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
             log.error(
-                "[MemberService][getMemberCollectionSellers]根据会员ID获取会员收藏商铺发生异常:" + be.getMessage());
+                    "[MemberService][getMemberCollectionSellers]根据会员ID获取会员收藏商铺发生异常:" + be.getMessage());
         } catch (Exception e) {
             serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
             log.error("[MemberService][getMemberCollectionSellers]根据会员ID获取会员收藏商铺发生异常:", e);
@@ -174,7 +173,7 @@ public class MemberServiceImpl implements IMemberService {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
             log.error("[MemberService][getMemberCollectionProducts]根据会员ID获取会员收藏商品发生异常:"
-                      + be.getMessage());
+                    + be.getMessage());
         } catch (Exception e) {
             serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
             log.error("[MemberService][getMemberCollectionProducts]根据会员ID获取会员收藏商品发生异常:", e);
@@ -205,6 +204,9 @@ public class MemberServiceImpl implements IMemberService {
         ServiceResult<Member> serviceResult = new ServiceResult<Member>();
         try {
             serviceResult.setResult(memberModel.memberRegister(member));
+            serviceResult.setCode("200");
+            serviceResult.setSuccess(true);
+            serviceResult.setMessage("ok");
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
@@ -328,8 +330,9 @@ public class MemberServiceImpl implements IMemberService {
 
     /**
      * 修改密码提交
-     * @param oldPwd 旧密码
-     * @param newPwd 新密码
+     *
+     * @param oldPwd  旧密码
+     * @param newPwd  新密码
      * @param request
      * @return
      */
@@ -349,7 +352,8 @@ public class MemberServiceImpl implements IMemberService {
     }
 
     /**
-     * 根据产品获得用户评价数 
+     * 根据产品获得用户评价数
+     *
      * @param request
      * @param pager
      * @return
@@ -371,9 +375,10 @@ public class MemberServiceImpl implements IMemberService {
 
     /**
      * 判断支付密码是否正确
+     *
      * @param balancePwd
      * @param request
-     * @return  返回错误次数
+     * @return 返回错误次数
      */
     @Override
     public ServiceResult<FrontCheckPwdVO> checkcheckBalancePwd(String balancePwd,
@@ -393,8 +398,9 @@ public class MemberServiceImpl implements IMemberService {
 
     /**
      * 支付密码修改
-     * @param oldPwd 旧密码
-     * @param newPwd 新密码
+     *
+     * @param oldPwd  旧密码
+     * @param newPwd  新密码
      * @param request
      * @return
      */
@@ -417,6 +423,7 @@ public class MemberServiceImpl implements IMemberService {
 
     /**
      * 设置支付密码
+     *
      * @param password 支付密码
      * @param request
      * @return
