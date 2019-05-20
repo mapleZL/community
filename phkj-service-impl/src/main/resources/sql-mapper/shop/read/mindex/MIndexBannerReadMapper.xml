@@ -59,6 +59,11 @@
 		order by order_no, `id` desc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
+
+	<select id="getBannerList" parameterType="java.util.Map" resultType="String">
+		select image from `m_index_banner` where status = 1 order by `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
 	
 	<select id="getMIndexBannersForView" parameterType="java.util.Map" resultMap="MIndexBannerResult">
 		select

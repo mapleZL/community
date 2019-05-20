@@ -1,12 +1,6 @@
 package com.phkj.service.impl.mindex;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.alibaba.fastjson.JSON;
 import com.phkj.core.ConstantsEJS;
 import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
@@ -19,7 +13,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
+import javax.annotation.Resource;
+import java.util.*;
 
 @Service(value = "mIndexService")
 public class MIndexServiceImpl implements IMIndexService {
@@ -160,5 +155,39 @@ public class MIndexServiceImpl implements IMIndexService {
         }
         return result;
     }
-    
+
+    /**
+     * create by: zl
+     * description: 首页轮播图列表
+     * create time:
+     *
+     * @return
+     * @Param: pageNum
+     * @Param: pageSize
+     */
+    @Override
+    public ServiceResult<Set<String>> getBannerList(int pageNum, int pageSize) {
+        ServiceResult<Set<String>> result = new ServiceResult<>();
+        try {
+            pageNum = (pageNum - 1) * pageSize;
+            result.setMessage("ok");
+            result.setSuccess(true);
+            result.setCode("200");
+            result.setResult(mIndexBannerModel.getBannerList(pageNum, pageSize));
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error(
+                    "[IMIndexService][getBannerList]获取MIndexBanner对象列表时出现未知异常："
+                            + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                    ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error(
+                    "[IMIndexService][getBannerList]获取MIndexBanner对象列表时出现未知异常：",
+                    e);
+        }
+        return result;
+    }
+
 }

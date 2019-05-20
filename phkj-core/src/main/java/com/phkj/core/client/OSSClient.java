@@ -95,7 +95,7 @@ public class OSSClient implements FactoryClient {
      */
     public String uploadIfNotExits(InputStream inputStream, String code) {
         com.aliyun.oss.OSSClient ossClient = null;
-        String url;
+        String url = null;
         try {
             ossClient = getClient();
             if (null == ossClient) {
@@ -108,6 +108,8 @@ public class OSSClient implements FactoryClient {
             ossClient.putObject(DomainUrlUtil.OSS_BUCKETNAME, code, inputStream);
             url = getUrl(code);
             LOGGER.info("文件上传后url：" + url);
+        } catch (Exception e) {
+            LOGGER.error("exception:{}", e);
         } finally {
             if (ossClient != null) {
                 try {

@@ -39,8 +39,11 @@ com\phkj\web\shiro\tag\PrincipalTag.class
 com\phkj\web\util\UEditorUploaderImage.class
 com\phkj\web\controller\file\FIleController.class
 com\phkj\web\controller\sms\SmsController.class
+com\phkj\web\controller\wx\WxPublicController.class
 com\phkj\web\shiro\tag\AuthenticatedTag.class
+com\phkj\web\util\wx\AesException.class
 com\phkj\web\shiro\ShiroDbRealm.class
+com\phkj\web\util\wx\WXPublicUtils.class
 com\phkj\web\util\freemarker\EscapeHtmlTemplateLoader.class
 com\phkj\web\util\freemarker\FreemarkerStaticModels.class
 com\phkj\web\shiro\tag\PermissionTag.class
@@ -51,10 +54,12 @@ com\phkj\web\shiro\tag\HasPermissionTag.class
 com\phkj\web\controller\wx\RegisterController.class
 com\phkj\web\controller\system\AdminRegionsController.class
 com\phkj\web\controller\SyncController.class
+com\phkj\web\util\wx\SHA1.class
 com\phkj\web\controller\system\AdminLoginController.class
 com\phkj\web\util\freemarker\InitJSCodeContainerTemplateMethodModel.class
 com\phkj\web\controller\BaseController$3.class
 com\phkj\web\controller\config\ConfigurationController.class
+com\phkj\web\util\wx\WXPublicConstants.class
 com\phkj\web\shiro\ResourceCheckFilter.class
 com\phkj\web\controller\seller\AdminSellerController.class
 com\phkj\web\shiro\tag\LacksRoleTag.class

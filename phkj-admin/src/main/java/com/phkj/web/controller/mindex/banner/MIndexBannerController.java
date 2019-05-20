@@ -1,25 +1,28 @@
 package com.phkj.web.controller.mindex.banner;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.phkj.core.*;
 import com.phkj.core.exception.BusinessException;
+import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.mindex.MIndexBanner;
 import com.phkj.entity.system.SystemAdmin;
+import com.phkj.service.file.IFileService;
 import com.phkj.service.mindex.IMIndexService;
 import com.phkj.web.controller.BaseController;
-import com.phkj.web.util.UploadUtil;
 import com.phkj.web.util.WebAdminSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 移动端首页轮播图管理controller
@@ -36,6 +39,9 @@ public class MIndexBannerController extends BaseController {
 
     @Resource
     private IMIndexService mIndexService;
+
+    @Resource
+    private IFileService fileService;
 
     /**
      * 移动端首页轮播图列表页
@@ -82,6 +88,23 @@ public class MIndexBannerController extends BaseController {
         return jsonResult;
     }
 
+
+    /**
+     * 微信 -- 首页轮播图
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/bannerList", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResponseUtil getBannerList(int pageNum, int pageSize) {
+        pageNum = pageNum == 0 ? 1 : pageNum;
+        pageSize = pageSize == 0 ? 10 : pageSize;
+        ServiceResult<Set<String>> result = mIndexService.getBannerList(pageNum, pageSize);
+        return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
+    }
+
     @RequestMapping(value = "add", method = { RequestMethod.GET })
     public String add(HttpServletRequest request, Map<String, Object> dataMap) {
         return "admin/mindex/banner/banneradd";
@@ -101,7 +124,11 @@ public class MIndexBannerController extends BaseController {
         mIndexBanner.setStatus(MIndexBanner.STATUS_0);
 
         // 上传图片
-        String image = UploadUtil.getInstance().mIndexUploadFile2ImageServer("imageFile", request);
+//        String image = UploadUtil.getInstance().mIndexUploadFile2ImageServer("imageFile", request);
+        //表单文件流
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        CommonsMultipartFile multipartFile = (CommonsMultipartFile) multipartRequest.getFile("imageFile");
+        String image = fileService.uploadFile(multipartFile);
         if (image != null && !"".equals(image)) {
             mIndexBanner.setImage(image);
         }
@@ -147,7 +174,10 @@ public class MIndexBannerController extends BaseController {
         mIndexBanner.setUpdateUserName(adminUser.getName());
 
         // 上传图片
-        String image = UploadUtil.getInstance().mIndexUploadFile2ImageServer("imageFile", request);
+//        String image = UploadUtil.getInstance().mIndexUploadFile2ImageServer("imageFile", request);
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        CommonsMultipartFile multipartFile = (CommonsMultipartFile) multipartRequest.getFile("imageFile");
+        String image = fileService.uploadFile(multipartFile);
         if (image != null && !"".equals(image)) {
             mIndexBanner.setImage(image);
         }

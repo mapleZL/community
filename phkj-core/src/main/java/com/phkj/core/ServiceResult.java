@@ -95,6 +95,10 @@ public class ServiceResult<T> implements Serializable {
         this.success = false;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     /**
      * 返回给客户端的消息代码。
      * @return

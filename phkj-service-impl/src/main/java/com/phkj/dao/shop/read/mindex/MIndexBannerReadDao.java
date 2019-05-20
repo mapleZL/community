@@ -2,6 +2,7 @@ package com.phkj.dao.shop.read.mindex;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.phkj.entity.mindex.MIndexBanner;
 import org.apache.ibatis.annotations.Param;
@@ -26,4 +27,6 @@ public interface MIndexBannerReadDao {
      * @return
      */
     List<MIndexBanner> getMIndexBannersForView(@Param("queryMap") Map<String, String> queryMap);
+
+    Set<String> getBannerList(@Param("start") int pageNum, @Param("size") int pageSize);
 }

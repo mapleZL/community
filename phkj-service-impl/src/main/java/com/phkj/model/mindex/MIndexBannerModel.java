@@ -1,9 +1,6 @@
 package com.phkj.model.mindex;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.Resource;
 
@@ -23,7 +20,8 @@ public class MIndexBannerModel {
 
     /**
      * 根据id取得移动端首页轮播图
-     * @param  mIndexBannerId
+     *
+     * @param mIndexBannerId
      * @return
      */
     public MIndexBanner getMIndexBannerById(Integer mIndexBannerId) {
@@ -32,7 +30,8 @@ public class MIndexBannerModel {
 
     /**
      * 保存移动端首页轮播图
-     * @param  mIndexBanner
+     *
+     * @param mIndexBanner
      * @return
      */
     public boolean saveMIndexBanner(MIndexBanner mIndexBanner) {
@@ -41,6 +40,7 @@ public class MIndexBannerModel {
 
     /**
      * 更新移动端首页轮播图
+     *
      * @param mIndexBanner
      * @return
      */
@@ -50,6 +50,7 @@ public class MIndexBannerModel {
 
     /**
      * 删除移动端首页轮播图
+     *
      * @param mIndexBannerId
      * @return
      */
@@ -65,7 +66,7 @@ public class MIndexBannerModel {
                                                Integer size) {
         return mIndexBannerReadDao.getMIndexBanners(queryMap, start, size);
     }
-    
+
     public List<MIndexBanner> getMIndexBanners(Map<String, String> queryMap) {
         return mIndexBannerReadDao.getMIndexBanners(queryMap, 0, 10);
     }
@@ -74,7 +75,7 @@ public class MIndexBannerModel {
      * 取得移动端首页轮播图<br>
      * <li>如果isPreview=true取所有轮播图
      * <li>如果isPreview=false取使用状态且当前时间在展示时间范围内的轮播图
-     * 
+     *
      * @param isPreview
      * @return
      */
@@ -85,5 +86,9 @@ public class MIndexBannerModel {
         }
         queryMap.put("q_time", TimeUtil.getDateTimeString(new Date()));
         return mIndexBannerReadDao.getMIndexBannersForView(queryMap);
+    }
+
+    public Set<String> getBannerList(int pageNum, int pageSize) {
+        return mIndexBannerReadDao.getBannerList(pageNum, pageSize);
     }
 }
