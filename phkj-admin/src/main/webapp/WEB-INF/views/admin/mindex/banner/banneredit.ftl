@@ -10,7 +10,6 @@ $(function(){
  		window.location.href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/mindex/banner";
 	});
 	$("#edit").click(function(){
-
 		if($("#addForm").form('validate')){
 	 		$("#addForm").attr("action", "${domainUrlUtil.EJS_URL_RESOURCES}/admin/mindex/banner/update")
   				 .attr("method", "POST")
@@ -144,7 +143,7 @@ $(function(){
 						<p class="p12 p-item">
 							<label class="lab-item">&nbsp;</label>
 							<img alt="图片" style="width: 360px;height: 175px;"
-											src="${domainUrlUtil.EJS_IMAGE_RESOURCES}${mIndexBanner.image}">
+											src="${mIndexBanner.image}">
 						</p>
 						<input type="hidden" id="image" name="image" value="${(mIndexBanner.image)!''}">
 					</div>

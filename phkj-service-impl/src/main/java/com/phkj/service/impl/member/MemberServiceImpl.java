@@ -333,7 +333,7 @@ public class MemberServiceImpl implements IMemberService {
      *
      * @param oldPwd  旧密码
      * @param newPwd  新密码
-     * @param request
+     * @param member
      * @return
      */
     @Override
@@ -354,8 +354,8 @@ public class MemberServiceImpl implements IMemberService {
     /**
      * 根据产品获得用户评价数
      *
-     * @param request
-     * @param pager
+     * @param productId
+     * @param member
      * @return
      */
     @Override
@@ -377,7 +377,7 @@ public class MemberServiceImpl implements IMemberService {
      * 判断支付密码是否正确
      *
      * @param balancePwd
-     * @param request
+     * @param memberId
      * @return 返回错误次数
      */
     @Override
@@ -401,7 +401,7 @@ public class MemberServiceImpl implements IMemberService {
      *
      * @param oldPwd  旧密码
      * @param newPwd  新密码
-     * @param request
+     * @param memberId
      * @return
      */
     @Override
@@ -425,7 +425,7 @@ public class MemberServiceImpl implements IMemberService {
      * 设置支付密码
      *
      * @param password 支付密码
-     * @param request
+     * @param member
      * @return
      */
     @Override
