@@ -63,6 +63,7 @@ public class MIndexServiceImpl implements IMIndexService {
         ServiceResult<Boolean> result = new ServiceResult<Boolean>();
         try {
             result.setResult(mIndexBannerModel.updateMIndexBanner(mIndexBanner));
+            result.setMessage("修改成功");
         } catch (BusinessException be) {
             result.setSuccess(false);
             result.setMessage(be.getMessage());

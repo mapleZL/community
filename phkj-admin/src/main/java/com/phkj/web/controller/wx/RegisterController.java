@@ -55,27 +55,26 @@ public class RegisterController {
             String password = memberParam.getPassword();
             String smsCode = memberParam.getSmsCode();
             String wxCode = memberParam.getWxCode();
+            String userName = memberParam.getUserName();
             ResponseUtil response = checkParam(phoneNum, password, smsCode);
             if (response != null) {
                 return response;
             }
             //1.通过code来换取access_token
-            JSONObject json = WeChatUtil.getWebAccessToken(wxCode);
-            logger.info("通过code获取信息为：" + json);
+            //JSONObject json = WeChatUtil.getWebAccessToken(wxCode);
+            //logger.info("通过code获取信息为：" + json);
             //获取网页授权access_token凭据
-            String webAccessToken = json.getString("access_token");
+            //String webAccessToken = json.getString("access_token");
             //获取用户openid
-            String openid = json.getString("openid");
+            //String openid = json.getString("openid");
             //2.通过access_token和openid拉取用户信息
-            JSONObject userInfo = WeChatUtil.getUserInfo(webAccessToken, openid);
+            //JSONObject userInfo = WeChatUtil.getUserInfo(webAccessToken, openid);
             //logger.info("获取的用户信息userInfo: " + userInfo);
             Member member = new Member();
-            member.setName(userInfo.getString("nickname"));
-            member.setHeadIcon(userInfo.getString("headimgurl"));
-            member.setWechatNum(userInfo.getString("openid"));
-//            member.setName("zl");
-//            member.setHeadIcon("");
-//            member.setWechatNum("wx1084845808");
+//            member.setName(userInfo.getString("nickname"));
+            member.setName(userName);
+//            member.setHeadIcon(userInfo.getString("headimgurl"));
+//            member.setWechatNum(userInfo.getString("openid"));
             member.setPassword(Md5.getMd5String(password));
             member.setPhone(phoneNum);
             setMemberData(httpServletRequest, member);

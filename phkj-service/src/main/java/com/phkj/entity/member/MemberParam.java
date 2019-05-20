@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class MemberParam implements Serializable {
     /**
-     *Comment for <code>serialVersionUID</code>
+     * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = 1L;
     /**
@@ -30,6 +30,10 @@ public class MemberParam implements Serializable {
      * 微信code码
      */
     private String wxCode;
+    /**
+     * 名称
+     */
+    private String userName;
 
     public String getPhoneNum() {
         return phoneNum;
@@ -63,6 +67,14 @@ public class MemberParam implements Serializable {
         this.wxCode = wxCode;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
         return "MemberParam{" +
@@ -70,6 +82,7 @@ public class MemberParam implements Serializable {
                 ", password='" + password + '\'' +
                 ", smsCode='" + smsCode + '\'' +
                 ", wxCode='" + wxCode + '\'' +
+                ", userName='" + userName + '\'' +
                 '}';
     }
 }
