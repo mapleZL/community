@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shopm.read.relate.SystemAppfileDao">
+	<resultMap id="SystemAppfileResult" type="com.phkj.entity.relate.SystemAppfile">
+			<result property="id" column="id" />
+			<result property="topCode" column="top_code" />
+			<result property="name" column="name" />
+			<result property="path" column="path" />
+			<result property="fileType" column="file_type" />
+			<result property="fileSize" column="file_size" />
+			<result property="objectType" column="object_type" />
+			<result property="objectId" column="object_id" />
+			<result property="objectModule" column="object_module" />
+			<result property="createUserId" column="create_user_id" />
+			<result property="createTime" column="create_time" />
+			<result property="modifyUserId" column="modify_user_id" />
+			<result property="modifyTime" column="modify_time" />
+			<result property="sts" column="sts" />
+			<result property="orgCode" column="org_code" />
+			<result property="topOrgCode" column="top_org_code" />
+			<result property="subareaCode" column="subarea_code" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="SystemAppfileResult">
+		select
+		   *
+		from `system_appfile`
+		where `id` = #{id}
+	</select>
+	
+	<select id="getPicList" resultMap="SystemAppfileResult">
+	    select * from `system_appfile`
+	    <include refid="getCondition"/>
+	    order by create_time desc
+	</select>
+	
+	<sql id="getCondition">
+        <where>
+             <if test="objModule != null and objModule !=''">
+                and object_module = #{objModule}
+          	 </if>
+          	 <if test="objId != null and objId !=''">
+                and object_id =#{objId}
+          	 </if>
+          	 <if test="objType != null and objType !=''">
+                and object_type =#{objType}
+          	 </if>
+        </where>
+    </sql>
+	
+	<update id="update" parameterType="com.phkj.entity.relate.SystemAppfile">
+        update `system_appfile` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="topCode != null">`top_code`= #{topCode},</if>
+			<if test="name != null">`name`= #{name},</if>
+			<if test="path != null">`path`= #{path},</if>
+			<if test="fileType != null">`file_type`= #{fileType},</if>
+			<if test="fileSize != null">`file_size`= #{fileSize},</if>
+			<if test="objectType != null">`object_type`= #{objectType},</if>
+			<if test="objectId != null">`object_id`= #{objectId},</if>
+			<if test="objectModule != null">`object_module`= #{objectModule},</if>
+			<if test="createUserId != null">`create_user_id`= #{createUserId},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
+			<if test="modifyUserId != null">`modify_user_id`= #{modifyUserId},</if>
+			<if test="modifyTime != null">`modify_time`= #{modifyTime},</if>
+			<if test="sts != null">`sts`= #{sts},</if>
+			<if test="orgCode != null">`org_code`= #{orgCode},</if>
+			<if test="topOrgCode != null">`top_org_code`= #{topOrgCode},</if>
+			<if test="subareaCode != null">`subarea_code`= #{subareaCode}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.phkj.entity.relate.SystemAppfile" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`system_appfile`
+		(
+			
+			`top_code`,
+			`name`,
+			`path`,
+			`file_type`,
+			`file_size`,
+			`object_type`,
+			`object_id`,
+			`object_module`,
+			`create_user_id`,
+			`create_time`,
+			`modify_user_id`,
+			`modify_time`,
+			`sts`,
+			`org_code`,
+			`top_org_code`,
+			`subarea_code`
+		)
+		values
+		(
+			
+			#{topCode},
+			#{name},
+			#{path},
+			#{fileType},
+			#{fileSize},
+			#{objectType},
+			#{objectId},
+			#{objectModule},
+			#{createUserId},
+			#{createTime},
+			#{modifyUserId},
+			#{modifyTime},
+			#{sts},
+			#{orgCode},
+			#{topOrgCode},
+			#{subareaCode}
+		)
+	</insert>
+	
+</mapper>

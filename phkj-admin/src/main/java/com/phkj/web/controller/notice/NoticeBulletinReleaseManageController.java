@@ -1,12 +1,16 @@
 package com.phkj.web.controller.notice;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.bouncycastle.asn1.pkcs.Pfx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.phkj.core.ConstantsEJS;
 import com.phkj.core.HttpJsonResult;
+import com.phkj.core.NoticeSourceConfig;
 import com.phkj.core.ResponseStateEnum;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.exception.BusinessException;
@@ -25,9 +30,11 @@ import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.RedisSychroKeyConfig;
 import com.phkj.entity.notice.StBrowse;
 import com.phkj.entity.relate.StNoticeBulletinReleaseManage;
+import com.phkj.entity.relate.SystemAppfile;
 import com.phkj.service.notice.IStAppletCollectionManageService;
 import com.phkj.service.notice.IStBrowseService;
 import com.phkj.service.relate.IStNoticeBulletinReleaseManageService;
+import com.phkj.service.relate.ISystemAppfileService;
 import com.phkj.service.repair.IStAppletCommentService;
 
 /**
@@ -50,6 +57,8 @@ public class NoticeBulletinReleaseManageController {
     private RedisComponent                        redisComponet;
     @Autowired
     private IStAppletCollectionManageService      collectionManageService;
+    @Autowired
+    private ISystemAppfileService                 systemAppfileService;
     @Autowired
     private IStBrowseService                      browseService;
     @Autowired
@@ -96,6 +105,7 @@ public class NoticeBulletinReleaseManageController {
         Long collectionManage = null;
         Long comment = null;
         Long browse = 0L;
+        Map<String, String> sourceMap = new NoticeSourceConfig().getSourceMap();
         if (list != null) {
             String redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX;
             for (StNoticeBulletinReleaseManage notice : list) {
@@ -104,13 +114,13 @@ public class NoticeBulletinReleaseManageController {
                 browse = redisComponet.increment(redisKey, 0L);
                 if (browse == 0) {
                     stBrowse = browseService.getBrowseByNoticeId(notice.getId()).getResult();
-                    if (stBrowse!=null) {
+                    if (stBrowse != null) {
                         browse = stBrowse.getBrowseVolume();
                     }
                 }
-                
+
                 notice.setRate(browse);
-                    
+
                 // 获取收藏数量
                 collectionManage = collectionManageService.getCountByNoticeid(notice.getId())
                     .getResult();
@@ -124,6 +134,16 @@ public class NoticeBulletinReleaseManageController {
                     comment = 0L;
                 }
                 notice.setComment(comment);
+                
+                // 获取头条图片路径
+                List<SystemAppfile> pics = systemAppfileService.getPicList("notice", notice.getId(), notice.getType()).getResult();
+                // 存在图片取一条作为展示
+                if (pics != null && pics.size() > 0) {
+                    notice.setImg(Arrays.asList(pics.get(0).getPath()));
+                }
+                
+                // 设置来源
+                notice.setSourceName(sourceMap.get(notice.getSourceType()));
             }
         }
         Integer count = stNoticeBulletinReleaseManageService.getCount(type);
@@ -142,7 +162,7 @@ public class NoticeBulletinReleaseManageController {
     }
 
     /**
-     * 获取活动或者是头像详情
+     * 获取活动或者是头条详情
      * @param id
      * @param response
      * @return
@@ -159,10 +179,24 @@ public class NoticeBulletinReleaseManageController {
                 throw new BusinessException(serviceResult.getMessage());
             }
         }
-
+        Map<String, String> sourceMap = new NoticeSourceConfig().getSourceMap();
+        StNoticeBulletinReleaseManage releaseManage = serviceResult.getResult();
+        releaseManage.setSourceName(sourceMap.get(releaseManage.getSourceType()));
+        
+        // 获取头条图片路径
+        List<SystemAppfile> pics = systemAppfileService.getPicList("notice", releaseManage.getId(), releaseManage.getType()).getResult();
+        // 存在图片取一条作为展示
+        List<String> list = new ArrayList<>(); 
+        if (pics != null && pics.size() > 0) {
+            for (SystemAppfile systemAppfile : pics) {
+                list.add(systemAppfile.getPath());
+            }
+            releaseManage.setImg(list);
+        }
         HttpJsonResult<StNoticeBulletinReleaseManage> jsonResult = new HttpJsonResult<StNoticeBulletinReleaseManage>();
-        jsonResult.setData(serviceResult.getResult());
+        jsonResult.setData(releaseManage);
 
         return jsonResult;
     }
+    
 }

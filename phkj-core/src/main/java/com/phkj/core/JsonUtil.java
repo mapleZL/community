@@ -7,12 +7,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * Json转换工具
+ * 
  *                       
  * @Filename: JsonUtil.java
  * @Version: 1.0
- * @Author: 陈万海
- * @Email: chenwanhai@sina.com
+ * @date: 2019年10月21日
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
  *
  */
 public final class JsonUtil {

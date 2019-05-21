@@ -2,6 +2,7 @@ package com.phkj.entity.relate;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class StNoticeBulletinReleaseManage implements Serializable {
 
@@ -15,6 +16,7 @@ public class StNoticeBulletinReleaseManage implements Serializable {
     private String            content;
     private String            type;
     private String            subType;
+    private String            sourceType;
     private Integer           lvl;
     private String            status;
     private String            receiveType;
@@ -33,6 +35,10 @@ public class StNoticeBulletinReleaseManage implements Serializable {
     private Long              collect;
     // 评论人数
     private Long              comment;
+    // 头条对应的图片路径
+    private List<String>      img;
+    // 信息来源
+    private String            sourceName;
 
     public Long getId() {
         return id;
@@ -192,6 +198,30 @@ public class StNoticeBulletinReleaseManage implements Serializable {
 
     public void setComment(Long comment) {
         this.comment = comment;
+    }
+
+    public String getSourceType() {
+        return sourceType;
+    }
+
+    public void setSourceType(String sourceType) {
+        this.sourceType = sourceType;
+    }
+
+    public List<String> getImg() {
+        return img;
+    }
+
+    public void setImg(List<String> img) {
+        this.img = img;
+    }
+
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 
 }

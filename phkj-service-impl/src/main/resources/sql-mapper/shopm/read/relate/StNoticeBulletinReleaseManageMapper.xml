@@ -5,6 +5,7 @@
 			<result property="id" column="id" />
 			<result property="title" column="title" />
 			<result property="content" column="content" />
+			<result property="sourceType" column="source_type"/>
 			<result property="type" column="type" />
 			<result property="subType" column="sub_type" />
 			<result property="lvl" column="lvl" />
