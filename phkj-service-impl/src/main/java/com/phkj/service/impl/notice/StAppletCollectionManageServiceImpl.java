@@ -1,5 +1,7 @@
 package com.phkj.service.impl.notice;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.LogManager;
@@ -150,5 +152,28 @@ public class StAppletCollectionManageServiceImpl implements IStAppletCollectionM
                 e);
         }
         return result;
+    }
+
+    @Override
+    public ServiceResult<List<StAppletCollectionManage>> getCollectionList(Integer memberId, Integer start, Integer pageSize) {
+        ServiceResult<List<StAppletCollectionManage>> result = new ServiceResult<>();
+        try {
+            start = (start - 1) * pageSize;
+            result.setResult(stAppletCollectionManageModel.getCollectionList(memberId, start, pageSize));
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error("[IStAppletCollectionManageService][getCollectionList]根据memberId["+memberId+"]取得收藏量时出现未知异常：" + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("[IStAppletCollectionManageService][getCollectionList]根据memberId["+memberId+"]取得收藏量时出现未知异常：",
+                e);
+        }
+        return result;
+    }
+
+    @Override
+    public Integer getCount(Integer memberId) {
+        return stAppletCollectionManageModel.getCount(memberId);
     }
 }

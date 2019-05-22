@@ -1,5 +1,7 @@
 package com.phkj.service.notice;
 
+import java.util.List;
+
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.notice.StAppletCollectionManage;
 
@@ -56,4 +58,15 @@ public interface IStAppletCollectionManageService {
      * @return
      */
     ServiceResult<Long> getCountByNoticeid(Long noticeId);
+
+    /**
+     * 获取收藏的列表
+     * @param memberId
+     * @param pageSize 
+     * @param start 
+     * @return
+     */
+    ServiceResult<List<StAppletCollectionManage>> getCollectionList(Integer memberId, Integer start, Integer pageSize);
+
+    Integer getCount(Integer memberId);
 }

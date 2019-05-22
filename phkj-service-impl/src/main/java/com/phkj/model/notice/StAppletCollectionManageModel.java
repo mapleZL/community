@@ -1,5 +1,7 @@
 package com.phkj.model.notice;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -69,6 +71,21 @@ public class StAppletCollectionManageModel {
      */
     public Long getCountByNoticeid(Long noticeId) {
         return stAppletCollectionManageReadDao.getCountByNoticeid(noticeId);
+    }
+
+    /**
+     * 获取用户的收藏总数
+     * @param memberId
+     * @param pageSize 
+     * @param start 
+     * @return
+     */
+    public List<StAppletCollectionManage> getCollectionList(Integer memberId, Integer start, Integer pageSize) {
+        return stAppletCollectionManageReadDao.getCollectionList(memberId, start, pageSize);
+    }
+
+    public Integer getCount(Integer memberId) {
+        return stAppletCollectionManageReadDao.getCount(memberId);
     }
 
 }

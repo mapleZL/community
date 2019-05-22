@@ -8,6 +8,7 @@
 			<result property="memberId" column="member_id" />
 			<result property="phone" column="phone" />
 			<result property="createId" column="create_id" />
+			<result property="createTime" column="create_time" />
 			<result property="createName" column="create_name" />
 			<result property="sts" column="sts" />
 	</resultMap>
@@ -24,6 +25,22 @@
 		   count(id)
 		from `st_applet_collection_manage`
 		where `notice_id` = #{noticeId}
+	</select>
+	
+	<select id="getCollectionList" resultMap="StAppletCollectionManageResult">
+	    select
+		   *
+		from `st_applet_collection_manage`
+		where `member_id` = #{memberId}
+		order by create_time desc
+		limit #{start},#{pageSize}
+	</select>
+	
+	<select id="getCount" resultType="Integer">
+	    select
+		count(id)
+		from `st_applet_collection_manage`
+		where `member_id` = #{memberId}
 	</select>
 	
 	<select id="getCollectionCount" resultMap="StAppletCollectionManageResult">

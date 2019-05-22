@@ -142,4 +142,55 @@ public class StAppletActivitySignServiceImpl implements IStAppletActivitySignSer
         }
         return result;
     }
+
+    @Override
+    public ServiceResult<StAppletActivitySign> getActivityByUser(Integer memberId,
+                                                                 Integer rActivityId) {
+        ServiceResult<StAppletActivitySign> result = new ServiceResult<StAppletActivitySign>();
+        try {
+            result.setResult(
+                stAppletActivitySignModel.getActivityByUser(memberId, rActivityId));
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error(
+                "[IStAppletActivitySignService][getActivityByUser]查询st_applet_activity_sign对象时出现未知异常："
+                      + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error(
+                "[IStAppletActivitySignService][getActivityByUser]查询st_applet_activity_sign对象时出现未知异常：",
+                e);
+        }
+        return result;
+    }
+
+    @Override
+    public ServiceResult<List<StAppletActivitySign>> getParticipateList(Integer memberId, Integer start, Integer pageSize) {
+        ServiceResult<List<StAppletActivitySign>> result = new ServiceResult<List<StAppletActivitySign>>();
+        try {
+            start = (start - 1) * pageSize;
+            result.setResult(
+                stAppletActivitySignModel.getParticipateList(memberId, start, pageSize));
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error(
+                "[IStAppletActivitySignService][getParticipateList]查询st_applet_activity_sign列表对象时出现未知异常："
+                      + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error(
+                "[IStAppletActivitySignService][getParticipateList]查询st_applet_activity_sign列表对象时出现未知异常：",
+                e);
+        }
+        return result;
+    }
+
+    @Override
+    public Integer getCount(Integer memberId) {
+        return stAppletActivitySignModel.getCount(memberId);
+    }
 }

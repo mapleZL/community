@@ -19,6 +19,7 @@ import java.io.Serializable;
  * </table>
  *
  */
+import java.util.Date;
 public class StAppletCollectionManage implements Serializable {
  
  	/**
@@ -31,6 +32,7 @@ public class StAppletCollectionManage implements Serializable {
  	private java.lang.Integer memberId;
  	private java.lang.String phone;
  	private java.lang.Integer createId;
+ 	private Date createTime;
  	private java.lang.String createName;
  	private java.lang.Integer sts;
  	
@@ -146,4 +148,13 @@ public class StAppletCollectionManage implements Serializable {
 	public void setSts(java.lang.Integer sts){
 		this.sts = sts;
 	}
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+	
  }

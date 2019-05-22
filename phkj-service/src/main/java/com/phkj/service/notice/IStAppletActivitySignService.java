@@ -38,4 +38,23 @@ public interface IStAppletActivitySignService {
     * @return
     */
     ServiceResult<Integer> updateStAppletActivitySign(StAppletActivitySign stAppletActivitySign);
+
+    /**
+     * 根据用户查询对象
+     * @param memberId
+     * @param rActivityId
+     * @return
+     */
+    ServiceResult<StAppletActivitySign> getActivityByUser(Integer memberId, Integer rActivityId);
+
+    /**
+     * 根据用户查询活动列表
+     * @param memberId
+     * @param pageSize 
+     * @param start 
+     * @return
+     */
+    ServiceResult<List<StAppletActivitySign>> getParticipateList(Integer memberId, Integer start, Integer pageSize);
+
+    Integer getCount(Integer memberId);
 }

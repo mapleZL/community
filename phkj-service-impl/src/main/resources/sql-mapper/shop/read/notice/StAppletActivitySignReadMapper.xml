@@ -6,6 +6,7 @@
 		<result property="rActivityId" column="r_activity_id" />
 		<result property="activityTitle" column="activity_title"/>
 		<result property="houseInfo" column="house_info" />
+		<result property="memberId" column="member_id"/>
 		<result property="memberName" column="member_name" />
 		<result property="phone" column="phone" />
 		<result property="createId" column="create_id" />
@@ -20,6 +21,29 @@
 		*
 		from `st_applet_activity_sign`
 		where `id` = #{id}
+	</select>
+	
+	<select id="getActivityByUser" resultMap="StAppletActivitySignResult">
+	    select
+		*
+		from `st_applet_activity_sign`
+		where `member_id` = #{memberId} and `r_activity_id` = #{rActivityId}
+	</select>
+	
+	<select id="getParticipateList" resultMap="StAppletActivitySignResult">
+	    select
+		*
+		from `st_applet_activity_sign`
+		where `member_id` = #{memberId}
+		order by create_time desc
+		limit #{start},#{pageSize}
+	</select>
+	
+	<select id="getCount" resultType="Integer">
+	    select
+		count(id)
+		from `st_applet_activity_sign`
+		where `member_id` = #{memberId}
 	</select>
 
 	<select id="list" resultMap="StAppletActivitySignResult">

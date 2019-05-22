@@ -32,6 +32,7 @@ public class StAppletActivitySign implements Serializable {
     private java.lang.Long    rActivityId;
     private String            activityTitle;
     private java.lang.String  houseInfo;
+    private Integer           memberId;
     private java.lang.String  memberName;
     private java.lang.String  phone;
     private java.lang.Integer createId;
@@ -182,4 +183,12 @@ public class StAppletActivitySign implements Serializable {
         this.activityTitle = activityTitle;
     }
 
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
+    }
+    
 }

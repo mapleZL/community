@@ -9,6 +9,7 @@
 		<result property="memberId" column="member_id" />
 		<result property="phone" column="phone" />
 		<result property="createId" column="create_id" />
+		<result property="createTime" column="create_time" />
 		<result property="createName" column="create_name" />
 		<result property="sts" column="sts" />
 	</resultMap>
@@ -28,6 +29,7 @@
 			<if test="memberId != null">`member_id`= #{memberId},</if>
 			<if test="phone != null">`phone`= #{phone},</if>
 			<if test="createId != null">`create_id`= #{createId},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
 			<if test="createName != null">`create_name`= #{createName},</if>
 			<if test="sts != null">`sts`= #{sts}</if>
 		</set>
@@ -45,6 +47,7 @@
 		`member_id`,
 		`phone`,
 		`create_id`,
+		`create_time`,
 		`create_name`,
 		`sts`
 		)
@@ -56,6 +59,7 @@
 		#{memberId},
 		#{phone},
 		#{createId},
+		#{createTime},
 		#{createName},
 		#{sts}
 		)

@@ -74,4 +74,29 @@ public class StAppletActivitySignModel {
     public Integer getActivitySignCount(Map<String, String> queryMap) {
         return stAppletActivitySignReadDao.getActivitySignCount(queryMap);
     }
+
+    /**
+     * 获取参与活动详情
+     * @param memberId
+     * @param rActivityId
+     * @return
+     */
+    public StAppletActivitySign getActivityByUser(Integer memberId, Integer rActivityId) {
+        return stAppletActivitySignReadDao.getActivityByUser(memberId, rActivityId);
+    }
+
+    /**
+     * 查询列表
+     * @param memberId
+     * @param pageSize 
+     * @param start 
+     * @return
+     */
+    public List<StAppletActivitySign> getParticipateList(Integer memberId, Integer start, Integer pageSize) {
+        return stAppletActivitySignReadDao.getParticipateList(memberId, start, pageSize);
+    }
+
+    public Integer getCount(Integer memberId) {
+        return stAppletActivitySignReadDao.getCount(memberId);
+    }
 }

@@ -6,6 +6,7 @@
 		<result property="rActivityId" column="r_activity_id" />
 		<result property="activityTitle" column="activity_title" />
 		<result property="houseInfo" column="house_info" />
+		<result property="memberId" column="member_id"/>
 		<result property="memberName" column="member_name" />
 		<result property="phone" column="phone" />
 		<result property="createId" column="create_id" />
@@ -22,6 +23,7 @@
 			<if test="rActivityId != null">`r_activity_id`= #{rActivityId},</if>
 			<if test="activityTitle != null">`activity_title`= #{activityTitle},</if>
 			<if test="houseInfo != null">`house_info`= #{houseInfo},</if>
+			<if test="memberId != null">`member_id`=#{memberId},</if>
 			<if test="memberName != null">`member_name`= #{memberName},</if>
 			<if test="phone != null">`phone`= #{phone},</if>
 			<if test="createId != null">`create_id`= #{createId},</if>
@@ -42,6 +44,7 @@
 		`r_activity_id`,
 		`activity_title`,
 		`house_info`,
+		`member_id`,
 		`member_name`,
 		`phone`,
 		`create_id`,
@@ -52,10 +55,10 @@
 		)
 		values
 		(
-
 		#{rActivityId},
 		#{activityTitle},
 		#{houseInfo},
+		#{memberId},
 		#{memberName},
 		#{phone},
 		#{createId},

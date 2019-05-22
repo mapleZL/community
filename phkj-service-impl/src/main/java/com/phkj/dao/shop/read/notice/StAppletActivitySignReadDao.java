@@ -17,4 +17,11 @@ public interface StAppletActivitySignReadDao {
                                     @Param("start") Integer start, @Param("size") Integer size);
 
     Integer getActivitySignCount(@Param("queryMap") Map<String, String> queryMap);
+
+    StAppletActivitySign getActivityByUser(@Param("memberId") Integer memberId,
+                                           @Param("rActivityId") Integer rActivityId);
+
+    List<StAppletActivitySign> getParticipateList(@Param("memberId") Integer memberId, @Param("start") Integer start, @Param("pageSize") Integer size);
+
+    Integer getCount(@Param("memberId") Integer memberId);
 }

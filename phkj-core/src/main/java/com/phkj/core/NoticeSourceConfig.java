@@ -1,5 +1,6 @@
 package com.phkj.core;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,6 +18,7 @@ public class NoticeSourceConfig {
 
 
     public Map<String, String> getSourceMap() {
+        sourceMap = new HashMap<>();
         sourceMap.put("1", "街道");
         sourceMap.put("2", "社区");
         sourceMap.put("3", "物业");
