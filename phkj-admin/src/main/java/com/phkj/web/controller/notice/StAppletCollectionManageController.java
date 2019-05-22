@@ -2,6 +2,7 @@ package com.phkj.web.controller.notice;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +74,7 @@ public class StAppletCollectionManageController extends BaseController {
             return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(),
                 "用户id或者关联通告id失效", false, null);
         }
+        appletCollectionManage.setCreateTime(new Date());
         ServiceResult<Integer> serviceResult = collectionManageService
             .saveStAppletCollectionManage(appletCollectionManage);
         return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true,
