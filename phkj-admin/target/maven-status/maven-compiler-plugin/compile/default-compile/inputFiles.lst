@@ -15,6 +15,7 @@ D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\GuestTag.
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\util\wx\AesException.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\wx\LoginController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\notice\StAppletActivitySignController.java
+D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\CORSFilter.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\order\AdminOrdersController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\SecureTag.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\member\MemberPetController.java
@@ -54,6 +55,5 @@ D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\tag\HasAnyRol
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\system\AdminLoginController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\BaseController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\notice\NoticeBulletinReleaseManageController.java
-D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\SyncController.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\shiro\ShiroDbRealm.java
 D:\Workspace\community\phkj-admin\src\main\java\com\phkj\web\controller\CsrfTokenManager.java

@@ -19,7 +19,6 @@
             if (data) {
                 newoptions = $.extend(data, options);
             }
-
             if (!newoptions.url) {
                 var $targetId = $target.attr("id");
                 var $targetName = $target.attr("name");
