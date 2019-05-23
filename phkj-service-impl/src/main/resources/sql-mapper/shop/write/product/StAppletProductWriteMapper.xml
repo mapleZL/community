@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.write.product.StAppletProductWriteDao">
+	<resultMap id="StAppletProductResult" type="com.phkj.entity.product.StAppletProduct">
+			<result property="id" column="id" />
+			<result property="productCateId" column="product_cate_id" />
+			<result property="name1" column="name1" />
+			<result property="name2" column="name2" />
+			<result property="keyword" column="keyword" />
+			<result property="productBrandId" column="product_brand_id" />
+			<result property="isSelf" column="is_self" />
+			<result property="costPrice" column="cost_price" />
+			<result property="protectedPrice" column="protected_price" />
+			<result property="marketPrice" column="market_price" />
+			<result property="mallPcPrice" column="mall_pc_price" />
+			<result property="malMobilePrice" column="mal_mobile_price" />
+			<result property="virtualSales" column="virtual_sales" />
+			<result property="actualSales" column="actual_sales" />
+			<result property="productStock" column="product_stock" />
+			<result property="isNorm" column="is_norm" />
+			<result property="normIds" column="norm_ids" />
+			<result property="normName" column="norm_name" />
+			<result property="state" column="state" />
+			<result property="isTop" column="is_top" />
+			<result property="upTime" column="up_time" />
+			<result property="description" column="description" />
+			<result property="packing" column="packing" />
+			<result property="sellerId" column="seller_id" />
+			<result property="createId" column="create_id" />
+			<result property="createTime" column="create_time" />
+			<result property="updateTime" column="update_time" />
+			<result property="sellerCateId" column="seller_cate_id" />
+			<result property="sellerIsTop" column="seller_is_top" />
+			<result property="sellerState" column="seller_state" />
+			<result property="commentsNumber" column="comments_number" />
+			<result property="productCateState" column="product_cate_state" />
+			<result property="isInventedProduct" column="is_invented_product" />
+			<result property="transportId" column="transport_id" />
+			<result property="masterImg" column="master_img" />
+			<result property="productCode" column="product_code" />
+			<result property="sellerCode" column="seller_code" />
+			<result property="priceStatus" column="price_status" />
+			<result property="percentageScale" column="percentage_scale" />
+			<result property="stockWarning" column="stock_warning" />
+			<result property="productUrl" column="product_url" />
+			<result property="inStockWarning" column="in_stock_warning" />
+			<result property="refIds" column="ref_ids" />
+			<result property="unit" column="unit" />
+			<result property="otherCategory" column="other_category" />
+	</resultMap>
+	
+	<update id="update" parameterType="com.phkj.entity.product.StAppletProduct">
+        update `st_applet_product` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="productCateId != null">`product_cate_id`= #{productCateId},</if>
+			<if test="name1 != null">`name1`= #{name1},</if>
+			<if test="name2 != null">`name2`= #{name2},</if>
+			<if test="keyword != null">`keyword`= #{keyword},</if>
+			<if test="productBrandId != null">`product_brand_id`= #{productBrandId},</if>
+			<if test="isSelf != null">`is_self`= #{isSelf},</if>
+			<if test="costPrice != null">`cost_price`= #{costPrice},</if>
+			<if test="protectedPrice != null">`protected_price`= #{protectedPrice},</if>
+			<if test="marketPrice != null">`market_price`= #{marketPrice},</if>
+			<if test="mallPcPrice != null">`mall_pc_price`= #{mallPcPrice},</if>
+			<if test="malMobilePrice != null">`mal_mobile_price`= #{malMobilePrice},</if>
+			<if test="virtualSales != null">`virtual_sales`= #{virtualSales},</if>
+			<if test="actualSales != null">`actual_sales`= #{actualSales},</if>
+			<if test="productStock != null">`product_stock`= #{productStock},</if>
+			<if test="isNorm != null">`is_norm`= #{isNorm},</if>
+			<if test="normIds != null">`norm_ids`= #{normIds},</if>
+			<if test="normName != null">`norm_name`= #{normName},</if>
+			<if test="state != null">`state`= #{state},</if>
+			<if test="isTop != null">`is_top`= #{isTop},</if>
+			<if test="upTime != null">`up_time`= #{upTime},</if>
+			<if test="description != null">`description`= #{description},</if>
+			<if test="packing != null">`packing`= #{packing},</if>
+			<if test="sellerId != null">`seller_id`= #{sellerId},</if>
+			<if test="createId != null">`create_id`= #{createId},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
+			<if test="updateTime != null">`update_time`= #{updateTime},</if>
+			<if test="sellerCateId != null">`seller_cate_id`= #{sellerCateId},</if>
+			<if test="sellerIsTop != null">`seller_is_top`= #{sellerIsTop},</if>
+			<if test="sellerState != null">`seller_state`= #{sellerState},</if>
+			<if test="commentsNumber != null">`comments_number`= #{commentsNumber},</if>
+			<if test="productCateState != null">`product_cate_state`= #{productCateState},</if>
+			<if test="isInventedProduct != null">`is_invented_product`= #{isInventedProduct},</if>
+			<if test="transportId != null">`transport_id`= #{transportId},</if>
+			<if test="masterImg != null">`master_img`= #{masterImg},</if>
+			<if test="productCode != null">`product_code`= #{productCode},</if>
+			<if test="sellerCode != null">`seller_code`= #{sellerCode},</if>
+			<if test="priceStatus != null">`price_status`= #{priceStatus},</if>
+			<if test="percentageScale != null">`percentage_scale`= #{percentageScale},</if>
+			<if test="stockWarning != null">`stock_warning`= #{stockWarning},</if>
+			<if test="productUrl != null">`product_url`= #{productUrl},</if>
+			<if test="inStockWarning != null">`in_stock_warning`= #{inStockWarning},</if>
+			<if test="refIds != null">`ref_ids`= #{refIds},</if>
+			<if test="unit != null">`unit`= #{unit},</if>
+			<if test="otherCategory != null">`other_category`= #{otherCategory}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.phkj.entity.product.StAppletProduct" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`st_applet_product`
+		(
+			
+			`product_cate_id`,
+			`name1`,
+			`name2`,
+			`keyword`,
+			`product_brand_id`,
+			`is_self`,
+			`cost_price`,
+			`protected_price`,
+			`market_price`,
+			`mall_pc_price`,
+			`mal_mobile_price`,
+			`virtual_sales`,
+			`actual_sales`,
+			`product_stock`,
+			`is_norm`,
+			`norm_ids`,
+			`norm_name`,
+			`state`,
+			`is_top`,
+			`up_time`,
+			`description`,
+			`packing`,
+			`seller_id`,
+			`create_id`,
+			`create_time`,
+			`update_time`,
+			`seller_cate_id`,
+			`seller_is_top`,
+			`seller_state`,
+			`comments_number`,
+			`product_cate_state`,
+			`is_invented_product`,
+			`transport_id`,
+			`master_img`,
+			`product_code`,
+			`seller_code`,
+			`price_status`,
+			`percentage_scale`,
+			`stock_warning`,
+			`product_url`,
+			`in_stock_warning`,
+			`ref_ids`,
+			`unit`,
+			`other_category`
+		)
+		values
+		(
+			
+			#{productCateId},
+			#{name1},
+			#{name2},
+			#{keyword},
+			#{productBrandId},
+			#{isSelf},
+			#{costPrice},
+			#{protectedPrice},
+			#{marketPrice},
+			#{mallPcPrice},
+			#{malMobilePrice},
+			#{virtualSales},
+			#{actualSales},
+			#{productStock},
+			#{isNorm},
+			#{normIds},
+			#{normName},
+			#{state},
+			#{isTop},
+			#{upTime},
+			#{description},
+			#{packing},
+			#{sellerId},
+			#{createId},
+			#{createTime},
+			#{updateTime},
+			#{sellerCateId},
+			#{sellerIsTop},
+			#{sellerState},
+			#{commentsNumber},
+			#{productCateState},
+			#{isInventedProduct},
+			#{transportId},
+			#{masterImg},
+			#{productCode},
+			#{sellerCode},
+			#{priceStatus},
+			#{percentageScale},
+			#{stockWarning},
+			#{productUrl},
+			#{inStockWarning},
+			#{refIds},
+			#{unit},
+			#{otherCategory}
+		)
+	</insert>
+	
+</mapper>

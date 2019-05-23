@@ -23,7 +23,6 @@
 	}
 	
 	$(function(){
-		//监听回车事件  暂时不起作用，待查【仝照美】
 		document.onkeydown = keyDownSubmit;
 		function keyDownSubmit(e){
 			var theEvent = e || window.event;
@@ -81,6 +80,6 @@
           	   </div>
           </form>
 	 </div>
-	 <div class="bottom"> 版权所有 靖江泉富鑫网络科技有限公司.保留一切权利 </div>
+	 <div class="bottom"> 版权所有 浙江仆汇科技有限公司.保留一切权利 </div>
 </body>
 </html>

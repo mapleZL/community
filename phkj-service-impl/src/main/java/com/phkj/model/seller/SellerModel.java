@@ -19,16 +19,13 @@ import com.phkj.core.StringUtil;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.dao.shop.read.member.MemberReadDao;
 import com.phkj.dao.shop.read.order.OrdersReadDao;
-import com.phkj.dao.shop.read.product.ProductReadDao;
 import com.phkj.dao.shop.read.seller.SellerReadDao;
 import com.phkj.dao.shop.read.system.RegionsReadDao;
 import com.phkj.dao.shop.write.member.MemberWriteDao;
-import com.phkj.dao.shop.write.product.ProductWriteDao;
 import com.phkj.dao.shop.write.seller.SellerWriteDao;
 import com.phkj.dao.shop.write.system.RegionsWriteDao;
 import com.phkj.dto.CommentsDto;
 import com.phkj.dto.OrderDayDto;
-import com.phkj.entity.product.Product;
 import com.phkj.entity.seller.Seller;
 import com.phkj.entity.seller.SellerApply;
 import com.phkj.entity.system.Regions;
@@ -52,10 +49,6 @@ public class SellerModel {
     private RegionsWriteDao               regionsDao;
     @Resource
     private RegionsReadDao               regionsReadDao;
-    @Resource
-    private ProductReadDao                productReadDao;
-    @Resource
-    private ProductWriteDao               productWriteDao;
     @Resource
     private OrdersReadDao                 ordersReadDao;
 
@@ -106,9 +99,6 @@ public class SellerModel {
                 throw new BusinessException("冻结商家时失败！");
             }
 
-            // 修改商家下的商品状态
-            productWriteDao.freezeProductsBySellerId(sellerId, Product.SELLER_STATE_2);
-
             transactionManager.commit(status);
             return true;
         } catch (BusinessException e) {
@@ -138,8 +128,6 @@ public class SellerModel {
                 throw new BusinessException("解冻商家时失败！");
             }
 
-            // 修改商家下的商品状态
-            productWriteDao.freezeProductsBySellerId(sellerId, Product.SELLER_STATE_1);
 
             transactionManager.commit(status);
             return true;
@@ -232,8 +220,8 @@ public class SellerModel {
                     Seller sellerNew = new Seller();
                     sellerNew.setId(seller.getId());
                     // 商品数量
-                    Integer prdCount = productReadDao.getUpProductCountBySellerId(seller.getId());
-                    sellerNew.setProductNumber(prdCount);
+//                    Integer prdCount = productReadDao.getUpProductCountBySellerId(seller.getId());
+//                    sellerNew.setProductNumber(prdCount);
 
                     // 店铺收藏
                     Integer countBySellerId = 1;

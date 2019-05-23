@@ -2,7 +2,6 @@ package com.phkj.entity.order;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * 订单
@@ -234,7 +233,6 @@ public class Orders implements Serializable {
 
     // --------额外属性（entity对应表结构之外的属性） start------------------------------
     private String               sellerName;                                // 商家名称
-    private List<OrdersProduct>  orderProductList;                          // 网单list
     private String logisticsNameOms;                //同步至oms的快递信息，当一个客户购买的订单被拆分，则只有第一张订单的快递信息是正确的，其他快递信息再快递名字后增加拆分订单的数量
     
     // --------额外属性（entity对应表结构之外的属性） end--------------------------------
@@ -989,14 +987,6 @@ public class Orders implements Serializable {
 
     public void setSellerName(String sellerName) {
         this.sellerName = sellerName;
-    }
-
-    public List<OrdersProduct> getOrderProductList() {
-        return orderProductList;
-    }
-
-    public void setOrderProductList(List<OrdersProduct> orderProductList) {
-        this.orderProductList = orderProductList;
     }
 
     public java.util.Date getDeliverTime() {
