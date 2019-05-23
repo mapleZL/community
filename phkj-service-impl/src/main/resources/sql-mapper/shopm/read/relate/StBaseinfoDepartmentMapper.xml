@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shopm.read.relate.StBaseinfoDepartmentDao">
+    <resultMap id="StBaseinfoDepartmentResult" type="com.phkj.entity.property.StBaseinfoDepartment">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="orgCode" column="org_code"/>
+        <result property="topId" column="top_id"/>
+        <result property="region" column="region"/>
+        <result property="topOrgCode" column="top_org_code"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyUserId" column="modify_user_id"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="sts" column="sts"/>
+    </resultMap>
+
+    <select id="get" parameterType="Integer" resultMap="StBaseinfoDepartmentResult">
+		select
+		   *
+		from `st_baseinfo_department`
+		where `id` = #{id}
+	</select>
+
+    <update id="update" parameterType="com.phkj.entity.property.StBaseinfoDepartment">
+        update `st_baseinfo_department`
+        <set>
+            <if test="id != null">`id`= #{id},</if>
+            <if test="name != null">`name`= #{name},</if>
+            <if test="code != null">`code`= #{code},</if>
+            <if test="orgCode != null">`org_code`= #{orgCode},</if>
+            <if test="topId != null">`top_id`= #{topId},</if>
+            <if test="region != null">`region`= #{region},</if>
+            <if test="topOrgCode != null">`top_org_code`= #{topOrgCode},</if>
+            <if test="createUserId != null">`create_user_id`= #{createUserId},</if>
+            <if test="createTime != null">`create_time`= #{createTime},</if>
+            <if test="modifyUserId != null">`modify_user_id`= #{modifyUserId},</if>
+            <if test="modifyTime != null">`modify_time`= #{modifyTime},</if>
+            <if test="sts != null">`sts`= #{sts}</if>
+        </set>
+        where `id` = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.phkj.entity.property.StBaseinfoDepartment" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+		insert into 
+		`st_baseinfo_department`
+		(
+			
+			`name`,
+			`code`,
+			`org_code`,
+			`top_id`,
+			`region`,
+			`top_org_code`,
+			`create_user_id`,
+			`create_time`,
+			`modify_user_id`,
+			`modify_time`,
+			`sts`
+		)
+		values
+		(
+			
+			#{name},
+			#{code},
+			#{orgCode},
+			#{topId},
+			#{region},
+			#{topOrgCode},
+			#{createUserId},
+			#{createTime},
+			#{modifyUserId},
+			#{modifyTime},
+			#{sts}
+		)
+	</insert>
+
+    <select id="getDepartmentList" resultMap="StBaseinfoDepartmentResult">
+        select * from st_baseinfo_department where id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and sts = 'Y'
+    </select>
+
+</mapper>

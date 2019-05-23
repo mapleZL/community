@@ -4,7 +4,9 @@ import com.github.pagehelper.PageInfo;
 import com.phkj.core.HttpJsonResult;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.complaint.StAppletComSugges;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.complaint.ComplaintService;
+import com.phkj.web.util.WebAdminSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +47,24 @@ public class ComplaintController {
         return "/admin/complaint/compAndSuggess";
     }
 
+    @ResponseBody
+    @RequestMapping("/system/updateCom")
+    public ResponseUtil updateCom(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        String type = request.getParameter("type");
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        try {
+            if (complaintService.updateComAndSuggess(id, type,adminUser)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("审核失败!" + e);
+        }
+        return responseUtil;
+    }
+
     /**
      * 后台管理
      *
@@ -55,7 +76,8 @@ public class ComplaintController {
                                                                     Integer rows) {
         HttpJsonResult<List<StAppletComSugges>> resultJson = new HttpJsonResult<>();
         String type = request.getParameter("q_type");
-        PageInfo<StAppletComSugges> pageInfo = complaintService.getAllComAndSugg(page, rows,type);
+        String sts = request.getParameter("q_sts");
+        PageInfo<StAppletComSugges> pageInfo = complaintService.getAllComAndSugg(page, rows, type , sts);
         String total = String.valueOf(pageInfo.getTotal());
         resultJson.setRows(pageInfo.getList());
         resultJson.setTotal(Integer.valueOf(total));

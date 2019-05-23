@@ -20,6 +20,8 @@ import com.phkj.entity.share.StAppletShareApply;
 import com.phkj.entity.share.StAppletShareInfo;
 import com.phkj.service.share.ShareService;
 
+import javax.print.attribute.standard.Sides;
+
 @Service
 public class ShareServiceImpl implements ShareService {
 
@@ -65,16 +67,16 @@ public class ShareServiceImpl implements ShareService {
      * @return
      */
     @Override
-    public boolean deleteShareInfo(String id,String type) {
+    public boolean deleteShareInfo(String id, String type) {
 
         boolean flag = false;
         StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
         if (null != shareInfo) {
             //  停止共享
-            if ("2".equals(type)){
+            if ("2".equals(type)) {
                 shareInfo.setSts("0");
                 shareInfo.setShareStatus("3");  //共享完成
-            }else {
+            } else {
                 shareInfo.setSts("0");
             }
             int i = stAppletShareInfoMapper.updateByPrimaryKeySelective(shareInfo);
@@ -169,7 +171,7 @@ public class ShareServiceImpl implements ShareService {
         //
         if ("2".equals(shareInfo.getShareStatus())) {
             msg = "共享已被关闭,不可再申请!";
-            return msg ;
+            return msg;
         }
         // 查询申请任务id
         String applyNum = shareInfo.getApplyNum();
@@ -250,7 +252,7 @@ public class ShareServiceImpl implements ShareService {
     }
 
     /**
-     * @param userId
+     * @param
      * @param taskType
      * @param status
      * @param page
@@ -258,15 +260,16 @@ public class ShareServiceImpl implements ShareService {
      * @return
      */
     @Override
-    public Map<String, Object> getComShareInfoList(Integer userId, String taskType, String status, Integer page,
+    public Map<String, Object> getComShareInfoList(Integer id, String taskType, String status, Integer page,
                                                    Integer rows) {
         int pageNumber = page == 0 ? 1 : page;
         int size = rows == 0 ? 20 : rows;
         // 根据当前倒叙查询列表
+        String userId = (String.valueOf(id)).equals("null") ? "" : String.valueOf(id);
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareInfoMapper.selectComShareInfoList(String.valueOf(userId), taskType, status);
+                stAppletShareInfoMapper.selectComShareInfoList(userId, taskType, status);
             }
         });
 

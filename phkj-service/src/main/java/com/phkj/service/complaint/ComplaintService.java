@@ -2,6 +2,7 @@ package com.phkj.service.complaint;
 
 import com.github.pagehelper.PageInfo;
 import com.phkj.entity.complaint.StAppletComSugges;
+import com.phkj.entity.system.SystemAdmin;
 
 import java.util.Map;
 
@@ -11,5 +12,7 @@ public interface ComplaintService {
 
     boolean addComorSuggess(StAppletComSugges stAppletComSugges);
 
-    PageInfo<StAppletComSugges> getAllComAndSugg(Integer page, Integer rows,String type);
+    PageInfo<StAppletComSugges> getAllComAndSugg(Integer page, Integer rows, String type, String sts);
+
+    boolean updateComAndSuggess(String id, String type, SystemAdmin adminUser);
 }
