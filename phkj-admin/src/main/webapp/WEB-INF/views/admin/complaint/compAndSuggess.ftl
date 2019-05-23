@@ -44,6 +44,41 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 			});
 		});
 
+        // 删除信息
+        $('#a_submit_share').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+
+            if(selected.sts == '已审核'){
+                $.messager.alert('提示','该条信息已被审核。');
+                return;
+            }
+            $.messager.confirm('确认', '确定审核该条发布信息吗？', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/complaint/system/updateCom",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=1",
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $.messager.alert('提示',data.message);
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
 
 
 		
@@ -88,6 +123,10 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 						<label class="lab-item">内容类型 :</label> <@cont.select id="type"
 						codeDiv="COM_TYPE" name="q_type" style="width:100px"/>
 					</p>
+					<p class="p4 p-item" >
+						<label class="lab-item">审核结果 :</label> <@cont.select id="sts"
+						codeDiv="COM_STS" name="q_sts" style="width:100px"/>
+					</p>
 				</div>
 			</form>
 		</div>
@@ -120,6 +159,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 				<th field="email" width="150" align="center">电子邮箱</th>
 				<th field="createTime" width="70" align="center">投诉时间</th>
 				<th field="createName" width="70" align="center" >投诉人</th>
+				<th field="sts" width="70" align="center" >处理状态</th>
                 <th field="imgUrl" width="40" align="center" formatter="imageFormat">图片</th>
 			</tr>
 		</thead>
@@ -127,6 +167,8 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 
 	<div id="gridTools">
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+
+        <a id="a_submit_share" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">审核处理</a>
 	</div>
 
 	<div class="wrapper" id="editWin">

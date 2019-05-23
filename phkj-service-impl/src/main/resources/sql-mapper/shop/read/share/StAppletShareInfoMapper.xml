@@ -93,7 +93,7 @@
     <if test="status != null and status != ''">
       and t.sts = #{status}
     </if>
-    <if test="status != null and status != ''">
+    <if test="userId != null and userId != ''">
       and t.create_user_id = #{userId}
     </if>
     ORDER BY

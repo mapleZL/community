@@ -23,7 +23,12 @@
             if(selected.sts == '关闭申请' ){
                 $.messager.alert('提示','该申请不可以被操作。');
                 return;
-            } if(selected.sts == '申请通过' ){
+            }
+            if(selected.sts == '申请通过' ){
+                $.messager.alert('提示','该申请不可以被操作。');
+                return;
+            }
+            if(selected.sts == '拒绝' ){
                 $.messager.alert('提示','该申请不可以被操作。');
                 return;
             }

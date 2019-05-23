@@ -43,6 +43,9 @@
         <if test="type != null and type != ''">
           and `type` = #{type}
         </if>
+        <if test="sts != null and sts != ''">
+          and sts = #{sts}
+        </if>
   </select>
 
 

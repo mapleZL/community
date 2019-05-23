@@ -22,5 +22,5 @@ public interface StAppletComSuggesReadDao {
 
     List<StAppletComSugges> selectAllMeComplaint(@Param("type") String type, @Param("userId") String userId);
 
-    List<StAppletComSugges> selectAllComAndSugg(@Param("type") String type);
+    List<StAppletComSugges> selectAllComAndSugg(@Param("type") String type,@Param("sts") String sts);
 }

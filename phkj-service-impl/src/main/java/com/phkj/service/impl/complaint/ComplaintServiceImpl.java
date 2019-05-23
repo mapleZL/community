@@ -4,8 +4,11 @@ import com.github.pagehelper.ISelect;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.phkj.dao.shop.read.complaint.StAppletComSuggesReadDao;
+import com.phkj.dao.shop.read.flow.StAppletRecordDao;
 import com.phkj.dao.shop.write.complaint.StAppletComSuggesWriteDao;
 import com.phkj.entity.complaint.StAppletComSugges;
+import com.phkj.entity.flow.StAppletRecord;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.complaint.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,9 @@ public class ComplaintServiceImpl implements ComplaintService {
     @Autowired
     StAppletComSuggesWriteDao stAppletComSuggesWriteDao;
 
+    @Autowired
+    StAppletRecordDao stAppletRecordDao;
+
     @Override
     public boolean addComorSuggess(StAppletComSugges stAppletComSugges) {
         stAppletComSugges.setSts("0"); // 未审核
@@ -35,14 +41,45 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public PageInfo<StAppletComSugges> getAllComAndSugg(Integer page, Integer rows, String type) {
+    public PageInfo<StAppletComSugges> getAllComAndSugg(Integer page, Integer rows, String type, String sts) {
         PageInfo<StAppletComSugges> pageInfo = PageHelper.startPage(page, rows).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletComSuggesReadDao.selectAllComAndSugg(type);
+                stAppletComSuggesReadDao.selectAllComAndSugg(type,sts);
             }
         });
         return pageInfo;
+    }
+
+
+    @Override
+    public boolean updateComAndSuggess(String id, String type, SystemAdmin adminUser) {
+
+        StAppletComSugges comSugges = stAppletComSuggesReadDao.selectByPrimaryKey(Long.valueOf(id));
+        if ("0".equals(type)) {
+            comSugges.setSts("2");
+        } else {
+            comSugges.setSts("1");
+        }
+        comSugges.setModifyTime(new Date());
+        comSugges.setModifyUserId(String.valueOf(adminUser.getId()));
+        comSugges.setModifyUserName(adminUser.getName());
+
+        int i = stAppletComSuggesWriteDao.updateByPrimaryKey(comSugges);
+        if (i > 0) {
+            // 生成流水表
+            StAppletRecord record = new StAppletRecord();
+            record.setRId(comSugges.getId().toString());
+            record.setCreateTime(new Date());
+            record.setCreateUserId(comSugges.getCreateUserId());
+            record.setType("complaint");
+            record.setCreateUserName(adminUser.getName());
+            record.setSts(1);
+            record.setRemark("审核意见反馈 , 审核结果" + comSugges.getSts());
+            stAppletRecordDao.insert(record);
+            return true;
+        }
+        return false;
     }
 
 
