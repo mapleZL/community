@@ -1,6 +1,7 @@
 package com.phkj.web.controller.wx;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -39,8 +40,11 @@ public class LoginController {
 
     @RequestMapping(value = {"/login"}, method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseUtil register(@RequestBody MemberParam memberParam, HttpServletRequest httpServletRequest) {
+    public ResponseUtil register(@RequestBody MemberParam memberParam, HttpServletRequest httpServletRequest, HttpServletResponse response) {
         try {
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            //允许跨域GET和POST请求
+            response.addHeader("Access-Control-Allow-Method", "*");
             if (memberParam == null) {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
             }
@@ -54,11 +58,11 @@ public class LoginController {
             ServiceResult<Member> result = memberService.memberLogin(phoneNum, password, ip, 6);
             Member member = result.getResult();
             JSONObject jsonObject = new JSONObject();
-            if(member != null){
-                jsonObject.put("id",member.getId());
-                jsonObject.put("name",member.getName());
-                jsonObject.put("phoneNum",member.getPhone());
-                jsonObject.put("headIcon",member.getHeadIcon());
+            if (member != null) {
+                jsonObject.put("id", member.getId());
+                jsonObject.put("name", member.getName());
+                jsonObject.put("phoneNum", member.getPhone());
+                jsonObject.put("headIcon", member.getHeadIcon());
             }
             return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, jsonObject);
         } catch (Exception e) {
