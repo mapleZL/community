@@ -1,6 +1,10 @@
 package com.phkj.model.member;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -19,7 +23,6 @@ import com.phkj.core.exception.BusinessException;
 import com.phkj.core.sms.MobileMessage;
 import com.phkj.dao.shop.read.member.MemberReadDao;
 import com.phkj.dao.shop.read.order.OrdersReadDao;
-import com.phkj.dao.shop.read.product.ProductReadDao;
 import com.phkj.dao.shop.read.seller.SellerReadDao;
 import com.phkj.dao.shop.write.member.MemberWriteDao;
 import com.phkj.dao.shop.write.order.OrdersWriteDao;
@@ -43,8 +46,6 @@ public class MemberModel {
     private OrdersWriteDao ordersWriteDao;
     @Resource
     private OrdersReadDao ordersReadDao;
-    @Resource
-    private ProductReadDao productReadDao;
     @Resource
     private SellerWriteDao sellerWriteDao;
     @Resource

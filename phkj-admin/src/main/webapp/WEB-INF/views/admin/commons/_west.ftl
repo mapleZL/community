@@ -15,29 +15,14 @@
 
 	<@shiro.hasPermission name="/admin_menu_product">
 	<div title="商品管理" class="ra_div">
-		<@shiro.hasPermission name="/admin/product/brand">
-		<a id='301' href="javascript:void(0);" onclick="addTab('品牌管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/brand')">品牌管理</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/product/norm">
-		<a id='302' href="javascript:void(0);" onclick="addTab('规格管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/norm')">规格管理</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/product/type">
-		<a id='303' href="javascript:void(0);" onclick="addTab('类型管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/type')">类型管理</a>
-		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/product/cate">
 		<a id='304' href="javascript:void(0);" onclick="addTab('分类管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/cate')">分类管理</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/product/brand/todo">
-		<a id='305' href="javascript:void(0);" onclick="addTab('待审核品牌', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/brand/todo')">待审核品牌</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/product/cate/audit">
-		<a id='306' href="javascript:void(0);" onclick="addTab('商家分类申请', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/cate/audit')">商家分类申请</a>
 		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/product/waitSale">
 		<a id='308' href="javascript:void(0);" onclick="addTab('待售商品', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/waitSale')">待售商品</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/product/waitSale">
-		<a id='455' href="javascript:void(0);" onclick="addTab('阶梯价待售商品', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/waitSale2')">阶梯价待售商品</a>
+		<@shiro.hasPermission name="/admin/product/add">
+		<a id='211' href="javascript:void(0);" onclick="addTab('新增商品', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/add')">新增商品</a>
 		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/product/onSale">
 		<a id='309' href="javascript:void(0);" onclick="addTab('在售商品', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/onSale')">在售商品</a>
