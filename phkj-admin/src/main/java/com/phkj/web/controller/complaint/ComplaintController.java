@@ -115,7 +115,7 @@ public class ComplaintController {
             e.printStackTrace();
             LOGGER.error("添加失败!" + e);
         }
-        return null;
+        return responseUtil;
     }
 
     /**
