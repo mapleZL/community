@@ -52,6 +52,7 @@ com\phkj\web\shiro\tag\HasPermissionTag.class
 com\phkj\web\controller\wx\RegisterController.class
 com\phkj\web\controller\system\AdminRegionsController.class
 com\phkj\web\controller\SyncController.class
+com\phkj\web\controller\property\StPropertyController.class
 com\phkj\web\util\wx\SHA1.class
 com\phkj\web\controller\system\AdminLoginController.class
 com\phkj\web\util\freemarker\InitJSCodeContainerTemplateMethodModel.class

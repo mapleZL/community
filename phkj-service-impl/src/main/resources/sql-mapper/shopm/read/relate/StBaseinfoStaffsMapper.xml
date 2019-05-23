@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shopm.read.relate.StBaseinfoStaffsDao">
+	<resultMap id="StBaseinfoStaffsResult" type="com.phkj.entity.property.StBaseinfoStaffs">
+			<result property="id" column="id" />
+			<result property="residentiaId" column="residentia_id" />
+			<result property="subareaId" column="subarea_id" />
+			<result property="loginId" column="login_id" />
+			<result property="name" column="name" />
+			<result property="sex" column="sex" />
+			<result property="idNumber" column="id_number" />
+			<result property="idAddress" column="id_address" />
+			<result property="birthDate" column="birth_date" />
+			<result property="capturePicId" column="capture_pic_id" />
+			<result property="nation" column="nation" />
+			<result property="age" column="age" />
+			<result property="ageSegment" column="age_segment" />
+			<result property="validBegin" column="valid_begin" />
+			<result property="validEnd" column="valid_end" />
+			<result property="ever" column="ever" />
+			<result property="politicalStatus" column="political_status" />
+			<result property="degree" column="degree" />
+			<result property="maritalStatus" column="marital_status" />
+			<result property="carNo" column="car_no" />
+			<result property="mobile" column="mobile" />
+			<result property="contactor" column="contactor" />
+			<result property="contactorMobile" column="contactor_mobile" />
+			<result property="residence" column="residence" />
+			<result property="remark" column="remark" />
+			<result property="staffType" column="staff_type" />
+			<result property="startWorkTime" column="start_work_time" />
+			<result property="endContractTime" column="end_contract_time" />
+			<result property="createUserId" column="create_user_id" />
+			<result property="createTime" column="create_time" />
+			<result property="modifyUserId" column="modify_user_id" />
+			<result property="modifyTime" column="modify_time" />
+			<result property="sts" column="sts" />
+			<result property="jobsId" column="jobs_id" />
+			<result property="encryptionIdNumber" column="encryption_id_number" />
+			<result property="orgCode" column="org_code" />
+			<result property="topOrgCode" column="top_org_code" />
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="StBaseinfoStaffsResult">
+		select
+		   *
+		from `st_baseinfo_staffs`
+		where `id` = #{id}
+	</select>
+
+	<select id="getStaffsOnDutyList" resultMap="StBaseinfoStaffsResult">
+		select
+		   *
+		from `st_baseinfo_staffs`
+		where !ISNULL(jobs_id) and sts = 'Y'
+	</select>
+
+	<update id="update" parameterType="com.phkj.entity.property.StBaseinfoStaffs">
+        update `st_baseinfo_staffs` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="residentiaId != null">`residentia_id`= #{residentiaId},</if>
+			<if test="subareaId != null">`subarea_id`= #{subareaId},</if>
+			<if test="loginId != null">`login_id`= #{loginId},</if>
+			<if test="name != null">`name`= #{name},</if>
+			<if test="sex != null">`sex`= #{sex},</if>
+			<if test="idNumber != null">`id_number`= #{idNumber},</if>
+			<if test="idAddress != null">`id_address`= #{idAddress},</if>
+			<if test="birthDate != null">`birth_date`= #{birthDate},</if>
+			<if test="capturePicId != null">`capture_pic_id`= #{capturePicId},</if>
+			<if test="nation != null">`nation`= #{nation},</if>
+			<if test="age != null">`age`= #{age},</if>
+			<if test="ageSegment != null">`age_segment`= #{ageSegment},</if>
+			<if test="validBegin != null">`valid_begin`= #{validBegin},</if>
+			<if test="validEnd != null">`valid_end`= #{validEnd},</if>
+			<if test="ever != null">`ever`= #{ever},</if>
+			<if test="politicalStatus != null">`political_status`= #{politicalStatus},</if>
+			<if test="degree != null">`degree`= #{degree},</if>
+			<if test="maritalStatus != null">`marital_status`= #{maritalStatus},</if>
+			<if test="carNo != null">`car_no`= #{carNo},</if>
+			<if test="mobile != null">`mobile`= #{mobile},</if>
+			<if test="contactor != null">`contactor`= #{contactor},</if>
+			<if test="contactorMobile != null">`contactor_mobile`= #{contactorMobile},</if>
+			<if test="residence != null">`residence`= #{residence},</if>
+			<if test="remark != null">`remark`= #{remark},</if>
+			<if test="staffType != null">`staff_type`= #{staffType},</if>
+			<if test="startWorkTime != null">`start_work_time`= #{startWorkTime},</if>
+			<if test="endContractTime != null">`end_contract_time`= #{endContractTime},</if>
+			<if test="createUserId != null">`create_user_id`= #{createUserId},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
+			<if test="modifyUserId != null">`modify_user_id`= #{modifyUserId},</if>
+			<if test="modifyTime != null">`modify_time`= #{modifyTime},</if>
+			<if test="sts != null">`sts`= #{sts},</if>
+			<if test="jobsId != null">`jobs_id`= #{jobsId},</if>
+			<if test="encryptionIdNumber != null">`encryption_id_number`= #{encryptionIdNumber},</if>
+			<if test="orgCode != null">`org_code`= #{orgCode},</if>
+			<if test="topOrgCode != null">`top_org_code`= #{topOrgCode}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.phkj.entity.property.StBaseinfoStaffs" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`st_baseinfo_staffs`
+		(
+			
+			`residentia_id`,
+			`subarea_id`,
+			`login_id`,
+			`name`,
+			`sex`,
+			`id_number`,
+			`id_address`,
+			`birth_date`,
+			`capture_pic_id`,
+			`nation`,
+			`age`,
+			`age_segment`,
+			`valid_begin`,
+			`valid_end`,
+			`ever`,
+			`political_status`,
+			`degree`,
+			`marital_status`,
+			`car_no`,
+			`mobile`,
+			`contactor`,
+			`contactor_mobile`,
+			`residence`,
+			`remark`,
+			`staff_type`,
+			`start_work_time`,
+			`end_contract_time`,
+			`create_user_id`,
+			`create_time`,
+			`modify_user_id`,
+			`modify_time`,
+			`sts`,
+			`jobs_id`,
+			`encryption_id_number`,
+			`org_code`,
+			`top_org_code`
+		)
+		values
+		(
+			
+			#{residentiaId},
+			#{subareaId},
+			#{loginId},
+			#{name},
+			#{sex},
+			#{idNumber},
+			#{idAddress},
+			#{birthDate},
+			#{capturePicId},
+			#{nation},
+			#{age},
+			#{ageSegment},
+			#{validBegin},
+			#{validEnd},
+			#{ever},
+			#{politicalStatus},
+			#{degree},
+			#{maritalStatus},
+			#{carNo},
+			#{mobile},
+			#{contactor},
+			#{contactorMobile},
+			#{residence},
+			#{remark},
+			#{staffType},
+			#{startWorkTime},
+			#{endContractTime},
+			#{createUserId},
+			#{createTime},
+			#{modifyUserId},
+			#{modifyTime},
+			#{sts},
+			#{jobsId},
+			#{encryptionIdNumber},
+			#{orgCode},
+			#{topOrgCode}
+		)
+	</insert>
+
+
+	<select id="getStaffsByJobsId" resultMap="StBaseinfoStaffsResult">
+		select * from st_baseinfo_staffs where jobs_id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		and sts = 'Y'
+	</select>
+	
+</mapper>
