@@ -52,6 +52,7 @@ public class StAppletCommentController {
         }
         StAppletComment stAppletComment = new StAppletComment();
         stAppletComment.setRId(stAppletCommentParam.getrId());
+        stAppletComment.setrType(stAppletCommentParam.getRtype());
         stAppletComment.setCreateUserId(stAppletCommentParam.getCreateUserId());
         stAppletComment.setCreateUserName(stAppletCommentParam.getCreateUserName());
         stAppletComment.setContent(stAppletCommentParam.getContent());
