@@ -173,6 +173,11 @@ public class ShareServiceImpl implements ShareService {
             msg = "共享已被关闭,不可再申请!";
             return msg;
         }
+
+        StAppletShareApply apply = stAppletShareApplyMapper.selectApplyByUserId(userId, shareInfo.getId().toString());
+        if (null != apply){
+            return "你已经申请过本条共享信息!";
+        }
         // 查询申请任务id
         String applyNum = shareInfo.getApplyNum();
         if (StringUtil.isNotEmpty(applyNum)) {
@@ -197,7 +202,7 @@ public class ShareServiceImpl implements ShareService {
         shareApply.setSts("1"); // 申请状态 1.申请中 2.申请通过 3.拒绝申请
         shareApply.setCreateTime(new Date());
         int i = stAppletShareApplyMapper.insert(shareApply);
-        if (i > 0) {
+        if (i <= 0) {
             msg = "申请失败!";
         }
 
