@@ -1,15 +1,11 @@
 package com.phkj.web.controller.product;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,21 +84,5 @@ public class ProductController extends BaseController {
             return jsonResult;
         }
         return null;
-    }
-
-    private String buildImgPath(HttpServletRequest request) {
-        String path = "upload";
-        SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd");
-        path += "/" + formater.format(new Date());
-        path = request.getRealPath(path);
-        File dir = new File(path);
-        if (!dir.exists()) {
-            try {
-                dir.mkdirs();
-            } catch (Exception e) {
-                log.error("error", e);
-            }
-        }
-        return path;
     }
 }

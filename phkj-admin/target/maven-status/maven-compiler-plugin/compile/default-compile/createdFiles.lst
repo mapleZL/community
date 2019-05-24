@@ -52,11 +52,7 @@ com\phkj\web\shiro\tag\HasPermissionTag.class
 com\phkj\web\controller\CORSFilter.class
 com\phkj\web\controller\wx\RegisterController.class
 com\phkj\web\controller\system\AdminRegionsController.class
-<<<<<<< HEAD
-=======
-com\phkj\web\controller\SyncController.class
 com\phkj\web\controller\property\StPropertyController.class
->>>>>>> 4ea33428537135f6a5195c2e5415143f76285cc7
 com\phkj\web\util\wx\SHA1.class
 com\phkj\web\controller\system\AdminLoginController.class
 com\phkj\web\util\freemarker\InitJSCodeContainerTemplateMethodModel.class

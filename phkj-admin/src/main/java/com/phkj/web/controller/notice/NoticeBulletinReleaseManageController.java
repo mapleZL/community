@@ -106,10 +106,10 @@ public class NoticeBulletinReleaseManageController {
         Long browse = 0L;
         Map<String, String> sourceMap = new NoticeSourceConfig().getSourceMap();
         if (list != null) {
-            String redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX;
+            String redisKey = null;;
             for (StNoticeBulletinReleaseManage notice : list) {
                 // 获取流量，先从redis查询，查询无果从MySQL查询
-                redisKey += notice.getId();
+                redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + notice.getId();
                 browse = redisComponet.increment(redisKey, 0L);
                 if (browse == 0) {
                     stBrowse = browseService.getBrowseByNoticeId(notice.getId()).getResult();
