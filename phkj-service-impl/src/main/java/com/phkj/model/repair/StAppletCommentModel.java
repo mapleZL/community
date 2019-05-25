@@ -73,4 +73,8 @@ public class StAppletCommentModel {
     public Long getCountByRId(Long noticeId, String rType) {
         return stAppletCommentDao.getCountByRId(noticeId, rType);
     }
+
+    public Integer getCommentCount(Integer memberId, Long rId) {
+        return stAppletCommentDao.getCommentCount(memberId, rId);
+    }
 }

@@ -157,4 +157,9 @@ public class StAppletCommentServiceImpl implements IStAppletCommentService {
         }
         return result;
     }
+
+    @Override
+    public Integer getCommentCount(Integer memberId, Long rId) {
+        return stAppletCommentModel.getCommentCount(memberId, rId);
+    }
 }

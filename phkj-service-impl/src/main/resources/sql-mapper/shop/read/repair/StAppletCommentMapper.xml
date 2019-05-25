@@ -21,8 +21,13 @@
 	</select>
 	
 	<select id="getCountByRId" resultType="Long">
-	    select count(distinct(create_user_id)) from `st_applet_comment`
+	    select count(id) from `st_applet_comment`
 	    where r_id = #{noticeId} and r_type = #{rType}
+	</select>
+	
+	<select id="getCommentCount" resultType="Integer">
+	    select count(id) from `st_applet_comment`
+	    where create_user_id = #{createUserId} and r_id = #{rId}
 	</select>
 	
 	<update id="update" parameterType="com.phkj.entity.repair.StAppletComment">

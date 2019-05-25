@@ -106,7 +106,8 @@ public class NoticeBulletinReleaseManageController {
         Long browse = 0L;
         Map<String, String> sourceMap = new NoticeSourceConfig().getSourceMap();
         if (list != null) {
-            String redisKey = null;;
+            String redisKey = null;
+            ;
             for (StNoticeBulletinReleaseManage notice : list) {
                 // 获取流量，先从redis查询，查询无果从MySQL查询
                 redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + notice.getId();
@@ -127,20 +128,32 @@ public class NoticeBulletinReleaseManageController {
                     collectionManage = 0L;
                 }
                 notice.setCollect(collectionManage);
+                Integer count = collectionManageService.getCollectionCount(memberId, notice.getId())
+                    .getResult();
+                if (count != null && count > 0) {
+                    notice.setHasCollect(true);
+                    ;
+                }
+
                 // 获取评论数量
                 comment = commentService.getCountByRId(notice.getId(), "notice").getResult();
                 if (comment == null) {
                     comment = 0L;
                 }
                 notice.setComment(comment);
-                
+                count = commentService.getCommentCount(memberId, notice.getId());
+                if (count != null && count > 0) {
+                    notice.setHasComment(true);
+                }
+
                 // 获取头条图片路径
-                List<SystemAppfile> pics = systemAppfileService.getPicList("notice", notice.getId(), notice.getType()).getResult();
+                List<SystemAppfile> pics = systemAppfileService
+                    .getPicList("notice", notice.getId(), notice.getType()).getResult();
                 // 存在图片取一条作为展示
                 if (pics != null && pics.size() > 0) {
                     notice.setImg(Arrays.asList(pics.get(0).getPath()));
                 }
-                
+
                 // 设置来源
                 notice.setSourceName(sourceMap.get(notice.getSourceType()));
             }
@@ -181,11 +194,12 @@ public class NoticeBulletinReleaseManageController {
         Map<String, String> sourceMap = new NoticeSourceConfig().getSourceMap();
         StNoticeBulletinReleaseManage releaseManage = serviceResult.getResult();
         releaseManage.setSourceName(sourceMap.get(releaseManage.getSourceType()));
-        
+
         // 获取头条图片路径
-        List<SystemAppfile> pics = systemAppfileService.getPicList("notice", releaseManage.getId(), releaseManage.getType()).getResult();
+        List<SystemAppfile> pics = systemAppfileService
+            .getPicList("notice", releaseManage.getId(), releaseManage.getType()).getResult();
         // 存在图片取一条作为展示
-        List<String> list = new ArrayList<>(); 
+        List<String> list = new ArrayList<>();
         if (pics != null && pics.size() > 0) {
             for (SystemAppfile systemAppfile : pics) {
                 list.add(systemAppfile.getPath());
@@ -197,5 +211,5 @@ public class NoticeBulletinReleaseManageController {
 
         return jsonResult;
     }
-    
+
 }

@@ -30,15 +30,19 @@ public class StNoticeBulletinReleaseManage implements Serializable {
     private Date              modifyTime;
     private String            sts;
     // 流量
-    private Long              rate;
+    private Long              rate = 0L;
     // 收藏人数
-    private Long              collect;
+    private Long              collect = 0L;
     // 评论人数
-    private Long              comment;
+    private Long              comment = 0L;
     // 头条对应的图片路径
     private List<String>      img;
     // 信息来源
     private String            sourceName;
+    // 是否收藏过
+    private boolean           hasCollect = false;
+    // 是否已评论
+    private boolean           hasComment = false;
 
     public Long getId() {
         return id;
@@ -222,6 +226,22 @@ public class StNoticeBulletinReleaseManage implements Serializable {
 
     public void setSourceName(String sourceName) {
         this.sourceName = sourceName;
+    }
+
+    public boolean isHasCollect() {
+        return hasCollect;
+    }
+
+    public void setHasCollect(boolean hasCollect) {
+        this.hasCollect = hasCollect;
+    }
+
+    public boolean isHasComment() {
+        return hasComment;
+    }
+
+    public void setHasComment(boolean hasComment) {
+        this.hasComment = hasComment;
     }
 
 }

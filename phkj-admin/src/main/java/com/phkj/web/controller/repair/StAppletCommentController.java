@@ -52,6 +52,7 @@ public class StAppletCommentController {
         }
         StAppletComment stAppletComment = new StAppletComment();
         stAppletComment.setRId(stAppletCommentParam.getrId());
+        stAppletComment.setParentId(stAppletCommentParam.getParentId());
         stAppletComment.setrType(stAppletCommentParam.getRtype());
         stAppletComment.setCreateUserId(stAppletCommentParam.getCreateUserId());
         stAppletComment.setCreateUserName(stAppletCommentParam.getCreateUserName());
@@ -70,12 +71,12 @@ public class StAppletCommentController {
      */
     @RequestMapping(value = "/noticeList", method = { RequestMethod.POST })
     @ResponseBody
-    public ResponseUtil noticeList(Long rId, String rType, HttpServletResponse response) {
+    public ResponseUtil noticeList(Long rId, String rtype, HttpServletResponse response) {
         ServiceResult<List<NocticeCommnetVO>> serviceResult = new ServiceResult<>();
         List<NocticeCommnetVO> list = new ArrayList<>();
         NocticeCommnetVO nocticeCommnetVO = null;
         ServiceResult<List<StAppletComment>> result = iStAppletCommentService
-            .getStAppletRepairList(rId, rType, 1, 5000);
+            .getStAppletRepairList(rId, rtype, 1, 5000);
         if (result.getResult() != null && result.getResult().size() > 0) {
             // 获取主评论
             for (StAppletComment stAppletComment : result.getResult()) {

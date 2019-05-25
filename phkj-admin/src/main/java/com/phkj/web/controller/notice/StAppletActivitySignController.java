@@ -88,7 +88,8 @@ public class StAppletActivitySignController {
         try {
             stAppletActivitySign.setCreateTime(new Date());
             stAppletActivitySign.setSts(MemberPropertyStatus.STATE_1);
-            serviceResult = activitySignService.saveStAppletActivitySign(stAppletActivitySign);
+            activitySignService.saveStAppletActivitySign(stAppletActivitySign);
+            serviceResult.setResult(MemberPropertyStatus.STATE_1);
         } catch (Exception e) {
             log.error("活动报名参与失败", e);
             serviceResult.setError(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), "活动报名参与失败");

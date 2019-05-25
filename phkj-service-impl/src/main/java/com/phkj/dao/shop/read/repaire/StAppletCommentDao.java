@@ -21,4 +21,6 @@ public interface StAppletCommentDao {
                                                  @Param("size") int pageSize);
 
     Long getCountByRId(@Param("noticeId") Long noticeId, @Param("rType") String rType);
+
+    Integer getCommentCount(@Param("createUserId") Integer createUserId, @Param("rId") Long rId);
 }

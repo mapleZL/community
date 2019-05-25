@@ -45,4 +45,12 @@ public interface IStAppletCommentService {
      * @return
      */
     ServiceResult<Long> getCountByRId(Long id, String rType);
+
+    /**
+     * 获取评论数量
+     * @param memberId
+     * @param id
+     * @return
+     */
+    Integer getCommentCount(Integer memberId, Long id);
 }
