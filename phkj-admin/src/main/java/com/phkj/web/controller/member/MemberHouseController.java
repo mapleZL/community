@@ -97,8 +97,8 @@ public class MemberHouseController extends BaseController {
             if (house.getCommunity().equals(memberHouse.getCommunity()) && house.getRegion().equals(memberHouse.getRegion())
                     && house.getStreet().equals(memberHouse.getStreet()) && house.getVillage().equals(memberHouse.getVillage())
                     && house.getBuilding().equals(memberHouse.getBuilding()) && house.getUnit().equals(memberHouse.getUnit())
-                    && house.getRoom().equals(memberHouse.getRoom()) && house.getName().equals(memberHouse.getName())) {
-                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请勿重复认证", true, null);
+                    && house.getRoom().equals(memberHouse.getRoom())) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请勿重复认证", false, null);
             }
         }
         Map<String, Object> queryMap = new HashMap<>();
@@ -142,54 +142,54 @@ public class MemberHouseController extends BaseController {
     private ResponseUtil checkParam(MemberHouse memberHouse) {
         if (memberHouse == null) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                    ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
+                    ResponseStateEnum.PARAM_EMPTY.getMsg(), false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getRegion())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "region is empity",
-                    true, null);
+                    false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getCommunity())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "community is empity",
-                    true, null);
+                    false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getBuilding())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "building is empity",
-                    true, null);
+                    false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getRoom())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "room is empity", true,
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "room is empity", false,
                     null);
         }
         if (StringUtils.isEmpty(memberHouse.getIdentityInformation())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                    "identityInformation is empity", true, null);
+                    "identityInformation is empity", false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getIdNumber())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "idNumber is empity",
-                    true, null);
+                    false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getStreet())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "street is empity",
-                    true, null);
+                    false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getVillage())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "village is empity",
-                    true, null);
+                    false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getUnit())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "unit is empity", true,
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "unit is empity", false,
                     null);
         }
         if (StringUtils.isEmpty(memberHouse.getPhone())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phone is empity",
-                    true, null);
+                    false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getName())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "name is empity", true,
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "name is empity", false,
                     null);
         }
         if (StringUtils.isEmpty(memberHouse.getImg())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "img is empity", true,
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "img is empity", false,
                     null);
         }
         return null;

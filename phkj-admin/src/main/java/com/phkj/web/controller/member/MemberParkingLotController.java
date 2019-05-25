@@ -67,7 +67,7 @@ public class MemberParkingLotController extends BaseController {
             if (lots != null && !lots.isEmpty()) {
                 for (MemberParkingLot lot : lots) {
                     if (lot.getPosition().equals(memberParkingLot.getPosition())) {
-                        return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请勿重复认证", true, null);
+                        return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请勿重复认证", false, null);
                     }
                 }
             }

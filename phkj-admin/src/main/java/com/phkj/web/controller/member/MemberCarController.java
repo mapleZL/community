@@ -93,7 +93,7 @@ public class MemberCarController extends BaseController {
                 List<MemberCar> cars = result.getResult();
                 for (MemberCar car : cars) {
                     if (car.getVehicleNumber().equals(memberCar.getVehicleNumber())) {
-                        return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请勿重复认证", true, null);
+                        return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请勿重复认证", false, null);
                     }
                 }
             }
@@ -112,10 +112,10 @@ public class MemberCarController extends BaseController {
      */
     private ResponseUtil checkParam(MemberCar memberCar) {
         if (StringUtils.isBlank(memberCar.getVehicleNumber()) || memberCar.getMemberId() == null || memberCar.getMemberId() == 0) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId or vehicleNumber is blank", true, null);
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId or vehicleNumber is blank", false, null);
         }
         if (StringUtils.isBlank(memberCar.getVehicleType()) || StringUtils.isBlank(memberCar.getVehicleStructure())) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "vehicleType or vehicleStructure is blank", true, null);
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "vehicleType or vehicleStructure is blank", false, null);
         }
         return null;
     }
