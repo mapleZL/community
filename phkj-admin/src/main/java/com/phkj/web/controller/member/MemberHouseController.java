@@ -40,31 +40,31 @@ import com.phkj.web.util.WebAdminSession;
 
 /**
  * 房屋处理
- *                       
+ *
  * @Filename: MemberHouseController.java
  * @Version: 1.0
  * @date: 2019年5月15日
  * @Author: 陆帅 * @Email: lu1632278229@sina.cn
- *
  */
 @Controller
 @RequestMapping(value = "/admin/member/house")
 public class MemberHouseController extends BaseController {
 
     @Resource
-    IMemberHouseService             memberHouseService;
+    IMemberHouseService memberHouseService;
     @Resource
     IStBaseinfoResidentHouseService residentHouseService;
     @Autowired
-    IStBaseinfoResidentinfoService  residentinfoService;
+    IStBaseinfoResidentinfoService residentinfoService;
 
     /**
      * 初始化列表页面
+     *
      * @param dataMap
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "", method = { RequestMethod.GET })
+    @RequestMapping(value = "", method = {RequestMethod.GET})
     public String getList(Map<String, Object> dataMap) throws Exception {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         return "admin/member/member/memberhouselist";
@@ -91,108 +91,121 @@ public class MemberHouseController extends BaseController {
     // 认证用户房屋信息
     private ResponseUtil authenticationHouseholder(MemberHouse memberHouse) {
         // TODO 校验本地信息是否已经存在，避免重复验证
+        ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.getAllHouse(memberHouse.getMemberId().toString());
+        List<MemberHouse> houseList = serviceResult.getResult();
+        for (MemberHouse house : houseList) {
+            if (house.getCommunity().equals(memberHouse.getCommunity()) && house.getRegion().equals(memberHouse.getRegion())
+                    && house.getStreet().equals(memberHouse.getStreet()) && house.getVillage().equals(memberHouse.getVillage())
+                    && house.getBuilding().equals(memberHouse.getBuilding()) && house.getUnit().equals(memberHouse.getUnit())
+                    && house.getRoom().equals(memberHouse.getRoom()) && house.getName().equals(memberHouse.getName())) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请勿重复认证", true, null);
+            }
+        }
         Map<String, Object> queryMap = new HashMap<>();
         queryMap.put("houseId", memberHouse.getRoomId());
         queryMap.put("residentiaId", memberHouse.getVillageId());
         // 根据房屋信息查询用户房屋信息
         StBaseinfoResidentHouse stBaseinfoResidentHouse = residentHouseService
-            .getResidentBouseByParam(queryMap);
+                .getResidentBouseByParam(queryMap);
         if (stBaseinfoResidentHouse != null) {
             // 根据关联居民信息查找用户
             StBaseinfoResidentinfo residentinfo = residentinfoService
-                .getStBaseinfoResidentinfoById(stBaseinfoResidentHouse.getResidentId()).getResult();
+                    .getStBaseinfoResidentinfoById(stBaseinfoResidentHouse.getResidentId()).getResult();
             if (residentinfo != null) {
                 // 身份证账号解密
                 String idNo = AESHelper.Decrypt(residentinfo.getEncryptionIdNumber());
                 if (residentinfo.getName().equals(memberHouse.getName())
-                    && idNo.equals(memberHouse.getIdNumber())) {
+                        && idNo.equals(memberHouse.getIdNumber())) {
                     return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "认证成功",
-                        true, null);
+                            true, null);
                 } else {
                     return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "认证失败",
-                        false, null);
+                            false, null);
                 }
             } else {
                 return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(),
-                    "您还没有在物业处登记身份，请先去登记身份", false, null);
+                        "您还没有在物业处登记身份，请先去登记身份", false, null);
             }
         } else {
             return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "您还没有在物业处登记身份，请先去登记身份", false,
-                null);
+                    null);
         }
 
     }
 
     /**
      * 校验必填参数
+     *
      * @param memberHouse
      * @return
      */
     private ResponseUtil checkParam(MemberHouse memberHouse) {
         if (memberHouse == null) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
+                    ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getRegion())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "region is empity",
-                true, null);
+                    true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getCommunity())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "community is empity",
-                true, null);
+                    true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getBuilding())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "building is empity",
-                true, null);
+                    true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getRoom())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "room is empity", true,
-                null);
+                    null);
         }
         if (StringUtils.isEmpty(memberHouse.getIdentityInformation())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "identityInformation is empity", true, null);
+                    "identityInformation is empity", true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getIdNumber())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "idNumber is empity",
-                true, null);
+                    true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getStreet())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "street is empity",
-                true, null);
+                    true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getVillage())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "village is empity",
-                true, null);
+                    true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getUnit())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "unit is empity", true,
-                null);
+                    null);
         }
         if (StringUtils.isEmpty(memberHouse.getPhone())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phone is empity",
-                true, null);
+                    true, null);
         }
         if (StringUtils.isEmpty(memberHouse.getName())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "name is empity", true,
-                null);
+                    null);
         }
         if (StringUtils.isEmpty(memberHouse.getImg())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "img is empity", true,
-                null);
+                    null);
         }
         return null;
     }
 
     /**
      * gridDatalist数据
+     *
      * @param request
      * @param dataMap
      * @return
      */
-    @RequestMapping(value = "/list", method = { RequestMethod.GET })
-    public @ResponseBody HttpJsonResult<List<MemberHouse>> list(HttpServletRequest request,
-                                                                ModelMap dataMap) {
+    @RequestMapping(value = "/list", method = {RequestMethod.GET})
+    public @ResponseBody
+    HttpJsonResult<List<MemberHouse>> list(HttpServletRequest request,
+                                           ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.page(queryMap, pager);
@@ -210,35 +223,38 @@ public class MemberHouseController extends BaseController {
 
         return jsonResult;
     }
-    
+
     /**
      * 微信端获取指定居民名下所有房屋信息
+     *
      * @param createUserId
      * @param pageNum
      * @param pageSize
      * @return
      */
-    @RequestMapping(value = "/all", method = { RequestMethod.GET })
+    @RequestMapping(value = "/all", method = {RequestMethod.GET})
     @ResponseBody
     public ResponseUtil list(String memberId, HttpServletResponse response) {
         if (StringUtils.isBlank(memberId)) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "createUserId is blank", true, null);
+                    "createUserId is blank", true, null);
         }
         ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.getAllHouse(memberId);
         return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true,
-            serviceResult.getResult());
+                serviceResult.getResult());
     }
 
     /**
      * 房屋认证-通过（暂时弃用，采用数据对比的方式直接进行）
+     *
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping(value = "/passInfo", method = { RequestMethod.GET })
-    public @ResponseBody HttpJsonResult<Boolean> pass(HttpServletRequest request,
-                                                      HttpServletResponse response, Integer id) {
+    @RequestMapping(value = "/passInfo", method = {RequestMethod.GET})
+    public @ResponseBody
+    HttpJsonResult<Boolean> pass(HttpServletRequest request,
+                                 HttpServletResponse response, Integer id) {
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         Integer userId = adminUser.getId();
         MemberHouse memberHouse = new MemberHouse();
@@ -262,13 +278,15 @@ public class MemberHouseController extends BaseController {
 
     /**
      * 房屋认证-不通过（暂时弃用，采用数据对比的方式直接进行）
+     *
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping(value = "/noPassInfo", method = { RequestMethod.GET })
-    public @ResponseBody HttpJsonResult<Boolean> noPass(HttpServletRequest request,
-                                                        HttpServletResponse response, Integer id) {
+    @RequestMapping(value = "/noPassInfo", method = {RequestMethod.GET})
+    public @ResponseBody
+    HttpJsonResult<Boolean> noPass(HttpServletRequest request,
+                                   HttpServletResponse response, Integer id) {
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         Integer userId = adminUser.getId();
         MemberHouse memberHouse = new MemberHouse();

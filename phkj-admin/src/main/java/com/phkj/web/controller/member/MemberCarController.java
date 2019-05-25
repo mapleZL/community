@@ -4,11 +4,13 @@ import com.phkj.core.*;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.MemberPropertyStatus;
+import com.phkj.entity.member.Member;
 import com.phkj.entity.member.MemberCar;
 import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.member.IMemberCarService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 我的车辆相关action
@@ -75,15 +78,46 @@ public class MemberCarController extends BaseController {
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
     public ResponseUtil save(@RequestBody MemberCar memberCar) {
+        ResponseUtil responseUtil = checkParam(memberCar);
+        if (null != responseUtil) {
+            return responseUtil;
+        }
         ServiceResult<Integer> serviceResult;
         if (memberCar.getId() != null && memberCar.getId() != 0) {
             //编辑
             serviceResult = memberCarService.updateMemberCar(memberCar);
         } else {
             //新增
+            ServiceResult<List<MemberCar>> result = memberCarService.getMyMemberCarList(memberCar.getMemberId(), 1, 10000);
+            if (result.getResult() != null && !result.getResult().isEmpty()) {
+                List<MemberCar> cars = result.getResult();
+                for (MemberCar car : cars) {
+                    if (car.getVehicleNumber().equals(memberCar.getVehicleNumber())) {
+                        return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请勿重复认证", true, null);
+                    }
+                }
+            }
             serviceResult = memberCarService.saveMemberCar(memberCar);
         }
         return ResponseUtil.createResp(serviceResult.getCode(), serviceResult.getMessage(), true, serviceResult.getResult());
+    }
+
+    /**
+     * create by: zl
+     * description: 参数校验
+     * create time:
+     *
+     * @return
+     * @Param: memberCar
+     */
+    private ResponseUtil checkParam(MemberCar memberCar) {
+        if (StringUtils.isBlank(memberCar.getVehicleNumber()) || memberCar.getMemberId() == null || memberCar.getMemberId() == 0) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId or vehicleNumber is blank", true, null);
+        }
+        if (StringUtils.isBlank(memberCar.getVehicleType()) || StringUtils.isBlank(memberCar.getVehicleStructure())) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "vehicleType or vehicleStructure is blank", true, null);
+        }
+        return null;
     }
 
     /**
@@ -126,7 +160,7 @@ public class MemberCarController extends BaseController {
      */
     @RequestMapping(value = "/my/cars", method = {RequestMethod.GET})
     @ResponseBody
-    public  ResponseUtil myCars(Integer memberId, int pageNum, int pageSize) {
+    public ResponseUtil myCars(Integer memberId, int pageNum, int pageSize) {
         if (memberId == null || memberId == 0) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true, null);
         }

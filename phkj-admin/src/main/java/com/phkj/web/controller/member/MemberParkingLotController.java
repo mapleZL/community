@@ -21,28 +21,27 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *                       
  * @Filename: MemberParkingLotController.java
  * @Version: 1.0
  * @date: 2019年5月13日
  * @Author: 陆帅 * @Email: lu1632278229@sina.cn
- *
  */
 @Controller
 @RequestMapping(value = "/admin/member/parking/lot")
-public class MemberParkingLotController extends BaseController{
-    
+public class MemberParkingLotController extends BaseController {
+
     @Resource
     IMemberParkingLotService memberParkingLotService;
 
-    
+
     /**
      * 初始化列表页面
+     *
      * @param dataMap
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "", method = { RequestMethod.GET })
+    @RequestMapping(value = "", method = {RequestMethod.GET})
     public String getList(Map<String, Object> dataMap) throws Exception {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         return "admin/member/member/memberparkinglot";
@@ -63,20 +62,31 @@ public class MemberParkingLotController extends BaseController{
             serviceResult = memberParkingLotService.updateMemberParkingLot(memberParkingLot);
         } else {
             //新增
+            ServiceResult<List<MemberParkingLot>> result = memberParkingLotService.getMyMemberLotList(memberParkingLot.getMemberId(), 1, 10000);
+            List<MemberParkingLot> lots = result.getResult();
+            if (lots != null && !lots.isEmpty()) {
+                for (MemberParkingLot lot : lots) {
+                    if (lot.getPosition().equals(memberParkingLot.getPosition())) {
+                        return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请勿重复认证", true, null);
+                    }
+                }
+            }
             serviceResult = memberParkingLotService.saveMemberParkingLot(memberParkingLot);
         }
         return ResponseUtil.createResp(serviceResult.getCode(), serviceResult.getMessage(), true, serviceResult.getResult());
     }
-    
+
     /**
      * gridDatalist数据
+     *
      * @param request
      * @param dataMap
      * @return
      */
-    @RequestMapping(value = "/list", method = { RequestMethod.GET })
-    public @ResponseBody HttpJsonResult<List<MemberParkingLot>> list(HttpServletRequest request,
-                                                                    ModelMap dataMap) {
+    @RequestMapping(value = "/list", method = {RequestMethod.GET})
+    public @ResponseBody
+    HttpJsonResult<List<MemberParkingLot>> list(HttpServletRequest request,
+                                                ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         ServiceResult<List<MemberParkingLot>> serviceResult = memberParkingLotService.page(queryMap, pager);
@@ -106,7 +116,7 @@ public class MemberParkingLotController extends BaseController{
      */
     @RequestMapping(value = "/my/lots", method = {RequestMethod.GET})
     @ResponseBody
-    public  ResponseUtil myCars(Integer memberId, int pageNum, int pageSize) {
+    public ResponseUtil myCars(Integer memberId, int pageNum, int pageSize) {
         if (memberId == null || memberId == 0) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true, null);
         }
@@ -115,16 +125,18 @@ public class MemberParkingLotController extends BaseController{
         ServiceResult<List<MemberParkingLot>> result = memberParkingLotService.getMyMemberLotList(memberId, pageNum, pageSize);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
     }
-    
+
     /**
      * 车位认证-通过
+     *
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping(value = "/passInfo", method = { RequestMethod.GET })
-    public @ResponseBody HttpJsonResult<Boolean> pass(HttpServletRequest request,
-                                                      HttpServletResponse response, Integer id) {
+    @RequestMapping(value = "/passInfo", method = {RequestMethod.GET})
+    public @ResponseBody
+    HttpJsonResult<Boolean> pass(HttpServletRequest request,
+                                 HttpServletResponse response, Integer id) {
 
         ServiceResult<Boolean> serviceResult = memberParkingLotService.changeStatus(id, MemberPropertyStatus.STATE_2);
         if (!serviceResult.getSuccess()) {
@@ -139,16 +151,18 @@ public class MemberParkingLotController extends BaseController{
         jsonResult.setData(true);
         return jsonResult;
     }
-    
+
     /**
      * 车位认证-不通过
+     *
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping(value = "/noPassInfo", method = { RequestMethod.GET })
-    public @ResponseBody HttpJsonResult<Boolean> noPass(HttpServletRequest request,
-                                                      HttpServletResponse response, Integer id) {
+    @RequestMapping(value = "/noPassInfo", method = {RequestMethod.GET})
+    public @ResponseBody
+    HttpJsonResult<Boolean> noPass(HttpServletRequest request,
+                                   HttpServletResponse response, Integer id) {
 
         ServiceResult<Boolean> serviceResult = memberParkingLotService.changeStatus(id, MemberPropertyStatus.STATE_0);
         if (!serviceResult.getSuccess()) {
