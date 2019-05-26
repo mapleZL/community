@@ -132,7 +132,6 @@ public class NoticeBulletinReleaseManageController {
                     .getResult();
                 if (count != null && count > 0) {
                     notice.setHasCollect(true);
-                    ;
                 }
 
                 // 获取评论数量
@@ -181,6 +180,7 @@ public class NoticeBulletinReleaseManageController {
      */
     @RequestMapping(value = "/detail", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<StNoticeBulletinReleaseManage> list(Long id,
+                                                                            Integer memberId,
                                                                             HttpServletResponse response) {
         ServiceResult<StNoticeBulletinReleaseManage> serviceResult = stNoticeBulletinReleaseManageService
             .getNoticeById(id);
@@ -206,6 +206,12 @@ public class NoticeBulletinReleaseManageController {
             }
             releaseManage.setImg(list);
         }
+
+        Integer count = collectionManageService.getCollectionCount(memberId, id).getResult();
+        if (count != null && count > 0) {
+            releaseManage.setHasCollect(true);
+        }
+
         HttpJsonResult<StNoticeBulletinReleaseManage> jsonResult = new HttpJsonResult<StNoticeBulletinReleaseManage>();
         jsonResult.setData(releaseManage);
 
