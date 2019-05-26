@@ -1,13 +1,11 @@
 package com.phkj.service.impl.share;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 import com.github.pagehelper.StringUtil;
 import com.phkj.entity.system.SystemAdmin;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -294,6 +292,10 @@ public class ShareServiceImpl implements ShareService {
 
         boolean flag = false;
         shareInfo.setSts("1"); //任务状态 0删除 1.正常
+        if (StringUtils.isBlank(shareInfo.getImgUrl())){
+            List<String> list = new ArrayList<>();
+            shareInfo.setImgUrl(list.toString());
+        }
         int i = stAppletShareInfoMapper.insert(shareInfo);
         if (i > 0) {
             flag = true;
