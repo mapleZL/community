@@ -7,6 +7,7 @@ import com.phkj.echarts.component.MemberPropertyStatus;
 import com.phkj.entity.member.MemberParkingLot;
 import com.phkj.service.member.IMemberParkingLotService;
 import com.phkj.web.controller.BaseController;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,13 +57,17 @@ public class MemberParkingLotController extends BaseController {
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
     public ResponseUtil save(@RequestBody MemberParkingLot memberParkingLot) {
+        ResponseUtil responseUtil = checkParam(memberParkingLot);
+        if (null != responseUtil) {
+            return responseUtil;
+        }
         ServiceResult<Integer> serviceResult;
         if (memberParkingLot.getId() != null && memberParkingLot.getId() != 0) {
             //编辑
             serviceResult = memberParkingLotService.updateMemberParkingLot(memberParkingLot);
         } else {
             //新增
-            ServiceResult<List<MemberParkingLot>> result = memberParkingLotService.getMyMemberLotList(memberParkingLot.getMemberId(), 1, 10000);
+            ServiceResult<List<MemberParkingLot>> result = memberParkingLotService.getMyMemberLotList(memberParkingLot.getMemberId(), memberParkingLot.getVillageId(), 1, 10000);
             List<MemberParkingLot> lots = result.getResult();
             if (lots != null && !lots.isEmpty()) {
                 for (MemberParkingLot lot : lots) {
@@ -74,6 +79,28 @@ public class MemberParkingLotController extends BaseController {
             serviceResult = memberParkingLotService.saveMemberParkingLot(memberParkingLot);
         }
         return ResponseUtil.createResp(serviceResult.getCode(), serviceResult.getMessage(), true, serviceResult.getResult());
+    }
+
+    /**
+     * create by: zl
+     * description: 参数校验
+     * create time:
+     *
+     * @return
+     * @Param: memberParkingLot
+     */
+    private ResponseUtil checkParam(MemberParkingLot memberParkingLot) {
+        if (StringUtils.isBlank(memberParkingLot.getVehicleNumber()) || memberParkingLot.getMemberId() == null || memberParkingLot.getMemberId() == 0) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId or vehicleNumber is blank", false, null);
+        }
+        if (StringUtils.isBlank(memberParkingLot.getPhoneNum()) || StringUtils.isBlank(memberParkingLot.getPosition())) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phoneNum or position is blank", false, null);
+        }
+        // TODO 暂时注释掉
+//        if (StringUtils.isBlank(memberParkingLot.getVillage()) || memberParkingLot.getVillageId() == null || memberParkingLot.getVillageId() == 0) {
+//            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "village or villageId is blank", false, null);
+//        }
+        return null;
     }
 
     /**
@@ -116,13 +143,13 @@ public class MemberParkingLotController extends BaseController {
      */
     @RequestMapping(value = "/my/lots", method = {RequestMethod.GET})
     @ResponseBody
-    public ResponseUtil myCars(Integer memberId, int pageNum, int pageSize) {
+    public ResponseUtil myCars(Integer memberId, Integer villageId, int pageNum, int pageSize) {
         if (memberId == null || memberId == 0) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true, null);
         }
         pageNum = pageNum == 0 ? 1 : pageNum;
         pageSize = pageSize == 0 ? 10 : pageSize;
-        ServiceResult<List<MemberParkingLot>> result = memberParkingLotService.getMyMemberLotList(memberId, pageNum, pageSize);
+        ServiceResult<List<MemberParkingLot>> result = memberParkingLotService.getMyMemberLotList(memberId, villageId, pageNum, pageSize);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
     }
 

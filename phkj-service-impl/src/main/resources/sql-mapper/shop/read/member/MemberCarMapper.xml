@@ -4,6 +4,8 @@
 	<resultMap id="MemberCarResult" type="com.phkj.entity.member.MemberCar">
 			<result property="id" column="id" />
 			<result property="memberId" column="member_id" />
+			<result property="villageId" column="village_id" />
+			<result property="village" column="village" />
 			<result property="vehicleType" column="vehicle_type" />
 			<result property="vehicleStructure" column="vehicle_structure" />
 			<result property="vehicleNumber" column="vehicle_number" />
@@ -50,6 +52,8 @@
 		(
 			
 			`member_id`,
+			`village_id`,
+			`village`,
 			`vehicle_type`,
 			`vehicle_structure`,
 			`vehicle_number`,
@@ -64,6 +68,8 @@
 		(
 			
 			#{memberId},
+			#{villageId},
+			#{village},
 			#{vehicleType},
 			#{vehicleStructure},
 			#{vehicleNumber},
@@ -106,6 +112,11 @@
 		<where>
 			<if test="memberId != null and memberId !=''">
 				and member_id = #{memberId}
+			</if>
+		</where>
+		<where>
+			<if test="villageId != null and villageId !=''">
+				and village_id = #{villageId}
 			</if>
 		</where>
 		order by `create_date` desc

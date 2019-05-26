@@ -42,7 +42,7 @@ public interface IStAppletRepairService {
      * @param pageSize
      * @return
      */
-    ServiceResult<List<StAppletRepair>> getStAppletRepairList(String createUserId, int pageNum, int pageSize);
+    ServiceResult<List<StAppletRepair>> getStAppletRepairList(String createUserId, int villageId, int pageNum, int pageSize);
 
     /**
      * 后台查询维修记录列表

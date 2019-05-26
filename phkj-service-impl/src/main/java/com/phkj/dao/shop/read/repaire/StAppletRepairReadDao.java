@@ -7,22 +7,21 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+
 /**
- *                       
  * @Filename: StAppletRepairReadDao.java
  * @Version: 1.0
  * @Author: 陆帅 * @Email: lu1632278229@sina.cn
- *
  */
 @Repository
 public interface StAppletRepairReadDao {
- 
-	StAppletRepair get(Integer id);
 
-    List<StAppletRepair> getStAppletRepairList(@Param("createUserId")String createUserId, @Param("start") int pageNum, @Param("size") int pageSize);
+    StAppletRepair get(Integer id);
 
-    int getRepairCount(@Param("queryMap")Map<String, String> queryMap);
+    List<StAppletRepair> getStAppletRepairList(@Param("createUserId") String createUserId, @Param("villageId") int villageId, @Param("start") int pageNum, @Param("size") int pageSize);
 
-    List<StAppletRepair> getRepairList(@Param("queryMap")Map<String, String> queryMap, @Param("start")Integer start,
-                                             @Param("size")Integer size);
+    int getRepairCount(@Param("queryMap") Map<String, String> queryMap);
+
+    List<StAppletRepair> getRepairList(@Param("queryMap") Map<String, String> queryMap, @Param("start") Integer start,
+                                       @Param("size") Integer size);
 }

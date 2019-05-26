@@ -85,7 +85,7 @@ public class MemberCarModel {
      * @Param: pageNum
      * @Param: pageSize
      */
-    public List<MemberCar> getMyMemberCarList(Integer memberId, int pageNum, int pageSize) {
-        return memberCarDao.getMyMemberCarList(memberId, pageNum, pageSize);
+    public List<MemberCar> getMyMemberCarList(Integer memberId, Integer villageId, int pageNum, int pageSize) {
+        return memberCarDao.getMyMemberCarList(memberId, villageId, pageNum, pageSize);
     }
 }

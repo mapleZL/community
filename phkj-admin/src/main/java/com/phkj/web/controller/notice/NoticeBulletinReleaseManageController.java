@@ -132,7 +132,6 @@ public class NoticeBulletinReleaseManageController {
                     .getResult();
                 if (count != null && count > 0) {
                     notice.setHasCollect(true);
-                    ;
                 }
 
                 // 获取评论数量
