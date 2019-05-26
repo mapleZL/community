@@ -43,11 +43,11 @@
 		where `member_id` = #{memberId}
 	</select>
 	
-	<select id="getCollectionCount" resultMap="StAppletCollectionManageResult">
+	<select id="getCollectionCount" resultType="Integer">
 	    select
 		   count(id)
 		from `st_applet_collection_manage`
-		where `notice_id` = #{noticeId} and memberId = #{memberId}
+		where `notice_id` = #{noticeId} and member_id = #{memberId}
 	</select>
 	
 </mapper>
