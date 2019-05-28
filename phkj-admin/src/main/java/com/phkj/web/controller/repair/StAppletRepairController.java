@@ -98,9 +98,7 @@ public class StAppletRepairController extends BaseController {
     /**
      * 物业维修人员列表查询
      *
-     * @param createUserId
-     * @param pageNum
-     * @param pageSize
+     * @param request
      * @return
      */
     @RequestMapping(value = "/repairList", method = {RequestMethod.GET})
@@ -246,7 +244,7 @@ public class StAppletRepairController extends BaseController {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
                     "userName or telPhone is blank", true, null);
         }
-        if (StringUtils.isBlank(stAppletRepair.getType()) || stAppletRepair.getVillageId() == null || stAppletRepair.getVillageId() == 0) {
+        if (StringUtils.isBlank(stAppletRepair.getType()) || stAppletRepair.getVillageCode() == null || stAppletRepair.getVillageCode() == 0) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "type or villageId is blank", true,
                     null);
         }
