@@ -9,19 +9,19 @@ import java.util.Map;
 
 @Repository
 public interface MemberCarDao {
- 
-	MemberCar get(Integer id);
-	
-	Integer insert(MemberCar memberCar);
-	
-	Integer update(MemberCar memberCar);
 
-	Integer getMemberCarCount(@Param("queryMap") Map<String, String> queryMap);
+    MemberCar get(Integer id);
 
-	List<MemberCar> getMemberCarList(@Param("queryMap") Map<String, String> queryMap, @Param("start") Integer start, @Param("size") Integer size);
+    Integer insert(MemberCar memberCar);
 
-	Boolean changeState(@Param("id")Integer id, @Param("status") int status);
+    Integer update(MemberCar memberCar);
 
-    List<MemberCar> getMyMemberCarList(@Param("memberId") Integer memberId, @Param("start") int pageNum,
-									   @Param("size") int pageSize);
+    Integer getMemberCarCount(@Param("queryMap") Map<String, String> queryMap);
+
+    List<MemberCar> getMemberCarList(@Param("queryMap") Map<String, String> queryMap, @Param("start") Integer start, @Param("size") Integer size);
+
+    Boolean changeState(@Param("id") Integer id, @Param("status") int status);
+
+    List<MemberCar> getMyMemberCarList(@Param("memberId") Integer memberId, @Param("villageId") Integer villageId, @Param("start") int pageNum,
+                                       @Param("size") int pageSize);
 }

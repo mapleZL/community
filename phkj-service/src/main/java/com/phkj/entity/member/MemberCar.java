@@ -13,6 +13,8 @@ public class MemberCar implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
  	private Integer memberId;
+ 	private Integer villageId;
+ 	private String village;
  	private String vehicleType;
  	private String vehicleStructure;
  	private String vehicleNumber;
@@ -171,5 +173,20 @@ public class MemberCar implements Serializable {
     public void setImg(String img) {
         this.img = img;
     }
-	
- }
+
+	public Integer getVillageId() {
+		return villageId;
+	}
+
+	public void setVillageId(Integer villageId) {
+		this.villageId = villageId;
+	}
+
+	public String getVillage() {
+		return village;
+	}
+
+	public void setVillage(String village) {
+		this.village = village;
+	}
+}

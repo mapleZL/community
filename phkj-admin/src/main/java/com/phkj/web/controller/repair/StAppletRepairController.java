@@ -45,23 +45,24 @@ import com.phkj.web.util.WebAdminSession;
 public class StAppletRepairController extends BaseController {
 
     @Autowired
-    IStAppletRepairService       stAppletRepairService;
+    IStAppletRepairService stAppletRepairService;
     @Autowired
     IStAppletRepairMemberService stAppletRepairMemberService;
 
     /**
      * 初始化列表页面
+     *
      * @param dataMap
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "", method = { RequestMethod.GET })
+    @RequestMapping(value = "", method = {RequestMethod.GET})
     public String getList(Map<String, Object> dataMap) throws Exception {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         return "admin/repair/member/repairrecordlist";
     }
-    
-    @RequestMapping(value = "/undo", method = { RequestMethod.GET })
+
+    @RequestMapping(value = "/undo", method = {RequestMethod.GET})
     public String getUndoList(Map<String, Object> dataMap) throws Exception {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         return "admin/repair/member/repairundolist";
@@ -75,7 +76,7 @@ public class StAppletRepairController extends BaseController {
      * @return
      * @Param: stAppletRepair
      */
-    @RequestMapping(value = "/add", method = { RequestMethod.POST })
+    @RequestMapping(value = "/add", method = {RequestMethod.POST})
     @ResponseBody
     public ResponseUtil save(@RequestBody StAppletRepair stAppletRepair) {
         ResponseUtil flag = checkParam(stAppletRepair);
@@ -91,19 +92,21 @@ public class StAppletRepairController extends BaseController {
             result = stAppletRepairService.saveStAppletRepair(stAppletRepair);
         }
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true,
-            result.getResult());
+                result.getResult());
     }
 
     /**
      * 物业维修人员列表查询
+     *
      * @param createUserId
      * @param pageNum
      * @param pageSize
      * @return
      */
-    @RequestMapping(value = "/repairList", method = { RequestMethod.GET })
-    public @ResponseBody HttpJsonResult<List<StAppletRepair>> repairList(HttpServletRequest request,
-                                                                         ModelMap dataMap) {
+    @RequestMapping(value = "/repairList", method = {RequestMethod.GET})
+    public @ResponseBody
+    HttpJsonResult<List<StAppletRepair>> repairList(HttpServletRequest request,
+                                                    ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         //TODO 此处可以优化
@@ -111,10 +114,10 @@ public class StAppletRepairController extends BaseController {
         if (adminUser.getRoleId() == 5) {
             queryMap.put("q_repair_id", adminUser.getId().toString());
         }
-        
+
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         ServiceResult<List<StAppletRepair>> serviceResult = stAppletRepairService.page(queryMap,
-            pager);
+                pager);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());
@@ -129,21 +132,22 @@ public class StAppletRepairController extends BaseController {
 
         return jsonResult;
     }
-  
-    
+
+
     /**
      * 跳转分配维修人员页面
+     *
      * @param request
      * @param dataMap
      * @param id
      * @param source
      * @return
      */
-    @RequestMapping(value = "/delivery", method = { RequestMethod.GET })
+    @RequestMapping(value = "/delivery", method = {RequestMethod.GET})
     public String delivery(HttpServletRequest request, Map<String, Object> dataMap, Integer id) {
         List<StAppletRepairMember> list = stAppletRepairMemberService.list();
         ServiceResult<StAppletRepair> serviceResult = stAppletRepairService
-            .getStAppletRepairById(id);
+                .getStAppletRepairById(id);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());
@@ -156,9 +160,10 @@ public class StAppletRepairController extends BaseController {
         dataMap.put("repairMembers", list);
         return "admin/repair/member/delivery";
     }
-    
+
     /**
      * 设置维修人员
+     *
      * @param request
      * @param ccName
      * @param ccId
@@ -174,7 +179,7 @@ public class StAppletRepairController extends BaseController {
         stAppletRepair.setSts(RepairStatus.STATE_2);
         stAppletRepair.setRepairId(ccId);
         stAppletRepair.setRepairName(ccName);
-        
+
         // 审核人信息
         stAppletRepair.setExamineId(adminUser.getId().toString());
         stAppletRepair.setExamineTime(new Date());
@@ -182,6 +187,7 @@ public class StAppletRepairController extends BaseController {
 
         return "redirect:/admin/property/repair";
     }
+
     /**
      * create by: zl
      * description: 查看物业报修
@@ -190,16 +196,16 @@ public class StAppletRepairController extends BaseController {
      * @return
      * @Param: stAppletRepair
      */
-    @RequestMapping(value = "/detail", method = { RequestMethod.GET })
+    @RequestMapping(value = "/detail", method = {RequestMethod.GET})
     @ResponseBody
     public ResponseUtil get(Integer id) {
         if (id == null) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
+                    ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
         }
         ServiceResult<StAppletRepair> result = stAppletRepairService.getStAppletRepairById(id);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true,
-            result.getResult());
+                result.getResult());
     }
 
     /**
@@ -210,56 +216,58 @@ public class StAppletRepairController extends BaseController {
      * @return
      * @Param: stAppletRepair
      */
-    @RequestMapping(value = "/list", method = { RequestMethod.GET })
+    @RequestMapping(value = "/list", method = {RequestMethod.GET})
     @ResponseBody
-    public ResponseUtil list(String createUserId, int pageNum, int pageSize) {
+    public ResponseUtil list(String createUserId, int villageId, int pageNum, int pageSize) {
         if (StringUtils.isBlank(createUserId)) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "createUserId is blank", true, null);
+                    "createUserId is blank", true, null);
         }
         pageNum = pageNum == 0 ? 1 : pageNum;
         pageSize = pageSize == 0 ? 10 : pageSize;
         ServiceResult<List<StAppletRepair>> result = stAppletRepairService
-            .getStAppletRepairList(createUserId, pageNum, pageSize);
+                .getStAppletRepairList(createUserId,villageId, pageNum, pageSize);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true,
-            result.getResult());
+                result.getResult());
     }
 
     private ResponseUtil checkParam(StAppletRepair stAppletRepair) {
         if (stAppletRepair == null) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
+                    ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
         }
         if (StringUtils.isBlank(stAppletRepair.getCommunityName())
-            || StringUtils.isBlank(stAppletRepair.getHouseName())) {
+                || StringUtils.isBlank(stAppletRepair.getHouseName())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "communityName or houseName is blank", true, null);
+                    "communityName or houseName is blank", true, null);
         }
         if (StringUtils.isBlank(stAppletRepair.getTelPhone())
-            || StringUtils.isBlank(stAppletRepair.getUserName())) {
+                || StringUtils.isBlank(stAppletRepair.getUserName())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "userName or telPhone is blank", true, null);
+                    "userName or telPhone is blank", true, null);
         }
-        if (StringUtils.isBlank(stAppletRepair.getType())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "type is blank", true,
-                null);
+        if (StringUtils.isBlank(stAppletRepair.getType()) || stAppletRepair.getVillageId() == null || stAppletRepair.getVillageId() == 0) {
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "type or villageId is blank", true,
+                    null);
         }
         if (stAppletRepair.getStartTime() == null || stAppletRepair.getEndTime() == null) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "startTime or  endTime is blank", true, null);
+                    "startTime or  endTime is blank", true, null);
         }
         return null;
     }
 
     /**
      * 审核不通过
+     *
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping(value = "/nopass", method = { RequestMethod.GET })
-    public @ResponseBody HttpJsonResult<Boolean> onpass(HttpServletRequest request,
-                                                        HttpServletResponse response, Integer id) {
+    @RequestMapping(value = "/nopass", method = {RequestMethod.GET})
+    public @ResponseBody
+    HttpJsonResult<Boolean> onpass(HttpServletRequest request,
+                                   HttpServletResponse response, Integer id) {
         StAppletRepair stAppletRepair = new StAppletRepair();
         stAppletRepair.setId(id);
         stAppletRepair.setSts(RepairStatus.STATE_3);
@@ -276,16 +284,18 @@ public class StAppletRepairController extends BaseController {
         jsonResult.setData(true);
         return jsonResult;
     }
-    
+
     /**
      * 维修人员操作
+     *
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping(value = "/changeStatus", method = { RequestMethod.GET })
-    public @ResponseBody HttpJsonResult<Boolean> changeStatus(HttpServletRequest request,
-                                                        HttpServletResponse response, Integer id, Integer sts) {
+    @RequestMapping(value = "/changeStatus", method = {RequestMethod.GET})
+    public @ResponseBody
+    HttpJsonResult<Boolean> changeStatus(HttpServletRequest request,
+                                         HttpServletResponse response, Integer id, Integer sts) {
         StAppletRepair stAppletRepair = new StAppletRepair();
         stAppletRepair.setId(id);
         stAppletRepair.setSts(sts);
@@ -302,5 +312,5 @@ public class StAppletRepairController extends BaseController {
         jsonResult.setData(true);
         return jsonResult;
     }
-    
+
 }

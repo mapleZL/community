@@ -17,6 +17,6 @@ public interface MemberParkingLotReadDao {
 
     int getMemberParkingCount(@Param("queryMap") Map<String, String> queryMap);
 
-    List<MemberParkingLot> getMyMemberLotList(@Param("memberId") Integer memberId, @Param("start") int pageNum,
+    List<MemberParkingLot> getMyMemberLotList(@Param("memberId") Integer memberId, @Param("villageId") Integer villageId, @Param("start") int pageNum,
                                               @Param("size") int pageSize);
 }

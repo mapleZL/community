@@ -4,6 +4,7 @@
 	<resultMap id="StAppletRepairResult" type="com.phkj.entity.repair.StAppletRepair">
 			<result property="id" column="id" />
 			<result property="communityName" column="community_name" />
+			<result property="villageId" column="village_id" />
 			<result property="houseName" column="house_name" />
 			<result property="createUserId" column="create_user_id" />
 			<result property="userName" column="user_name" />
@@ -55,6 +56,7 @@
 		(
 			
 			`community_name`,
+			`village_id`,
 			`house_name`,
 			`create_user_id`,
 			`user_name`,
@@ -77,6 +79,7 @@
 		(
 			
 			#{communityName},
+			#{villageId},
 			#{houseName},
 			#{createUserId},
 			#{userName},

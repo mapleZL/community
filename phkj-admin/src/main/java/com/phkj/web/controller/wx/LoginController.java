@@ -42,9 +42,6 @@ public class LoginController {
     @ResponseBody
     public ResponseUtil register(@RequestBody MemberParam memberParam, HttpServletRequest httpServletRequest, HttpServletResponse response) {
         try {
-            response.addHeader("Access-Control-Allow-Origin", "*");
-            //允许跨域GET和POST请求
-            response.addHeader("Access-Control-Allow-Method", "*");
             if (memberParam == null) {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
             }
@@ -63,6 +60,8 @@ public class LoginController {
                 jsonObject.put("name", member.getName());
                 jsonObject.put("phoneNum", member.getPhone());
                 jsonObject.put("headIcon", member.getHeadIcon());
+            } else {
+                return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), "用户名或密码错误", false, jsonObject);
             }
             return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, jsonObject);
         } catch (Exception e) {
