@@ -290,11 +290,11 @@ public class StAppletRepair implements Serializable {
         this.repairName = repairName;
     }
 
-    public Integer getVillageId() {
+    public Integer getVillageCode() {
         return villageCode;
     }
 
-    public void setVillageId(Integer villageId) {
-        this.villageCode = villageId;
+    public void setVillageCode(Integer villageCode) {
+        this.villageCode = villageCode;
     }
 }
