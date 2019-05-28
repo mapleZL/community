@@ -35,6 +35,7 @@ public class SystemAdmin implements Serializable {
     private Integer           createUser;                              //createUser
     private String            tel;                                     //电话
     private Integer           status;                                  //状态 1-正常 2-冻结 3-删除
+    private String            villageCode;                             //绑定小区code
 
     private String            roleName;
 
@@ -157,4 +158,13 @@ public class SystemAdmin implements Serializable {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
+
 }

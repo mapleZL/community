@@ -243,6 +243,20 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/role"/>
 									<span class="title_span">1-20个字符,唯一</span>
 								</p>
 							</div>
+							<div class="fluidbox">
+								<p class="p12 p-item">
+									<label class="lab-item"><font class="red">*</font>角色归属小区:
+									</label>
+									<#if residentia??>
+		                            	<select name="villageCode" id="villageCode" level="0" class="w210 easyui-combobox">
+		                            	<option>请选择</option>
+				                     	<#list residentia as orgaion>
+											<option value="${(orgaion.orgCode)!}">${(orgaion.name)!}</option>
+										</#list>
+										</select>
+									</#if>
+								</p>
+							</div>
 							<br/>
 							<div class="fluidbox">
 								<p class="p12 p-item">
@@ -252,7 +266,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/role"/>
 										data-options="required:true,validType:['length[1,200]']" />
 								</p>
 							</div>
-							<br />
+							<br/>
 
 						</dd>
 					</dl>

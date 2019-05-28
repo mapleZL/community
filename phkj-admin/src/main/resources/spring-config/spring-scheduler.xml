@@ -47,7 +47,7 @@
 			<ref bean="BrowseUpdateRedisJob" />
 		</property>
 		<property name="cronExpression">
-			<value>0 0/2 * * * ?</value>
+			<value>0 0/30 * * * ?</value>
 		</property>
 	</bean>
 

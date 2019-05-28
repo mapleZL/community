@@ -37,7 +37,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
 	<span style="color: #F00;float: left;margin-left: 20px;margin-top: 2px;">
 		<img style="float: left;margin-right: 6px;" 
 		src="${domainUrlUtil.EJS_URL_RESOURCES}/resources/admin/images/warning.jpg"/>
-		新增的管理员账号初始密码为:abc123,
+		新增的管理员账号初始密码为:123456,
 		请告知用户登录后及时修改密码
 	</span>
 	</#if>

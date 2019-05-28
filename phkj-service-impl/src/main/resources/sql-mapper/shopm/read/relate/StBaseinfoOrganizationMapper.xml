@@ -27,6 +27,10 @@
 	    select * from `st_baseinfo_organization` where sts='Y'
 	</select>
 	
+	<select id="getOrganizationByRegion" resultMap="StBaseinfoOrganizationResult">
+	    select * from `st_baseinfo_organization` where sts="Y" and region =#{region}
+	</select>
+	
 	<update id="update" parameterType="com.phkj.entity.relate.StBaseinfoOrganization">
         update `st_baseinfo_organization` 
     	<set>

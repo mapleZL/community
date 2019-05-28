@@ -6,6 +6,7 @@
 			<result property="name" column="name" />
 			<result property="password" column="password" />
 			<result property="roleId" column="role_id" />
+			<result property="villageCode" column="village_code"/>
 			<result property="createTime" column="create_time" />
 			<result property="createUser" column="create_user" />
 			<result property="tel" column="tel" />
@@ -56,6 +57,7 @@
 			<if test="queryMap.createUser != null and queryMap.createUser !=''"  > and `create_user`= #{queryMap.createUser}</if>
 			<if test="queryMap.tel != null and queryMap.tel !=''"  > and `tel`= #{queryMap.tel}</if>
 			<if test="queryMap.status != null and queryMap.status !=''"  > and `status`= #{queryMap.status}</if>
+			<if test="queryMap.villageCode != null and queryMap.villageCode !=''"  > and `village_code`= #{queryMap.villageCode}</if>
 		</where>
 	</sql>
 	

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,9 @@ import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.WebUtil;
 import com.phkj.core.exception.BusinessException;
+import com.phkj.entity.relate.StBaseinfoOrganization;
 import com.phkj.entity.system.SystemRoles;
+import com.phkj.service.relate.IStBaseinfoOrganizationService;
 import com.phkj.service.system.ISystemResourcesRolesService;
 import com.phkj.service.system.ISystemRolesService;
 import com.phkj.web.controller.BaseController;
@@ -34,19 +37,21 @@ import com.phkj.web.util.WebAdminSession;
  *                       
  * @Filename: AdminRoleController.java
  * @Version: 1.0
- * @Author: 陈万海
- * @Email: chenwanhai@sina.com
+ * @date: 2018年4月12日
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
  *
  */
 @Controller
 @RequestMapping(value = "admin/system/role")
 public class AdminRoleController extends BaseController {
     @Resource
-    private ISystemRolesService          rolesService;
+    private ISystemRolesService            rolesService;
+    @Autowired
+    private IStBaseinfoOrganizationService organizationService;
     @Resource
-    private ISystemResourcesRolesService resourcesRolesService;
+    private ISystemResourcesRolesService   resourcesRolesService;
 
-    Logger                               log = Logger.getLogger(this.getClass());
+    Logger                                 log = Logger.getLogger(this.getClass());
 
     /**
      * 验证角色编码不重复
@@ -93,6 +98,8 @@ public class AdminRoleController extends BaseController {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
 
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
+        List<StBaseinfoOrganization> list = organizationService.getOrganizationByRegion("residentia");
+        dataMap.put("residentia", list);
         dataMap.put("queryMap", queryMap);
         return "admin/system/role/list";
     }

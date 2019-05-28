@@ -26,18 +26,20 @@ import com.phkj.core.StringUtil;
 import com.phkj.core.WebUtil;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.entity.system.SystemAdmin;
+import com.phkj.entity.system.SystemRoles;
 import com.phkj.service.system.ISystemAdminService;
 import com.phkj.service.system.ISystemRolesService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
 
 /**
+ * 
  * admin管理controller
- *
+ *                       
  * @Filename: AdminUserController.java
  * @Version: 1.0
- * @Author: 陈万海
- * @Email: chenwanhai@sina.com
+ * @date: 2018年5月10日
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
  *
  */
 @Controller
@@ -162,7 +164,9 @@ public class AdminUserController extends BaseController {
         ServiceResult<Integer> serviceResult = null;
         String msg = "";
         PrintWriter pw = null;
-
+        // 绑定登录用户的小区code
+        SystemRoles systemRoles = rolesService.getSystemRolesById(admin.getRoleId()).getResult();
+        admin.setVillageCode(systemRoles.getVillageCode());
         try {
             if (admin.getId() == null || admin.getId().intValue() == 0) {
                 admin.setCreateTime(new Date());

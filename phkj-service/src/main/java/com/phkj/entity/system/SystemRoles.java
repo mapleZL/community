@@ -34,6 +34,7 @@ public class SystemRoles implements Serializable {
     private Date              updateTime;                              //updateTime
     private Integer           status;                                  //1、未删除2、删除
     private String            roleCode;
+    private String            villageCode;                             //角色归属小区code
 
     /**
      * 获取id
@@ -140,4 +141,13 @@ public class SystemRoles implements Serializable {
     public void setRoleCode(String roleCode) {
         this.roleCode = roleCode;
     }
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
+    
 }

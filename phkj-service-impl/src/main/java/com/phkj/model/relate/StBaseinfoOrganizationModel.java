@@ -49,5 +49,14 @@ public class StBaseinfoOrganizationModel {
     public List<StBaseinfoOrganization> getOranizations() {
         return stBaseinfoOrganizationDao.getOranizations();
     }
+
+    /**
+     * 获取所有小区
+     * @param region
+     * @return
+     */
+    public List<StBaseinfoOrganization> getOrganizationByRegion(String region) {
+        return stBaseinfoOrganizationDao.getOrganizationByRegion(region);
+    }
      
 }

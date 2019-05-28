@@ -94,7 +94,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
 					$.messager.progress({text:"提交中..."});
 					$.ajax({
 						type:"GET",
-					    url: "${currentBaseUrl}/del.html?id="+selected.id,
+					    url: "${currentBaseUrl}/del?id="+selected.id,
 						success:function(e){
 							$('#dataGrid').datagrid('reload');
 							$.messager.progress('close');

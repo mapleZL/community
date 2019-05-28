@@ -144,7 +144,7 @@
 						<p class="p6 p-item">
                             <label class="lab-item"><font class="red">*</font>商品分类:</label>
                             <#if productCategory??>
-                            	<select name="cateId" id="cateId" level="0" class="w210">
+                            	<select name="cateId" id="cateId" level="0" class="w210 easyui-combobox">
                             	<option>请选择</option>
 		                     	<#list productCategory as category>
 									<option value="${(category.codeCd)!}">${(category.codeText)!}</option>
