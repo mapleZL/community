@@ -44,6 +44,7 @@
                 /admin/share/** = anon
                 /admin/complaint/** = anon
                 /admin/member/pet/** = anon
+                /admin/overtime/** = anon
                 /resources/** = anon <!-- 不需要认证 -->
                 /notice/activity/** = anon
                 /obtain/config/** = anon
