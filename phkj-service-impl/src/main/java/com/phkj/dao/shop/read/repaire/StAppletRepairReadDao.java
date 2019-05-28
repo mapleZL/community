@@ -18,7 +18,7 @@ public interface StAppletRepairReadDao {
 
     StAppletRepair get(Integer id);
 
-    List<StAppletRepair> getStAppletRepairList(@Param("createUserId") String createUserId, @Param("villageId") int villageId, @Param("start") int pageNum, @Param("size") int pageSize);
+    List<StAppletRepair> getStAppletRepairList(@Param("createUserId") String createUserId, @Param("villageCode") int villageCode, @Param("start") int pageNum, @Param("size") int pageSize);
 
     int getRepairCount(@Param("queryMap") Map<String, String> queryMap);
 

@@ -218,7 +218,7 @@ public class StAppletRepairController extends BaseController {
      */
     @RequestMapping(value = "/list", method = {RequestMethod.GET})
     @ResponseBody
-    public ResponseUtil list(String createUserId, int villageId, int pageNum, int pageSize) {
+    public ResponseUtil list(String createUserId, int villageCode, int pageNum, int pageSize) {
         if (StringUtils.isBlank(createUserId)) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
                     "createUserId is blank", true, null);
@@ -226,7 +226,7 @@ public class StAppletRepairController extends BaseController {
         pageNum = pageNum == 0 ? 1 : pageNum;
         pageSize = pageSize == 0 ? 10 : pageSize;
         ServiceResult<List<StAppletRepair>> result = stAppletRepairService
-                .getStAppletRepairList(createUserId,villageId, pageNum, pageSize);
+                .getStAppletRepairList(createUserId,villageCode, pageNum, pageSize);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true,
                 result.getResult());
     }
