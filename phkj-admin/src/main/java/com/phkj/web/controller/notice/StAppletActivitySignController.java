@@ -31,12 +31,14 @@ import com.phkj.core.redis.RedisComponent;
 import com.phkj.echarts.component.MemberPropertyStatus;
 import com.phkj.echarts.component.RedisSychroKeyConfig;
 import com.phkj.entity.notice.StAppletActivitySign;
+import com.phkj.entity.notice.StAppletUserBrowse;
 import com.phkj.entity.notice.StBrowse;
 import com.phkj.entity.relate.StNoticeBulletinReleaseManage;
 import com.phkj.entity.relate.SystemAppfile;
 import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.notice.IStAppletActivitySignService;
 import com.phkj.service.notice.IStAppletCollectionManageService;
+import com.phkj.service.notice.IStAppletUserBrowseService;
 import com.phkj.service.notice.IStBrowseService;
 import com.phkj.service.relate.IStNoticeBulletinReleaseManageService;
 import com.phkj.service.relate.ISystemAppfileService;
@@ -64,6 +66,8 @@ public class StAppletActivitySignController {
     private ISystemAppfileService                 systemAppfileService;
     @Autowired
     private IStNoticeBulletinReleaseManageService stNoticeBulletinReleaseManageService;
+    @Autowired
+    private IStAppletUserBrowseService            stAppletUserBrowseService;
 
     /**
      * 初始化列表页面
@@ -123,11 +127,14 @@ public class StAppletActivitySignController {
      * @return
      */
     @RequestMapping(value = "/participateList", method = RequestMethod.GET)
-    public @ResponseBody HttpJsonResult<List<StNoticeBulletinReleaseManage>> getParticipateList(Integer memberId, Integer start, Integer pageSize) {
+    public @ResponseBody HttpJsonResult<List<StNoticeBulletinReleaseManage>> getParticipateList(Integer memberId,
+                                                                                                Integer start,
+                                                                                                Integer pageSize) {
         HttpJsonResult<List<StNoticeBulletinReleaseManage>> serviceResult = new HttpJsonResult<>();
         List<StNoticeBulletinReleaseManage> returnList = new ArrayList<>();
         try {
-            ServiceResult<List<StAppletActivitySign>> result = activitySignService.getParticipateList(memberId, start, pageSize);
+            ServiceResult<List<StAppletActivitySign>> result = activitySignService
+                .getParticipateList(memberId, start, pageSize);
             List<StAppletActivitySign> list = result.getResult();
             if (list != null) {
                 StBrowse stBrowse = null;
@@ -138,7 +145,8 @@ public class StAppletActivitySignController {
                 Map<String, String> sourceMap = new NoticeSourceConfig().getSourceMap();
                 StNoticeBulletinReleaseManage notice = null;
                 for (StAppletActivitySign activitySign : list) {
-                    notice = stNoticeBulletinReleaseManageService.getNoticeById(activitySign.getrActivityId()).getResult();
+                    notice = stNoticeBulletinReleaseManageService
+                        .getNoticeById(activitySign.getrActivityId()).getResult();
                     // 获取流量，先从redis查询，查询无果从MySQL查询
                     redisKey += notice.getId();
                     browse = redisComponet.increment(redisKey, 0L);
@@ -150,6 +158,11 @@ public class StAppletActivitySignController {
                     }
 
                     notice.setRate(browse);
+                    StAppletUserBrowse stAppletUserBrowse = stAppletUserBrowseService
+                        .getUserBrowse(activitySign.getrActivityId().intValue(), memberId).getResult();
+                    if (stAppletUserBrowse != null && stAppletUserBrowse.getBrowse() > 0) {
+                        notice.setHasBrowse(true);
+                    }
 
                     // 获取收藏数量
                     collectionManage = collectionManageService.getCountByNoticeid(notice.getId())
@@ -158,20 +171,31 @@ public class StAppletActivitySignController {
                         collectionManage = 0L;
                     }
                     notice.setCollect(collectionManage);
+                    Integer count = collectionManageService.getCollectionCount(memberId, activitySign.getrActivityId())
+                            .getResult();
+                    if (count != null && count > 0) {
+                        notice.setHasCollect(true);
+                    }
+                    
                     // 获取评论数量
                     comment = commentService.getCountByRId(notice.getId(), "notice").getResult();
                     if (comment == null) {
                         comment = 0L;
                     }
                     notice.setComment(comment);
-                    
+                    count = commentService.getCommentCount(memberId, activitySign.getrActivityId());
+                    if (count != null && count > 0) {
+                        notice.setHasComment(true);
+                    }
+
                     // 获取头条图片路径
-                    List<SystemAppfile> pics = systemAppfileService.getPicList("notice", notice.getId(), notice.getType()).getResult();
+                    List<SystemAppfile> pics = systemAppfileService
+                        .getPicList("notice", notice.getId(), notice.getType()).getResult();
                     // 存在图片取一条作为展示
                     if (pics != null && pics.size() > 0) {
                         notice.setImg(Arrays.asList(pics.get(0).getPath()));
                     }
-                    
+
                     // 设置来源
                     notice.setSourceName(sourceMap.get(notice.getSourceType()));
                     returnList.add(notice);

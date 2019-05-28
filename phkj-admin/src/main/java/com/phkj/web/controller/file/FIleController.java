@@ -1,19 +1,27 @@
 package com.phkj.web.controller.file;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.phkj.core.HttpJsonResult;
 import com.phkj.core.ResponseStateEnum;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.service.file.IFileService;
@@ -53,6 +61,45 @@ public class FIleController extends BaseController {
             log.error("上传文件发生错误，请联系平台管理人员, exception:{}", e);
             return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, new ArrayList<>());
         }
+    }
+    
+    /**
+     * ajax商品图片上传
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/uploadPics", method = { RequestMethod.POST })
+    public @ResponseBody Object uploadImage(MultipartHttpServletRequest request,
+                                            HttpServletResponse response, String fileIndex) {
+        log.info("UploadImageController uploadImage start");
+        HttpJsonResult<Map<String, Object>> jsonResult = new HttpJsonResult<Map<String, Object>>();
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            MultiValueMap<String, MultipartFile> map = request.getMultiFileMap();
+            if (map != null) {
+                Iterator<String> iter = map.keySet().iterator();
+                while (iter.hasNext()) {
+                    String str = (String) iter.next();
+                    List<MultipartFile> fileList = map.get(str);
+                    for (MultipartFile multipartFile : fileList) {
+                        String url = fileService.uploadFile(multipartFile);
+
+                        result.put("url", url);
+                        result.put("fileIndex", fileIndex);
+                        jsonResult.setData(result);
+
+                        return jsonResult;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error("[shoppingmall-memer-web][UploadImageController][uploadImage] exception:", e);
+            jsonResult.setMessage(e.getMessage());
+            return jsonResult;
+        }
+        return null;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.phkj.entity.notice;
 
 import java.io.Serializable;
+
 /**
  * 
  * <p>Table: <strong>st_browse</strong>
@@ -20,130 +21,123 @@ import java.io.Serializable;
  *
  */
 public class StBrowse implements Serializable {
- 
- 	/**
+
+    /**
      *Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = 1L;
     private java.lang.Integer id;
- 	private java.lang.Long noticeId;
- 	private java.lang.Long browseVolume;
- 	private java.lang.Integer createId;
- 	private java.util.Date createTime;
- 	private java.lang.Integer modifyId;
- 	private java.util.Date modifyTime;
- 	private java.lang.Integer sts;
- 	
- 		
-	/**
+    private java.lang.Long    rId;
+    private java.lang.Long    browseVolume;
+    private java.lang.Integer createId;
+    private java.util.Date    createTime;
+    private java.lang.Integer modifyId;
+    private java.util.Date    modifyTime;
+    private java.lang.Integer sts;
+
+    /**
      * 获取id
      */
-	public java.lang.Integer getId(){
-		return this.id;
-	}
- 		
-	/**
+    public java.lang.Integer getId() {
+        return this.id;
+    }
+
+    /**
      * 设置id
      */
-	public void setId(java.lang.Integer id){
-		this.id = id;
-	}
- 		
-	/**
-     * 获取关联通告id
-     */
-	public java.lang.Long getNoticeId(){
-		return this.noticeId;
-	}
- 		
-	/**
-     * 设置关联通告id
-     */
-	public void setNoticeId(java.lang.Long noticeId){
-		this.noticeId = noticeId;
-	}
- 		
-	/**
+    public void setId(java.lang.Integer id) {
+        this.id = id;
+    }
+
+    public java.lang.Long getRId() {
+        return rId;
+    }
+
+    public void setRId(java.lang.Long rId) {
+        this.rId = rId;
+    }
+
+    /**
      * 获取浏览量
      */
-	public java.lang.Long getBrowseVolume(){
-		return this.browseVolume;
-	}
- 		
-	/**
+    public java.lang.Long getBrowseVolume() {
+        return this.browseVolume;
+    }
+
+    /**
      * 设置浏览量
      */
-	public void setBrowseVolume(java.lang.Long browseVolume){
-		this.browseVolume = browseVolume;
-	}
- 		
-	/**
+    public void setBrowseVolume(java.lang.Long browseVolume) {
+        this.browseVolume = browseVolume;
+    }
+
+    /**
      * 获取创建人
      */
-	public java.lang.Integer getCreateId(){
-		return this.createId;
-	}
- 		
-	/**
+    public java.lang.Integer getCreateId() {
+        return this.createId;
+    }
+
+    /**
      * 设置创建人
      */
-	public void setCreateId(java.lang.Integer createId){
-		this.createId = createId;
-	}
- 		
-	/**
+    public void setCreateId(java.lang.Integer createId) {
+        this.createId = createId;
+    }
+
+    /**
      * 获取创建日期
      */
-	public java.util.Date getCreateTime(){
-		return this.createTime;
-	}
- 		
-	/**
+    public java.util.Date getCreateTime() {
+        return this.createTime;
+    }
+
+    /**
      * 设置创建日期
      */
-	public void setCreateTime(java.util.Date createTime){
-		this.createTime = createTime;
-	}
- 		
-	/**
+    public void setCreateTime(java.util.Date createTime) {
+        this.createTime = createTime;
+    }
+
+    /**
      * 获取修改人
      */
-	public java.lang.Integer getModifyId(){
-		return this.modifyId;
-	}
- 		
-	/**
+    public java.lang.Integer getModifyId() {
+        return this.modifyId;
+    }
+
+    /**
      * 设置修改人
      */
-	public void setModifyId(java.lang.Integer modifyId){
-		this.modifyId = modifyId;
-	}
- 		
-	/**
+    public void setModifyId(java.lang.Integer modifyId) {
+        this.modifyId = modifyId;
+    }
+
+    /**
      * 获取修改日期
      */
-	public java.util.Date getModifyTime(){
-		return this.modifyTime;
-	}
- 		
-	/**
+    public java.util.Date getModifyTime() {
+        return this.modifyTime;
+    }
+
+    /**
      * 设置修改日期
      */
-	public void setModifyTime(java.util.Date modifyTime){
-		this.modifyTime = modifyTime;
-	}
- 		
-	/**
+    public void setModifyTime(java.util.Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+    /**
      * 获取使用状态
      */
-	public java.lang.Integer getSts(){
-		return this.sts;
-	}
- 		
-	/**
+    public java.lang.Integer getSts() {
+        return this.sts;
+    }
+
+    /**
      * 设置使用状态
      */
-	public void setSts(java.lang.Integer sts){
-		this.sts = sts;
-	}
- }
+    public void setSts(java.lang.Integer sts) {
+        this.sts = sts;
+    }
+}

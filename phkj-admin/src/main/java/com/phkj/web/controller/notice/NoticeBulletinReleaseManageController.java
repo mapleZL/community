@@ -27,10 +27,12 @@ import com.phkj.core.exception.BusinessException;
 import com.phkj.core.redis.RedisComponent;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.RedisSychroKeyConfig;
+import com.phkj.entity.notice.StAppletUserBrowse;
 import com.phkj.entity.notice.StBrowse;
 import com.phkj.entity.relate.StNoticeBulletinReleaseManage;
 import com.phkj.entity.relate.SystemAppfile;
 import com.phkj.service.notice.IStAppletCollectionManageService;
+import com.phkj.service.notice.IStAppletUserBrowseService;
 import com.phkj.service.notice.IStBrowseService;
 import com.phkj.service.relate.IStNoticeBulletinReleaseManageService;
 import com.phkj.service.relate.ISystemAppfileService;
@@ -64,14 +66,19 @@ public class NoticeBulletinReleaseManageController {
     private IStAppletCommentService               commentService;
     @Autowired
     private IStNoticeBulletinReleaseManageService stNoticeBulletinReleaseManageService;
+    @Autowired
+    private IStAppletUserBrowseService            stAppletUserBrowseService;
 
     @RequestMapping("/add")
-    public @ResponseBody ResponseUtil add(@RequestParam("id") Integer id,
+    public @ResponseBody ResponseUtil add(@RequestParam("id") Integer id, Integer memberId,
                                           HttpServletResponse response) {
         Long count = 0L;
         try {
             String key = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + id;
             count = redisComponet.increment(key, 1L);
+            if (memberId != null) {
+                stAppletUserBrowseService.updateOrCreateBrowse(id, memberId);
+            }
         } catch (Exception e) {
             log.error("流量操作失败", e);
             return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), null,
@@ -107,7 +114,6 @@ public class NoticeBulletinReleaseManageController {
         Map<String, String> sourceMap = new NoticeSourceConfig().getSourceMap();
         if (list != null) {
             String redisKey = null;
-            ;
             for (StNoticeBulletinReleaseManage notice : list) {
                 // 获取流量，先从redis查询，查询无果从MySQL查询
                 redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + notice.getId();
@@ -120,6 +126,10 @@ public class NoticeBulletinReleaseManageController {
                 }
 
                 notice.setRate(browse);
+                StAppletUserBrowse stAppletUserBrowse = stAppletUserBrowseService.getUserBrowse(notice.getId().intValue(), memberId).getResult();
+                if (stAppletUserBrowse != null && stAppletUserBrowse.getBrowse() > 0) {
+                    notice.setHasBrowse(true);
+                }
 
                 // 获取收藏数量
                 collectionManage = collectionManageService.getCountByNoticeid(notice.getId())
@@ -194,6 +204,10 @@ public class NoticeBulletinReleaseManageController {
         Map<String, String> sourceMap = new NoticeSourceConfig().getSourceMap();
         StNoticeBulletinReleaseManage releaseManage = serviceResult.getResult();
         releaseManage.setSourceName(sourceMap.get(releaseManage.getSourceType()));
+        StBrowse stBrowse = null;
+        Long collectionManage = null;
+        Long comment = null;
+        Long browse = 0L;
 
         // 获取头条图片路径
         List<SystemAppfile> pics = systemAppfileService
@@ -207,9 +221,44 @@ public class NoticeBulletinReleaseManageController {
             releaseManage.setImg(list);
         }
 
-        Integer count = collectionManageService.getCollectionCount(memberId, id).getResult();
+        // 获取流量，先从redis查询，查询无果从MySQL查询
+        String redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + id;
+        browse = redisComponet.increment(redisKey, 0L);
+        if (browse == 0) {
+            stBrowse = browseService.getBrowseByNoticeId(id).getResult();
+            if (stBrowse != null) {
+                browse = stBrowse.getBrowseVolume();
+            }
+        }
+
+        releaseManage.setRate(browse);
+        StAppletUserBrowse stAppletUserBrowse = stAppletUserBrowseService.getUserBrowse(id.intValue(), memberId).getResult();
+        if (stAppletUserBrowse != null && stAppletUserBrowse.getBrowse() > 0) {
+            releaseManage.setHasBrowse(true);
+        }
+
+        // 获取收藏数量
+        collectionManage = collectionManageService.getCountByNoticeid(id)
+            .getResult();
+        if (collectionManage == null) {
+            collectionManage = 0L;
+        }
+        releaseManage.setCollect(collectionManage);
+        Integer count = collectionManageService.getCollectionCount(memberId, id)
+            .getResult();
         if (count != null && count > 0) {
             releaseManage.setHasCollect(true);
+        }
+
+        // 获取评论数量
+        comment = commentService.getCountByRId(id, "notice").getResult();
+        if (comment == null) {
+            comment = 0L;
+        }
+        releaseManage.setComment(comment);
+        count = commentService.getCommentCount(memberId, id);
+        if (count != null && count > 0) {
+            releaseManage.setHasComment(true);
         }
 
         HttpJsonResult<StNoticeBulletinReleaseManage> jsonResult = new HttpJsonResult<StNoticeBulletinReleaseManage>();

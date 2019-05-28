@@ -20,134 +20,134 @@ import java.io.Serializable;
  *
  */
 import java.util.Date;
+
 public class StAppletCollectionManage implements Serializable {
- 
- 	/**
+
+    /**
      *Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = 1L;
     private java.lang.Integer id;
- 	private java.lang.Long noticeId;
- 	private java.lang.String type;
- 	private java.lang.Integer memberId;
- 	private java.lang.String phone;
- 	private java.lang.Integer createId;
- 	private Date createTime;
- 	private java.lang.String createName;
- 	private java.lang.Integer sts;
- 	
- 		
-	/**
+    private java.lang.Long    noticeId;
+    private java.lang.String  type;
+    private java.lang.Integer memberId;
+    private java.lang.String  phone;
+    private java.lang.Integer createId;
+    private Date              createTime;
+    private java.lang.String  createName;
+    private java.lang.Integer sts;
+
+    /**
      * 获取id
      */
-	public java.lang.Integer getId(){
-		return this.id;
-	}
- 		
-	/**
+    public java.lang.Integer getId() {
+        return this.id;
+    }
+
+    /**
      * 设置id
      */
-	public void setId(java.lang.Integer id){
-		this.id = id;
-	}
- 		
-	/**
+    public void setId(java.lang.Integer id) {
+        this.id = id;
+    }
+
+    /**
      * 获取关联公告id
      */
-	public java.lang.Long getNoticeId(){
-		return this.noticeId;
-	}
- 		
-	/**
+    public java.lang.Long getNoticeId() {
+        return this.noticeId;
+    }
+
+    /**
      * 设置关联公告id
      */
-	public void setNoticeId(java.lang.Long noticeId){
-		this.noticeId = noticeId;
-	}
- 		
-	/**
+    public void setNoticeId(java.lang.Long noticeId) {
+        this.noticeId = noticeId;
+    }
+
+    /**
      * 获取公告类型
      */
-	public java.lang.String getType(){
-		return this.type;
-	}
- 		
-	/**
+    public java.lang.String getType() {
+        return this.type;
+    }
+
+    /**
      * 设置公告类型
      */
-	public void setType(java.lang.String type){
-		this.type = type;
-	}
- 		
-	/**
+    public void setType(java.lang.String type) {
+        this.type = type;
+    }
+
+    /**
      * 获取memberId
      */
-	public java.lang.Integer getMemberId(){
-		return this.memberId;
-	}
- 		
-	/**
+    public java.lang.Integer getMemberId() {
+        return this.memberId;
+    }
+
+    /**
      * 设置memberId
      */
-	public void setMemberId(java.lang.Integer memberId){
-		this.memberId = memberId;
-	}
- 		
-	/**
+    public void setMemberId(java.lang.Integer memberId) {
+        this.memberId = memberId;
+    }
+
+    /**
      * 获取用户手机号
      */
-	public java.lang.String getPhone(){
-		return this.phone;
-	}
- 		
-	/**
+    public java.lang.String getPhone() {
+        return this.phone;
+    }
+
+    /**
      * 设置用户手机号
      */
-	public void setPhone(java.lang.String phone){
-		this.phone = phone;
-	}
- 		
-	/**
+    public void setPhone(java.lang.String phone) {
+        this.phone = phone;
+    }
+
+    /**
      * 获取创建人id
      */
-	public java.lang.Integer getCreateId(){
-		return this.createId;
-	}
- 		
-	/**
+    public java.lang.Integer getCreateId() {
+        return this.createId;
+    }
+
+    /**
      * 设置创建人id
      */
-	public void setCreateId(java.lang.Integer createId){
-		this.createId = createId;
-	}
- 		
-	/**
+    public void setCreateId(java.lang.Integer createId) {
+        this.createId = createId;
+    }
+
+    /**
      * 获取createName
      */
-	public java.lang.String getCreateName(){
-		return this.createName;
-	}
- 		
-	/**
+    public java.lang.String getCreateName() {
+        return this.createName;
+    }
+
+    /**
      * 设置createName
      */
-	public void setCreateName(java.lang.String createName){
-		this.createName = createName;
-	}
- 		
-	/**
+    public void setCreateName(java.lang.String createName) {
+        this.createName = createName;
+    }
+
+    /**
      * 获取状态
      */
-	public java.lang.Integer getSts(){
-		return this.sts;
-	}
- 		
-	/**
+    public java.lang.Integer getSts() {
+        return this.sts;
+    }
+
+    /**
      * 设置状态
      */
-	public void setSts(java.lang.Integer sts){
-		this.sts = sts;
-	}
+    public void setSts(java.lang.Integer sts) {
+        this.sts = sts;
+    }
 
     public Date getCreateTime() {
         return createTime;
@@ -156,5 +156,5 @@ public class StAppletCollectionManage implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-	
- }
+
+}

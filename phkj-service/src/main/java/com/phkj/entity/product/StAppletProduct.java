@@ -109,6 +109,42 @@ public class StAppletProduct implements Serializable {
     private java.lang.String     unit;
     private java.lang.Integer    otherCategory;
 
+    public enum IsSelfEnum {
+        //1:自营，2:商家
+        SELF("默认", 1), SELLER("提交审核", 2);
+
+        private String name; //显示的名字
+        private int    value; //实际存储的值
+
+        //构造方法
+        private IsSelfEnum(String name, int value) {
+            this.name = name;
+            this.value = value;
+        }
+
+        /**
+         * 检查value是否合法
+         *
+         * @param value
+         * @return
+         */
+        public static Boolean chkIsSelfEnum(int value) {
+            for (IsSelfEnum status : IsSelfEnum.values()) {
+                if (status.getValue() == value)
+                    return Boolean.TRUE;
+            }
+            return Boolean.FALSE;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+    
     /**
      * 获取id
      */
@@ -738,4 +774,27 @@ public class StAppletProduct implements Serializable {
     public void setOtherCategory(java.lang.Integer otherCategory) {
         this.otherCategory = otherCategory;
     }
+
+    @Override
+    public String toString() {
+        return "StAppletProduct [id=" + id + ", productCateId=" + productCateId + ", name1=" + name1
+               + ", name2=" + name2 + ", keyword=" + keyword + ", productBrandId=" + productBrandId
+               + ", isSelf=" + isSelf + ", costPrice=" + costPrice + ", protectedPrice="
+               + protectedPrice + ", marketPrice=" + marketPrice + ", mallPcPrice=" + mallPcPrice
+               + ", malMobilePrice=" + malMobilePrice + ", virtualSales=" + virtualSales
+               + ", actualSales=" + actualSales + ", productStock=" + productStock + ", isNorm="
+               + isNorm + ", normIds=" + normIds + ", normName=" + normName + ", state=" + state
+               + ", isTop=" + isTop + ", upTime=" + upTime + ", description=" + description
+               + ", packing=" + packing + ", sellerId=" + sellerId + ", createId=" + createId
+               + ", createTime=" + createTime + ", updateTime=" + updateTime + ", sellerCateId="
+               + sellerCateId + ", sellerIsTop=" + sellerIsTop + ", sellerState=" + sellerState
+               + ", commentsNumber=" + commentsNumber + ", productCateState=" + productCateState
+               + ", isInventedProduct=" + isInventedProduct + ", transportId=" + transportId
+               + ", masterImg=" + masterImg + ", productCode=" + productCode + ", sellerCode="
+               + sellerCode + ", priceStatus=" + priceStatus + ", percentageScale="
+               + percentageScale + ", stockWarning=" + stockWarning + ", productUrl=" + productUrl
+               + ", inStockWarning=" + inStockWarning + ", refIds=" + refIds + ", unit=" + unit
+               + ", otherCategory=" + otherCategory + "]";
+    }
+    
 }

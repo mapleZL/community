@@ -10,6 +10,6 @@ public interface StBrowseReadDao {
 
     StBrowse get(java.lang.Long id);
 
-    StBrowse getBrowseByNoticeId(@Param("noticeId") Long noticeId);
+    StBrowse getBrowseByNoticeId(@Param("rId") Long rId);
 
 }

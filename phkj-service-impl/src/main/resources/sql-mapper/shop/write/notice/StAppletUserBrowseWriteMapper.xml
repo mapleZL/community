@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.phkj.dao.shop.write.notice.StBrowseWriteDao">
-	<resultMap id="StBrowseResult" type="com.phkj.entity.notice.StBrowse">
+<mapper namespace="com.phkj.dao.shop.write.notice.StAppletUserBrowseWriteDao">
+	<resultMap id="StAppletUserBrowseResult" type="com.phkj.entity.notice.StAppletUserBrowse">
 			<result property="id" column="id" />
 			<result property="rId" column="r_id" />
-			<result property="browseVolume" column="browse_volume" />
+			<result property="browse" column="browse" />
 			<result property="createId" column="create_id" />
 			<result property="createTime" column="create_time" />
 			<result property="modifyId" column="modify_id" />
@@ -12,12 +12,12 @@
 			<result property="sts" column="sts" />
 	</resultMap>
 	
-	<update id="update" parameterType="com.phkj.entity.notice.StBrowse">
-        update `st_applet_browse` 
+	<update id="update" parameterType="com.phkj.entity.notice.StAppletUserBrowse">
+        update `st_applet_user_browse` 
     	<set>
 			<if test="id != null">`id`= #{id},</if>
 			<if test="rId != null">`r_id`= #{rId},</if>
-			<if test="browseVolume != null">`browse_volume`= #{browseVolume},</if>
+			<if test="browse != null">`browse`= #{browse},</if>
 			<if test="createId != null">`create_id`= #{createId},</if>
 			<if test="createTime != null">`create_time`= #{createTime},</if>
 			<if test="modifyId != null">`modify_id`= #{modifyId},</if>
@@ -27,13 +27,13 @@
         where `id` = #{id}
 	</update>
 	
-	<insert id="insert" parameterType="com.phkj.entity.notice.StBrowse" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="insert" parameterType="com.phkj.entity.notice.StAppletUserBrowse" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into 
-		`st_applet_browse`
+		`st_applet_user_browse`
 		(
 			
 			`r_id`,
-			`browse_volume`,
+			`browse`,
 			`create_id`,
 			`create_time`,
 			`modify_id`,
@@ -44,7 +44,7 @@
 		(
 			
 			#{rId},
-			#{browseVolume},
+			#{browse},
 			#{createId},
 			#{createTime},
 			#{modifyId},

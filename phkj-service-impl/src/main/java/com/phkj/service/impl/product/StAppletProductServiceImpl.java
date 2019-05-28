@@ -85,4 +85,10 @@ public class StAppletProductServiceImpl implements IStAppletProductService {
         }
         return result;
      }
+
+    @Override
+    public ServiceResult<Boolean> updateOrCreate(StAppletProduct product) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

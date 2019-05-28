@@ -76,7 +76,7 @@ public class AdminJob {
                 tempList.add(code);
             }
             redisComponent.setStringPersistence(RedisSychroKeyConfig.CODE_VALUE_KEY,
-                JSONObject.toJSONString(tempList));
+                JSONObject.toJSONString(codeMap));
             log.info("字典表更新成功");
         } else {
             log.error("定时更新字典表发生错误，未查询到数据");
@@ -271,7 +271,7 @@ public class AdminJob {
             if (list != null) {
                 for (StNoticeBulletinReleaseManage notice : list) {
                     stBrowse = stBrowseModel.getBrowseByNoticeId(notice.getId());
-                    redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + stBrowse.getId();
+                    redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + notice.getId();
                     // 判断redis是否已经存在该条流量信息
                     if (stBrowse != null && stBrowse.getId() > 0) {
                         count = redisComponent.increment(redisKey, 0L);
@@ -285,7 +285,7 @@ public class AdminJob {
                     } else {
                         count = redisComponent.increment(redisKey, 0L);
                         stBrowse = new StBrowse();
-                        stBrowse.setNoticeId(notice.getId());
+                        stBrowse.setRId(notice.getId());
                         stBrowse.setBrowseVolume(count);
                         stBrowse.setCreateTime(new Date());
                         stBrowseModel.saveStBrowse(stBrowse);

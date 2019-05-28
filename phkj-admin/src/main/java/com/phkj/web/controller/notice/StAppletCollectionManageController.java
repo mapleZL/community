@@ -23,10 +23,12 @@ import com.phkj.core.redis.RedisComponent;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.RedisSychroKeyConfig;
 import com.phkj.entity.notice.StAppletCollectionManage;
+import com.phkj.entity.notice.StAppletUserBrowse;
 import com.phkj.entity.notice.StBrowse;
 import com.phkj.entity.relate.StNoticeBulletinReleaseManage;
 import com.phkj.entity.relate.SystemAppfile;
 import com.phkj.service.notice.IStAppletCollectionManageService;
+import com.phkj.service.notice.IStAppletUserBrowseService;
 import com.phkj.service.notice.IStBrowseService;
 import com.phkj.service.relate.IStNoticeBulletinReleaseManageService;
 import com.phkj.service.relate.ISystemAppfileService;
@@ -58,6 +60,8 @@ public class StAppletCollectionManageController extends BaseController {
     private ISystemAppfileService                 systemAppfileService;
     @Autowired
     private IStNoticeBulletinReleaseManageService stNoticeBulletinReleaseManageService;
+    @Autowired
+    private IStAppletUserBrowseService            stAppletUserBrowseService;
 
     /**
      * 头条活动收藏
@@ -101,7 +105,9 @@ public class StAppletCollectionManageController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/collectionList", method = RequestMethod.GET)
-    public @ResponseBody HttpJsonResult<List<StNoticeBulletinReleaseManage>> getParticipateList(Integer memberId, Integer start, Integer pageSize) {
+    public @ResponseBody HttpJsonResult<List<StNoticeBulletinReleaseManage>> getParticipateList(Integer memberId,
+                                                                                                Integer start,
+                                                                                                Integer pageSize) {
         HttpJsonResult<List<StNoticeBulletinReleaseManage>> serviceResult = new HttpJsonResult<>();
         List<StNoticeBulletinReleaseManage> returnList = new ArrayList<>();
         try {
@@ -128,8 +134,13 @@ public class StAppletCollectionManageController extends BaseController {
                             browse = stBrowse.getBrowseVolume();
                         }
                     }
-
                     notice.setRate(browse);
+                    StAppletUserBrowse stAppletUserBrowse = stAppletUserBrowseService
+                        .getUserBrowse(activitySign.getNoticeId().intValue(), memberId)
+                        .getResult();
+                    if (stAppletUserBrowse != null && stAppletUserBrowse.getBrowse() > 0) {
+                        notice.setHasBrowse(true);
+                    }
 
                     // 获取收藏数量
                     collectionManage = collectionManageService.getCountByNoticeid(notice.getId())
@@ -138,12 +149,22 @@ public class StAppletCollectionManageController extends BaseController {
                         collectionManage = 0L;
                     }
                     notice.setCollect(collectionManage);
+                    Integer count = collectionManageService
+                        .getCollectionCount(memberId, activitySign.getNoticeId()).getResult();
+                    if (count != null && count > 0) {
+                        notice.setHasCollect(true);
+                    }
+
                     // 获取评论数量
                     comment = commentService.getCountByRId(notice.getId(), "notice").getResult();
                     if (comment == null) {
                         comment = 0L;
                     }
                     notice.setComment(comment);
+                    count = commentService.getCommentCount(memberId, activitySign.getNoticeId());
+                    if (count != null && count > 0) {
+                        notice.setHasComment(true);
+                    }
 
                     // 获取头条图片路径
                     List<SystemAppfile> pics = systemAppfileService
