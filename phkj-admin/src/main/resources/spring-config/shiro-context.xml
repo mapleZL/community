@@ -42,6 +42,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /admin/share/** = anon
+                /admin/environ/** = anon
                 /admin/complaint/** = anon
                 /admin/member/pet/** = anon
                 /admin/overtime/** = anon

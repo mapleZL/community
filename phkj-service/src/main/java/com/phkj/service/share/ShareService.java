@@ -22,11 +22,11 @@ public interface ShareService {
 
     String applyShareInfo(String id, String userId, String userName, String telePhone, String address ,String IDCard);
 
-    Map<String,Object> getShareInfoList(String taskType, String status, Integer pageNum, Integer pageSize);
+    Map<String,Object> getShareInfoList(String taskType, String status, Integer pageNum, Integer pageSize, String villageCode);
 
     Map<String,Object> getShareDetail(String id);
 
-    Map<String,Object> getComShareInfoList(Integer userId, String taskType, String status, Integer page, Integer rows);
+    Map<String,Object> getComShareInfoList(Integer userId, String taskType, String status, Integer page, Integer rows, String villageCode);
 
     boolean createShareInfo(StAppletShareInfo shareInfo);
 

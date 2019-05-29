@@ -28,6 +28,7 @@
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="share_status" jdbcType="VARCHAR" property="shareStatus" />
     <result column="apply_num" jdbcType="VARCHAR" property="applyNum" />
+    <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.phkj.entity.share.StAppletShareInfo">
     <result column="img_url" jdbcType="LONGVARCHAR" property="imgUrl" />
@@ -87,6 +88,7 @@
     WHERE
     1= 1
     and t.share_type = '2'
+      and village_code = #{villageCode}
     <if test="taskType != null and taskType != ''">
       and t.task_type = #{taskType}
     </if>
@@ -129,6 +131,7 @@
         st_applet_share_info t
     WHERE
        1= 1
+      and village_code = #{villageCode}
        <if test="taskType != null and taskType != ''">
         and t.task_type = #{taskType}
        </if>
@@ -222,7 +225,7 @@
       destination, gender, profession, 
       skill, sts, create_time, 
       create_user_id, modify_user_id, modify_time, 
-      share_status, img_url, apply_num)
+      share_status, img_url, apply_num , village_code)
     values (#{id,jdbcType=BIGINT}, #{createUserName,jdbcType=VARCHAR}, #{shareType,jdbcType=VARCHAR}, 
       #{contact,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{taskType,jdbcType=VARCHAR}, #{doorLock,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
@@ -231,7 +234,7 @@
       #{destination,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
       #{skill,jdbcType=VARCHAR}, #{sts,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUserId,jdbcType=BIGINT}, #{modifyUserId,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{shareStatus,jdbcType=VARCHAR}, #{imgUrl,jdbcType=LONGVARCHAR}, #{applyNum,jdbcType=VARCHAR})
+      #{shareStatus,jdbcType=VARCHAR}, #{imgUrl,jdbcType=LONGVARCHAR}, #{applyNum,jdbcType=VARCHAR} , #{villageCode,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.phkj.entity.share.StAppletShareInfo">
     insert into st_applet_share_info

@@ -23,15 +23,16 @@ public interface StAppletShareInfoMapper {
 
     int updateByPrimaryKey(StAppletShareInfo record);
 
-    List<Map> selectByUserId(@Param("userId")String id, @Param("taskType") String taskType);
+    List<Map> selectByUserId(@Param("userId") String id, @Param("taskType") String taskType);
 
     List<Map> selectAllShareInfo(@Param("taskType") String taskType);
 
 
-    List<Map> selectByTaskType(@Param("taskType") String taskType, @Param("status") String status);
+    List<Map> selectByTaskType(@Param("taskType") String taskType, @Param("status") String status,
+                               @Param("villageCode") String villageCode);
 
     List<Map> selectComShareInfoList(@Param("userId") String userId, @Param("taskType") String taskType,
-                                     @Param("status") String status);
+                                     @Param("status") String status, @Param("villageCode") String villageCode);
 
     StAppletShareInfo selectShareByInfo(@Param("infoId") Long infoId);
 }

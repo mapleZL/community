@@ -139,6 +139,20 @@ public class StAppletShareInfo implements Serializable {
      */
     private String applyNum;
 
+    /**
+     *
+     * @return
+     */
+    private String villageCode;
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
+
     public String getApplyNum() {
         return applyNum;
     }

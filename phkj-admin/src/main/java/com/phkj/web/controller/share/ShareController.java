@@ -62,13 +62,8 @@ public class ShareController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getShareInfo(HttpServletRequest request, Integer pageNum,
                                Integer pageSize, ModelMap modelMap) {
-        try {
-            modelMap.put("pageNum", "1");
-            modelMap.put("pageSize", "30");
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("查询失败! 错误信息" + e);
-        }
+        modelMap.put("pageNum", "1");
+        modelMap.put("pageSize", "30");
         return "/admin/share/shareInfoList";
     }
 
@@ -198,6 +193,7 @@ public class ShareController {
     public String systemAddShare(HttpServletRequest request, StAppletShareInfo shareInfo, ModelMap modelMap) {
 
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        shareInfo.setVillageCode(adminUser.getVillageCode());
         shareInfo.setCreateTime(new Date());
         shareInfo.setShareStatus("0");
         shareInfo.setCreateUserId(Long.valueOf(adminUser.getId()));
@@ -226,11 +222,12 @@ public class ShareController {
         String createId = request.getParameter("q_createId");
         Integer userId = null;
         // 如果是查询自己发布 增加userId
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         if (StringUtils.isNotBlank(createId) && "2".equals(createId)) {
-            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
             userId = adminUser.getId();
         }
-        Map<String, Object> returnMap = shareService.getComShareInfoList(userId, taskType, status, page, rows);
+        String villageCode = adminUser.getVillageCode();
+        Map<String, Object> returnMap = shareService.getComShareInfoList(userId, taskType, status, page, rows,villageCode);
         String total = (String) returnMap.get("total");
         List<Map> list = (List<Map>) returnMap.get("list");
         jsonResult.setRows(list);
@@ -274,9 +271,11 @@ public class ShareController {
                                                       Integer rows) {
         HttpJsonResult<List<Map>> jsonResult = new HttpJsonResult<List<Map>>();
         try {
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
             String taskType = request.getParameter("q_taskType");
             String status = request.getParameter("q_status");
-            Map<String, Object> returnMap = shareService.getShareInfoList(taskType, status, page, rows);
+            String villageCode = adminUser.getVillageCode();
+            Map<String, Object> returnMap = shareService.getShareInfoList(taskType, status, page, rows,villageCode);
             String total = (String) returnMap.get("total");
             List<Map> list = (List<Map>) returnMap.get("list");
             jsonResult.setRows(list);
@@ -347,7 +346,7 @@ public class ShareController {
         String id = request.getParameter("id");
         String type = request.getParameter("type");
         try {
-            if (shareService.deleteShareInfo(id,type)) {
+            if (shareService.deleteShareInfo(id, type)) {
                 responseUtil.setSuccess(true);
             } else {
                 responseUtil.setSuccess(false);
@@ -487,6 +486,9 @@ public class ShareController {
             msg = "联系人不能为空!";
         }
 
+        if (StringUtils.isBlank(shareInfo.getVillageCode())) {
+            msg = "用户信息异常!";
+        }
         if ("1".equals(taskType)) {
             if (StringUtils.isBlank(shareInfo.getCarNum())) {
                 msg = "车牌号不能为空!";

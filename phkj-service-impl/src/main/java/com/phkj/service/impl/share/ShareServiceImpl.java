@@ -1,7 +1,6 @@
 package com.phkj.service.impl.share;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 import com.github.pagehelper.StringUtil;
 import com.phkj.entity.system.SystemAdmin;
@@ -17,8 +16,6 @@ import com.phkj.dao.shop.read.share.StAppletShareInfoMapper;
 import com.phkj.entity.share.StAppletShareApply;
 import com.phkj.entity.share.StAppletShareInfo;
 import com.phkj.service.share.ShareService;
-
-import javax.print.attribute.standard.Sides;
 
 @Service
 public class ShareServiceImpl implements ShareService {
@@ -136,7 +133,7 @@ public class ShareServiceImpl implements ShareService {
         shareInfo.setCreateTime(new Date());
         shareInfo.setShareType("1"); //1居民 2 物业社区
         shareInfo.setSts("1"); //任务状态 0删除 1.正常
-        int i = stAppletShareInfoMapper.insertSelective(shareInfo);
+        int i = stAppletShareInfoMapper.insert(shareInfo);
         if (i > 0) {
             flag = true;
         }
@@ -215,10 +212,11 @@ public class ShareServiceImpl implements ShareService {
      * @param status
      * @param pageNum
      * @param pageSize
+     * @param villageCode
      * @return
      */
     @Override
-    public Map<String, Object> getShareInfoList(String taskType, String status, Integer pageNum, Integer pageSize) {
+    public Map<String, Object> getShareInfoList(String taskType, String status, Integer pageNum, Integer pageSize, String villageCode) {
 
         int pageNumber = pageNum == 0 ? 1 : pageNum;
         int size = pageSize == 0 ? 20 : pageSize;
@@ -226,7 +224,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareInfoMapper.selectByTaskType(taskType, status);
+                stAppletShareInfoMapper.selectByTaskType(taskType, status,villageCode);
             }
         });
         // 处理数据
@@ -260,11 +258,12 @@ public class ShareServiceImpl implements ShareService {
      * @param status
      * @param page
      * @param rows
+     * @param villageCode
      * @return
      */
     @Override
     public Map<String, Object> getComShareInfoList(Integer id, String taskType, String status, Integer page,
-                                                   Integer rows) {
+                                                   Integer rows, String villageCode) {
         int pageNumber = page == 0 ? 1 : page;
         int size = rows == 0 ? 20 : rows;
         // 根据当前倒叙查询列表
@@ -272,7 +271,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareInfoMapper.selectComShareInfoList(userId, taskType, status);
+                stAppletShareInfoMapper.selectComShareInfoList(userId, taskType, status,villageCode);
             }
         });
 
