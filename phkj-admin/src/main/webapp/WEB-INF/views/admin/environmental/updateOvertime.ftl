@@ -22,12 +22,12 @@ form input[type="button"] {
 </script>
 
 <form id="devForm"
-	action="${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/setRepairMember"
-	method="post">
-	<input id="repairId" type="hidden" name="repairId" value="${overTime.id!}" />
+	action="${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/update"
+	method="get">
+	<input id="id" type="hidden" name="id" value="${overTime.id!}" />
 	<table cellpadding="20" cellspacing="10">
 		<tr>
-            <td><label>限制时间</label></td>
+            <td><label>限制时间(小时)</label></td>
             <td><input class="txt w200" id="time" name="time"  value=""/></td>
 		</tr>
 		<tr>

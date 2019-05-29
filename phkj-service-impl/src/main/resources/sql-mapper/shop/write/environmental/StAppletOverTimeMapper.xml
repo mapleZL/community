@@ -90,7 +90,6 @@
       create_name = #{createName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-
   <update id="updateTimeById" parameterType="java.lang.String">
     update st_applet_over_time
     set over_time = #{time,jdbcType=VARCHAR}

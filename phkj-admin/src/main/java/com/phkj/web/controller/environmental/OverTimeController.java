@@ -101,14 +101,20 @@ public class OverTimeController {
         return "/admin/environmental/updateOvertime";
     }
 
-    @ResponseBody
+    /**
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public ResponseUtil update(HttpServletRequest request) {
+    public String update(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
         String id = request.getParameter("id");
         String time = request.getParameter("time");
-        if (overTimeService.update(id,time)){
-
-        };
-        return null;
+        if (overTimeService.update(id, time)) {
+            responseUtil.setSuccess(true);
+        }
+        ;
+        return "redirect:/admin/overtime/";
     }
 }
