@@ -44,6 +44,49 @@ public class EnvironmentalController {
         return "/admin/environmental/environList";
     }
 
+
+    /**
+     * 后台管理--审核接口,接受上报, 完成上报
+     */
+    @ResponseBody
+    @RequestMapping(value = "/system/update")
+    public ResponseUtil update(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        String type = request.getParameter("type");
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        try {
+            if (environmentalService.update(id, adminUser,type)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("删除失败!");
+        }
+        return responseUtil;
+    }
+
+    /**
+     * 后台管理删除
+     */
+    @ResponseBody
+    @RequestMapping(value = "/system/delete")
+    public ResponseUtil delete(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        try {
+            if (environmentalService.delete(id, adminUser)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("删除失败!");
+        }
+        return responseUtil;
+    }
+
+
     /**
      * @return
      */

@@ -9,31 +9,25 @@ import com.phkj.dao.shop.read.environmental.StAppletOverTimeReadMapper;
 import com.phkj.dao.shop.read.repaire.StAppletCommentDao;
 import com.phkj.dao.shop.write.environmental.StAppletEnvironmentWriteMapper;
 import com.phkj.entity.environmental.Comment;
-import com.phkj.entity.environmental.StAppletEnviron;
 import com.phkj.entity.environmental.StAppletEnvironment;
 import com.phkj.entity.environmental.StAppletOverTime;
 import com.phkj.entity.repair.StAppletComment;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.environmental.EnvironmentalService;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.wml.WMLUElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.*;
 
 @Service
@@ -265,6 +259,52 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
             }
         });
         return pageInfo;
+    }
+
+    /**
+     * @param id
+     * @param adminUser
+     * @return
+     */
+    @Override
+    public boolean delete(String id, SystemAdmin adminUser) {
+        StAppletEnvironment stAppletEnvironment = stAppletEnvironmentWriteMapper.selectByPrimaryKey(Long.valueOf(id));
+        stAppletEnvironment.setModifyTime(new Date());
+        stAppletEnvironment.setModifyUserId(adminUser.getId().toString());
+        stAppletEnvironment.setSts("0");
+        stAppletEnvironment.setExamineId(adminUser.getId().toString());
+        stAppletEnvironment.setExamineName(adminUser.getName());
+        int i = stAppletEnvironmentWriteMapper.updateByPrimaryKey(stAppletEnvironment);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * @param id
+     * @param adminUser
+     * @param type
+     * @return
+     */
+    @Override
+    public boolean update(String id, SystemAdmin adminUser, String type) {
+        StAppletEnvironment stAppletEnvironment = stAppletEnvironmentWriteMapper.selectByPrimaryKey(Long.valueOf(id));
+        if ("1".equals(type)) {
+            stAppletEnvironment.setStatus("1");
+        } else if ("2".equals(type)) {
+            stAppletEnvironment.setStatus("2");
+        }
+        stAppletEnvironment.setModifyTime(new Date());
+        stAppletEnvironment.setModifyUserId(adminUser.getId().toString());
+        stAppletEnvironment.setExamineId(adminUser.getId().toString());
+        stAppletEnvironment.setExamineName(adminUser.getName());
+        int i = stAppletEnvironmentWriteMapper.updateByPrimaryKey(stAppletEnvironment);
+        if (i > 0) {
+            return true;
+        }
+        return false;
     }
 
 

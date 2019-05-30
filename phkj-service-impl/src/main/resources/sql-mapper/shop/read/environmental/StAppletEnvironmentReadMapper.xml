@@ -38,8 +38,8 @@
       '绿化损坏'
       WHEN '3' THEN
       '高空抛物'
-      WHEN '井盖缺失' THEN
-      '4'
+      WHEN '4' THEN
+      '井盖缺失'
       WHEN '5' THEN
       '路面破损'
       WHEN '6' THEN
