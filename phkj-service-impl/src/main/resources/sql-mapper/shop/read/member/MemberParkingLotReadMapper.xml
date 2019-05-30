@@ -4,7 +4,7 @@
 	<resultMap id="MemberParkingLotResult" type="com.phkj.entity.member.MemberParkingLot">
 			<result property="id" column="id" />
 			<result property="memberId" column="member_id" />
-			<result property="villageId" column="village_id" />
+			<result property="villageCode" column="village_code" />
 			<result property="village" column="village" />
 			<result property="position" column="position" />
 			<result property="lotType" column="lot_type" />
@@ -60,10 +60,8 @@
 			<if test="memberId != null and memberId !=''">
 				and member_id = #{memberId}
 			</if>
-		</where>
-		<where>
-			<if test="villageId != null and villageId !=''">
-				and village_id = #{villageId}
+			<if test="villageCode != null and villageCode !=''">
+				and village_code = #{villageCode}
 			</if>
 		</where>
 		order by `create_date` desc

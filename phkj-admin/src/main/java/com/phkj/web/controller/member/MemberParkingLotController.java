@@ -67,7 +67,7 @@ public class MemberParkingLotController extends BaseController {
             serviceResult = memberParkingLotService.updateMemberParkingLot(memberParkingLot);
         } else {
             //新增
-            ServiceResult<List<MemberParkingLot>> result = memberParkingLotService.getMyMemberLotList(memberParkingLot.getMemberId(), memberParkingLot.getVillageId(), 1, 10000);
+            ServiceResult<List<MemberParkingLot>> result = memberParkingLotService.getMyMemberLotList(memberParkingLot.getMemberId(), memberParkingLot.getVillageCode(), 1, 10000);
             List<MemberParkingLot> lots = result.getResult();
             if (lots != null && !lots.isEmpty()) {
                 for (MemberParkingLot lot : lots) {
@@ -97,8 +97,8 @@ public class MemberParkingLotController extends BaseController {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phoneNum or position is blank", false, null);
         }
         // TODO 暂时注释掉
-//        if (StringUtils.isBlank(memberParkingLot.getVillage()) || memberParkingLot.getVillageId() == null || memberParkingLot.getVillageId() == 0) {
-//            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "village or villageId is blank", false, null);
+//        if (memberParkingLot.getVillageCode() == null || memberParkingLot.getVillageCode() == 0) {
+//            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "villageCode is blank", false, null);
 //        }
         return null;
     }
@@ -143,13 +143,13 @@ public class MemberParkingLotController extends BaseController {
      */
     @RequestMapping(value = "/my/lots", method = {RequestMethod.GET})
     @ResponseBody
-    public ResponseUtil myCars(Integer memberId, Integer villageId, int pageNum, int pageSize) {
+    public ResponseUtil myCars(Integer memberId, Integer villageCode, int pageNum, int pageSize) {
         if (memberId == null || memberId == 0) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true, null);
         }
         pageNum = pageNum == 0 ? 1 : pageNum;
         pageSize = pageSize == 0 ? 10 : pageSize;
-        ServiceResult<List<MemberParkingLot>> result = memberParkingLotService.getMyMemberLotList(memberId, villageId, pageNum, pageSize);
+        ServiceResult<List<MemberParkingLot>> result = memberParkingLotService.getMyMemberLotList(memberId, villageCode, pageNum, pageSize);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
     }
 

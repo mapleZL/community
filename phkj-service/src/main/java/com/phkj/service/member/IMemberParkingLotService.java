@@ -64,5 +64,5 @@ public interface IMemberParkingLotService {
      * @param pageSize
      * @return
      */
-    ServiceResult<List<MemberParkingLot>> getMyMemberLotList(Integer memberId, Integer villageId, int pageNum, int pageSize);
+    ServiceResult<List<MemberParkingLot>> getMyMemberLotList(Integer memberId, Integer villageCode, int pageNum, int pageSize);
 }

@@ -22,6 +22,6 @@ public interface MemberCarDao {
 
     Boolean changeState(@Param("id") Integer id, @Param("status") int status);
 
-    List<MemberCar> getMyMemberCarList(@Param("memberId") Integer memberId, @Param("villageId") Integer villageId, @Param("start") int pageNum,
+    List<MemberCar> getMyMemberCarList(@Param("memberId") Integer memberId, @Param("villageCode") Integer villageId, @Param("start") int pageNum,
                                        @Param("size") int pageSize);
 }
