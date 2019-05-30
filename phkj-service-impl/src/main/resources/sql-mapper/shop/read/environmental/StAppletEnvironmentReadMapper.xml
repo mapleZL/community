@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.read.environmental.StAppletEnvironmentReadMapper">
+  <resultMap id="BaseResultMap" type="com.phkj.entity.environmental.StAppletEnvironment">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="classify" jdbcType="VARCHAR" property="classify" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="examine_id" jdbcType="VARCHAR" property="examineId" />
+    <result column="examine_name" jdbcType="VARCHAR" property="examineName" />
+    <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="sts" jdbcType="VARCHAR" property="sts" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="over_time" jdbcType="TIMESTAMP" property="overTime" />
+    <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, classify, title, content, img_url, telephone, create_user_id, create_user_name, 
+    create_time, examine_id, examine_name, modify_user_id, modify_time, sts, status, 
+    over_time, village_code
+  </sql>
+
+
+  <select id="selectSystemAllEnviron" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select
+      id,
+      CASE
+      classify
+      WHEN '1' THEN
+      '垃圾散乱'
+      WHEN '2' THEN
+      '绿化损坏'
+      WHEN '3' THEN
+      '高空抛物'
+      WHEN '井盖缺失' THEN
+      '4'
+      WHEN '5' THEN
+      '路面破损'
+      WHEN '6' THEN
+      '违章搭建'
+      WHEN '7' THEN
+      '违规停车' end as 'classify',
+      title,
+      content,
+      img_url,
+      telephone,
+      create_user_id,
+      create_user_name,
+      create_time,
+      examine_id,
+      examine_name,
+      modify_user_id,
+      modify_time,
+      case sts when '1' then '正常'else '删除' end as 'sts'  ,
+      case STATUS when '0' then '待处理' when '1' then '处理中' when '2' then '已处理' when '3' then '已超时' when '4' then '已督查' end as 'status',
+      over_time,
+      village_code
+      from st_applet_environment
+    where  village_code = #{villageCode}
+      <if test="type != null and type != ''">
+          and classify = #{type}
+      </if>
+      <if test="status != null and status != ''">
+          and status = #{status}
+      </if>
+      <if test="sts != null and sts != ''">
+          and sts = #{sts}
+      </if>
+  </select>
+
+  <select id="selectMeEnevronList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from st_applet_environment
+    where  create_user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from st_applet_environment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from st_applet_environment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.phkj.entity.environmental.StAppletEnvironment">
+    insert into st_applet_environment (id, classify, title, 
+      content, img_url, telephone, 
+      create_user_id, create_user_name, create_time, 
+      examine_id, examine_name, modify_user_id, 
+      modify_time, sts, status, 
+      over_time, village_code)
+    values (#{id,jdbcType=BIGINT}, #{classify,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=VARCHAR}, #{createUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{examineId,jdbcType=VARCHAR}, #{examineName,jdbcType=VARCHAR}, #{modifyUserId,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{sts,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{overTime,jdbcType=TIMESTAMP}, #{villageCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.phkj.entity.environmental.StAppletEnvironment">
+    insert into st_applet_environment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="classify != null">
+        classify,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createUserName != null">
+        create_user_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="examineId != null">
+        examine_id,
+      </if>
+      <if test="examineName != null">
+        examine_name,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="sts != null">
+        sts,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="overTime != null">
+        over_time,
+      </if>
+      <if test="villageCode != null">
+        village_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="classify != null">
+        #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null">
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examineId != null">
+        #{examineId,jdbcType=VARCHAR},
+      </if>
+      <if test="examineName != null">
+        #{examineName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sts != null">
+        #{sts,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="overTime != null">
+        #{overTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="villageCode != null">
+        #{villageCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.phkj.entity.environmental.StAppletEnvironment">
+    update st_applet_environment
+    <set>
+      <if test="classify != null">
+        classify = #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null">
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examineId != null">
+        examine_id = #{examineId,jdbcType=VARCHAR},
+      </if>
+      <if test="examineName != null">
+        examine_name = #{examineName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sts != null">
+        sts = #{sts,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="overTime != null">
+        over_time = #{overTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="villageCode != null">
+        village_code = #{villageCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.phkj.entity.environmental.StAppletEnvironment">
+    update st_applet_environment
+    set classify = #{classify,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      create_user_name = #{createUserName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      examine_id = #{examineId,jdbcType=VARCHAR},
+      examine_name = #{examineName,jdbcType=VARCHAR},
+      modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      sts = #{sts,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      over_time = #{overTime,jdbcType=TIMESTAMP},
+      village_code = #{villageCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

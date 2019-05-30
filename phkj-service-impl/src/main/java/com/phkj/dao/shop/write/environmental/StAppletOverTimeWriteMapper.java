@@ -1,6 +1,7 @@
 package com.phkj.dao.shop.write.environmental;
 
 import com.phkj.entity.environmental.StAppletOverTime;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,6 +18,6 @@ public interface StAppletOverTimeWriteMapper {
 
     int updateByPrimaryKey(StAppletOverTime record);
 
-    int updateTimeById(String id, String time);
+    int updateTimeById(@Param("id") String id,@Param("time") String time);
 
 }

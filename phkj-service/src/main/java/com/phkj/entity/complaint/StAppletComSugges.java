@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 
+ * @author
  */
 public class StAppletComSugges implements Serializable {
     private Long id;
@@ -70,6 +70,16 @@ public class StAppletComSugges implements Serializable {
     private Date modifyTime;
 
     private String imgUrl;
+
+    private String villageCode;
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
 
     public String getImgUrl() {
         return imgUrl;

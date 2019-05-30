@@ -141,11 +141,11 @@
 	<@shiro.hasPermission name="/admin_menu_environmental">
 		<div title="环境秩序" class="ra_div">
 			<@shiro.hasPermission name="/admin/overtime/">
-                <a href="javascript:void(0);" onclick="addTab('环境秩序', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/')">时效管理</a>
+                <a href="javascript:void(0);" onclick="addTab('时效管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/')">时效管理</a>
 			</@shiro.hasPermission>
-		<#--<@shiro.hasPermission name="/admin/suggess/system">
-            <a href="javascript:void(0);" onclick="addTab('意见反馈', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/complaint/system')">意见反馈</a>
-        </@shiro.hasPermission>-->
+		<@shiro.hasPermission name="/admin/environ/">
+            <a href="javascript:void(0);" onclick="addTab('环境秩序', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/environ/')">环境秩序</a>
+        </@shiro.hasPermission>
         </div>
 	</@shiro.hasPermission>
 

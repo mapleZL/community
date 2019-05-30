@@ -73,7 +73,10 @@ public class OverTimeServiceImpl implements OverTimeService {
      */
     @Override
     public boolean update(String id, String time) {
-        stAppletOverTimeWriteMapper.updateTimeById(id, time);
+        int i = stAppletOverTimeWriteMapper.updateTimeById(id, time);
+        if (i > 0) {
+            return true;
+        }
         return false;
     }
 }
