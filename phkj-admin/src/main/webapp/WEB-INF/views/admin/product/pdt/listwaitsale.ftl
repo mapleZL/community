@@ -1,10 +1,10 @@
-<#include "/seller/commons/_detailheader.ftl" />
+<#include "/admin/commons/_detailheader.ftl" />
 <#assign currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/"/>
-<#include "inclistjs.ftl"/>
+<script type="text/javascript" src="${(domainUrlUtil.EJS_STATIC_RESOURCES)!}/resources/admin/jslib/easyui/datagrid-detailview.js"></script>
 <script>
 	$(function(){
 		<#noescape>
-	        codeBox = eval('(${initJSCodeContainer("PRODUCT_STATE","PRODUCT_IS_TOP")})');
+	        codeBox = eval('(${initJSCodeContainer("PRODUCT_CATEGORY","PRODUCT_STATE","PRODUCT_IS_TOP")})');
 	    </#noescape>
 		// 删除
 		$('#a-gridRemove').click(function () {
@@ -16,10 +16,30 @@
 			}
 	 		$.messager.confirm('确认', '确定删除该商品吗？删除后，此商品将从商城下架，此操作不可恢复。？', function(r){
 				if (r){
-					changeStatus(selected.id, 5);
+					$.messager.progress({text:"提交中..."});
+					$.ajax({
+						type:"POST",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/del",
+						dataType: "json",
+					    data: "id=" + selected.id,
+					    cache:false,
+						success:function(data, textStatus){
+							if (data.success) {
+								$('#dataGrid').datagrid('reload');
+						    } else {
+						    	$.messager.alert('提示',data.message);
+						    	$('#dataGrid').datagrid('reload');
+						    }
+							$.messager.progress('close');
+						}
+					});
 			    }
 			});
 		});
+		
+		$('#a-gridSearch').click(function() {
+            $('#dataGrid').datagrid('reload',queryParamsHandler());
+        });
 		
 		// 提交审核
 		$('#a-gridCommit').click(function () {
@@ -38,7 +58,7 @@
                     ids.push(e.id);
                 }
             });
-	 		changeStatus(selected.id, 2);
+	 		changeStatus(ids, 2);
 		});
 		
 		// 上架
@@ -62,7 +82,7 @@
                 $.messager.alert('提示','必须是审核通过的商品才能上架,请检查。');
                 return;
             }
-	 		changeStatus(selected.id, 6);
+	 		changeStatus(ids, 6);
 		});
 		
 		// 商品编辑
@@ -92,7 +112,7 @@
 			type:"GET",
 		    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/changeStatus",
 			dataType: "json",
-		    data: "ids=" + id + "&status=" + status,
+		    data: "ids=" + ids + "&status=" + status,
 		    cache:false,
 			success:function(data, textStatus){
 				if (data.success) {
@@ -113,6 +133,35 @@
     function sellerIsTopFormat(value,row,index){
         return codeBox["PRODUCT_IS_TOP"][value];
     }
+    
+    function productCateFormat(value,row,index){
+        return codeBox["PRODUCT_CATEGORY"][value];
+    }
+    
+    function proTitle(value,row,index){
+        return "<font style='color:blue;cursor:pointer' title='"+
+                value+"' onclick='openwin("+row.id+")'>"+value+"</font>";
+    }
+    
+    function imageFormat(value, row, index) {
+		return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
+				+ value + "'>点击查看</a>";
+	}
+	
+	function showimg(href) {
+		if (href && href != 'null') {
+			var imgs = JSON.parse(href);
+			var html = '';
+			for (var i = 0; i < imgs.length; i++) {
+				html += "<img src='" + imgs[i] + "' >"
+			}
+			$("#newstypeTree").html(html);
+			$("#newstypeWin").window('open');
+		} else {
+			$.messager.alert('提示','该条记录暂无图片。');
+			return;
+		}
+	}
 </script>
 
 <#--1.queryForm----------------->
@@ -162,28 +211,24 @@
 						,pagination:true
 						,pageSize:'${pageSize}'
 						,fit:true
-						,view: detailview
-						,detailFormatter:detailFormatter
-						,onExpandRow:onExpandRow
-    					,url:'${currentBaseUrl}list?q_state=${q_state!''}'
+    					,url:'${currentBaseUrl}list?q_state=1'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
         <thead>
         <tr>
-            <th field="ck" checkbox="true"></th>
-            <th field="name1" width="400" align="left" halign="center" formatter="proTitle">商品名称</th>
-            <th field="productCateName" width="100" align="center">商品分类</th>
+            <th field="id" hidden="hidden"></th>
+            <th field="name1" width="350" align="left" halign="center" formatter="proTitle">商品名称</th>
+            <th field="productCateId" width="100" align="center" formatter="productCateFormat">商品分类</th>
             <th field="name2" width="150" align="center">促销信息</th>
-            <th field="productBrandName" width="90" align="center">商品品牌</th>
             <th field="costPrice" width="50" align="center">成本价</th>
             <th field="mallPcPrice" width="70" align="center">商城价</th>
             <th field="productStock" width="50" align="center">库存</th>
             <#--<th field="actualSales" width="70" align="center">销量</th>-->
             <th field="createTime" width="150" align="center">创建时间</th>
             <th field="upTime" width="150" align="center">上架时间</th>
-            <th field="sellerCateName" width="70" align="center">店铺分类</th>
             <th field="sellerIsTop" width="70" align="center" formatter="sellerIsTopFormat">是否店铺推荐</th>
+            <th field="masterImg" width="70" align="center" formatter="imageFormat">图片</th>
             <th field="state" width="90" align="center" formatter="stateFormat">状态</th>
         </tr>
         </thead>
@@ -200,4 +245,11 @@
         <a id="a_pro_up" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">上架</a>
      </div>
 </div>
-<#include "/seller/commons/_detailfooter.ftl" />
+<div id="newstypeWin">
+	<form id="newstypeForm" method="post">
+		<ul id="newstypeTree"
+			style="margin-top: 10px; margin-left: 10px; max-height: 370px; overflow: auto; border: 1px solid #86a3c4;">
+		</ul>
+	</form>
+</div>
+<#include "/admin/commons/_detailfooter.ftl" />

@@ -53,4 +53,11 @@ public interface IStAppletProductService {
      * @param string2IntegerList
      */
     ServiceResult<Integer> updateByIds(Map<String, Object> map, List<Integer> string2IntegerList);
+
+    /**
+     * 根据id更新商品表
+     * @param stAppletProduct
+     * @return
+     */
+    ServiceResult<Integer> update(StAppletProduct stAppletProduct);
 }

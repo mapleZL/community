@@ -58,7 +58,7 @@
 	</select>
 	
 	<select id="checkProductBySPUAndSellerId" resultType="Integer">
-	    select count(*) from `product` where `product_code` = #{param.spu} and seller_id = #{param.sellerId} and state != 5
+	    select count(*) from `st_applet_product` where `product_code` = #{param.spu} and seller_id = #{param.sellerId} and state != 5
 	</select>
 	
 	<select id="pageProduct" resultMap="StAppletProductResult">
@@ -72,7 +72,7 @@
 	
 	<select id="count" resultType="Integer">
 	    select 
-		 * 
+		  count(id) 
 		from st_applet_product 
 		<include refid="whereConditions"/>
 	</select>

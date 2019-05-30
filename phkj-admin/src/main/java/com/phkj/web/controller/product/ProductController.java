@@ -34,7 +34,6 @@ import com.phkj.entity.product.ProductPicture;
 import com.phkj.entity.product.StAppletProduct;
 import com.phkj.entity.system.Code;
 import com.phkj.entity.system.SystemAdmin;
-import com.phkj.entity.system.SystemLogsConstants;
 import com.phkj.service.product.IStAppletProductService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
@@ -137,8 +136,7 @@ public class ProductController extends BaseController {
         }
 
         ServiceResult<Boolean> serviceResult = createOrUpdateProduct(product, request, user);
-        if (serviceResult.getSuccess() && serviceResult.getResult() == true) {
-        } else {
+        if (!serviceResult.getSuccess()) {
             jsonResult.setMessage(serviceResult.getMessage());
         }
         return jsonResult;
@@ -149,7 +147,7 @@ public class ProductController extends BaseController {
                                                          HttpServletRequest request,
                                                          SystemAdmin user) {
         ServiceResult<Boolean> result = new ServiceResult<>();
-        if (product.getId() != null && product.getId() > 0) {
+        if (product.getId() == null) {
             product.setSellerId(user.getId());
             product.setCreateId(user.getId());
             product.setCreateTime(new Date());
@@ -218,6 +216,28 @@ public class ProductController extends BaseController {
         StAppletProduct product = productServiceResult.getResult();
         dataMap.put("product", product);
         return rtnPath;
+    }
+    
+    // 提交审核和下架操作
+    @ResponseBody
+    @RequestMapping(value = "changeStatus", method = { RequestMethod.GET })
+    public HttpJsonResult<Boolean> changeStatus(Integer id, Integer state, HttpServletRequest request, Map<String, Object> dataMap) {
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+        StAppletProduct stAppletProduct = new StAppletProduct();
+        stAppletProduct.setId(id);
+        stAppletProduct.setState(state);
+        ServiceResult<Integer> serviceResult = productService.update(stAppletProduct);
+        if (!serviceResult.getSuccess()) {
+            if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
+                throw new RuntimeException(serviceResult.getMessage());
+            } else {
+                throw new BusinessException(serviceResult.getMessage());
+            }
+        }
+
+        HttpJsonResult<Boolean> jsonResult = new HttpJsonResult<Boolean>();
+        jsonResult.setData(true);
+        return jsonResult;
     }
     
     /**

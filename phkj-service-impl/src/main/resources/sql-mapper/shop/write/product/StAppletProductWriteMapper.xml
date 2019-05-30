@@ -206,7 +206,7 @@
 	</insert>
 	
 	<update id="updateState" parameterType="Integer">
-        update `product`
+        update `st_applet_product`
         set
         	`state`= #{state},
 			`update_time`= now()
@@ -214,7 +214,7 @@
     </update>
     
 	<update id="updateByIds">
-       update `product`
+       update `st_applet_product`
         <set>
             <if test = "param1.state != null and '' != param1.state">`state`= #{param1.state},</if>
             <if test = "param1.isTop != null and '' != param1.isTop">`is_top`= #{param1.isTop},</if>

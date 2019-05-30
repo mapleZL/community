@@ -144,4 +144,19 @@ public class StAppletProductServiceImpl implements IStAppletProductService {
         }
         return serviceResult;
     }
+
+
+    @Override
+    public ServiceResult<Integer> update(StAppletProduct stAppletProduct) {
+        ServiceResult<Integer> serviceResult = new ServiceResult<Integer>();
+        try {
+            serviceResult.setResult(stAppletProductModel.update(stAppletProduct));
+        } catch (Exception e) {
+            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("ProductServiceImpl updateByIds param1:" + JSON.toJSONString(stAppletProduct));
+            log.error("ProductServiceImpl updateByIds exception:", e);
+        }
+        return serviceResult;
+    }
 }

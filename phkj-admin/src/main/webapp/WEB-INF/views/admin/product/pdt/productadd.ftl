@@ -290,7 +290,7 @@ function valiate_SPU(){
 				}
 				},
 			error : function() {
-				jAlert("数据加载失败！");
+					$.messager.alert('提示',"数据加载失败！");
 				}
 			});
 		}

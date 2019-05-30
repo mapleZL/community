@@ -15,9 +15,9 @@ public interface StAppletProductReadDao {
 
     int checkProductBySPUAndSellerId(@Param("param") Map<String, String> queryMap);
 
-    int count(@Param("queryMap") Map<String, String> queryMap);
+    Integer count(@Param("param") Map<String, String> queryMap);
 
-    List<StAppletProduct> pageProduct(@Param("queryMap") Map<String, String> queryMap,
+    List<StAppletProduct> pageProduct(@Param("param") Map<String, String> queryMap,
                                       @Param("start") Integer start, @Param("size") Integer size);
 
 }

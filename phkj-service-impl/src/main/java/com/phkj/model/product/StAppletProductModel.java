@@ -127,7 +127,7 @@ public class StAppletProductModel {
         List<StAppletProduct> list = new ArrayList<>();
         Integer start = 0, size = 0;
         String state = queryMap.get("q_state");
-        if (!StringUtil.isEmpty(state) && state.indexOf(",") != -1) {
+        if (!StringUtil.isEmpty(state) && state.indexOf(",") == -1) {
             if (pager != null) {
                 pager.setRowsCount(stAppletProductReadDao.count(queryMap));
                 start = pager.getStart();
@@ -162,6 +162,15 @@ public class StAppletProductModel {
      */
     public Integer updateByIds(Map<String, Object> param, List<Integer> ids) {
         return stAppletProductWriteDao.updateByIds(param, ids);
+    }
+
+    /**
+     * 单个更新
+     * @param stAppletProduct
+     * @return
+     */
+    public Integer update(StAppletProduct stAppletProduct) {
+        return stAppletProductWriteDao.update(stAppletProduct);
     }
 
 }
