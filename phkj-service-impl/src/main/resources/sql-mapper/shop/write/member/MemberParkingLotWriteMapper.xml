@@ -4,7 +4,7 @@
     <resultMap id="MemberParkingLotResult" type="com.phkj.entity.member.MemberParkingLot">
         <result property="id" column="id"/>
         <result property="memberId" column="member_id"/>
-        <result property="villageId" column="village_id"/>
+        <result property="villageCode" column="village_code"/>
         <result property="village" column="village"/>
         <result property="position" column="position"/>
         <result property="lotType" column="lot_type"/>
@@ -51,7 +51,7 @@
 		(
 			
 			`member_id`,
-			`village_id`,
+			`village_code`,
 			`village`,
 			`position`,
 			`lot_type`,
@@ -71,7 +71,7 @@
 		(
 			
 			#{memberId},
-			#{villageId},
+			#{villageCode},
 			#{village},
 			#{position},
 			#{lotType},

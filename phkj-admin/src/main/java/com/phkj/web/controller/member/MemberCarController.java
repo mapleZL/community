@@ -93,7 +93,7 @@ public class MemberCarController extends BaseController {
             serviceResult = memberCarService.updateMemberCar(memberCar);
         } else {
             //新增
-            ServiceResult<List<MemberCar>> result = memberCarService.getMyMemberCarList(memberCar.getMemberId(), memberCar.getVillageId(), 1, 10000);
+            ServiceResult<List<MemberCar>> result = memberCarService.getMyMemberCarList(memberCar.getMemberId(), memberCar.getVillageCode(), 1, 10000);
             if (result.getResult() != null && !result.getResult().isEmpty()) {
                 List<MemberCar> cars = result.getResult();
                 for (MemberCar car : cars) {
@@ -122,8 +122,8 @@ public class MemberCarController extends BaseController {
         if (StringUtils.isBlank(memberCar.getVehicleType()) || StringUtils.isBlank(memberCar.getVehicleStructure())) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "vehicleType or vehicleStructure is blank", false, null);
         }
-        if (StringUtils.isBlank(memberCar.getVillage()) || memberCar.getVillageId() == null || memberCar.getVillageId() == 0) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "village or villageId is blank", false, null);
+        if (StringUtils.isBlank(memberCar.getVillage()) || memberCar.getVillageCode() == null || memberCar.getVillageCode() == 0) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "village or villageCode is blank", false, null);
         }
         return null;
     }
@@ -168,7 +168,7 @@ public class MemberCarController extends BaseController {
      */
     @RequestMapping(value = "/my/cars", method = {RequestMethod.GET})
     @ResponseBody
-    public ResponseUtil myCars(Integer memberId, Integer villageId, int pageNum, int pageSize) {
+    public ResponseUtil myCars(Integer memberId, Integer villageCode, int pageNum, int pageSize) {
         if (memberId == null || memberId == 0) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true, null);
         }
@@ -178,7 +178,7 @@ public class MemberCarController extends BaseController {
 //        }
         pageNum = pageNum == 0 ? 1 : pageNum;
         pageSize = pageSize == 0 ? 10 : pageSize;
-        ServiceResult<List<MemberCar>> result = memberCarService.getMyMemberCarList(memberId, villageId, pageNum, pageSize);
+        ServiceResult<List<MemberCar>> result = memberCarService.getMyMemberCarList(memberId, villageCode, pageNum, pageSize);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
     }
 

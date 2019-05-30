@@ -79,6 +79,7 @@ public class StAppletRepairController extends BaseController {
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
     @ResponseBody
     public ResponseUtil save(@RequestBody StAppletRepair stAppletRepair) {
+
         ResponseUtil flag = checkParam(stAppletRepair);
         if (flag != null) {
             return flag;
