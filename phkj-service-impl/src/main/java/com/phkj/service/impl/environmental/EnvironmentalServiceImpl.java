@@ -68,15 +68,26 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
         stAppletEnviron.setSts("0");
         stAppletEnviron.setStatus("1");
         stAppletEnviron.setCreateTime(new Date());
-        int i = stAppletEnvironmentWriteMapper.insert(stAppletEnviron);
-        if (i <= 0) {
-            return false;
-        }
+//        int i = stAppletEnvironmentWriteMapper.insert(stAppletEnviron);
+//        if (i <= 0) {
+//            return false;
+//        }
         if ("6".equals(stAppletEnviron.getClassify())) {
             return true;
         }
         StringBuffer str = new StringBuffer();
+        Map<String, String> map = new HashMap<>();
         try {
+            map.put("title", stAppletEnviron.getTitle());
+            map.put("reportType", stAppletEnviron.getClassify());
+            map.put("position", "");
+            map.put("content", stAppletEnviron.getContent());
+            map.put("eventSourceId", stAppletEnviron.getCreateUserId());
+            map.put("eventSourceName", stAppletEnviron.getCreateUserName());
+            map.put("orgCode", stAppletEnviron.getVillageCode());
+            map.put("topOrgCode", "");
+            map.put("fileList", stAppletEnviron.getImgUrl());
+            
             str.append("title=" + stAppletEnviron.getTitle());
             str.append(URLEncoder.encode("&", "UTF-8"));
             str.append("reportType=" + stAppletEnviron.getClassify());
@@ -100,11 +111,11 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
 
         // 使用httpClient发送请求发送到物业管理系统
         CloseableHttpClient build = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://lifangwei.natapp1.cc/event/current/mobile/environment/save?" + str);
+        HttpPost httpPost = new HttpPost("http://lifangwei.natapp1.cc/event/current/mobile/environment/save");
 //        HttpPost httpPost = new HttpPost("http://baidu.com");
 //        String str = JSON.toJSONString(stAppletEnviron);
-//        StringEntity stringEntity = new StringEntity(str, "UTF-8");
-//        httpPost.setEntity(stringEntity);
+        StringEntity stringEntity = new StringEntity(JSON.toJSONString(map), "UTF-8");
+        httpPost.setEntity(stringEntity);
         httpPost.setHeader("Content-Type", "application/json;charset=utf8");
         // 响应模型
         CloseableHttpResponse response = null;
