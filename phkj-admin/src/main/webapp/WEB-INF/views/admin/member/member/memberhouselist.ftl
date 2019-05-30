@@ -179,11 +179,11 @@
 	</table>
 
 	<div id="gridTools">
-	<@shiro.hasPermission name="/admin/seller/manage/unfreeze">
-		<a id="btn_pass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">审核通过</a>
+		<@shiro.hasPermission name="/admin/seller/manage/unfreeze">
+			<a id="btn_pass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">审核通过</a>
 		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/seller/manage/freeze">
-		<a id="btn_noPass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">审核不通过</a>
+			<a id="btn_noPass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">审核不通过</a>
 		</@shiro.hasPermission>
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
 	</div>
@@ -192,7 +192,8 @@
 <div id="newstypeWin">
 	<form id="newstypeForm" method="post">
 		<ul id="newstypeTree"
-			style="margin-top: 10px; margin-left: 10px; max-height: 370px; overflow: auto; border: 1px solid #86a3c4;"></ul>
+			style="margin-top: 10px; margin-left: 10px; max-height: 370px; overflow: auto; border: 1px solid #86a3c4;">
+		</ul>
 	</form>
 </div>
 <#include "/admin/commons/_detailfooter.ftl" />

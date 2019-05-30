@@ -47,6 +47,7 @@
 			<result property="refIds" column="ref_ids" />
 			<result property="unit" column="unit" />
 			<result property="otherCategory" column="other_category" />
+			<result property="villageCode" column="village_code" />
 	</resultMap>
 	
 	<update id="update" parameterType="com.phkj.entity.product.StAppletProduct">
@@ -97,6 +98,7 @@
 			<if test="refIds != null">`ref_ids`= #{refIds},</if>
 			<if test="unit != null">`unit`= #{unit},</if>
 			<if test="otherCategory != null">`other_category`= #{otherCategory}</if>
+			<if test="villageCode != null">`village_code` ={villageCode}</if>
 	    </set>
         where `id` = #{id}
 	</update>
@@ -149,7 +151,8 @@
 			`in_stock_warning`,
 			`ref_ids`,
 			`unit`,
-			`other_category`
+			`other_category`,
+			`village_code`
 		)
 		values
 		(
@@ -197,8 +200,31 @@
 			#{inStockWarning},
 			#{refIds},
 			#{unit},
-			#{otherCategory}
+			#{otherCategory},
+			#{villageCode}
 		)
 	</insert>
 	
+	<update id="updateState" parameterType="Integer">
+        update `product`
+        set
+        	`state`= #{state},
+			`update_time`= now()
+        where `id`= #{id}
+    </update>
+    
+	<update id="updateByIds">
+       update `product`
+        <set>
+            <if test = "param1.state != null and '' != param1.state">`state`= #{param1.state},</if>
+            <if test = "param1.isTop != null and '' != param1.isTop">`is_top`= #{param1.isTop},</if>
+            <if test = "param1.upTime != null and '' != param1.upTime">`is_time`= now(),</if>
+            `update_time` = now()
+        </set>
+        where `id` in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close="
+        )">
+            ${item}
+       	</foreach>
+    </update>
 </mapper>

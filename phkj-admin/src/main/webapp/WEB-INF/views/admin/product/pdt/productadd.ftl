@@ -125,7 +125,6 @@
                             <input type="text" id="keyword1" name="keyword1" value="${(product.keyword)!''}" class="txt w300 easyui-validatebox" missingMessage="关键字必填，2-50个字符" data-options="required:true,validType:'length[2,50]'"/>
                         </p>
                         <input type="hidden" id="id" name="id" value="${(product.id)!''}"/>
-                        <input type="hidden" id="sellerId" name="sellerId" value="${(product.sellerId) }"/>
                     </div>
 					<div class="fluidbox">
 						<p class="p6 p-item">
@@ -271,4 +270,30 @@
     </div>
 </div>
 </div>
+<script>
+function valiate_SPU(){
+	var spu = $("#productCode").val();
+	var sku = $("#sku").val();
+	if(spu!=""){
+		$.ajax({
+			type : "POST",
+			url :  '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/validate',
+			data : {spu:spu,sku:sku},
+			dataType : "json",
+			success : function(data) {
+			if(data.message!=""){
+				$.messager.show({
+					title:"提示信息",
+					msg:data.message
+					});
+				$("#productCode").val("");	
+				}
+				},
+			error : function() {
+				jAlert("数据加载失败！");
+				}
+			});
+		}
+}
+</script>
 <#include "/admin/commons/_detailfooter.ftl" />

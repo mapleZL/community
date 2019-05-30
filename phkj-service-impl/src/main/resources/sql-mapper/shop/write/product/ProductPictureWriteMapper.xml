@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.write.product.ProductPictureWriteDao">
+    <insert id="insert"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into `product_picture`(
+            `product_id`,
+            `image_path`,
+            `sort`,
+            `create_id`,
+            `create_time`,
+            `seller_id`,
+            `state`,
+            `product_lead`
+        )
+        values(
+            #{productId},
+            #{imagePath},
+            #{sort},
+            #{createId},
+            now(),
+            #{sellerId},
+            #{state},
+            #{productLead}
+        )
+    </insert>
+    
+    <update id="update">
+        update `product_picture`
+        <set>
+            <if test = "null != id and '' != id">`id`= #{id},</if>
+            <if test = "null != productId and '' != productId">`product_id`= #{productId},</if>
+            <if test = "null != imagePath and '' != imagePath">`image_path`= #{imagePath},</if>
+            <if test = "null != sort and '' != sort">`sort`= #{sort},</if>
+            <if test = "null != createId and '' != createId">`create_id`= #{createId},</if>
+            <if test = "null != createTime and '' != createTime">`create_time`= #{createTime},</if>
+            <if test = "null != sellerId and '' != sellerId">`seller_id`= #{sellerId},</if>
+            <if test = "null != state and '' != state">`state`= #{state},</if>
+            <if test = "null != productLead and '' != productLead">`product_lead`= #{productLead},</if>
+        </set>
+        where `id` = #{id}
+    </update>
+    <delete id="del">
+        delete from `product_picture` where `id` = #{id}
+    </delete>
+
+    <delete id="delByProductId">
+        delete from `product_picture` where `product_id` = #{productId}
+	</delete>
+	
+</mapper>

@@ -108,12 +108,52 @@ public class StAppletProduct implements Serializable {
     private java.lang.String     refIds;
     private java.lang.String     unit;
     private java.lang.Integer    otherCategory;
+    private String               villageCode;
+
+    /**
+     * 产品表 state  状态：1、刚创建；
+     */
+    public final static int      STATE_1          = 1;
+    /**
+     * 产品表 state  状态：2、提交审核；
+     */
+    public final static int      STATE_2          = 2;
+    /**
+     * 产品表 state  状态：3、审核通过；
+     */
+    public final static int      STATE_3          = 3;
+    /**
+     * 产品表 state  状态：4、申请驳回；
+     */
+    public final static int      STATE_4          = 4;
+    /**
+     * 产品表 state  状态：5、商品删除
+     */
+    public final static int      STATE_5          = 5;
+    /**
+     * 产品表 state  状态：6、上架
+     */
+    public final static int      STATE_6          = 6;
+    /**
+     * 产品表 state  状态：7、下架
+     */
+    public final static int      STATE_7          = 7;
+
+    /**
+     * 产品表 seller_state  店铺状态：1、店铺正常；
+     */
+    public final static int      SELLER_STATE_1   = 1;
+
+    /**
+     * 产品表 seller_state  店铺状态：2、店铺关闭
+     */
+    public final static int      SELLER_STATE_2   = 2;
 
     public enum IsSelfEnum {
         //1:自营，2:商家
         SELF("默认", 1), SELLER("提交审核", 2);
 
-        private String name; //显示的名字
+        private String name;  //显示的名字
         private int    value; //实际存储的值
 
         //构造方法
@@ -144,7 +184,7 @@ public class StAppletProduct implements Serializable {
             return name;
         }
     }
-    
+
     /**
      * 获取id
      */
@@ -775,6 +815,14 @@ public class StAppletProduct implements Serializable {
         this.otherCategory = otherCategory;
     }
 
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
+
     @Override
     public String toString() {
         return "StAppletProduct [id=" + id + ", productCateId=" + productCateId + ", name1=" + name1
@@ -794,7 +842,7 @@ public class StAppletProduct implements Serializable {
                + sellerCode + ", priceStatus=" + priceStatus + ", percentageScale="
                + percentageScale + ", stockWarning=" + stockWarning + ", productUrl=" + productUrl
                + ", inStockWarning=" + inStockWarning + ", refIds=" + refIds + ", unit=" + unit
-               + ", otherCategory=" + otherCategory + "]";
+               + ", otherCategory=" + otherCategory + ", villageCode=" + villageCode + "]";
     }
-    
+
 }

@@ -17,6 +17,7 @@ com\phkj\web\controller\notice\StAppletCollectionManageController.class
 com\phkj\web\util\freemarkerutil\CodeManager.class
 com\phkj\web\controller\member\MemberCarController.class
 com\phkj\web\controller\system\AdminUserController.class
+com\phkj\web\controller\environmental\EnvironmentalController.class
 com\phkj\web\util\freemarker\CustomFreeMarkerConfigurer.class
 com\phkj\web\controller\member\MemberParkingLotController.class
 com\phkj\web\controller\mindex\banner\MIndexBannerController.class
