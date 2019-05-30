@@ -80,6 +80,16 @@ public class StAppletEnvironment implements Serializable {
      */
     private String villageCode;
 
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
