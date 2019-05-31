@@ -34,6 +34,7 @@ import com.phkj.entity.product.ProductPicture;
 import com.phkj.entity.product.StAppletProduct;
 import com.phkj.entity.system.Code;
 import com.phkj.entity.system.SystemAdmin;
+import com.phkj.service.product.IProductPictureService;
 import com.phkj.service.product.IStAppletProductService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
@@ -55,6 +56,8 @@ public class ProductController extends BaseController {
     private IStAppletProductService productService;
     @Autowired
     private RedisComponent          redisComponent;
+    @Autowired
+    private IProductPictureService  productPictureService;
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/add", method = { RequestMethod.GET })
@@ -69,7 +72,7 @@ public class ProductController extends BaseController {
         dataMap.put("productCategory", codeList);
         return "admin/product/pdt/productadd";
     }
-    
+
     /**
      * 待售商品
      * @param dataMap
@@ -77,7 +80,7 @@ public class ProductController extends BaseController {
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
-    @RequestMapping(value = "/waitSale", method = {RequestMethod.GET})
+    @RequestMapping(value = "/waitSale", method = { RequestMethod.GET })
     public String getWaitSale(Map<String, Object> dataMap) throws Exception {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         dataMap.put("q_state1", "1,2,3,4,7");//1、刚创建；2、提交审核；3、审核通过；4、申请驳回；7、下架
@@ -91,7 +94,7 @@ public class ProductController extends BaseController {
         dataMap.put("productCategory", codeList);
         return "admin/product/pdt/listwaitsale";
     }
-    
+
     /**
      * 在售商品
      * @param dataMap
@@ -99,7 +102,7 @@ public class ProductController extends BaseController {
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
-    @RequestMapping(value = "/onSale", method = {RequestMethod.GET})
+    @RequestMapping(value = "/onSale", method = { RequestMethod.GET })
     public String getOnSale(Map<String, Object> dataMap) throws Exception {
         dataMap.put("q_state", "6");//6、上架；
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
@@ -113,7 +116,7 @@ public class ProductController extends BaseController {
         dataMap.put("productCategory", codeList);
         return "admin/product/pdt/listonsale";
     }
-    
+
     /**
      * 保存商品
      *
@@ -157,8 +160,12 @@ public class ProductController extends BaseController {
             product.setProductCateState(1);//分类正常
             product.setIsTop(1);//不推荐
         }
+        Integer state = product.getState();
+        if(state == 3){
+            state = 2;
+        }
         // 审核通过后修改状态重置
-        product.setState(2);
+        product.setState(state);
         String pics = request.getParameter("imageSrc");
         List<ProductPicture> picList = new ArrayList<ProductPicture>();
         if (!StringUtil.isEmpty(pics)) {
@@ -189,39 +196,48 @@ public class ProductController extends BaseController {
      */
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "edit", method = { RequestMethod.GET })
-    public String edit(HttpServletRequest request, @RequestParam(value = "id", required = true) Integer id, Map<String, Object> dataMap) {
-        String rtnPath = "admin/product/pdt/productadd";
+    public String edit(HttpServletRequest request,
+                       @RequestParam(value = "id", required = true) Integer id,
+                       Map<String, Object> dataMap) {
+        String rtnPath = "admin/product/pdt/productedit";
         /**1.判断是否登录*/
         SystemAdmin user = WebAdminSession.getAdminUser(request);
         if (null == user) {
             return DomainUrlUtil.getEJS_URL_RESOURCES() + "/admin/login.html";
         }
-        
+
         /**查询商品信息**/
-        ServiceResult<StAppletProduct> productServiceResult = productService.getStAppletProductById(id);
+        ServiceResult<StAppletProduct> productServiceResult = productService
+            .getStAppletProductById(id);
         if (!productServiceResult.getSuccess() || null == productServiceResult.getResult()) {
             dataMap.put("message", "编辑商品失败，商品不存在");
             return rtnPath;//
         }
-        
+
         List<Code> codeList = new ArrayList<>();
         // 商品分类
         String jsonString = redisComponent.getRedisString(RedisSychroKeyConfig.CODE_VALUE_KEY);
         if (StringUtils.isNotBlank(jsonString)) {
-            
+
             Map<String, List<Code>> codeMap = JSONObject.parseObject(jsonString, Map.class);
             codeList = codeMap.get("PRODUCT_CATEGORY");
         }
         dataMap.put("productCategory", codeList);
         StAppletProduct product = productServiceResult.getResult();
         dataMap.put("product", product);
+        
+        // 商品图片
+        ServiceResult<List<ProductPicture>> pictures = productPictureService.getProductPictureByProductId(product.getId());
+        dataMap.put("pic", pictures.getResult());
         return rtnPath;
     }
-    
+
     // 提交审核和下架操作
     @ResponseBody
     @RequestMapping(value = "changeStatus", method = { RequestMethod.GET })
-    public HttpJsonResult<Boolean> changeStatus(Integer id, Integer state, HttpServletRequest request, Map<String, Object> dataMap) {
+    public HttpJsonResult<Boolean> changeStatus(Integer id, Integer state,
+                                                HttpServletRequest request,
+                                                Map<String, Object> dataMap) {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         StAppletProduct stAppletProduct = new StAppletProduct();
         stAppletProduct.setId(id);
@@ -239,7 +255,7 @@ public class ProductController extends BaseController {
         jsonResult.setData(true);
         return jsonResult;
     }
-    
+
     /**
      * 删除商品
      *
@@ -257,7 +273,7 @@ public class ProductController extends BaseController {
         }
         return jsonResult;
     }
-    
+
     /**
      * 提交审核，上下架操作
      *
@@ -266,7 +282,8 @@ public class ProductController extends BaseController {
      * @param ids
      */
     @RequestMapping(value = "handler", method = { RequestMethod.POST })
-    public void handler(HttpServletRequest request, HttpServletResponse response, String ids, Integer type) {
+    public void handler(HttpServletRequest request, HttpServletResponse response, String ids,
+                        Integer type) {
         response.setContentType("text/plain;charset=utf-8");
         String msg = "";
         PrintWriter pw = null;
@@ -292,7 +309,7 @@ public class ProductController extends BaseController {
         }
         pw.print(msg);
     }
-    
+
     /**
      * 校验spu重复性
      * @param request
@@ -318,7 +335,7 @@ public class ProductController extends BaseController {
         }
         return jsonResult;
     }
-    
+
     /**
      * 后台商品列表通用查询接口
      * @param request
@@ -327,7 +344,7 @@ public class ProductController extends BaseController {
      */
     @RequestMapping(value = "/list", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<List<StAppletProduct>> list(HttpServletRequest request,
-                                                            Map<String, Object> dataMap) {
+                                                                    Map<String, Object> dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         String state = request.getParameter("q_state1");
         if (!StringUtil.isEmpty(state)) {
@@ -347,7 +364,8 @@ public class ProductController extends BaseController {
         }
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         queryMap.put("q_sellerId", WebAdminSession.getAdminUser(request).getId() + "");
-        ServiceResult<List<StAppletProduct>> serviceResult = productService.pageProduct(queryMap, pager);
+        ServiceResult<List<StAppletProduct>> serviceResult = productService.pageProduct(queryMap,
+            pager);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());

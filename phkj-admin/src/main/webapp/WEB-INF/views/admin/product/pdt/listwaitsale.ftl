@@ -139,7 +139,7 @@
     
     function proTitle(value,row,index){
         return "<font style='color:blue;cursor:pointer' title='"+
-                value+"' onclick='openwin("+row.id+")'>"+value+"</font>";
+                value+"'>"+value+"</font>";
     }
     
     function imageFormat(value, row, index) {

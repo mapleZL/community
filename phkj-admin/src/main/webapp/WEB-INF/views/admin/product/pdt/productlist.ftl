@@ -28,7 +28,7 @@
     
     function proTitle(value,row,index){
         return "<font style='color:blue;cursor:pointer' title='"+
-                value+"' onclick='openwin("+row.id+")'>"+value+"</font>";
+                value+"'>"+value+"</font>";
     }
     
     function imageFormat(value, row, index) {
@@ -92,7 +92,7 @@
         <tr>
             <th field="ck" checkbox="true"></th>
             <th field="name1" width="190" align="left" halign="center" formatter="proTitle">商品名称</th>
-            <th field="productCateName" width="100" align="center" formatter="productCateFormat">商品分类</th>
+            <th field="productCateName" width="100" align="center" formatter="">商品分类</th>
             <th field="name2" width="150" align="center">促销信息</th>
             <th field="productBrandName" width="90" align="center">商品品牌</th>
             <th field="mallPcPrice" width="90" align="center">商城价</th>
