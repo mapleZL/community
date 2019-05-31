@@ -1,6 +1,5 @@
-<#include "/seller/commons/_detailheader.ftl" />
-<#assign currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/seller/product/"/>
-<#include "inclistjs.ftl"/>
+<#include "/admin/commons/_detailheader.ftl" />
+<#assign currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/"/>
 <script language="javascript">
 $(function(){
 	<#noescape>
@@ -22,7 +21,7 @@ $(function(){
 			if (r){
 				$.messager.progress({text:"提交中..."});
 				$.ajax({
-					type:"POST",
+					type:"GET",
 				    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/changeStatus",
 					dataType: "json",
 				    data: "id=" + selected.id + "&state=" + 1,
@@ -39,6 +38,18 @@ $(function(){
 				});
 		    }
 		});
+	});
+    
+	$("#newstypeWin").window({
+		width : 750,
+		height : 420,
+		title : "商品主图",
+		closed : true,
+		shadow : false,
+		modal : true,
+		collapsible : false,
+		minimizable : false,
+		maximizable : false
 	});
 	
 });
@@ -87,6 +98,7 @@ function showimg(href) {
         <div class="w-p99 marauto searchCont">
             <form class="form-search" action="doForm" method="post" id="queryForm" name="queryForm">
                 <div class="fluidbox"><!-- 不分隔 -->
+                	<input type="hidden" id="userType" value="seller"/>
                     <p class="p4 p-item">
                         <label class="lab-item">商品名称 :</label>
                         <input type="text" class="txt" id="q_name1" name="q_name1" value="${q_name!''}"/>
@@ -104,7 +116,7 @@ function showimg(href) {
 <div data-options="region:'center'" border="false">
     <table id="dataGrid" class="easyui-datagrid"
            data-options="rownumbers:true
-						,singleSelect:false
+						,singleSelect:true
 						,autoRowHeight:false
 						,fitColumns:false
 						,toolbar:'#gridTools'
@@ -120,7 +132,7 @@ function showimg(href) {
         <tr>
             <th field="id" hidden="hidden"></th>
             <th field="name1" width="400" align="left" halign="center" formatter="proTitle">商品名称</th>
-            <th field="productCateName" width="100" align="center" formatter="productCateFormat">商品分类</th>
+            <th field="productCateId" width="100" align="center" formatter="productCateFormat">商品分类</th>
             <th field="name2" width="150" align="center">促销信息</th>
             <th field="costPrice" width="70" align="center">成本价</th>
             <th field="mallPcPrice" width="70" align="center">商城价</th>
@@ -137,9 +149,14 @@ function showimg(href) {
 <#--3.function button----------------->
     <div id="gridTools">
         <a id="a-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
-        <@shiro.hasPermission name="/seller/product/revertProduct">
         <a id="btn_audit" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">恢复</a>
-        </@shiro.hasPermission>
 	</div>
 </div>
-<#include "/seller/commons/_detailfooter.ftl" />
+<div id="newstypeWin">
+	<form id="newstypeForm" method="post">
+		<ul id="newstypeTree"
+			style="margin-top: 10px; margin-left: 10px; max-height: 370px; overflow: auto; border: 1px solid #86a3c4;">
+		</ul>
+	</form>
+</div>
+<#include "/admin/commons/_detailfooter.ftl" />

@@ -59,6 +59,7 @@
         <div class="w-p99 marauto searchCont">
             <form class="form-search" action="doForm" method="post" id="queryForm" name="queryForm">
                 <div class="fluidbox"><!-- 不分隔 -->
+                	<input type="hidden" id="userType" value="seller"/>
                     <p class="p4 p-item">
                         <label class="lab-item">商品名称 :</label>
                         <input type="text" class="txt" id="q_name1" name="q_name1" value="${q_name!''}"/>

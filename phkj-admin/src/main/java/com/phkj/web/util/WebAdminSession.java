@@ -11,8 +11,8 @@ import com.phkj.entity.system.SystemAdmin;
  *                       
  * @Filename: WebAdminSession.java
  * @Version: 1.0
- * @Author: 王朋
- * @Email: wpjava@163.com
+ * @date: 2017年7月16日
+ * @Author: 陆帅 * @Email: lu1632278229@sina.cn
  *
  */
 public class WebAdminSession {

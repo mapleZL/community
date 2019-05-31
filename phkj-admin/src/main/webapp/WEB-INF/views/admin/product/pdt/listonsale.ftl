@@ -1,6 +1,7 @@
 <#include "/admin/commons/_detailheader.ftl" />
 <#assign currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/"/>
 <script>
+var codeBox;
 <#noescape>
 	codeBox = eval('(${initJSCodeContainer("PRODUCT_CATEGORY","PRODUCT_STATE","PRODUCT_IS_TOP")})');
 </#noescape>
@@ -15,7 +16,7 @@
 	 		var ids = new Array();
             var flag = true;
             $.each(data,function(idx,e){
-                if(e.state !=3){
+                if(e.state !=6){
                     flag = false;
                     return false;
                 } else{
@@ -23,10 +24,10 @@
                 }
             });
             if(!flag){
-                $.messager.alert('提示','必须是审核通过的商品才能上架,请检查。');
+                $.messager.alert('提示','必须是在售商品才能上架,请检查。');
                 return;
             }
-	 		changeStatus(ids, 6);
+	 		changeStatus(ids, 7);
 		});
 		
 		// 查询
@@ -34,18 +35,28 @@
             $('#dataGrid').datagrid('reload',queryParamsHandler());
         });
 		
+		$("#newstypeWin").window({
+			width : 750,
+			height : 420,
+			title : "商品主图",
+			closed : true,
+			shadow : false,
+			modal : true,
+			collapsible : false,
+			minimizable : false,
+			maximizable : false
+		});
 	});
 	
 	// 提交的统一方法
 	function changeStatus(ids, status){
 		$.messager.progress({text:"提交中..."});
 		$.ajax({
-			type:"GET",
+			type:"POST",
 		    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/handler",
-			dataType: "json",
-		    data: "ids=" + ids + "&status=" + status,
+		    data: "ids=" + ids + "&type=" + status,
 		    cache:false,
-		    success:function(e){
+			success:function(e){
 				$.messager.progress('close');
                 $('#dataGrid').datagrid('reload',queryParamsHandler());
                 $.messager.show({
@@ -81,11 +92,7 @@
 	
 	function showimg(href) {
 		if (href && href != 'null') {
-			var imgs = JSON.parse(href);
-			var html = '';
-			for (var i = 0; i < imgs.length; i++) {
-				html += "<img src='" + imgs[i] + "' >"
-			}
+			var html =  "<img src='" + href + "' >";
 			$("#newstypeTree").html(html);
 			$("#newstypeWin").window('open');
 		} else {
@@ -102,6 +109,7 @@
         <div class="w-p99 marauto searchCont">
             <form class="form-search" action="doForm" method="post" id="queryForm" name="queryForm">
                 <div class="fluidbox"><!-- 不分隔 -->
+                	<input type="hidden" id="userType" value="seller"/>
                     <p class="p4 p-item">
                         <label class="lab-item">商品名称 :</label>
                         <input type="text" class="txt" id="q_name1" name="q_name1" value="${q_name!''}"/>
@@ -154,7 +162,7 @@
         <tr>
             <th field="id" hidden="hidden"></th>
             <th field="name1" width="350" align="left" halign="center" formatter="proTitle">商品名称</th>
-            <th field="productCateName" width="100" align="center" formatter="productCateFormat">商品分类</th>
+            <th field="productCateId" width="100" align="center" formatter="productCateFormat">商品分类</th>
             <th field="name2" width="150" align="center">促销信息</th>
             <th field="costPrice" width="70" align="center">成本价</th>
             <th field="mallPcPrice" width="70" align="center">商城价</th>
@@ -163,6 +171,7 @@
             <th field="createTime" width="150" align="center">创建时间</th>
             <th field="upTime" width="150" align="center">上架时间</th>
             <th field="sellerIsTop" width="70" align="center" formatter="sellerIsTopFormat">是否店铺推荐</th>
+            <th field="masterImg" width="70" align="center" formatter="imageFormat">图片</th>
             <th field="state" width="90" align="center" formatter="stateFormat">状态</th>
         </tr>
         </thead>
@@ -171,9 +180,7 @@
 <#--3.function button----------------->
     <div id="gridTools">
         <a id="a-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
-        <@shiro.hasPermission name="/seller/product/onSaleDown">
         <a id="a_pro_down" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true">下架</a>
-        </@shiro.hasPermission>
      </div>
 </div>
 <div id="newstypeWin">

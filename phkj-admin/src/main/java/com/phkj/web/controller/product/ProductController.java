@@ -58,7 +58,12 @@ public class ProductController extends BaseController {
     private RedisComponent          redisComponent;
     @Autowired
     private IProductPictureService  productPictureService;
-
+    
+    /**
+     * 登录用户角色
+     */
+    private static final String USER_TYPE_1 = "seller";
+    
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/add", method = { RequestMethod.GET })
     public String getList(Map<String, Object> dataMap) throws Exception {
@@ -115,6 +120,14 @@ public class ProductController extends BaseController {
         }
         dataMap.put("productCategory", codeList);
         return "admin/product/pdt/listonsale";
+    }
+    
+    //已经删除商品(删除) 只读
+    @RequestMapping(value = "delSale", method = { RequestMethod.GET })
+    public String delSale(HttpServletRequest request, Map<String, Object> dataMap) {
+        dataMap.put("q_state", "5");//5、商品删除；
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+        return "admin/product/pdt/listdelsale";
     }
 
     /**
@@ -252,6 +265,15 @@ public class ProductController extends BaseController {
         }
 
         HttpJsonResult<Boolean> jsonResult = new HttpJsonResult<Boolean>();
+        String msg = "";
+        if (state == 2) {
+            msg = "提交审核成功";
+        } else if (state == 6) {
+            msg = "商品上架成功";
+        } else if (state == 1) {
+            msg = "恢复商品成功";
+        }
+        jsonResult.setMessage(msg);
         jsonResult.setData(true);
         return jsonResult;
     }
@@ -363,7 +385,12 @@ public class ProductController extends BaseController {
             queryMap.put("q_productCateId", cate_id);
         }
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
-        queryMap.put("q_sellerId", WebAdminSession.getAdminUser(request).getId() + "");
+        String userType = request.getParameter("seller");
+        // 登陆者为商户的时候才加上商品查询条件
+        if (USER_TYPE_1.equals(userType)) {
+            queryMap.put("q_sellerId", WebAdminSession.getAdminUser(request).getId() + "");
+        }
+        
         ServiceResult<List<StAppletProduct>> serviceResult = productService.pageProduct(queryMap,
             pager);
         if (!serviceResult.getSuccess()) {

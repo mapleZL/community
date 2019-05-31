@@ -103,6 +103,18 @@
             }
             window.location.href="${currentBaseUrl}edit?id="+selected.id;
         });
+		
+        $("#newstypeWin").window({
+			width : 750,
+			height : 420,
+			title : "商品主图",
+			closed : true,
+			shadow : false,
+			modal : true,
+			collapsible : false,
+			minimizable : false,
+			maximizable : false
+		});
 	});
 	
 	// 提交的统一方法
@@ -143,17 +155,13 @@
     }
     
     function imageFormat(value, row, index) {
-		return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
+		return "<a class='newstype_view' onclick='showimg($(this).attr(\"masterImg\"));' href='javascript:;' imgpath='"
 				+ value + "'>点击查看</a>";
 	}
 	
 	function showimg(href) {
 		if (href && href != 'null') {
-			var imgs = JSON.parse(href);
-			var html = '';
-			for (var i = 0; i < imgs.length; i++) {
-				html += "<img src='" + imgs[i] + "' >"
-			}
+			html += "<img src='" + href + "' >"
 			$("#newstypeTree").html(html);
 			$("#newstypeWin").window('open');
 		} else {
@@ -170,6 +178,7 @@
         <div class="w-p99 marauto searchCont">
             <form class="form-search" action="doForm" method="post" id="queryForm" name="queryForm">
                 <div class="fluidbox"><!-- 不分隔 -->
+                	<input type="hidden" id="userType" value="seller"/>
                     <p class="p4 p-item">
                         <label class="lab-item">商品名称 :</label>
                         <input type="text" class="txt" id="q_name" name="q_name" value="${q_name!''}"/>
