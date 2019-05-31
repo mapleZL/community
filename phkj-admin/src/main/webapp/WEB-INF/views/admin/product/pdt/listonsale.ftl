@@ -1,20 +1,98 @@
-<#include "/seller/commons/_detailheader.ftl" />
-<#assign currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/seller/product/"/>
-<#include "inclistjs.ftl"/>
+<#include "/admin/commons/_detailheader.ftl" />
+<#assign currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/"/>
 <script>
+<#noescape>
+	codeBox = eval('(${initJSCodeContainer("PRODUCT_CATEGORY","PRODUCT_STATE","PRODUCT_IS_TOP")})');
+</#noescape>
 	$(function(){
-		$('#a_goods_set').click(function(){
-		    var sel = $('#dataGrid').datagrid('getChecked');
-            if(!sel||sel.length==0){
+		// 下架
+		$('#a_pro_down').click(function () {
+			var data = $('#dataGrid').datagrid('getChecked');
+            if(!data||data.length==0){
                 $.messager.alert('提示','请选择操作行。');
                 return;
-            } else if(sel.length>1){
-                $.messager.alert('提示','请选择一个商品以操作');
+            }
+	 		var ids = new Array();
+            var flag = true;
+            $.each(data,function(idx,e){
+                if(e.state !=3){
+                    flag = false;
+                    return false;
+                } else{
+                    ids.push(e.id);
+                }
+            });
+            if(!flag){
+                $.messager.alert('提示','必须是审核通过的商品才能上架,请检查。');
                 return;
             }
-            window.location.href="${currentBaseUrl}goodsSet?id="+sel[0].id+"&from=onSale";
-    	});
+	 		changeStatus(ids, 6);
+		});
+		
+		// 查询
+		$('#a-gridSearch').click(function() {
+            $('#dataGrid').datagrid('reload',queryParamsHandler());
+        });
+		
 	});
+	
+	// 提交的统一方法
+	function changeStatus(ids, status){
+		$.messager.progress({text:"提交中..."});
+		$.ajax({
+			type:"GET",
+		    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/handler",
+			dataType: "json",
+		    data: "ids=" + ids + "&status=" + status,
+		    cache:false,
+		    success:function(e){
+				$.messager.progress('close');
+                $('#dataGrid').datagrid('reload',queryParamsHandler());
+                $.messager.show({
+                    title:'提示',
+                    msg:e,
+                    showType:'show'
+                });
+			}
+		});
+	}
+	
+	function stateFormat(value,row,index){
+        return codeBox["PRODUCT_STATE"][value];
+    }
+    
+    function sellerIsTopFormat(value,row,index){
+        return codeBox["PRODUCT_IS_TOP"][value];
+    }
+    
+    function productCateFormat(value,row,index){
+        return codeBox["PRODUCT_CATEGORY"][value];
+    }
+    
+    function proTitle(value,row,index){
+        return "<font style='color:blue;cursor:pointer' title='"+
+                value+"' onclick='openwin("+row.id+")'>"+value+"</font>";
+    }
+    
+    function imageFormat(value, row, index) {
+		return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
+				+ value + "'>点击查看</a>";
+	}
+	
+	function showimg(href) {
+		if (href && href != 'null') {
+			var imgs = JSON.parse(href);
+			var html = '';
+			for (var i = 0; i < imgs.length; i++) {
+				html += "<img src='" + imgs[i] + "' >"
+			}
+			$("#newstypeTree").html(html);
+			$("#newstypeWin").window('open');
+		} else {
+			$.messager.alert('提示','该条记录暂无图片。');
+			return;
+		}
+	}
 </script>
 
 <#--1.queryForm----------------->
@@ -33,13 +111,12 @@
                         <input type="text" class="txt" id="q_product_code" name="q_product_code" value="${q_product_code!''}"/>
                     </p>
                     <p class="p4 p-item">
-                            <label class="lab-item">商品品牌: </label>
-                            <input type="hidden" name="parentId_0" id="parentId_0" value="1">
-                            <#if brand?? && brand?size &gt; 0>
-                                <select id="q_brandId" name="q_brandId" level="0" class="txt w210" onclick="luowo_display(this.value)">
+                            <label class="lab-item">商品分类: </label>
+                            <#if productCategory?? && productCategory?size &gt; 0>
+                                <select id="q_cateId" name="q_cateId" level="0" class="txt w210 easyui-combobox" >
                                 	<option value="">请选择</option>
-                                    <#list brand as brand>
-                                        <option value="${(brand.id)!''}">${(brand.nameFirst)!''} ${(brand.name)!''}</option>
+                                    <#list productCategory as category>
+                                        <option value="${(category.codeCd)!}">${(category.codeText)!}</option>
                                     </#list>
                                 </select>
                             </#if>
@@ -52,10 +129,6 @@
                      			<option value="2">无促销</option>
                      		</select>
                      </p>
-                    <#--<p class="p4 p-item">-->
-                        <#--<label class="lab-item">状态 :</label>-->
-                        <#--<@cont.select id="q_state" name="q_state" value="${(brand.state)!''}" codeDiv="PRODUCT_STATE" mode="1"/>-->
-                    <#--</p>-->
                 </div>
             </form>
         </div>
@@ -73,27 +146,22 @@
 						,pagination:true
 						,pageSize:'${pageSize}'
 						,fit:true
-						,view: detailview
-						,detailFormatter:detailFormatter
-						,onExpandRow:onExpandRow
-    					,url:'${currentBaseUrl}list?q_state=${q_state!''}'
+    					,url:'${currentBaseUrl}list?q_state1=6'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
         <thead>
         <tr>
-            <th field="ck" checkbox="true"></th>
-            <th field="name1" width="400" align="left" halign="center" formatter="proTitle">商品名称</th>
-            <th field="productCateName" width="100" align="center">商品分类</th>
+            <th field="id" hidden="hidden"></th>
+            <th field="name1" width="350" align="left" halign="center" formatter="proTitle">商品名称</th>
+            <th field="productCateName" width="100" align="center" formatter="productCateFormat">商品分类</th>
             <th field="name2" width="150" align="center">促销信息</th>
-            <th field="productBrandName" width="90" align="center">商品品牌</th>
             <th field="costPrice" width="70" align="center">成本价</th>
             <th field="mallPcPrice" width="70" align="center">商城价</th>
             <th field="productStock" width="70" align="center">库存</th>
             <#--<th field="actualSales" width="70" align="center">销量</th>-->
             <th field="createTime" width="150" align="center">创建时间</th>
             <th field="upTime" width="150" align="center">上架时间</th>
-            <th field="sellerCateName" width="70" align="center">店铺分类</th>
             <th field="sellerIsTop" width="70" align="center" formatter="sellerIsTopFormat">是否店铺推荐</th>
             <th field="state" width="90" align="center" formatter="stateFormat">状态</th>
         </tr>
@@ -106,9 +174,13 @@
         <@shiro.hasPermission name="/seller/product/onSaleDown">
         <a id="a_pro_down" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true">下架</a>
         </@shiro.hasPermission>
-        <@shiro.hasPermission name="/seller/product/goodsSet">
-        <a id="a_goods_set" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit_task" plain="true">库存价格设置</a>
-        </@shiro.hasPermission>
      </div>
 </div>
-<#include "/seller/commons/_detailfooter.ftl" />
+<div id="newstypeWin">
+	<form id="newstypeForm" method="post">
+		<ul id="newstypeTree"
+			style="margin-top: 10px; margin-left: 10px; max-height: 370px; overflow: auto; border: 1px solid #86a3c4;">
+		</ul>
+	</form>
+</div>
+<#include "/admin/commons/_detailfooter.ftl" />

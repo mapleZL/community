@@ -259,7 +259,7 @@ public class ProductController extends BaseController {
     }
     
     /**
-     * 上下架操作
+     * 提交审核，上下架操作
      *
      * @param request
      * @param response
@@ -279,6 +279,9 @@ public class ProductController extends BaseController {
             } else if (type == StAppletProduct.STATE_7) {
                 map.put("state", StAppletProduct.STATE_7);
                 msg = "下架成功";
+            } else if (type == StAppletProduct.STATE_2) {
+                map.put("state", StAppletProduct.STATE_2);
+                msg = "提交审核成功";
             } else
                 throw new BusinessException("未知操作");
             productService.updateByIds(map, StringUtil.string2IntegerList(ids));
@@ -336,7 +339,7 @@ public class ProductController extends BaseController {
         }
         String name = request.getParameter("q_name");
         if (!StringUtil.isEmpty(name)) {
-            queryMap.put("q_name", name);
+            queryMap.put("q_name1", name);
         }
         String cate_id = request.getParameter("q_cateId");
         if (!StringUtil.isEmpty(cate_id)) {

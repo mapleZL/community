@@ -216,9 +216,12 @@
 	<update id="updateByIds">
        update `st_applet_product`
         <set>
-            <if test = "param1.state != null and '' != param1.state">`state`= #{param1.state},</if>
-            <if test = "param1.isTop != null and '' != param1.isTop">`is_top`= #{param1.isTop},</if>
-            <if test = "param1.upTime != null and '' != param1.upTime">`is_time`= now(),</if>
+            <if test = "param.state != null and '' != param.state">`state`= #{param.state},</if>
+            <if test = "param1.state != null and '' != param.state and param.state == 6">
+                `up_time` = now(),
+            </if>
+            <if test = "param.isTop != null and '' != param.isTop">`is_top`= #{param.isTop},</if>
+            <if test = "param.upTime != null and '' != param.upTime">`is_time`= now(),</if>
             `update_time` = now()
         </set>
         where `id` in

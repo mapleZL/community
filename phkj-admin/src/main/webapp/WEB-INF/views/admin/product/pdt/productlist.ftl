@@ -1,228 +1,55 @@
-<#include "/seller/commons/_detailheader.ftl" />
-<#assign currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/aadmin/product/"/>
+<#include "/admin/commons/_detailheader.ftl" />
+<#assign currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/"/>
 <script language="javascript">
     var codeBox;
     $(function(){
         //为客户端装配本页面需要的字典数据,多个用逗号分隔
     <#noescape>
-        codeBox = eval('(${initJSCodeContainer("PRODUCT_STATE","PRODUCT_IS_TOP")})');
+        codeBox = eval('(${initJSCodeContainer("PRODUCT_CATEGORY","PRODUCT_STATE","PRODUCT_IS_TOP")})');
     </#noescape>
 
         $('#a-gridSearch').click(function(){
             $('#dataGrid').datagrid('reload',queryParamsHandler());
         });
-        $("#a-gridAdd").click(function(){
-            window.location.href="${currentBaseUrl}chooseCate";
-        });
         
-        //上架
-        $("#a_pro_up").click(function(){
-	       	var data = $('#dataGrid').datagrid('getChecked');
-	        if(!data||data.length==0){
-	         	$.messager.alert('提示','请选择操作行。');
-	         	return;
-	        }
-	        
-	        var ids = new Array();
-	        var flag = true;
-	        $.each(data,function(idx,e){
-	        	if(e.state !=3){
-	        		flag = false;
-	        		return false;
-	        	} else{
-	        		ids.push(e.id);
-	        	}
-	        });
-	        if(!flag){
-	        	$.messager.alert('提示','必须是审核通过的商品才能上架,请检查。');
-	            return;
-	        }
-	        $.messager.confirm('确认', '确定上架选中的商品吗？', function(r){
-	            if (r){
-	                $.messager.progress({text:"提交中..."});
-	                $.ajax({
-	                    type:"POST",
-	                    url: "${currentBaseUrl}handler",
-	                    data: "ids="+ids+"&type=6",
-	                    cache:false,
-	                    success:function(e){
-	                        $.messager.progress('close');
-	                        $('#dataGrid').datagrid('reload',queryParamsHandler());
-	                        $.messager.show({
-	                        	title:'提示',
-	                        	msg:e,
-	                        	showType:'show'
-	                        });
-	                    }
-	                });
-	            }
-	        });
-        });
-        
-        //下架
-        $("#a_pro_down").click(function(){
-          	var data = $('#dataGrid').datagrid('getChecked');
-	        if(!data||data.length==0){
-	         	$.messager.alert('提示','请选择操作行。');
-	         	return;
-	        }
-	        
-	        var ids = new Array();
-	        var flag = true;
-	        $.each(data,function(idx,e){
-	        	if(e.state !=6){
-	        		flag = false;
-	        		return false;
-	        	} else{
-	        		ids.push(e.id);
-	        	}
-	        });
-	        if(!flag){
-	        	$.messager.alert('提示','必须是已上架的商品才能下架,请检查。');
-	            return;
-	        }
-	        $.messager.confirm('确认', '确定下架选中的商品吗？', function(r){
-	            if (r){
-	                $.messager.progress({text:"提交中..."});
-	                $.ajax({
-	                    type:"POST",
-	                    url: "${currentBaseUrl}handler",
-	                    data: "ids="+ids+"&type=7",
-	                    cache:false,
-	                    success:function(e){
-	                        $.messager.progress('close');
-	                        $('#dataGrid').datagrid('reload',queryParamsHandler());
-	                        $.messager.show({
-	                        	title:'提示',
-	                        	msg:e,
-	                        	showType:'show'
-	                        });
-	                    }
-	                });
-	            }
-	        });
-        });
-        
-        $("#a-gridEdit").click(function(){
-            var data = $('#dataGrid').datagrid('getChecked');
-            if(!data||data.length==0){
-            	$.messager.alert('提示','请选择操作行。');
-                return;
-            } else if(data.length>1){
-            	$.messager.alert('提示','请选择一个商品以编辑');
-				return;            	
-            }
-           	var selected = data[0];
-            //提交审核的商品不允许在编辑
-            if(2 == selected.state){
-                $.messager.alert('提示','该商品已提交审核，暂不允许编辑。');
-                return;
-            }
-            window.location.href="${currentBaseUrl}edit?id="+selected.id;
-        });
-
-        $("#a-gridRemove").click(function(){
-        	 var data = $('#dataGrid').datagrid('getChecked');
-             if(!data||data.length==0){
-             	$.messager.alert('提示','请选择操作行。');
-                 return;
-             } else if(data.length>1){
-             	$.messager.alert('提示','请选择一个商品');
- 				return;            	
-             }
-            var selected = data[0];
-
-            $.messager.confirm('确认', '确定删除该商品吗？删除后，此商品将从商城下架，此操作不可恢复。', function(r){
-                if (r){
-                    $.messager.progress({text:"提交中..."});
-                    $.ajax({
-                        type:"POST",
-                        url: "${currentBaseUrl}del",
-                        dataType: "json",
-                        data: "id="+selected.id+"&"+getCSRFTokenParam(),
-                        cache:false,
-                        success:function(data, textStatus){
-                            $('#dataGrid').datagrid('reload');
-                            refrushCSRFToken(data.csrfToken);
-                            $.messager.progress('close');
-                        }
-                    });
-                }
-            });
-        });
-
-        $('#a-gridCommit').click(function(){
-        	 var data = $('#dataGrid').datagrid('getChecked');
-             if(!data||data.length==0){
-             	$.messager.alert('提示','请选择操作行。');
-                 return;
-             }
-            alert(data.state);
-            var ids = new Array();
-            var flag = true;
-            $.each(data,function(idx,e){
-
-            	if(e.state !=1 && e.state !=4 && e.state !=7){
-            		flag = false;
-            		return false;
-            	} else{
-            		ids.push(e.id);
-            	}
-            });
-            if(!flag){
-            	$.messager.alert('提示','必须是新增或审批未被通过的商品才能提交审核,请检查。');
-                return;
-            }
-            $.messager.confirm('确认', '确定提交审核吗？', function(r){
-                if (r){
-                    $.messager.progress({text:"提交中..."});
-                    $.ajax({
-                        type:"POST",
-                        url: "${currentBaseUrl}commit",
-                        data: "ids="+ids,
-                        cache:false,
-                        success:function(e){
-                            $.messager.progress('close');
-                            $('#dataGrid').datagrid('reload',queryParamsHandler());
-                            $.messager.show({
-                            	title:'提示',
-                            	msg:e,
-                            	showType:'show'
-                            });
-                        }
-                    });
-                }
-            });
-        });
-    })
-
+    });
+    
     function stateFormat(value,row,index){
         return codeBox["PRODUCT_STATE"][value];
     }
-    function isTopFormat(value,row,index){
-        return codeBox["PRODUCT_IS_TOP"][value];
-    }
+    
     function sellerIsTopFormat(value,row,index){
         return codeBox["PRODUCT_IS_TOP"][value];
     }
     
-    function proTitle(value,row,index){
-    	if(getLength(value)>20)
-    		return "<font title='"+value+"'>"+value.substring(0,19)+"'...'</font>";
-        return "<font title='"+value+"'>"+value+"</font>";
+    function productCateFormat(value,row,index){
+        return codeBox["PRODUCT_CATEGORY"][value];
     }
     
-    function getLength(str){  
-        var realLength = 0;  
-        for (var i = 0; i < str.length; i++){  
-            charCode = str.charCodeAt(i);  
-            if (charCode >= 0 && charCode <= 128)   
-            realLength += 1;  
-            else   
-            realLength += 2;  
-        }  
-        return realLength;  
-    } 
+    function proTitle(value,row,index){
+        return "<font style='color:blue;cursor:pointer' title='"+
+                value+"' onclick='openwin("+row.id+")'>"+value+"</font>";
+    }
+    
+    function imageFormat(value, row, index) {
+		return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
+				+ value + "'>点击查看</a>";
+	}
+	
+	function showimg(href) {
+		if (href && href != 'null') {
+			var imgs = JSON.parse(href);
+			var html = '';
+			for (var i = 0; i < imgs.length; i++) {
+				html += "<img src='" + imgs[i] + "' >"
+			}
+			$("#newstypeTree").html(html);
+			$("#newstypeWin").window('open');
+		} else {
+			$.messager.alert('提示','该条记录暂无图片。');
+			return;
+		}
+	}
 </script>
 
 <#--1.queryForm----------------->
@@ -265,7 +92,7 @@
         <tr>
             <th field="ck" checkbox="true"></th>
             <th field="name1" width="190" align="left" halign="center" formatter="proTitle">商品名称</th>
-            <th field="productCateName" width="100" align="center">商品分类</th>
+            <th field="productCateName" width="100" align="center" formatter="productCateFormat">商品分类</th>
             <th field="name2" width="150" align="center">促销信息</th>
             <th field="productBrandName" width="90" align="center">商品品牌</th>
             <th field="mallPcPrice" width="90" align="center">商城价</th>
@@ -279,11 +106,7 @@
 
 <#--3.function button----------------->
     <div id="gridTools">
-        <#noescape>
-        	${buttons!}
-        </#noescape>
-        
         <a id="a-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
      </div>
 
-<#include "/seller/commons/_detailfooter.ftl" />
+<#include "/admin/commons/_detailfooter.ftl" />

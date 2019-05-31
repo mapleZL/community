@@ -17,7 +17,6 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.alibaba.fastjson.JSON;
 import com.phkj.core.PagerInfo;
-import com.phkj.core.StringUtil;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.dao.shop.read.product.StAppletProductReadDao;
 import com.phkj.dao.shop.write.product.ProductPictureWriteDao;
@@ -89,7 +88,7 @@ public class StAppletProductModel {
         TransactionStatus status = transactionManager.getTransaction(def);
         try {
             stAppletProductWriteDao.update(stAppletProduct);
-            
+
             /**更新商品图片**/
             if (null != productPictureList && productPictureList.size() > 0) {
                 pictureWriteDao.delByProductId(stAppletProduct.getId());
@@ -102,7 +101,8 @@ public class StAppletProductModel {
             return true;
         } catch (Exception e) {
             transactionManager.rollback(status);
-            log.error("ProductServiceImpl updateProduct param:" + JSON.toJSONString(stAppletProduct));
+            log.error(
+                "ProductServiceImpl updateProduct param:" + JSON.toJSONString(stAppletProduct));
             log.error("ProductServiceImpl updateProduct exception:", e);
             throw e;
         }
@@ -126,15 +126,12 @@ public class StAppletProductModel {
     public List<StAppletProduct> pageProduct(Map<String, String> queryMap, PagerInfo pager) {
         List<StAppletProduct> list = new ArrayList<>();
         Integer start = 0, size = 0;
-        String state = queryMap.get("q_state");
-        if (!StringUtil.isEmpty(state) && state.indexOf(",") == -1) {
-            if (pager != null) {
-                pager.setRowsCount(stAppletProductReadDao.count(queryMap));
-                start = pager.getStart();
-                size = pager.getPageSize();
-            }
-            list = stAppletProductReadDao.pageProduct(queryMap, start, size);
+        if (pager != null) {
+            pager.setRowsCount(stAppletProductReadDao.count(queryMap));
+            start = pager.getStart();
+            size = pager.getPageSize();
         }
+        list = stAppletProductReadDao.pageProduct(queryMap, start, size);
 
         return list;
     }

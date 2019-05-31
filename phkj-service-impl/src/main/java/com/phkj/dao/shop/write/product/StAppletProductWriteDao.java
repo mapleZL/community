@@ -16,6 +16,7 @@ public interface StAppletProductWriteDao {
     Integer update(StAppletProduct stAppletProduct);
 
     int updateState(@Param("id") Integer productId, @Param("state") int state);
-    
-    Integer updateByIds(Map<String, Object> param, List<Integer> ids);
+
+    Integer updateByIds(@Param("param") Map<String, Object> param,
+                        @Param("ids") List<Integer> ids);
 }

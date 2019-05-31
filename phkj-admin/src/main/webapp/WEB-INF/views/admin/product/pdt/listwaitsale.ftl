@@ -109,19 +109,18 @@
 	function changeStatus(ids, status){
 		$.messager.progress({text:"提交中..."});
 		$.ajax({
-			type:"GET",
-		    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/changeStatus",
-			dataType: "json",
-		    data: "ids=" + ids + "&status=" + status,
+			type:"POST",
+		    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/handler",
+		    data: "ids=" + ids + "&type=" + status,
 		    cache:false,
-			success:function(data, textStatus){
-				if (data.success) {
-					$('#dataGrid').datagrid('reload');
-			    } else {
-			    	$.messager.alert('提示',data.message);
-			    	$('#dataGrid').datagrid('reload');
-			    }
+			success:function(e){
 				$.messager.progress('close');
+                $('#dataGrid').datagrid('reload',queryParamsHandler());
+                $.messager.show({
+                    title:'提示',
+                    msg:e,
+                    showType:'show'
+                });
 			}
 		});
 	}
