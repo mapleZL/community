@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public interface ShareService {
 
-    Map<String, Object> getMeShareInfo(String userId, String taskType, Integer pageNum, Integer pageSize);
+    Map<String, Object> getMeShareInfo(String userId, String taskType, Integer pageNum, Integer pageSize, String villageCode);
 
     boolean deleteShareInfo(String id,String type);
 
@@ -32,7 +32,7 @@ public interface ShareService {
 
     boolean stopShareInfo(String id);
 
-    Map<String,Object> getMeApplyInfoList(String status, String userId ,Integer pageNum ,Integer pageSize);
+    Map<String,Object> getMeApplyInfoList(String status, String userId, Integer pageNum, Integer pageSize, String villageCode);
 
     Map<String,Object> getAllApplyByPage(Integer page, Integer rows, String infoId);
 

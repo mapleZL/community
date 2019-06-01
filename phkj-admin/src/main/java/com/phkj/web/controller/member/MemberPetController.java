@@ -94,7 +94,8 @@ public class MemberPetController {
                                                                     Integer rows) {
         String sts = request.getParameter("q_status");
         HttpJsonResult<List<StAppletPetWithBLOBs>> jsonResult = new HttpJsonResult<List<StAppletPetWithBLOBs>>();
-        PageInfo<StAppletPetWithBLOBs> pageInfo = iMemberPetService.getAllPetList(page, rows, sts);
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        PageInfo<StAppletPetWithBLOBs> pageInfo = iMemberPetService.getAllPetList(page, rows, sts,adminUser.getVillageCode());
         String total = String.valueOf(pageInfo.getTotal());
         jsonResult.setRows(pageInfo.getList());
         jsonResult.setTotal(Integer.valueOf(total));
@@ -207,7 +208,8 @@ public class MemberPetController {
         try {
             String userId = request.getParameter("userId");
             String sts = request.getParameter("sts");
-            PageInfo<Map<String, Object>> pageInfo = iMemberPetService.getMePetListByPage(userId, sts, pageNum, pageSize);
+            String villageCode = request.getParameter("villageCode");
+            PageInfo<Map<String, Object>> pageInfo = iMemberPetService.getMePetListByPage(userId, sts, pageNum, pageSize,villageCode);
             Map<String, Object> map = new HashMap<>();
             map.put("list", pageInfo.getList());
             map.put("total", pageInfo.getTotal());

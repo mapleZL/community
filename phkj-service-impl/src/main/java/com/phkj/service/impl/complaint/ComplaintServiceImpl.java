@@ -41,11 +41,11 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public PageInfo<StAppletComSugges> getAllComAndSugg(Integer page, Integer rows, String type, String sts) {
+    public PageInfo<StAppletComSugges> getAllComAndSugg(Integer page, Integer rows, String type, String sts, String villageCode) {
         PageInfo<StAppletComSugges> pageInfo = PageHelper.startPage(page, rows).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletComSuggesReadDao.selectAllComAndSugg(type,sts);
+                stAppletComSuggesReadDao.selectAllComAndSugg(type,sts,villageCode);
             }
         });
         return pageInfo;
@@ -84,14 +84,14 @@ public class ComplaintServiceImpl implements ComplaintService {
 
 
     @Override
-    public Map<String, Object> getAllMeComplaint(Integer pageNum, Integer pageSize, String type, String userId) {
+    public Map<String, Object> getAllMeComplaint(Integer pageNum, Integer pageSize, String type, String userId, String villageCode) {
 
         int num = (pageNum == 0) ? 1 : pageNum;
         int size = (pageSize == 0) ? 20 : pageSize;
         PageInfo<StAppletComSugges> pageInfo = PageHelper.startPage(num, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletComSuggesReadDao.selectAllMeComplaint(type, userId);
+                stAppletComSuggesReadDao.selectAllMeComplaint(type, userId,villageCode);
             }
         });
         Map<String, Object> returnMap = new HashMap<String, Object>();

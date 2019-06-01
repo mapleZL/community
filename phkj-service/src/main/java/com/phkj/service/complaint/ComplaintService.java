@@ -8,11 +8,11 @@ import java.util.Map;
 
 public interface ComplaintService {
 
-    Map<String,Object> getAllMeComplaint(Integer pageNum, Integer pageSize, String type,String userId);
+    Map<String,Object> getAllMeComplaint(Integer pageNum, Integer pageSize, String type, String userId, String villageCode);
 
     boolean addComorSuggess(StAppletComSugges stAppletComSugges);
 
-    PageInfo<StAppletComSugges> getAllComAndSugg(Integer page, Integer rows, String type, String sts);
+    PageInfo<StAppletComSugges> getAllComAndSugg(Integer page, Integer rows, String type, String sts, String villageCode);
 
     boolean updateComAndSuggess(String id, String type, SystemAdmin adminUser);
 }

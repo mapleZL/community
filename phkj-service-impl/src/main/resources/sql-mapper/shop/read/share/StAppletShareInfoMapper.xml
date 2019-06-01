@@ -163,7 +163,7 @@
     FROM
         st_applet_share_info t
     WHERE
-        t.create_user_id = #{userId}
+        t.create_user_id = #{userId} and t.village_code = #{villageCode}
         <if test="taskType != null and taskType != ''">
           and t.task_type = #{taskType}
         </if>

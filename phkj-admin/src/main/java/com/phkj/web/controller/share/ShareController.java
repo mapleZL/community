@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.phkj.web.controller.system.AdminCodeController;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -168,8 +169,9 @@ public class ShareController {
         ResponseUtil responseUtil = new ResponseUtil();
         String status = request.getParameter("status");
         String userId = request.getParameter("userId");
+        String villageCode = request.getParameter("villageCode");
         try {
-            Map<String, Object> returnMap = shareService.getMeApplyInfoList(status, userId, pageNum, pageSize);
+            Map<String, Object> returnMap = shareService.getMeApplyInfoList(status, userId, pageNum, pageSize,villageCode);
             responseUtil.setData(returnMap);
             responseUtil.setSuccess(true);
         } catch (Exception e) {
@@ -321,7 +323,8 @@ public class ShareController {
         try {
             String userId = request.getParameter("userId");
             String taskType = request.getParameter("taskType");
-            Map<String, Object> returnMap = shareService.getMeShareInfo(userId, taskType, pageNum, pageSize);
+            String villageCode = request.getParameter("villageCode");
+            Map<String, Object> returnMap = shareService.getMeShareInfo(userId, taskType, pageNum, pageSize,villageCode);
             responseUtil.setSuccess(true);
             responseUtil.setData(returnMap);
         } catch (Exception e) {
@@ -374,6 +377,7 @@ public class ShareController {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             String taskType = request.getParameter("taskType");
+            String villageCode = request.getParameter("villageCode");
             Map<String, Object> resultMap = shareService.getAllShareInfo(taskType, pageNum, pageSize);
             responseUtil.setSuccess(true);
             responseUtil.setData(resultMap);

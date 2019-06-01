@@ -24,7 +24,8 @@ public interface StAppletPetReadDao {
 
     int updateByPrimaryKey(StAppletPet record);
 
-    List<Map<String,Object>> selectMePetListByPage(@Param("userId") String userId);
+    List<Map<String, Object>> selectMePetListByPage(@Param("userId") String userId, @Param("sts") String sts,
+                                                    @Param("villageCode") String villageCode);
 
-    List<StAppletPetWithBLOBs> selectAllPetLsit(@Param("sts") String sts);
+    List<StAppletPetWithBLOBs> selectAllPetLsit(@Param("sts") String sts, @Param("villageCode") String villageCode);
 }

@@ -16,6 +16,7 @@
     <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
   </resultMap>
   <sql id="Base_Column_List">
     id, titel, complaint_target, content, email, type, sts, create_time, create_user_id,
@@ -40,6 +41,7 @@
         img_url
         from st_applet_com_sugges
         where 1=1
+          and village_code = #{villageCode}
         <if test="type != null and type != ''">
           and `type` = #{type}
         </if>
@@ -67,7 +69,7 @@
         modify_time,
         img_url
         from st_applet_com_sugges
-        where  create_user_id = #{userId} and `type` = #{type}
+        where  create_user_id = #{userId} and `type` = #{type} and village_code = #{villageCode}
     </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

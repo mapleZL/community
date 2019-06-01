@@ -149,10 +149,10 @@ public class EnvironmentalController {
      */
     @ResponseBody
     @RequestMapping("/getMeEnvironList")
-    public ResponseUtil getMeEnvironList(String userId, Integer pageNum, Integer pageSize) {
+    public ResponseUtil getMeEnvironList(String userId, Integer pageNum, Integer pageSize,String villageCode) {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            Map<String, Object> returnMap = environmentalService.getAll(userId, pageNum, pageSize);
+            Map<String, Object> returnMap = environmentalService.getAll(userId, pageNum, pageSize,villageCode);
             responseUtil.setSuccess(true);
             responseUtil.setData(returnMap);
         } catch (Exception e) {
