@@ -139,7 +139,6 @@ public class StAppletRepairController extends BaseController {
      * @param request
      * @param dataMap
      * @param id
-     * @param source
      * @return
      */
     @RequestMapping(value = "/delivery", method = {RequestMethod.GET})
@@ -217,7 +216,7 @@ public class StAppletRepairController extends BaseController {
      */
     @RequestMapping(value = "/list", method = {RequestMethod.GET})
     @ResponseBody
-    public ResponseUtil list(String createUserId, int villageCode, int pageNum, int pageSize) {
+    public ResponseUtil list(String createUserId, String villageCode, int pageNum, int pageSize) {
         if (StringUtils.isBlank(createUserId)) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
                     "createUserId is blank", true, null);
@@ -225,7 +224,7 @@ public class StAppletRepairController extends BaseController {
         pageNum = pageNum == 0 ? 1 : pageNum;
         pageSize = pageSize == 0 ? 10 : pageSize;
         ServiceResult<List<StAppletRepair>> result = stAppletRepairService
-                .getStAppletRepairList(createUserId,villageCode, pageNum, pageSize);
+                .getStAppletRepairList(createUserId, villageCode, pageNum, pageSize);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true,
                 result.getResult());
     }
@@ -245,7 +244,7 @@ public class StAppletRepairController extends BaseController {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
                     "userName or telPhone is blank", true, null);
         }
-        if (StringUtils.isBlank(stAppletRepair.getType()) || stAppletRepair.getVillageCode() == null || stAppletRepair.getVillageCode() == 0) {
+        if (StringUtils.isBlank(stAppletRepair.getType()) || StringUtils.isBlank(stAppletRepair.getVillageCode())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "type or villageCode is blank", true,
                     null);
         }

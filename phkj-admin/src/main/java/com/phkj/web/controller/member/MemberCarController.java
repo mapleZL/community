@@ -122,7 +122,7 @@ public class MemberCarController extends BaseController {
         if (StringUtils.isBlank(memberCar.getVehicleType()) || StringUtils.isBlank(memberCar.getVehicleStructure())) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "vehicleType or vehicleStructure is blank", false, null);
         }
-        if (memberCar.getVillageCode() == null || memberCar.getVillageCode() == 0) {
+        if (StringUtils.isBlank(memberCar.getVillageCode())) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "villageCode is blank", false, null);
         }
         return null;
@@ -168,13 +168,13 @@ public class MemberCarController extends BaseController {
      */
     @RequestMapping(value = "/my/cars", method = {RequestMethod.GET})
     @ResponseBody
-    public ResponseUtil myCars(Integer memberId, Integer villageCode, int pageNum, int pageSize) {
+    public ResponseUtil myCars(Integer memberId, String villageCode, int pageNum, int pageSize) {
         if (memberId == null || memberId == 0) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true, null);
         }
         // villageCode必填
-        if (villageCode == null || villageCode == 0) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "villageId is blank", true, null);
+        if (StringUtils.isBlank(villageCode)) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "villageCode is blank", true, null);
         }
         pageNum = pageNum == 0 ? 1 : pageNum;
         pageSize = pageSize == 0 ? 10 : pageSize;

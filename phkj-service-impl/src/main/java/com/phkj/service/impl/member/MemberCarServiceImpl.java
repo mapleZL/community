@@ -162,7 +162,7 @@ public class MemberCarServiceImpl implements IMemberCarService {
      * @Param: pageNum
      * @Param: pageSize
      */
-    public ServiceResult<List<MemberCar>> getMyMemberCarList(Integer memberId, Integer villageCode, int pageNum, int pageSize) {
+    public ServiceResult<List<MemberCar>> getMyMemberCarList(Integer memberId, String villageCode, int pageNum, int pageSize) {
         ServiceResult<List<MemberCar>> result = new ServiceResult<>();
         try {
             pageNum = (pageNum - 1) * pageSize;

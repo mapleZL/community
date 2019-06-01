@@ -88,7 +88,7 @@ public class MemberParkingLotModel {
         return memberParkingLotWriteDao.updateStatus(id, state);
     }
 
-    public List<MemberParkingLot> getMyMemberLotList(Integer memberId, Integer villageCode, int pageNum, int pageSize) {
+    public List<MemberParkingLot> getMyMemberLotList(Integer memberId, String villageCode, int pageNum, int pageSize) {
         return memberParkingLotReadDao.getMyMemberLotList(memberId, villageCode, pageNum, pageSize);
     }
 }

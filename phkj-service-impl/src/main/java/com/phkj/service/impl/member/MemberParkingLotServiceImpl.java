@@ -159,7 +159,7 @@ public class MemberParkingLotServiceImpl implements IMemberParkingLotService {
      * @Param: pageSize
      */
     @Override
-    public ServiceResult<List<MemberParkingLot>> getMyMemberLotList(Integer memberId, Integer villageCode, int pageNum, int pageSize) {
+    public ServiceResult<List<MemberParkingLot>> getMyMemberLotList(Integer memberId, String villageCode, int pageNum, int pageSize) {
         ServiceResult<List<MemberParkingLot>> result = new ServiceResult<>();
         try {
             pageNum = (pageNum - 1) * pageSize;
