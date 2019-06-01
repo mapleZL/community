@@ -20,7 +20,7 @@ public interface StAppletEnvironmentReadMapper {
 
     int updateByPrimaryKey(StAppletEnvironment record);
 
-    List<StAppletEnvironment> selectMeEnevronList(@Param("userId") String userId);
+    List<StAppletEnvironment> selectMeEnevronList(@Param("userId") String userId,@Param("villageCode") String villageCode);
 
     List<StAppletEnvironment> selectSystemAllEnviron(@Param("status") String status, @Param("sts") String sts,
                                                      @Param("type") String type, @Param("villageCode") String villageCode);

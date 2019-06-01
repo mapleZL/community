@@ -16,6 +16,7 @@
     <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
   </resultMap>
   <sql id="Base_Column_List">
     id, titel, complaint_target, content, email, type, sts, create_time, create_user_id,
@@ -36,12 +37,12 @@
       content, email, type, 
       sts, create_time, create_user_id, 
       create_name, modify_user_id, modify_user_name, 
-      modify_time,img_url)
+      modify_time,img_url, village_code)
     values (#{id,jdbcType=BIGINT}, #{titel,jdbcType=VARCHAR}, #{complaintTarget,jdbcType=VARCHAR},
       #{content,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{sts,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=VARCHAR}, 
       #{createName,jdbcType=VARCHAR}, #{modifyUserId,jdbcType=VARCHAR}, #{modifyUserName,jdbcType=VARCHAR}, 
-      #{modifyTime,jdbcType=TIMESTAMP} ,  #{imgUrl})
+      #{modifyTime,jdbcType=TIMESTAMP} ,  #{imgUrl}, #{villageCode})
   </insert>
   <insert id="insertSelective" parameterType="com.phkj.entity.complaint.StAppletComSugges">
     insert into st_applet_com_sugges

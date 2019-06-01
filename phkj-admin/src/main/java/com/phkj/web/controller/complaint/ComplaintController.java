@@ -55,7 +55,7 @@ public class ComplaintController {
         String type = request.getParameter("type");
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         try {
-            if (complaintService.updateComAndSuggess(id, type,adminUser)) {
+            if (complaintService.updateComAndSuggess(id, type, adminUser)) {
                 responseUtil.setSuccess(true);
             }
         } catch (Exception e) {
@@ -75,9 +75,11 @@ public class ComplaintController {
     public HttpJsonResult<List<StAppletComSugges>> getAllComAndSugg(HttpServletRequest request, Integer page,
                                                                     Integer rows) {
         HttpJsonResult<List<StAppletComSugges>> resultJson = new HttpJsonResult<>();
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         String type = request.getParameter("q_type");
         String sts = request.getParameter("q_sts");
-        PageInfo<StAppletComSugges> pageInfo = complaintService.getAllComAndSugg(page, rows, type , sts);
+        PageInfo<StAppletComSugges> pageInfo = complaintService.getAllComAndSugg(page, rows, type, sts,
+                adminUser.getVillageCode());
         String total = String.valueOf(pageInfo.getTotal());
         resultJson.setRows(pageInfo.getList());
         resultJson.setTotal(Integer.valueOf(total));
@@ -133,7 +135,8 @@ public class ComplaintController {
         try {
             String type = request.getParameter("type");
             String userId = request.getParameter("userId");
-            Map<String, Object> returnMap = complaintService.getAllMeComplaint(pageNum, pageSize, type, userId);
+            String villageCode = request.getParameter("villageCode");
+            Map<String, Object> returnMap = complaintService.getAllMeComplaint(pageNum, pageSize, type, userId, villageCode);
             responseUtil.setSuccess(true);
             responseUtil.setData(returnMap);
         } catch (Exception e) {

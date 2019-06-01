@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface IMemberPetService {
 
-    PageInfo<Map<String, Object>> getMePetListByPage(String userId, String sts, Integer pageNum, Integer pageSize);
+    PageInfo<Map<String, Object>> getMePetListByPage(String userId, String sts, Integer pageNum, Integer pageSize, String villageCode);
 
     StAppletPet getPetDetail(String id);
 
@@ -18,7 +18,7 @@ public interface IMemberPetService {
 
     boolean updatePet(StAppletPetWithBLOBs pet);
 
-    PageInfo<StAppletPetWithBLOBs> getAllPetList(Integer page, Integer rows, String sts);
+    PageInfo<StAppletPetWithBLOBs> getAllPetList(Integer page, Integer rows, String sts, String villageCode);
 
     boolean systemUpdatePet(String id, String type, Integer userId, String name);
 }

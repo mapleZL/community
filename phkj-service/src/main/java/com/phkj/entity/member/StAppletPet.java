@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 
+ * @author
  */
 public class StAppletPet implements Serializable {
     private Long id;
@@ -76,7 +76,6 @@ public class StAppletPet implements Serializable {
 
     /**
      * 修改时间
-
      */
     private Date modifyTime;
 
@@ -94,6 +93,16 @@ public class StAppletPet implements Serializable {
      * 失败信息
      */
     private String msg;
+
+    private String villageCode;
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
 
     private static final long serialVersionUID = 1L;
 

@@ -11,7 +11,7 @@ public interface EnvironmentalService {
 
     boolean add(StAppletEnvironment stAppletEnviron);
 
-    Map<String, Object> getAll(String id, Integer pageNum, Integer pageSize);
+    Map<String, Object> getAll(String id, Integer pageNum, Integer pageSize, String villageCode);
 
     StAppletEnvironment getEnvironDetail(String id);
 

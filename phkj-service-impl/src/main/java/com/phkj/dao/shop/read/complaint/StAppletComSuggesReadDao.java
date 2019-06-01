@@ -20,7 +20,9 @@ public interface StAppletComSuggesReadDao {
 
     int updateByPrimaryKey(StAppletComSugges record);
 
-    List<StAppletComSugges> selectAllMeComplaint(@Param("type") String type, @Param("userId") String userId);
+    List<StAppletComSugges> selectAllMeComplaint(@Param("type") String type, @Param("userId") String userId,
+                                                 @Param("villageCode") String villageCode);
 
-    List<StAppletComSugges> selectAllComAndSugg(@Param("type") String type,@Param("sts") String sts);
+    List<StAppletComSugges> selectAllComAndSugg(@Param("type") String type, @Param("sts") String sts,
+                                                @Param("villageCode") String villageCode);
 }

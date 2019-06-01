@@ -74,17 +74,18 @@ public class MemberPetServiceImpl implements IMemberPetService {
      * @param page
      * @param rows
      * @param sts
+     * @param villageCode
      * @return
      */
     @Override
-    public PageInfo<StAppletPetWithBLOBs> getAllPetList(Integer page, Integer rows, String sts) {
+    public PageInfo<StAppletPetWithBLOBs> getAllPetList(Integer page, Integer rows, String sts, String villageCode) {
 
         int pageNum = (page == 0) ? 1 : page;
         int size = (rows == 0) ? 30 : rows;
         PageInfo<StAppletPetWithBLOBs> pageInfo = PageHelper.startPage(page, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletPetReadDao.selectAllPetLsit(sts);
+                stAppletPetReadDao.selectAllPetLsit(sts,villageCode);
             }
         });
         return pageInfo;
@@ -173,18 +174,19 @@ public class MemberPetServiceImpl implements IMemberPetService {
     /**
      * @param userId
      * @param sts
+     * @param villageCode
      * @return
      */
     @Override
     public PageInfo<Map<String, Object>> getMePetListByPage(String userId, String sts, Integer pageNum,
-                                                            Integer pageSize) {
+                                                            Integer pageSize, String villageCode) {
         int num = (pageNum == 0) ? 1 : pageNum;
         int size = (pageSize == 0) ? 20 : pageSize;
         // 分页工具
         PageInfo<Map<String, Object>> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                List<Map<String, Object>> list = stAppletPetReadDao.selectMePetListByPage(userId);
+                List<Map<String, Object>> list = stAppletPetReadDao.selectMePetListByPage(userId,sts,villageCode);
             }
         });
         return pageInfo;

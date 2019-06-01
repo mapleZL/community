@@ -34,10 +34,11 @@ public class ShareServiceImpl implements ShareService {
      * @param taskType
      * @param pageNum
      * @param pageSize
+     * @param villageCode
      * @return
      */
     @Override
-    public Map<String, Object> getMeShareInfo(String userId, String taskType, Integer pageNum, Integer pageSize) {
+    public Map<String, Object> getMeShareInfo(String userId, String taskType, Integer pageNum, Integer pageSize, String villageCode) {
 
         int pageNumber = pageNum == 0 ? 1 : pageNum;
         int size = pageSize == 0 ? 5 : pageSize;
@@ -45,7 +46,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareInfoMapper.selectByUserId(userId, taskType);
+                stAppletShareInfoMapper.selectByUserId(userId, taskType,villageCode);
             }
         });
         // 处理数据
@@ -331,10 +332,11 @@ public class ShareServiceImpl implements ShareService {
     /**
      * @param status
      * @param userId
+     * @param villageCode
      * @return
      */
     @Override
-    public Map<String, Object> getMeApplyInfoList(String status, String userId, Integer pageNum, Integer pageSize) {
+    public Map<String, Object> getMeApplyInfoList(String status, String userId, Integer pageNum, Integer pageSize, String villageCode) {
 
         int pageNumber = pageNum == 0 ? 1 : pageNum;
         int size = pageSize == 0 ? 20 : pageSize;
@@ -342,7 +344,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareApplyMapper.selectMeApplyInfoList(status, userId);
+                stAppletShareApplyMapper.selectMeApplyInfoList(status, userId,villageCode);
             }
         });
 

@@ -171,23 +171,47 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 		
 	});
 
+    // function imageFormat(value, row, index) {
+    //     return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
+    //             + value + "'>点击查看</a>";
+    // }
+    //
+    // function showimg(href) {
+    //     if (href && href != 'null') {
+    //         var imgs = JSON.parse(href);
+    //         var html = '';
+    //         for (var i = 0; i < imgs.length; i++) {
+    //             alert(imgs[i]);
+    //             html += "<img src='" +  + "' >"
+    //         }
+    //         $("#newstypeTree").html(html);
+    //         $("#newstypeWin").window('open');
+    //     } else {
+    //         $.messager.alert('提示','该条记录暂无图片。');
+    //         return;
+    //     }
+    // }
+
+
     function imageFormat(value, row, index) {
         return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
                 + value + "'>点击查看</a>";
     }
 
     function showimg(href) {
+        console.log(href)
         if (href && href != 'null') {
             var imgs = JSON.parse(href);
+            var newss =JSON.toString(imgs);
+            console.log(newss)
             var html = '';
             for (var i = 0; i < imgs.length; i++) {
-                alert(imgs[i]);
-                html += "<img src='" +  + "' >"
+                html += "<img src='" + imgs[i] + "' >"
             }
             $("#newstypeTree").html(html);
             $("#newstypeWin").window('open');
         } else {
-            $.messager.alert('提示','该条记录暂无图片。');
+            $.messager.alert('提示', '该条记录暂无图片。');
             return;
         }
     }
