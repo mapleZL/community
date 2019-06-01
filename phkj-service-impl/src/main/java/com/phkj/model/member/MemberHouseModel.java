@@ -79,8 +79,8 @@ public class MemberHouseModel {
         return memberHouseWriteDao.changeState(id, state);
     }
 
-    public List<MemberHouse> getAllHouse(String memberId) {
-        return memberHouseReadDao.getAllHouse(memberId);
+    public List<MemberHouse> getAllHouse(String memberId, String villageCode) {
+        return memberHouseReadDao.getAllHouse(memberId, villageCode);
     }
 
 }

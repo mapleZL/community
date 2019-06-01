@@ -51,5 +51,5 @@ public interface IMemberHouseService {
      * @param createUserId
      * @return
      */
-    ServiceResult<List<MemberHouse>> getAllHouse(String createUserId);
+    ServiceResult<List<MemberHouse>> getAllHouse(String createUserId, String villageCode);
 }
