@@ -122,8 +122,8 @@ public class MemberCarController extends BaseController {
         if (StringUtils.isBlank(memberCar.getVehicleType()) || StringUtils.isBlank(memberCar.getVehicleStructure())) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "vehicleType or vehicleStructure is blank", false, null);
         }
-        if (StringUtils.isBlank(memberCar.getVillage()) || memberCar.getVillageCode() == null || memberCar.getVillageCode() == 0) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "village or villageCode is blank", false, null);
+        if (memberCar.getVillageCode() == null || memberCar.getVillageCode() == 0) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "villageCode is blank", false, null);
         }
         return null;
     }
@@ -172,10 +172,10 @@ public class MemberCarController extends BaseController {
         if (memberId == null || memberId == 0) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true, null);
         }
-        // TODO 暂时注释掉
-//        if (villageId == null || villageId == 0) {
-//            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "villageId is blank", true, null);
-//        }
+        // villageCode必填
+        if (villageCode == null || villageCode == 0) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "villageId is blank", true, null);
+        }
         pageNum = pageNum == 0 ? 1 : pageNum;
         pageSize = pageSize == 0 ? 10 : pageSize;
         ServiceResult<List<MemberCar>> result = memberCarService.getMyMemberCarList(memberId, villageCode, pageNum, pageSize);

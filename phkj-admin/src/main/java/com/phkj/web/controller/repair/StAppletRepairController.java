@@ -246,7 +246,7 @@ public class StAppletRepairController extends BaseController {
                     "userName or telPhone is blank", true, null);
         }
         if (StringUtils.isBlank(stAppletRepair.getType()) || stAppletRepair.getVillageCode() == null || stAppletRepair.getVillageCode() == 0) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "type or villageId is blank", true,
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "type or villageCode is blank", true,
                     null);
         }
         if (stAppletRepair.getStartTime() == null || stAppletRepair.getEndTime() == null) {
