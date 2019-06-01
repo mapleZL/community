@@ -122,12 +122,20 @@ public class ProductController extends BaseController {
         return "admin/product/pdt/listonsale";
     }
     
-    //已经删除商品(删除) 只读
+    //已经删除商品
     @RequestMapping(value = "delSale", method = { RequestMethod.GET })
     public String delSale(HttpServletRequest request, Map<String, Object> dataMap) {
         dataMap.put("q_state", "5");//5、商品删除；
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         return "admin/product/pdt/listdelsale";
+    }
+    
+    //待审核商品列表
+    @RequestMapping(value = "examine", method = { RequestMethod.GET })
+    public String examineSale(HttpServletRequest request, Map<String, Object> dataMap) {
+        dataMap.put("q_state", "2");//5、待审核；
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+        return "admin/product/pdt/listexamine";
     }
 
     /**
@@ -321,6 +329,12 @@ public class ProductController extends BaseController {
             } else if (type == StAppletProduct.STATE_2) {
                 map.put("state", StAppletProduct.STATE_2);
                 msg = "提交审核成功";
+            } else if (type == StAppletProduct.STATE_3) {
+                map.put("state", StAppletProduct.STATE_3);
+                msg = "审核通过成功";
+            } else if (type == StAppletProduct.STATE_4) {
+                map.put("state", StAppletProduct.STATE_4);
+                msg = "驳回成功";
             } else
                 throw new BusinessException("未知操作");
             productService.updateByIds(map, StringUtil.string2IntegerList(ids));

@@ -30,6 +30,9 @@
 		<@shiro.hasPermission name="/admin/product/delSale">
 		<a id='310' href="javascript:void(0);" onclick="addTab('已删除商品', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/delSale')">已删除商品</a>
 		</@shiro.hasPermission>
+		<@shiro.hasPermission name="/admin/product/examine">
+		<a id='311' href="javascript:void(0);" onclick="addTab('待审核商品', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/examine')">待审核商品</a>
+		</@shiro.hasPermission>
 		
 		<@shiro.hasPermission name="/admin/productattr">
 		<a href="javascript:void(0);" onclick="addTab('商品属性管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/productattr')">商品属性管理</a>
