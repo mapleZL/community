@@ -91,7 +91,7 @@ public class MemberHouseController extends BaseController {
     // 认证用户房屋信息
     private ResponseUtil authenticationHouseholder(MemberHouse memberHouse) {
         // TODO 校验本地信息是否已经存在，避免重复验证
-        ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.getAllHouse(memberHouse.getMemberId().toString());
+        ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.getAllHouse(memberHouse.getMemberId().toString(), memberHouse.getVillageCode());
         List<MemberHouse> houseList = serviceResult.getResult();
         for (MemberHouse house : houseList) {
             if (house.getCommunity().equals(memberHouse.getCommunity()) && house.getRegion().equals(memberHouse.getRegion())
@@ -227,19 +227,17 @@ public class MemberHouseController extends BaseController {
     /**
      * 微信端获取指定居民名下所有房屋信息
      *
-     * @param createUserId
-     * @param pageNum
-     * @param pageSize
+     * @param memberId
      * @return
      */
     @RequestMapping(value = "/all", method = {RequestMethod.GET})
     @ResponseBody
-    public ResponseUtil list(String memberId, HttpServletResponse response) {
-        if (StringUtils.isBlank(memberId)) {
+    public ResponseUtil list(String memberId,String villageCode, HttpServletResponse response) {
+        if (StringUtils.isBlank(memberId) || StringUtils.isBlank(villageCode)) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                    "createUserId is blank", true, null);
+                    "createUserId or villageCode is blank", true, null);
         }
-        ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.getAllHouse(memberId);
+        ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.getAllHouse(memberId, villageCode);
         return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true,
                 serviceResult.getResult());
     }

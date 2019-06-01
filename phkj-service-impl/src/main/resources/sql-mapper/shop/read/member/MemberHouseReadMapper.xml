@@ -11,6 +11,7 @@
 			<result property="communityId" column="community_id" />
 			<result property="community" column="community" />
 			<result property="villageId" column="village_id" />
+			<result property="villageCode" column="village_code" />
 			<result property="village" column="village" />
 			<result property="buildingId" column="building_id" />
 			<result property="building" column="building" />
@@ -37,7 +38,7 @@
 	    select
 		   *
 		from `st_applet_member_house`
-		where member_id = #{memberId}
+		where member_id = #{memberId} and village_code = #{villageCode}
 	</select>
 	
 	<select id="get" parameterType="Integer" resultMap="MemberHouseResult">

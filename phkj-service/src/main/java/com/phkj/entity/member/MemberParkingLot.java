@@ -7,7 +7,7 @@ public class MemberParkingLot implements Serializable {
     private static final long serialVersionUID = -8013285459324268237L;
     private java.lang.Integer id;
     private java.lang.Integer memberId;
-    private Integer villageCode;
+    private String villageCode;
     private String village;
     private java.lang.String position;
     private java.lang.String lotType;
@@ -228,11 +228,11 @@ public class MemberParkingLot implements Serializable {
         this.img = img;
     }
 
-    public Integer getVillageCode() {
+    public String getVillageCode() {
         return villageCode;
     }
 
-    public void setVillageCode(Integer villageCode) {
+    public void setVillageCode(String villageCode) {
         this.villageCode = villageCode;
     }
 

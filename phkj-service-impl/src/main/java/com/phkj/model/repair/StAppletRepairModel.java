@@ -78,7 +78,7 @@ public class StAppletRepairModel {
      * @Param: pageNum
      * @Param: pageSize
      */
-    public List<StAppletRepair> getStAppletRepairList(String createUserId, int villageCode, int pageNum, int pageSize) {
+    public List<StAppletRepair> getStAppletRepairList(String createUserId, String villageCode, int pageNum, int pageSize) {
         return stAppletRepairReadDao.getStAppletRepairList(createUserId,villageCode, pageNum, pageSize);
     }
 

@@ -96,10 +96,10 @@ public class MemberParkingLotController extends BaseController {
         if (StringUtils.isBlank(memberParkingLot.getPhoneNum()) || StringUtils.isBlank(memberParkingLot.getPosition())) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phoneNum or position is blank", false, null);
         }
-        // TODO 暂时注释掉
-//        if (memberParkingLot.getVillageCode() == null || memberParkingLot.getVillageCode() == 0) {
-//            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "villageCode is blank", false, null);
-//        }
+        // villageCode必填
+        if (StringUtils.isBlank(memberParkingLot.getVillageCode())) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "villageCode is blank", false, null);
+        }
         return null;
     }
 
@@ -143,7 +143,7 @@ public class MemberParkingLotController extends BaseController {
      */
     @RequestMapping(value = "/my/lots", method = {RequestMethod.GET})
     @ResponseBody
-    public ResponseUtil myCars(Integer memberId, Integer villageCode, int pageNum, int pageSize) {
+    public ResponseUtil myCars(Integer memberId, String villageCode, int pageNum, int pageSize) {
         if (memberId == null || memberId == 0) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true, null);
         }

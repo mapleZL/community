@@ -47,6 +47,7 @@
          si.content  as content,
          si.start_time as startTime,
          si.end_time as endTime ,
+         si.img_url as imgUrl,
          case sa.sts  when '1' then '申请中' when '2' then '申请通过' when '3' then '拒绝' else '关闭申请' end  sts
         FROM
             st_applet_share_info si

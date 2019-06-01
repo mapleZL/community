@@ -199,7 +199,7 @@ public class ShareController {
         shareInfo.setCreateTime(new Date());
         shareInfo.setShareStatus("0");
         shareInfo.setCreateUserId(Long.valueOf(adminUser.getId()));
-        shareInfo.setCreateUserName(adminUser.getRoleName());
+        shareInfo.setCreateUserName(adminUser.getName());
         shareInfo.setShareType("2");  // 物业发布信息
         boolean flag = shareService.createShareInfo(shareInfo);
         modelMap.put("pageSize", "30");
@@ -449,7 +449,7 @@ public class ShareController {
         String id = request.getParameter("id");
         String userId = request.getParameter("userId");
         String userName = request.getParameter("userName");
-        String telePhone = request.getParameter("telePhone");
+        String telePhone = request.getParameter("telephone");
         String address = request.getParameter("address");
         String IDCard = request.getParameter("IDCard");
 

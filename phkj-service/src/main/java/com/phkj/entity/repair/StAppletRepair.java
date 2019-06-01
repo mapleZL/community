@@ -10,7 +10,7 @@ public class StAppletRepair implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
     private String communityName;
-    private Integer villageCode;
+    private String villageCode;
     private String houseName;
     private String createUserId;
     private String userName;
@@ -290,11 +290,11 @@ public class StAppletRepair implements Serializable {
         this.repairName = repairName;
     }
 
-    public Integer getVillageCode() {
+    public String getVillageCode() {
         return villageCode;
     }
 
-    public void setVillageCode(Integer villageCode) {
+    public void setVillageCode(String villageCode) {
         this.villageCode = villageCode;
     }
 }

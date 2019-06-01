@@ -123,7 +123,7 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
      * @Param: pageSize
      */
     @Override
-    public ServiceResult<List<StAppletRepair>> getStAppletRepairList(String createUserId, int villageCode, int pageNum, int pageSize) {
+    public ServiceResult<List<StAppletRepair>> getStAppletRepairList(String createUserId, String villageCode, int pageNum, int pageSize) {
         ServiceResult<List<StAppletRepair>> result = new ServiceResult<>();
         try {
             pageNum = (pageNum - 1) * pageSize;
