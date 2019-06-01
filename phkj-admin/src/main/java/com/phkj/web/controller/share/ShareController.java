@@ -449,7 +449,7 @@ public class ShareController {
         String id = request.getParameter("id");
         String userId = request.getParameter("userId");
         String userName = request.getParameter("userName");
-        String telePhone = request.getParameter("telePhone");
+        String telePhone = request.getParameter("telephone");
         String address = request.getParameter("address");
         String IDCard = request.getParameter("IDCard");
 
