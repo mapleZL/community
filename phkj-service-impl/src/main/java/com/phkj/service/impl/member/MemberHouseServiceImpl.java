@@ -154,10 +154,10 @@ public class MemberHouseServiceImpl implements IMemberHouseService {
     }
 
     @Override
-    public ServiceResult<List<MemberHouse>> getAllHouse(String memberId) {
+    public ServiceResult<List<MemberHouse>> getAllHouse(String memberId, String villageCode) {
         ServiceResult<List<MemberHouse>> serviceResult = new ServiceResult<List<MemberHouse>>();
         try {
-            serviceResult.setResult(memberHouseModel.getAllHouse(memberId));
+            serviceResult.setResult(memberHouseModel.getAllHouse(memberId,villageCode));
         } catch (Exception e) {
             serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
             log.error("[memberHouseService][page]param1:" + memberId );

@@ -55,6 +55,7 @@ public class MemberHouse implements Serializable {
     private java.lang.Long communityId;
     private java.lang.String community;
     private java.lang.Long villageId;
+    private java.lang.String villageCode;
     private java.lang.String village;
     private java.lang.Long buildingId;
     private java.lang.String building;
@@ -482,4 +483,12 @@ public class MemberHouse implements Serializable {
     public void setImg(java.lang.String img){
         this.img = img;
     }
- }
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
+}

@@ -7,6 +7,8 @@
 			<result property="region" column="region" />
 			<result property="street" column="street" />
 			<result property="community" column="community" />
+			<result property="villageId" column="village_id" />
+			<result property="villageCode" column="village_code" />
 			<result property="village" column="village" />
 			<result property="building" column="building" />
 			<result property="unit" column="unit" />
@@ -62,12 +64,20 @@
 			
 			`member_id`,
 			`region`,
+			`region_id`,
 			`street`,
+			`street_id`,
 			`community`,
+			`community_id`,
 			`village`,
+			`village_id`,
+			`village_code`,
 			`building`,
+			`building_id`,
 			`unit`,
+			`unit_id`,
 			`room`,
+			`room_id`,
 			`identity_information`,
 			`name`,
 			`id_number`,
@@ -87,12 +97,20 @@
 			
 			#{memberId},
 			#{region},
+			#{regionId},
 			#{street},
+			#{streetId},
 			#{community},
+			#{communityId},
 			#{village},
+			#{villageId},
+			#{villageCode},
 			#{building},
+			#{buildingId},
 			#{unit},
+			#{unitId},
 			#{room},
+			#{roomId},
 			#{identityInformation},
 			#{name},
 			#{idNumber},

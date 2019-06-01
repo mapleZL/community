@@ -19,5 +19,5 @@ public interface MemberHouseReadDao {
                                          @Param("start") Integer start,
                                          @Param("size") Integer size);
 
-    List<MemberHouse> getAllHouse(@Param("memberId") String memberId);
+    List<MemberHouse> getAllHouse(@Param("memberId") String memberId, @Param("villageCode") String villageCode);
 }
