@@ -19,7 +19,8 @@ public interface StAppletCollectionManageReadDao {
 
     List<StAppletCollectionManage> getCollectionList(@Param("memberId") Integer memberId,
                                                      @Param("start") Integer start,
-                                                     @Param("pageSize") Integer pageSize);
+                                                     @Param("pageSize") Integer pageSize,
+                                                     @Param("villageCode") String villageCode);
 
-    Integer getCount(@Param("memberId") Integer memberId);
+    Integer getCount(@Param("memberId") Integer memberId, @Param("villageCode") String villageCode);
 }

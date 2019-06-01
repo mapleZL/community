@@ -78,14 +78,15 @@ public class StAppletCollectionManageModel {
      * @param memberId
      * @param pageSize 
      * @param start 
+     * @param villageCode 
      * @return
      */
-    public List<StAppletCollectionManage> getCollectionList(Integer memberId, Integer start, Integer pageSize) {
-        return stAppletCollectionManageReadDao.getCollectionList(memberId, start, pageSize);
+    public List<StAppletCollectionManage> getCollectionList(Integer memberId, Integer start, Integer pageSize, String villageCode) {
+        return stAppletCollectionManageReadDao.getCollectionList(memberId, start, pageSize, villageCode);
     }
 
-    public Integer getCount(Integer memberId) {
-        return stAppletCollectionManageReadDao.getCount(memberId);
+    public Integer getCount(Integer memberId, String villageCode) {
+        return stAppletCollectionManageReadDao.getCount(memberId, villageCode);
     }
 
 }

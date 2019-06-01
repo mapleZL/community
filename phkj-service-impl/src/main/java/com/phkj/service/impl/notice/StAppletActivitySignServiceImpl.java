@@ -167,12 +167,12 @@ public class StAppletActivitySignServiceImpl implements IStAppletActivitySignSer
     }
 
     @Override
-    public ServiceResult<List<StAppletActivitySign>> getParticipateList(Integer memberId, Integer start, Integer pageSize) {
+    public ServiceResult<List<StAppletActivitySign>> getParticipateList(Integer memberId, Integer start, Integer pageSize, String villageCode) {
         ServiceResult<List<StAppletActivitySign>> result = new ServiceResult<List<StAppletActivitySign>>();
         try {
             start = (start - 1) * pageSize;
             result.setResult(
-                stAppletActivitySignModel.getParticipateList(memberId, start, pageSize));
+                stAppletActivitySignModel.getParticipateList(memberId, start, pageSize, villageCode));
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
@@ -190,7 +190,7 @@ public class StAppletActivitySignServiceImpl implements IStAppletActivitySignSer
     }
 
     @Override
-    public Integer getCount(Integer memberId) {
-        return stAppletActivitySignModel.getCount(memberId);
+    public Integer getCount(Integer memberId, String villageCode) {
+        return stAppletActivitySignModel.getCount(memberId, villageCode);
     }
 }

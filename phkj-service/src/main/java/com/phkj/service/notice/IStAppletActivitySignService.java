@@ -52,9 +52,10 @@ public interface IStAppletActivitySignService {
      * @param memberId
      * @param pageSize 
      * @param start 
+     * @param villageCode 
      * @return
      */
-    ServiceResult<List<StAppletActivitySign>> getParticipateList(Integer memberId, Integer start, Integer pageSize);
+    ServiceResult<List<StAppletActivitySign>> getParticipateList(Integer memberId, Integer start, Integer pageSize, String villageCode);
 
-    Integer getCount(Integer memberId);
+    Integer getCount(Integer memberId, String villageCode);
 }

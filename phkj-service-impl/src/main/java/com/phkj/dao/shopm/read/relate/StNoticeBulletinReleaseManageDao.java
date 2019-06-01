@@ -14,7 +14,8 @@ public interface StNoticeBulletinReleaseManageDao {
 
     List<StNoticeBulletinReleaseManage> pageList(@Param("start") Integer start,
                                                  @Param("pageSize") Integer pageSize,
-                                                 @Param("type") String type);
+                                                 @Param("type") String type,
+                                                 @Param("villageCode") String villageCode);
 
-    Integer getCount(@Param("type") String type);
+    Integer getCount(@Param("type") String type, @Param("villageCode") String villageCode);
 }

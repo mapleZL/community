@@ -16,16 +16,17 @@ public interface IStNoticeBulletinReleaseManageService {
 
     /**
      * 获取通告列表
+     * @param villageCode 
      * @param  stBaseinfoBuilding
      * @return
      */
     ServiceResult<List<StNoticeBulletinReleaseManage>> pageList(Integer start, Integer pageSize,
-                                                                String type);
+                                                                String type, String villageCode);
 
     /**
      * 获取总数
      * @param type
      * @return
      */
-    Integer getCount(String type);
+    Integer getCount(String type, String villageCode);
 }

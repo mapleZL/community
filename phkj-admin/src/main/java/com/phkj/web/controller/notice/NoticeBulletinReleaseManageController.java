@@ -101,11 +101,12 @@ public class NoticeBulletinReleaseManageController {
                                                                                   Integer pageSize,
                                                                                   String type,
                                                                                   Integer memberId,
+                                                                                  String villageCode,
                                                                                   HttpServletRequest request,
                                                                                   ModelMap dataMap) {
         int start = (pageNum - 1) * pageSize;
         ServiceResult<List<StNoticeBulletinReleaseManage>> serviceResult = stNoticeBulletinReleaseManageService
-            .pageList(start, pageSize, type);
+            .pageList(start, pageSize, type, villageCode);
         List<StNoticeBulletinReleaseManage> list = serviceResult.getResult();
         StBrowse stBrowse = null;
         Long collectionManage = null;
@@ -167,7 +168,7 @@ public class NoticeBulletinReleaseManageController {
                 notice.setSourceName(sourceMap.get(notice.getSourceType()));
             }
         }
-        Integer count = stNoticeBulletinReleaseManageService.getCount(type);
+        Integer count = stNoticeBulletinReleaseManageService.getCount(type, villageCode);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());

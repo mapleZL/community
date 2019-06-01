@@ -267,7 +267,7 @@ public class AdminJob {
         String redisKey  = null;
         Long count = 0L;
         try {
-            List<StNoticeBulletinReleaseManage> list = noticeBulletinReleaseManageService.pageList(0, 1000, "4").getResult();
+            List<StNoticeBulletinReleaseManage> list = noticeBulletinReleaseManageService.pageList(0, 1000, "4", null).getResult();
             if (list != null) {
                 for (StNoticeBulletinReleaseManage notice : list) {
                     stBrowse = stBrowseModel.getBrowseByNoticeId(notice.getId());

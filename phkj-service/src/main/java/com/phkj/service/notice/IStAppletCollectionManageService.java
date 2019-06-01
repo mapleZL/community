@@ -64,9 +64,16 @@ public interface IStAppletCollectionManageService {
      * @param memberId
      * @param pageSize 
      * @param start 
+     * @param villageCode 
      * @return
      */
-    ServiceResult<List<StAppletCollectionManage>> getCollectionList(Integer memberId, Integer start, Integer pageSize);
+    ServiceResult<List<StAppletCollectionManage>> getCollectionList(Integer memberId, Integer start, Integer pageSize, String villageCode);
 
-    Integer getCount(Integer memberId);
+    /**
+     * 获取数量
+     * @param memberId
+     * @param villageCode
+     * @return
+     */
+    Integer getCount(Integer memberId, String villageCode);
 }

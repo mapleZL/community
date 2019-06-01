@@ -155,11 +155,11 @@ public class StAppletCollectionManageServiceImpl implements IStAppletCollectionM
     }
 
     @Override
-    public ServiceResult<List<StAppletCollectionManage>> getCollectionList(Integer memberId, Integer start, Integer pageSize) {
+    public ServiceResult<List<StAppletCollectionManage>> getCollectionList(Integer memberId, Integer start, Integer pageSize, String villageCode) {
         ServiceResult<List<StAppletCollectionManage>> result = new ServiceResult<>();
         try {
             start = (start - 1) * pageSize;
-            result.setResult(stAppletCollectionManageModel.getCollectionList(memberId, start, pageSize));
+            result.setResult(stAppletCollectionManageModel.getCollectionList(memberId, start, pageSize, villageCode));
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
@@ -173,7 +173,7 @@ public class StAppletCollectionManageServiceImpl implements IStAppletCollectionM
     }
 
     @Override
-    public Integer getCount(Integer memberId) {
-        return stAppletCollectionManageModel.getCount(memberId);
+    public Integer getCount(Integer memberId, String villageCode) {
+        return stAppletCollectionManageModel.getCount(memberId, villageCode);
     }
 }

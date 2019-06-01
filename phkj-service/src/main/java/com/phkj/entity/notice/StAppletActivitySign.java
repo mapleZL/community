@@ -31,6 +31,7 @@ public class StAppletActivitySign implements Serializable {
     private java.lang.Integer id;
     private java.lang.Long    rActivityId;
     private String            activityTitle;
+    private String            villageCode;
     private java.lang.String  houseInfo;
     private Integer           memberId;
     private java.lang.String  memberName;
@@ -190,5 +191,13 @@ public class StAppletActivitySign implements Serializable {
     public void setMemberId(Integer memberId) {
         this.memberId = memberId;
     }
-    
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
+
 }

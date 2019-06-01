@@ -30,6 +30,7 @@ public class StAppletCollectionManage implements Serializable {
     private java.lang.Integer id;
     private java.lang.Long    noticeId;
     private java.lang.String  type;
+    private String            villageCode;
     private java.lang.Integer memberId;
     private java.lang.String  phone;
     private java.lang.Integer createId;
@@ -155,6 +156,14 @@ public class StAppletCollectionManage implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
     }
 
 }

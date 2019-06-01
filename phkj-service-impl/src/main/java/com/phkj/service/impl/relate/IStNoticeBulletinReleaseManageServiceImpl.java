@@ -26,17 +26,16 @@ public class IStNoticeBulletinReleaseManageServiceImpl implements
     }
 
     @Override
-    public ServiceResult<List<StNoticeBulletinReleaseManage>> pageList(Integer start,
-                                                                                     Integer pageSize,
-                                                                                     String type) {
+    public ServiceResult<List<StNoticeBulletinReleaseManage>> pageList(Integer start, Integer pageSize,
+                                                                               String type, String villageCode) {
         ServiceResult<List<StNoticeBulletinReleaseManage>> serviceResult = new ServiceResult<List<StNoticeBulletinReleaseManage>>();
-        serviceResult.setResult(stNoticeBullentinReleaseManageModel.pageList(start, pageSize, type));
+        serviceResult.setResult(stNoticeBullentinReleaseManageModel.pageList(start, pageSize, type, villageCode));
         return serviceResult;
     }
 
     @Override
-    public Integer getCount(String type) {
-        return stNoticeBullentinReleaseManageModel.getCount(type);
+    public Integer getCount(String type, String villageCode) {
+        return stNoticeBullentinReleaseManageModel.getCount(type, villageCode);
     }
 
 }

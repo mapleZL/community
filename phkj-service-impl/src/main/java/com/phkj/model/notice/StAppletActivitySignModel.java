@@ -90,13 +90,14 @@ public class StAppletActivitySignModel {
      * @param memberId
      * @param pageSize 
      * @param start 
+     * @param villageCode 
      * @return
      */
-    public List<StAppletActivitySign> getParticipateList(Integer memberId, Integer start, Integer pageSize) {
-        return stAppletActivitySignReadDao.getParticipateList(memberId, start, pageSize);
+    public List<StAppletActivitySign> getParticipateList(Integer memberId, Integer start, Integer pageSize, String villageCode) {
+        return stAppletActivitySignReadDao.getParticipateList(memberId, start, pageSize, villageCode);
     }
 
-    public Integer getCount(Integer memberId) {
-        return stAppletActivitySignReadDao.getCount(memberId);
+    public Integer getCount(Integer memberId, String villageCode) {
+        return stAppletActivitySignReadDao.getCount(memberId, villageCode);
     }
 }

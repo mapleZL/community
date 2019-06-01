@@ -21,7 +21,10 @@ public interface StAppletActivitySignReadDao {
     StAppletActivitySign getActivityByUser(@Param("memberId") Integer memberId,
                                            @Param("rActivityId") Integer rActivityId);
 
-    List<StAppletActivitySign> getParticipateList(@Param("memberId") Integer memberId, @Param("start") Integer start, @Param("pageSize") Integer size);
+    List<StAppletActivitySign> getParticipateList(@Param("memberId") Integer memberId,
+                                                  @Param("start") Integer start,
+                                                  @Param("pageSize") Integer size,
+                                                  @Param("villageCode") String villageCode);
 
-    Integer getCount(@Param("memberId") Integer memberId);
+    Integer getCount(@Param("memberId") Integer memberId, @Param("villageCode") String villageCode);
 }

@@ -52,6 +52,9 @@
                     and post_begin &lt;= now() and post_end &gt;= now()
                 </if>
           	 </if>
+          	 <if test="villageCode != null and villageCode != ''">
+          	     and org_code = #{villageCode}
+          	 </if>
         </where>
     </sql>
 	

@@ -6,6 +6,7 @@
 		<result property="id" column="id" />
 		<result property="noticeId" column="notice_id" />
 		<result property="type" column="type" />
+		<result property="villageCode" column="village_code" />
 		<result property="memberId" column="member_id" />
 		<result property="phone" column="phone" />
 		<result property="createId" column="create_id" />
@@ -26,6 +27,7 @@
 			<if test="id != null">`id`= #{id},</if>
 			<if test="noticeId != null">`notice_id`= #{noticeId},</if>
 			<if test="type != null">`type`= #{type},</if>
+			<if test="villageCode != null">`village_code`= #{villageCode},</if>
 			<if test="memberId != null">`member_id`= #{memberId},</if>
 			<if test="phone != null">`phone`= #{phone},</if>
 			<if test="createId != null">`create_id`= #{createId},</if>
@@ -44,6 +46,7 @@
 
 		`notice_id`,
 		`type`,
+		`village_code`,
 		`member_id`,
 		`phone`,
 		`create_id`,
@@ -56,6 +59,7 @@
 
 		#{noticeId},
 		#{type},
+		#{villageCode}
 		#{memberId},
 		#{phone},
 		#{createId},

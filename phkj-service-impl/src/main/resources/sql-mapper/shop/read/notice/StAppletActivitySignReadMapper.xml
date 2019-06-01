@@ -5,6 +5,7 @@
 		<result property="id" column="id" />
 		<result property="rActivityId" column="r_activity_id" />
 		<result property="activityTitle" column="activity_title"/>
+		<result property="villageCode" column="village_code"/>
 		<result property="houseInfo" column="house_info" />
 		<result property="memberId" column="member_id"/>
 		<result property="memberName" column="member_name" />
@@ -35,6 +36,9 @@
 		*
 		from `st_applet_activity_sign`
 		where `member_id` = #{memberId}
+		<if test="villageCode != null and villageCode != ''">
+		    and `village_code` = #{villageCode}
+		</if>
 		order by create_time desc
 		limit #{start},#{pageSize}
 	</select>
@@ -44,6 +48,9 @@
 		count(id)
 		from `st_applet_activity_sign`
 		where `member_id` = #{memberId}
+		<if test="villageCode != null and villageCode != ''">
+		    and `village_code` = #{villageCode}
+		</if>
 	</select>
 
 	<select id="list" resultMap="StAppletActivitySignResult">
@@ -69,6 +76,9 @@
 			</if>
 			<if test="queryMap.q_activity_title != null and queryMap.q_activity_title !=''">
 				and activity_title like CONCAT('%',#{queryMap.q_activity_title},'%')
+			</if>
+			<if test="queryMap.q_village_code != null and queryMap.q_village_code !=''">
+				and village_code like CONCAT('%',#{queryMap.q_village_code},'%')
 			</if>
 		</where>
 	</sql>

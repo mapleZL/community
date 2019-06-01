@@ -129,12 +129,13 @@ public class StAppletActivitySignController {
     @RequestMapping(value = "/participateList", method = RequestMethod.GET)
     public @ResponseBody HttpJsonResult<List<StNoticeBulletinReleaseManage>> getParticipateList(Integer memberId,
                                                                                                 Integer start,
+                                                                                                String villageCode,
                                                                                                 Integer pageSize) {
         HttpJsonResult<List<StNoticeBulletinReleaseManage>> serviceResult = new HttpJsonResult<>();
         List<StNoticeBulletinReleaseManage> returnList = new ArrayList<>();
         try {
             ServiceResult<List<StAppletActivitySign>> result = activitySignService
-                .getParticipateList(memberId, start, pageSize);
+                .getParticipateList(memberId, start, pageSize, villageCode);
             List<StAppletActivitySign> list = result.getResult();
             if (list != null) {
                 StBrowse stBrowse = null;
@@ -201,7 +202,7 @@ public class StAppletActivitySignController {
                     returnList.add(notice);
                 }
                 serviceResult.setData(returnList);
-                Integer count = activitySignService.getCount(memberId);
+                Integer count = activitySignService.getCount(memberId, villageCode);
                 serviceResult.setTotal(count);
             }
         } catch (Exception e) {
@@ -244,6 +245,9 @@ public class StAppletActivitySignController {
     public @ResponseBody HttpJsonResult<List<StAppletActivitySign>> list(HttpServletRequest request,
                                                                          ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        // 后台管理人员只能查看对应自己小区的参与情况
+        queryMap.put("q_village_code", adminUser.getVillageCode());
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         ServiceResult<List<StAppletActivitySign>> serviceResult = activitySignService.list(queryMap,
             pager);

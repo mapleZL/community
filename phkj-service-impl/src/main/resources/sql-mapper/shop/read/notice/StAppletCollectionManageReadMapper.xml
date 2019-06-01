@@ -5,6 +5,7 @@
 			<result property="id" column="id" />
 			<result property="noticeId" column="notice_id" />
 			<result property="type" column="type" />
+			<result property="villageCode" column="village_code" />
 			<result property="memberId" column="member_id" />
 			<result property="phone" column="phone" />
 			<result property="createId" column="create_id" />
@@ -32,6 +33,9 @@
 		   *
 		from `st_applet_collection_manage`
 		where `member_id` = #{memberId}
+		<if test="villageCode != null and villageCode !=''">
+		    and `village_code` = #{villageCode}
+		</if>
 		order by create_time desc
 		limit #{start},#{pageSize}
 	</select>
@@ -41,6 +45,9 @@
 		count(id)
 		from `st_applet_collection_manage`
 		where `member_id` = #{memberId}
+		<if test="villageCode != null and villageCode !=''">
+		    and `village_code` = #{villageCode}
+		</if>
 	</select>
 	
 	<select id="getCollectionCount" resultType="Integer">

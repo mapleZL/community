@@ -107,12 +107,13 @@ public class StAppletCollectionManageController extends BaseController {
     @RequestMapping(value = "/collectionList", method = RequestMethod.GET)
     public @ResponseBody HttpJsonResult<List<StNoticeBulletinReleaseManage>> getParticipateList(Integer memberId,
                                                                                                 Integer start,
-                                                                                                Integer pageSize) {
+                                                                                                Integer pageSize,
+                                                                                                String villageCode) {
         HttpJsonResult<List<StNoticeBulletinReleaseManage>> serviceResult = new HttpJsonResult<>();
         List<StNoticeBulletinReleaseManage> returnList = new ArrayList<>();
         try {
             ServiceResult<List<StAppletCollectionManage>> result = collectionManageService
-                .getCollectionList(memberId, start, pageSize);
+                .getCollectionList(memberId, start, pageSize, villageCode);
             List<StAppletCollectionManage> list = result.getResult();
             if (list != null) {
                 StBrowse stBrowse = null;
@@ -136,8 +137,7 @@ public class StAppletCollectionManageController extends BaseController {
                     }
                     notice.setRate(browse);
                     StAppletUserBrowse stAppletUserBrowse = stAppletUserBrowseService
-                        .getUserBrowse(activitySign.getNoticeId().intValue(), memberId)
-                        .getResult();
+                        .getUserBrowse(activitySign.getNoticeId().intValue(), memberId).getResult();
                     if (stAppletUserBrowse != null && stAppletUserBrowse.getBrowse() > 0) {
                         notice.setHasBrowse(true);
                     }
@@ -179,7 +179,7 @@ public class StAppletCollectionManageController extends BaseController {
                     returnList.add(notice);
                 }
                 serviceResult.setData(returnList);
-                Integer count = collectionManageService.getCount(memberId);
+                Integer count = collectionManageService.getCount(memberId, villageCode);
                 serviceResult.setTotal(count);
             }
         } catch (Exception e) {

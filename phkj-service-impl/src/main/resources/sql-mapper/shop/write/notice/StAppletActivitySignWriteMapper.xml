@@ -5,6 +5,7 @@
 		<result property="id" column="id" />
 		<result property="rActivityId" column="r_activity_id" />
 		<result property="activityTitle" column="activity_title" />
+		<result property="villageCode" column="village_code" />
 		<result property="houseInfo" column="house_info" />
 		<result property="memberId" column="member_id"/>
 		<result property="memberName" column="member_name" />
@@ -22,6 +23,7 @@
 			<if test="id != null">`id`= #{id},</if>
 			<if test="rActivityId != null">`r_activity_id`= #{rActivityId},</if>
 			<if test="activityTitle != null">`activity_title`= #{activityTitle},</if>
+			<if test="villageCode != null">`village_code`= #{villageCode},</if>
 			<if test="houseInfo != null">`house_info`= #{houseInfo},</if>
 			<if test="memberId != null">`member_id`=#{memberId},</if>
 			<if test="memberName != null">`member_name`= #{memberName},</if>
@@ -43,6 +45,7 @@
 
 		`r_activity_id`,
 		`activity_title`,
+		`village_code`,
 		`house_info`,
 		`member_id`,
 		`member_name`,
@@ -57,6 +60,7 @@
 		(
 		#{rActivityId},
 		#{activityTitle},
+		#{villageCode},
 		#{houseInfo},
 		#{memberId},
 		#{memberName},
