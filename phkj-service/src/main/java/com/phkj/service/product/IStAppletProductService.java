@@ -60,4 +60,23 @@ public interface IStAppletProductService {
      * @return
      */
     ServiceResult<Integer> update(StAppletProduct stAppletProduct);
+
+    /**
+     * 前端查询列表
+     * @param start
+     * @param pageSize
+     * @param productCateId
+     * @param villageCode
+     * @return
+     */
+    List<StAppletProduct> list(Integer start, Integer pageSize, Integer productCateId,
+                               String villageCode);
+
+    /**
+     * 查询总数
+     * @param productCateId
+     * @param villageCode
+     * @return
+     */
+    Integer count(Integer productCateId, String villageCode);
 }

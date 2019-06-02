@@ -170,4 +170,27 @@ public class StAppletProductModel {
         return stAppletProductWriteDao.update(stAppletProduct);
     }
 
+    /**
+     * 商品列表查询
+     * @param start
+     * @param pageSize
+     * @param productCateId
+     * @param villageCode
+     * @return
+     */
+    public List<StAppletProduct> list(Integer start, Integer pageSize, Integer productCateId,
+                                      String villageCode) {
+        return stAppletProductReadDao.list(start, pageSize, productCateId, villageCode);
+    }
+
+    /**
+     * 总数查询
+     * @param productCateId
+     * @param villageCode
+     * @return
+     */
+    public Integer count(Integer productCateId, String villageCode) {
+        return stAppletProductReadDao.countWx(productCateId, villageCode);
+    }
+
 }

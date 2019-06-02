@@ -70,12 +70,40 @@
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 	
+	<select id="list" resultMap="StAppletProductResult">
+	    select 
+		 * 
+		from st_applet_product 
+		<include refid="whereConditions2"/>
+		order by  create_time desc 
+		<if test="pageSize != null and pageSize &gt; 0">limit #{start},#{pageSize}</if>
+	</select>
+	
 	<select id="count" resultType="Integer">
 	    select 
 		  count(id) 
 		from st_applet_product 
 		<include refid="whereConditions"/>
 	</select>
+	
+	<select id="countWx" resultType="Integer">
+	    select 
+		  count(id) 
+		from st_applet_product 
+		<include refid="whereConditions2"/>
+	</select>
+	
+	<sql id="whereConditions2">
+	    <where>
+	        <if test="productCateId != null and productCateId != ''">
+	            and `product_cate_id` = #{productCateId}
+	        </if>
+	        <if test="villageCode != null and villageCode != ''">
+	            and village_code = #{villageCode}
+	        </if>
+	        and `up_time` &lt;= now() and state = 6
+	    </where>
+	</sql>
 	
 	<sql id="whereConditions">
         <where>

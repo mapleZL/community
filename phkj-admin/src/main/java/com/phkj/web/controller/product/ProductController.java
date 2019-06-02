@@ -58,12 +58,12 @@ public class ProductController extends BaseController {
     private RedisComponent          redisComponent;
     @Autowired
     private IProductPictureService  productPictureService;
-    
+
     /**
      * 登录用户角色
      */
-    private static final String USER_TYPE_1 = "seller";
-    
+    private static final String     USER_TYPE_1 = "seller";
+
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/add", method = { RequestMethod.GET })
     public String getList(Map<String, Object> dataMap) throws Exception {
@@ -121,7 +121,7 @@ public class ProductController extends BaseController {
         dataMap.put("productCategory", codeList);
         return "admin/product/pdt/listonsale";
     }
-    
+
     //已经删除商品
     @RequestMapping(value = "delSale", method = { RequestMethod.GET })
     public String delSale(HttpServletRequest request, Map<String, Object> dataMap) {
@@ -129,7 +129,7 @@ public class ProductController extends BaseController {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         return "admin/product/pdt/listdelsale";
     }
-    
+
     //待审核商品列表
     @RequestMapping(value = "examine", method = { RequestMethod.GET })
     public String examineSale(HttpServletRequest request, Map<String, Object> dataMap) {
@@ -182,7 +182,7 @@ public class ProductController extends BaseController {
             product.setIsTop(1);//不推荐
         }
         Integer state = product.getState();
-        if(state == 3){
+        if (state == 3) {
             state = 2;
         }
         // 审核通过后修改状态重置
@@ -246,9 +246,10 @@ public class ProductController extends BaseController {
         dataMap.put("productCategory", codeList);
         StAppletProduct product = productServiceResult.getResult();
         dataMap.put("product", product);
-        
+
         // 商品图片
-        ServiceResult<List<ProductPicture>> pictures = productPictureService.getProductPictureByProductId(product.getId());
+        ServiceResult<List<ProductPicture>> pictures = productPictureService
+            .getProductPictureByProductId(product.getId());
         dataMap.put("pic", pictures.getResult());
         return rtnPath;
     }
@@ -404,7 +405,7 @@ public class ProductController extends BaseController {
         if (USER_TYPE_1.equals(userType)) {
             queryMap.put("q_sellerId", WebAdminSession.getAdminUser(request).getId() + "");
         }
-        
+
         ServiceResult<List<StAppletProduct>> serviceResult = productService.pageProduct(queryMap,
             pager);
         if (!serviceResult.getSuccess()) {
@@ -419,5 +420,73 @@ public class ProductController extends BaseController {
         jsonResult.setRows((List<StAppletProduct>) serviceResult.getResult());
         jsonResult.setTotal(pager.getRowsCount());
         return jsonResult;
+    }
+
+    /**
+     * 微信端查询楼层数据
+     * @param request
+     * @param response
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = "/floor", method = RequestMethod.GET)
+    @ResponseBody
+    HttpJsonResult<List<Code>> floorList(HttpServletRequest request, HttpServletResponse response) {
+        HttpJsonResult<List<Code>> result = new HttpJsonResult<>();
+        try {
+            // 商品分类
+            String jsonString = redisComponent.getRedisString(RedisSychroKeyConfig.CODE_VALUE_KEY);
+            List<Code> codeList = new ArrayList<>();
+            if (StringUtils.isNotBlank(jsonString)) {
+                Map<String, List<Code>> codeMap = JSONObject.parseObject(jsonString, Map.class);
+                codeList = codeMap.get("PRODUCT_CATEGORY");
+            }
+            result.setData(codeList);
+        } catch (Exception e) {
+            result.setMessage("楼层数据查询失败");
+        }
+        return result;
+    }
+
+    /**
+     * 前端查询商品列表
+     * @param start
+     * @param pageSize
+     * @param productCateId
+     * @param villageCode
+     * @return
+     */
+    @RequestMapping(value = "/pageList", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<List<StAppletProduct>> list(Integer start, Integer pageSize,
+                                                                    Integer productCateId,
+                                                                    String villageCode) {
+        HttpJsonResult<List<StAppletProduct>> result = new HttpJsonResult<>();
+        try {
+            List<StAppletProduct> list = productService.list(start, pageSize, productCateId, villageCode);
+            result.setData(list);
+            Integer count = productService.count(productCateId, villageCode);
+            result.setTotal(count);
+        } catch (Exception e) {
+            result.setMessage("查询商品列表失败");
+        }
+        return result;
+    }
+    
+    /**
+     * 获取商品详情
+     * @param id
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/detail", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<StAppletProduct> detail(Integer id, HttpServletResponse response){
+        HttpJsonResult<StAppletProduct> result = new HttpJsonResult<>();
+        try {
+            StAppletProduct product = productService.getStAppletProductById(id).getResult();
+            result.setData(product);
+        } catch (Exception e) {
+            result.setMessage("查询商品详情失败");
+        }
+        return result;
     }
 }

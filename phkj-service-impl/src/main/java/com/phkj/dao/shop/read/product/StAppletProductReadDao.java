@@ -20,4 +20,11 @@ public interface StAppletProductReadDao {
     List<StAppletProduct> pageProduct(@Param("param") Map<String, String> queryMap,
                                       @Param("start") Integer start, @Param("size") Integer size);
 
+    List<StAppletProduct> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize,
+                               @Param("productCateId") Integer productCateId,
+                               @Param("villageCode") String villageCode);
+
+    Integer countWx(@Param("productCateId") Integer productCateId,
+                    @Param("villageCode") String villageCode);
+
 }

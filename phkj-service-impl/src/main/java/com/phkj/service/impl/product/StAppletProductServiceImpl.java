@@ -159,4 +159,25 @@ public class StAppletProductServiceImpl implements IStAppletProductService {
         }
         return serviceResult;
     }
+
+
+    @Override
+    public List<StAppletProduct> list(Integer pageNum, Integer pageSize, Integer productCateId,
+                                      String villageCode) {
+        List<StAppletProduct> list = null;
+        try {
+            Integer start = (pageNum - 1) * pageSize;
+            list = stAppletProductModel.list(start, pageSize, productCateId, villageCode);
+        } catch (Exception e) {
+            log.error("ProductServiceImpl updateByIds param:" + pageNum + pageSize + productCateId + villageCode);
+            log.error("ProductServiceImpl list exception:", e);
+        }
+        return list;
+    }
+
+
+    @Override
+    public Integer count(Integer productCateId, String villageCode) {
+        return stAppletProductModel.count(productCateId, villageCode);
+    }
 }
