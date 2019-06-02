@@ -63,6 +63,7 @@
                 /admin/member/car/** = anon
                 /admin/comment/** = anon
                 /admin/member/house/** = anon
+                /admin/order/orders/** = anon
                 /admin/member/parking/lot/** = anon
                 /admin/login.html = anon
                 /admin/doLogin = anon
