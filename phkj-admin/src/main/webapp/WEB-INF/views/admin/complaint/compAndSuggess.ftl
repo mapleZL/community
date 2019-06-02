@@ -156,7 +156,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 				<th field="type" width="70" align="center">类型</th>
 				<th field="complaintTarget" width="70" align="center">投诉对象</th>
 				<th field="content" width="150" align="center">详细内容</th>
-				<th field="email" width="150" align="center">电子邮箱</th>
+				<th field="email" width="70" align="center">电子邮箱</th>
 				<th field="createTime" width="70" align="center">投诉时间</th>
 				<th field="createName" width="70" align="center" >投诉人</th>
 				<th field="sts" width="70" align="center" >处理状态</th>

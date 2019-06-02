@@ -136,9 +136,6 @@
 			<@shiro.hasPermission name="/admin/complaint/system">
                 <a href="javascript:void(0);" onclick="addTab('投诉信息', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/complaint/system')">意见投诉</a>
 			</@shiro.hasPermission>
-		<#--<@shiro.hasPermission name="/admin/suggess/system">
-            <a href="javascript:void(0);" onclick="addTab('意见反馈', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/complaint/system')">意见反馈</a>
-        </@shiro.hasPermission>-->
         </div>
 	</@shiro.hasPermission>
 	<@shiro.hasPermission name="/admin_menu_environmental">
@@ -149,6 +146,16 @@
 		<@shiro.hasPermission name="/admin/environ/">
             <a href="javascript:void(0);" onclick="addTab('环境秩序', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/environ/')">环境秩序</a>
         </@shiro.hasPermission>
+        </div>
+	</@shiro.hasPermission>
+	<@shiro.hasPermission name="/admin_menu_lostfound">
+		<div title="失物招领" class="ra_div">
+			<@shiro.hasPermission name="/admin/lost/">
+                <a href="javascript:void(0);" onclick="addTab('失物招领大厅', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/lost/')">失物招领大厅</a>
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name="/admin/lost/system/">
+                <a href="javascript:void(0);" onclick="addTab('社区物业发布', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/lost/system')">物业登记</a>
+			</@shiro.hasPermission>
         </div>
 	</@shiro.hasPermission>
 
