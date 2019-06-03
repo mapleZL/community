@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.write.cart.StAppletCartWriteDao">
+	<resultMap id="StAppletCartResult" type="com.phkj.entity.cart.StAppletCart">
+			<result property="id" column="id" />
+			<result property="createTime" column="create_time" />
+			<result property="memberId" column="member_id" />
+			<result property="count" column="count" />
+			<result property="specId" column="spec_id" />
+			<result property="specInfo" column="spec_info" />
+			<result property="productId" column="product_id" />
+			<result property="sellerId" column="seller_id" />
+			<result property="productGoodsId" column="product_goods_id" />
+			<result property="checked" column="checked" />
+			<result property="productPackageId" column="product_package_id" />
+			<result property="isSelfLabel" column="is_self_label" />
+			<result property="villageCode" column="village_code"/>
+	</resultMap>
+	
+	<update id="update" parameterType="com.phkj.entity.cart.StAppletCart">
+        update `st_applet_cart` 
+    	<set>
+			<if test="id != null">`id`= #{id},</if>
+			<if test="createTime != null">`create_time`= #{createTime},</if>
+			<if test="memberId != null">`member_id`= #{memberId},</if>
+			<if test="count != null">`count`= #{count},</if>
+			<if test="specId != null">`spec_id`= #{specId},</if>
+			<if test="specInfo != null">`spec_info`= #{specInfo},</if>
+			<if test="productId != null">`product_id`= #{productId},</if>
+			<if test="sellerId != null">`seller_id`= #{sellerId},</if>
+			<if test="productGoodsId != null">`product_goods_id`= #{productGoodsId},</if>
+			<if test="checked != null">`checked`= #{checked},</if>
+			<if test="productPackageId != null">`product_package_id`= #{productPackageId},</if>
+			<if test="isSelfLabel != null">`is_self_label`= #{isSelfLabel}</if>
+			<if test="villageCode != null">`village_code` = #{villageCode}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.phkj.entity.cart.StAppletCart" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`st_applet_cart`
+		(
+			
+			`create_time`,
+			`member_id`,
+			`count`,
+			`spec_id`,
+			`spec_info`,
+			`product_id`,
+			`seller_id`,
+			`product_goods_id`,
+			`checked`,
+			`product_package_id`,
+			`is_self_label`,
+			`village_code`
+		)
+		values
+		(
+			
+			#{createTime},
+			#{memberId},
+			#{count},
+			#{specId},
+			#{specInfo},
+			#{productId},
+			#{sellerId},
+			#{productGoodsId},
+			#{checked},
+			#{productPackageId},
+			#{isSelfLabel},
+			#{villageCode}
+		)
+	</insert>
+	
+	<delete id="delCartById">
+	    delete from `st_applet_cart` where id= #{id}
+	</delete>
+</mapper>

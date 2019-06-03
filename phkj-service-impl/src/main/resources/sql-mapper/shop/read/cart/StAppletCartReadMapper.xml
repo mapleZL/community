@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.read.cart.StAppletCartReadDao">
+	<resultMap id="StAppletCartResult" type="com.phkj.entity.cart.StAppletCart">
+			<result property="id" column="id" />
+			<result property="createTime" column="create_time" />
+			<result property="memberId" column="member_id" />
+			<result property="count" column="count" />
+			<result property="specId" column="spec_id" />
+			<result property="specInfo" column="spec_info" />
+			<result property="productId" column="product_id" />
+			<result property="sellerId" column="seller_id" />
+			<result property="productGoodsId" column="product_goods_id" />
+			<result property="checked" column="checked" />
+			<result property="productPackageId" column="product_package_id" />
+			<result property="isSelfLabel" column="is_self_label" />
+			<result property="villageCode" column="village_code"/>
+	</resultMap>
+	
+	<select id="get" parameterType="Integer" resultMap="StAppletCartResult">
+		select
+		   *
+		from `st_applet_cart`
+		where `id` = #{id}
+	</select>
+	
+	<select id="list" resultMap="StAppletCartResult">
+	    select
+		   *
+		from `st_applet_cart`
+	    <include refid="whereConditions"/>
+	    order by  create_time desc 
+		<if test="pageSize != null and pageSize &gt; 0">limit #{start},#{pageSize}</if>
+	</select>
+	
+	<select id="count" resultType="Integer">
+	    select
+		   count(id)
+		from `st_applet_cart`
+	    <include refid="whereConditions"/>
+	</select>
+	
+	<sql id="whereConditions">
+        <where>
+            <if test="memberId != null and '' != memberId">
+                and `member_id`= #{memberId}
+            </if>
+            <if test="villageCode != null and '' != villageCode">
+                and `village_code`= #{villageCode}
+            </if>
+        </where>
+    </sql>
+</mapper>
