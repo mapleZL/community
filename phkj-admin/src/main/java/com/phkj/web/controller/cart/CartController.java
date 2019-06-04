@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.phkj.core.HttpJsonResult;
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.cart.StAppletCart;
+import com.phkj.entity.product.StAppletProduct;
 import com.phkj.service.cart.IStAppletCartService;
+import com.phkj.service.product.IStAppletProductService;
 
 /**
  * 购物车操作类
@@ -33,9 +35,11 @@ import com.phkj.service.cart.IStAppletCartService;
 public class CartController {
 
     @Autowired
-    IStAppletCartService        cartService;
+    private IStAppletCartService    cartService;
+    @Autowired
+    private IStAppletProductService productService;
 
-    private static final Logger log = LogManager.getLogger(CartController.class);
+    private static final Logger     log = LogManager.getLogger(CartController.class);
 
     /**
      * 将商品加入购物车
@@ -111,6 +115,12 @@ public class CartController {
             ServiceResult<List<StAppletCart>> serviceResult = cartService.list(memberId,
                 villageCode, start, pageSize);
             if (serviceResult.getSuccess()) {
+                StAppletProduct product = null;
+                // 展示时丰富字段
+                for (StAppletCart stAppletCart : serviceResult.getResult()) {
+                    product = productService.getStAppletProductById(stAppletCart.getProductId()).getResult();
+                    stAppletCart.setProduct(product);
+                }
                 result.setData(serviceResult.getResult());
                 result.setTotal(cartService.getCount(memberId, villageCode));
             }

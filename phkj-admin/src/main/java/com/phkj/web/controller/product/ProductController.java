@@ -483,6 +483,12 @@ public class ProductController extends BaseController {
         HttpJsonResult<StAppletProduct> result = new HttpJsonResult<>();
         try {
             StAppletProduct product = productService.getStAppletProductById(id).getResult();
+            
+            // 组装图片数据
+            List<ProductPicture> pictures = productPictureService.getProductPictureByProductId(product.getId()).getResult();
+            if (pictures != null) {
+                product.setPictures(pictures);
+            }
             result.setData(product);
         } catch (Exception e) {
             result.setMessage("查询商品详情失败");

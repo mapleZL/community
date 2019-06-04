@@ -1,6 +1,7 @@
 package com.phkj.entity.product;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 商品表
@@ -109,6 +110,8 @@ public class StAppletProduct implements Serializable {
     private java.lang.String     unit;
     private java.lang.Integer    otherCategory;
     private String               villageCode;
+
+    private List<ProductPicture> pictures;
 
     /**
      * 产品表 state  状态：1、刚创建；
@@ -821,6 +824,14 @@ public class StAppletProduct implements Serializable {
 
     public void setVillageCode(String villageCode) {
         this.villageCode = villageCode;
+    }
+
+    public List<ProductPicture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<ProductPicture> pictures) {
+        this.pictures = pictures;
     }
 
     @Override

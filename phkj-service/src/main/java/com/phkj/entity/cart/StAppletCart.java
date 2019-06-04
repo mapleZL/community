@@ -3,6 +3,8 @@ package com.phkj.entity.cart;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.phkj.entity.product.StAppletProduct;
+
 /**
  * 商城购物车
  * <p>Table: <strong>st_applet_cart</strong>
@@ -45,6 +47,8 @@ public class StAppletCart implements Serializable {
     private java.lang.Integer isSelfLabel;
     private String            villageCode;
     private BigDecimal        unitPrice;
+
+    private StAppletProduct   product;
 
     /**
      * 获取id
@@ -228,6 +232,14 @@ public class StAppletCart implements Serializable {
 
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public StAppletProduct getProduct() {
+        return product;
+    }
+
+    public void setProduct(StAppletProduct product) {
+        this.product = product;
     }
 
 }
