@@ -63,4 +63,8 @@ public class StAppletOrdersProductModel {
     public List<StAppletOrdersProduct> getStAppletOrdersProductList(String orderSn) {
         return stAppletOrdersProductReadDao.getStAppletOrdersProductList(orderSn);
     }
+
+    public void batchInsertToOrdersProduct(List<StAppletOrdersProduct> list) {
+        stAppletOrdersProductWriteDao.batchInsertToOrdersProduct(list);
+    }
 }
