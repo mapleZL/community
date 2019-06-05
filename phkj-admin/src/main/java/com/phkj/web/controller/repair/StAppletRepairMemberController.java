@@ -83,6 +83,7 @@ public class StAppletRepairMemberController extends BaseController {
         StAppletRepairMember stAppletRepairMember = new StAppletRepairMember();
         stAppletRepairMember.setUserName(request.getParameter("userName"));
         stAppletRepairMember.setSchedulingDay(Integer.valueOf(request.getParameter("schedulingDay")));
+        stAppletRepairMember.setVillageCode(adminUser.getVillageCode());
         stAppletRepairMember.setCreateUserId(adminUser.getId());
         stAppletRepairMember.setCreateTime(new Date());
         stAppletRepairMember.setSts(1);
@@ -112,7 +113,9 @@ public class StAppletRepairMemberController extends BaseController {
     @RequestMapping(value = "/list", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<List<StAppletRepairMember>> list(HttpServletRequest request,
                                                                     ModelMap dataMap) {
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
+        queryMap.put("q_village_code", adminUser.getVillageCode());
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         ServiceResult<List<StAppletRepairMember>> serviceResult = stAppletRepairMemberService.page(queryMap, pager);
         if (!serviceResult.getSuccess()) {
