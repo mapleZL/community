@@ -27,42 +27,17 @@
 			<result property="bussinessLicense" column="bussiness_license" />
 	</resultMap>
 	
-<<<<<<< HEAD:phkj-service-impl/src/main/resources/sql-mapper/shop/read/seller/StAppletSellerReadMapper.xml
-	<select id="get" parameterType="Integer" resultMap="StAppletSellerResult">
-=======
-	<select id="getSellerByMemberId" parameterType="Integer" resultMap="SellerResult">
+	<select id="getSellerByMemberId"  resultMap="StAppletSellerResult">
 		select
 			*
 		from `st_applet_seller`
 		where `member_id` = #{memberId}
-		limit 1
 	</select>
 	
-	<select id="get" parameterType="Integer" resultMap="SellerResult">
->>>>>>> 1e386319aeafee03b0a86f766454e4d701d7dd95:phkj-service-impl/src/main/resources/sql-mapper/shop/read/seller/SellerReadMapper.xml
-		select
+	<select id="get" parameterType="Integer" resultMap="StAppletSellerResult">
 		   *
 		from `st_applet_seller`
 		where `id` = #{id}
 	</select>
 	
-<<<<<<< HEAD:phkj-service-impl/src/main/resources/sql-mapper/shop/read/seller/StAppletSellerReadMapper.xml
-	<select id="getSellerByMemberId" resultMap="StAppletSellerResult">
-	    select
-		   *
-		from `st_applet_seller`
-		where `member_id` = #{memberId}
-=======
-	<select id="getSellersCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-		select count(1) from st_applet_seller
-		<include refid="getSellersCondition" />
-	</select>
-	
-	<select id="getSellers" resultType="com.phkj.entity.seller.Seller">
-		select * from st_applet_seller
-		<include refid="getSellersCondition" />
-		order by id desc
-		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
->>>>>>> 1e386319aeafee03b0a86f766454e4d701d7dd95:phkj-service-impl/src/main/resources/sql-mapper/shop/read/seller/SellerReadMapper.xml
-	</select>
 </mapper>

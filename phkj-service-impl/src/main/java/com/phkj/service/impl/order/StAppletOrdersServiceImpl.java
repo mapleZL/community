@@ -1,5 +1,16 @@
 package com.phkj.service.impl.order;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
 import com.phkj.core.ConstantsEJS;
 import com.phkj.core.RandomUtil;
 import com.phkj.core.ServiceResult;
@@ -8,20 +19,11 @@ import com.phkj.entity.order.StAppletOrders;
 import com.phkj.entity.order.StAppletOrdersParam;
 import com.phkj.entity.order.StAppletOrdersProduct;
 import com.phkj.entity.order.StAppletOrdersVO;
-import com.phkj.entity.seller.Seller;
+import com.phkj.entity.seller.StAppletSeller;
 import com.phkj.model.order.StAppletOrdersModel;
 import com.phkj.model.order.StAppletOrdersProductModel;
-import com.phkj.model.seller.SellerModel;
+import com.phkj.model.seller.StAppletSellerModel;
 import com.phkj.service.order.IStAppletOrdersService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Service(value = "stAppletOrdersService")
 public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
@@ -34,7 +36,7 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
     private StAppletOrdersProductModel stAppletOrdersProductModel;
 
     @Resource
-    private SellerModel sellerModel;
+    private StAppletSellerModel sellerModel;
 
     /**
      * 根据id取得订单
@@ -163,7 +165,7 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 String specInfo = productList.get(0).getSpecInfo();
                 stAppletOrdersVO.setSpecInfo(specInfo);
                 // 获取商家信息
-                Seller seller = sellerModel.getSellerById(appletOrders.getSellerId());
+                StAppletSeller seller = sellerModel.getSellerById(appletOrders.getSellerId());
                 String sellerName = seller.getSellerName();
                 String sellerLogo = seller.getSellerLogo();
                 stAppletOrdersVO.setSellerName(sellerName);

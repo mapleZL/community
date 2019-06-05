@@ -76,4 +76,8 @@ public class StAppletSellerModel {
     public StAppletSeller getSellerByMemberId(Integer memebrId) {
         return stAppletSellerReadDao.getSellerByMemberId(memebrId);
     }
+
+    public StAppletSeller getSellerById(Integer sellerId) {
+        return stAppletSellerReadDao.get(sellerId);
+    }
 }
