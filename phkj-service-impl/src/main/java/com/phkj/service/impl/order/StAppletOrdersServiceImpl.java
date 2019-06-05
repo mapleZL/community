@@ -158,6 +158,7 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 stAppletOrdersVO.setNumber(productList.get(0).getNumber());
                 stAppletOrdersVO.setMoneyPrice(productList.get(0).getMoneyPrice());
                 stAppletOrdersVO.setProductNum(productList.size());
+                stAppletOrdersVO.setProductName(productList.get(0).getProductName());
                 // 商品详情
                 String specInfo = productList.get(0).getSpecInfo();
                 stAppletOrdersVO.setSpecInfo(specInfo);
@@ -187,10 +188,18 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
     }
 
     @Override
-    public ServiceResult<List<StAppletOrdersProduct>> detail(String orderSn) {
-        ServiceResult<List<StAppletOrdersProduct>> result = new ServiceResult<>();
+    public ServiceResult<List<StAppletOrdersVO>> detail(String orderSn) {
+        ServiceResult<List<StAppletOrdersVO>> result = new ServiceResult<>();
         try {
-            result.setResult(stAppletOrdersProductModel.getStAppletOrdersProductList(orderSn));
+            List<StAppletOrdersVO> list = new ArrayList<>();
+            List<StAppletOrdersProduct> productList = stAppletOrdersProductModel.getStAppletOrdersProductList(orderSn);
+            for (StAppletOrdersProduct product : productList){
+                StAppletOrdersVO stAppletOrdersVO = new StAppletOrdersVO();
+                BeanUtils.copyProperties(product, stAppletOrdersVO);
+                stAppletOrdersVO.setOrderSn(product.getOrdersSn());
+                list.add(stAppletOrdersVO);
+            }
+            result.setResult(list);
             result.setSuccess(true);
             result.setCode("200");
             result.setMessage("ok");

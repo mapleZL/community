@@ -51,5 +51,5 @@ public interface IStAppletOrdersService {
      * @param orderSn
      * @return
      */
-    ServiceResult<List<StAppletOrdersProduct>> detail(String orderSn);
+    ServiceResult<List<StAppletOrdersVO>> detail(String orderSn);
 }

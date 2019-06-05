@@ -126,7 +126,7 @@ public class AdminOrdersController extends BaseController {
         if (StringUtils.isBlank(orderSn)) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "orderSn is blank", false, null);
         }
-        ServiceResult<List<StAppletOrdersProduct>> result = stAppletOrdersService.detail(orderSn);
+        ServiceResult<List<StAppletOrdersVO>> result = stAppletOrdersService.detail(orderSn);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
     }
 

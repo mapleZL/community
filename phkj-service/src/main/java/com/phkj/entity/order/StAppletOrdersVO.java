@@ -42,6 +42,10 @@ public class StAppletOrdersVO implements Serializable {
     private Integer number;
     // 是否删除 0、已删除 1、未删除
     private Integer deleted;
+    // 商品id
+    private Integer productId;
+    // 商品名称
+    private String productName;
 
     public String getOrderSn() {
         return orderSn;
@@ -161,5 +165,21 @@ public class StAppletOrdersVO implements Serializable {
 
     public void setDeleted(Integer deleted) {
         this.deleted = deleted;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }
