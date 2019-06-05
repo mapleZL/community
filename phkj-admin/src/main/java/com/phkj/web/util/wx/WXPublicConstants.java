@@ -8,5 +8,5 @@ package com.phkj.web.util.wx;
  * @version: 0.0.1$
  */
 public class WXPublicConstants {
-    public static String TOKEN = "";
+    public static String TOKEN = "phkj";
 }
