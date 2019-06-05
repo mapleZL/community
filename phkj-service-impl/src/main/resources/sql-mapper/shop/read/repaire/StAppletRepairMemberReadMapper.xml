@@ -10,6 +10,7 @@
 			<result property="createTime" column="create_time" />
 			<result property="modifyUserId" column="modify_user_id" />
 			<result property="modifyTime" column="modify_time" />
+			<result property="villageCode" column="village_code" />
 			<result property="sts" column="sts" />
 	</resultMap>
 	
@@ -24,6 +25,9 @@
         <where>
              <if test="queryMap.q_user_name != null and queryMap.q_user_name !=''">
                 and user_name = #{queryMap.q_user_name}
+          	 </if>
+          	 <if test="queryMap.q_village_code != null and queryMap.q_village_code != ''">
+          	     and village_code = #{query.q_village_code}
           	 </if>
         </where>
     </sql>
