@@ -34,8 +34,8 @@
 		<a id='311' href="javascript:void(0);" onclick="addTab('待审核商品', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/examine')">待审核商品</a>
 		</@shiro.hasPermission>
 		
-		<@shiro.hasPermission name="/admin/productattr">
-		<a href="javascript:void(0);" onclick="addTab('商品属性管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/productattr')">商品属性管理</a>
+		<@shiro.hasPermission name="/admin/seller/manage/edit">
+		<a href="javascript:void(0);" onclick="addTab('商家信息', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage/edit')">商家信息</a>
 		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>

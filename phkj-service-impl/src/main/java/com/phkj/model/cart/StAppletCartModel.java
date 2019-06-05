@@ -61,4 +61,8 @@ public class StAppletCartModel {
         return stAppletCartReadDao.count(memberId, villageCode);
     }
 
+    public StAppletCart getCountByProduct(Integer memberId, Integer productId, String villageCode) {
+        return stAppletCartReadDao.getCountByProduct(memberId, productId, villageCode);
+    }
+
 }

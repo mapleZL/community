@@ -275,7 +275,6 @@
 <script>
 function valiate_SPU(){
 	var spu = $("#productCode").val();
-	var sku = $("#sku").val();
 	if(spu!=""){
 		$.ajax({
 			type : "POST",

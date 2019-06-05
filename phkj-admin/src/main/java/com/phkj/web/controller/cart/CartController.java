@@ -52,9 +52,15 @@ public class CartController {
                                                          HttpServletResponse response) {
         HttpJsonResult<Integer> result = new HttpJsonResult<>();
         try {
-            cart.setCreateTime(new Date());
-            ServiceResult<Integer> serviceResult = cartService.saveStAppletCart(cart);
-            result.setData(serviceResult.getResult());
+            StAppletCart oldCart = cartService.getCountByProduct(cart.getProductId(), cart.getVillageCode(), cart.getMemberId());
+            if (oldCart != null) {
+                oldCart.setCount(cart.getCount() + oldCart.getCount());
+                cartService.updateStAppletCart(oldCart);
+            } else {
+                cart.setCreateTime(new Date());
+                ServiceResult<Integer> serviceResult = cartService.saveStAppletCart(cart);
+                result.setData(serviceResult.getResult());
+            }
         } catch (Exception e) {
             log.error("加入购物车失败", e);
             result.setMessage("加入购物车失败");

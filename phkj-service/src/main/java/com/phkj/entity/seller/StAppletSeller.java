@@ -1,18 +1,10 @@
 package com.phkj.entity.seller;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import com.phkj.vo.seller.StoreBannerJson;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 /**
  * 商家表
- * <p>Table: <strong>seller</strong>
+ * <p>Table: <strong>st_applet_seller</strong>
  * <p><table class="er-mapping" cellspacing=0 cellpadding=0 style="border:solid 1 #666;padding:3px;">
  *   <tr style="background-color:#ddd;Text-align:Left;">
  *     <th nowrap>属性名</th><th nowrap>属性类型</th><th nowrap>字段名</th><th nowrap>字段类型</th><th nowrap>说明</th>
@@ -36,197 +28,190 @@ import com.google.gson.reflect.TypeToken;
  *   <tr><td>sellerDes</td><td>{@link java.lang.String}</td><td>seller_des</td><td>varchar</td><td>SEO店铺描述</td></tr>
  *   <tr><td>auditStatus</td><td>{@link java.lang.Integer}</td><td>audit_status</td><td>tinyint</td><td>审核状态 1、待审核；2、审核通过；3、冻结</td></tr>
  *   <tr><td>storeSlide</td><td>{@link java.lang.String}</td><td>store_slide</td><td>text</td><td>店铺轮播图 </td></tr>
+ *   <tr><td>sellerCode</td><td>{@link java.lang.String}</td><td>seller_code</td><td>varchar</td><td>商家编码</td></tr>
+ *   <tr><td>taxLicense</td><td>{@link java.lang.String}</td><td>tax_license</td><td>varchar</td><td>税务登记证</td></tr>
+ *   <tr><td>organization</td><td>{@link java.lang.String}</td><td>organization</td><td>varchar</td><td>组织机构代码证</td></tr>
+ *   <tr><td>bussinessLicense</td><td>{@link java.lang.String}</td><td>bussiness_license</td><td>varchar</td><td>营业执照</td></tr>
  * </table>
  *
  */
-public class Seller implements Serializable {
+public class StAppletSeller implements Serializable {
 
-    /**
-     *Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID     = 8389697070371397294L;
-
-    /** 商家状态：待审核  */
-    public static final int   AUDIT_STATE_1_SEND   = 1;
-    /** 商家状态：审核通过  */
-    public static final int   AUDIT_STATE_2_DONE   = 2;
-    /** 商家状态：冻结  */
-    public static final int   AUDIT_STATE_3_FREEZE = 3;
-
-    private Integer           id;                                         //id
-    private Integer           memberId;                                   //用户ID
-    private String            name;                                       //用户名
-    private String            sellerName;                                 //店铺名称
-    private String            sellerLogo;                                 //店铺logo
-    private Integer           sellerGrade;                                //店铺等级
-    private String            scoreService;                               //店铺评分服务
-    private String            scoreDeliverGoods;                          //店铺评分发货
-    private String            scoreDescription;                           //店铺评分描述
-    private Integer           productNumber;                              //商品数量
-    private Integer           collectionNumber;                           //店铺收藏
-    private Date              createTime;                                 //创建时间
-    private BigDecimal        saleMoney;                                  //店铺总销售金额
-    private Integer           orderCount;                                 //店铺总订单量
-    private Integer           orderCountOver;                             //店铺完成订单量
-    private String            sellerKeyword;                              //SEO关键字
-    private String            sellerDes;                                  //SEO店铺描述
-    private Integer           auditStatus;                                //审核状态 1、待审核；2、审核通过；3、冻结
-    private String            storeSlide;                                 //店铺轮播图
-    private String 		 sellerCode ;                              //商家编码
-
-    // --------额外属性（entity对应表结构之外的属性） start------------------------------
-    private String            memberName;                                 // 申请人member表的name
-    // --------额外属性（entity对应表结构之外的属性） end--------------------------------
-
-    public List<StoreBannerJson> getBannerList() {
-        //获得首页轮转大图
-        if (this.getStoreSlide() != null && this.getStoreSlide().length() > 0) {
-            Gson gson = new Gson();
-            List<StoreBannerJson> bannerList = gson.fromJson(this.storeSlide,
-                new TypeToken<ArrayList<StoreBannerJson>>() {
-                }.getType());
-            return bannerList;
-        }
-        return null;
-    }
+    private java.lang.Integer    id;
+    private java.lang.Integer    memberId;
+    private java.lang.String     name;
+    private java.lang.String     sellerName;
+    private java.lang.String     sellerLogo;
+    private java.lang.Integer    sellerGrade;
+    private java.lang.String     scoreService;
+    private java.lang.String     scoreDeliverGoods;
+    private java.lang.String     scoreDescription;
+    private java.lang.Integer    productNumber;
+    private java.lang.Integer    collectionNumber;
+    private java.util.Date       createTime;
+    private java.math.BigDecimal saleMoney;
+    private java.lang.Integer    orderCount;
+    private java.lang.Integer    orderCountOver;
+    private java.lang.String     sellerKeyword;
+    private java.lang.String     sellerDes;
+    private java.lang.Integer    auditStatus;
+    private java.lang.String     storeSlide;
+    private java.lang.String     sellerCode;
+    private java.lang.String     taxLicense;
+    private java.lang.String     organization;
+    private java.lang.String     bussinessLicense;
 
     /**
      * 获取id
      */
-    public Integer getId() {
+    public java.lang.Integer getId() {
         return this.id;
     }
 
     /**
      * 设置id
      */
-    public void setId(Integer id) {
+    public void setId(java.lang.Integer id) {
         this.id = id;
     }
 
     /**
      * 获取用户ID
      */
-    public Integer getMemberId() {
+    public java.lang.Integer getMemberId() {
         return this.memberId;
     }
 
     /**
      * 设置用户ID
      */
-    public void setMemberId(Integer memberId) {
+    public void setMemberId(java.lang.Integer memberId) {
         this.memberId = memberId;
     }
 
     /**
      * 获取用户名
      */
-    public String getName() {
+    public java.lang.String getName() {
         return this.name;
     }
 
     /**
      * 设置用户名
      */
-    public void setName(String name) {
+    public void setName(java.lang.String name) {
         this.name = name;
     }
 
     /**
      * 获取店铺名称
      */
-    public String getSellerName() {
+    public java.lang.String getSellerName() {
         return this.sellerName;
     }
 
     /**
      * 设置店铺名称
      */
-    public void setSellerName(String sellerName) {
+    public void setSellerName(java.lang.String sellerName) {
         this.sellerName = sellerName;
+    }
+
+    /**
+     * 获取店铺logo
+     */
+    public java.lang.String getSellerLogo() {
+        return this.sellerLogo;
+    }
+
+    /**
+     * 设置店铺logo
+     */
+    public void setSellerLogo(java.lang.String sellerLogo) {
+        this.sellerLogo = sellerLogo;
     }
 
     /**
      * 获取店铺等级
      */
-    public Integer getSellerGrade() {
+    public java.lang.Integer getSellerGrade() {
         return this.sellerGrade;
     }
 
     /**
      * 设置店铺等级
      */
-    public void setSellerGrade(Integer sellerGrade) {
+    public void setSellerGrade(java.lang.Integer sellerGrade) {
         this.sellerGrade = sellerGrade;
     }
 
     /**
      * 获取店铺评分服务
      */
-    public String getScoreService() {
+    public java.lang.String getScoreService() {
         return this.scoreService;
     }
 
     /**
      * 设置店铺评分服务
      */
-    public void setScoreService(String scoreService) {
+    public void setScoreService(java.lang.String scoreService) {
         this.scoreService = scoreService;
     }
 
     /**
      * 获取店铺评分发货
      */
-    public String getScoreDeliverGoods() {
+    public java.lang.String getScoreDeliverGoods() {
         return this.scoreDeliverGoods;
     }
 
     /**
      * 设置店铺评分发货
      */
-    public void setScoreDeliverGoods(String scoreDeliverGoods) {
+    public void setScoreDeliverGoods(java.lang.String scoreDeliverGoods) {
         this.scoreDeliverGoods = scoreDeliverGoods;
     }
 
     /**
      * 获取店铺评分描述
      */
-    public String getScoreDescription() {
+    public java.lang.String getScoreDescription() {
         return this.scoreDescription;
     }
 
     /**
      * 设置店铺评分描述
      */
-    public void setScoreDescription(String scoreDescription) {
+    public void setScoreDescription(java.lang.String scoreDescription) {
         this.scoreDescription = scoreDescription;
     }
 
     /**
      * 获取商品数量
      */
-    public Integer getProductNumber() {
+    public java.lang.Integer getProductNumber() {
         return this.productNumber;
     }
 
     /**
      * 设置商品数量
      */
-    public void setProductNumber(Integer productNumber) {
+    public void setProductNumber(java.lang.Integer productNumber) {
         this.productNumber = productNumber;
     }
 
     /**
      * 获取店铺收藏
      */
-    public Integer getCollectionNumber() {
+    public java.lang.Integer getCollectionNumber() {
         return this.collectionNumber;
     }
 
     /**
      * 设置店铺收藏
      */
-    public void setCollectionNumber(Integer collectionNumber) {
+    public void setCollectionNumber(java.lang.Integer collectionNumber) {
         this.collectionNumber = collectionNumber;
     }
 
@@ -261,114 +246,140 @@ public class Seller implements Serializable {
     /**
      * 获取店铺总订单量
      */
-    public Integer getOrderCount() {
+    public java.lang.Integer getOrderCount() {
         return this.orderCount;
     }
 
     /**
      * 设置店铺总订单量
      */
-    public void setOrderCount(Integer orderCount) {
+    public void setOrderCount(java.lang.Integer orderCount) {
         this.orderCount = orderCount;
     }
 
     /**
      * 获取店铺完成订单量
      */
-    public Integer getOrderCountOver() {
+    public java.lang.Integer getOrderCountOver() {
         return this.orderCountOver;
     }
 
     /**
      * 设置店铺完成订单量
      */
-    public void setOrderCountOver(Integer orderCountOver) {
+    public void setOrderCountOver(java.lang.Integer orderCountOver) {
         this.orderCountOver = orderCountOver;
     }
 
     /**
      * 获取SEO关键字
      */
-    public String getSellerKeyword() {
+    public java.lang.String getSellerKeyword() {
         return this.sellerKeyword;
     }
 
     /**
      * 设置SEO关键字
      */
-    public void setSellerKeyword(String sellerKeyword) {
+    public void setSellerKeyword(java.lang.String sellerKeyword) {
         this.sellerKeyword = sellerKeyword;
     }
 
     /**
      * 获取SEO店铺描述
      */
-    public String getSellerDes() {
+    public java.lang.String getSellerDes() {
         return this.sellerDes;
     }
 
     /**
      * 设置SEO店铺描述
      */
-    public void setSellerDes(String sellerDes) {
+    public void setSellerDes(java.lang.String sellerDes) {
         this.sellerDes = sellerDes;
     }
 
     /**
-     * 获取状态 1、待审核；2、审核通过；3、冻结
+     * 获取审核状态 1、待审核；2、审核通过；3、冻结
      */
-    public Integer getAuditStatus() {
+    public java.lang.Integer getAuditStatus() {
         return this.auditStatus;
     }
 
     /**
-     * 设置状态 1、待审核；2、审核通过；3、冻结
+     * 设置审核状态 1、待审核；2、审核通过；3、冻结
      */
-    public void setAuditStatus(Integer auditStatus) {
+    public void setAuditStatus(java.lang.Integer auditStatus) {
         this.auditStatus = auditStatus;
-    }
-
-    /**
-     * 获取店铺logo
-     */
-    public String getSellerLogo() {
-        return sellerLogo;
-    }
-
-    /**
-     * 设置店铺logo
-     */
-    public void setSellerLogo(String sellerLogo) {
-        this.sellerLogo = sellerLogo;
     }
 
     /**
      * 获取店铺轮播图 
      */
-    public String getStoreSlide() {
+    public java.lang.String getStoreSlide() {
         return this.storeSlide;
     }
 
     /**
      * 设置店铺轮播图 
      */
-    public void setStoreSlide(String storeSlide) {
+    public void setStoreSlide(java.lang.String storeSlide) {
         this.storeSlide = storeSlide;
     }
 
-    public String getMemberName() {
-        return memberName;
+    /**
+     * 获取商家编码
+     */
+    public java.lang.String getSellerCode() {
+        return this.sellerCode;
     }
 
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
+    /**
+     * 设置商家编码
+     */
+    public void setSellerCode(java.lang.String sellerCode) {
+        this.sellerCode = sellerCode;
     }
 
-	public String getSellerCode() {
-		return sellerCode;
-	}
+    /**
+     * 获取税务登记证
+     */
+    public java.lang.String getTaxLicense() {
+        return this.taxLicense;
+    }
 
-	public void setSellerCode(String sellerCode) {
-		this.sellerCode = sellerCode;
-	}
+    /**
+     * 设置税务登记证
+     */
+    public void setTaxLicense(java.lang.String taxLicense) {
+        this.taxLicense = taxLicense;
+    }
+
+    /**
+     * 获取组织机构代码证
+     */
+    public java.lang.String getOrganization() {
+        return this.organization;
+    }
+
+    /**
+     * 设置组织机构代码证
+     */
+    public void setOrganization(java.lang.String organization) {
+        this.organization = organization;
+    }
+
+    /**
+     * 获取营业执照
+     */
+    public java.lang.String getBussinessLicense() {
+        return this.bussinessLicense;
+    }
+
+    /**
+     * 设置营业执照
+     */
+    public void setBussinessLicense(java.lang.String bussinessLicense) {
+        this.bussinessLicense = bussinessLicense;
+    }
 }

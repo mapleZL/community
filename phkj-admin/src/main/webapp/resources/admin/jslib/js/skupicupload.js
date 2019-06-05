@@ -29,7 +29,6 @@
                 window.console && console.log("url option is not provided in " + $targetName);
                 return;
             }
-
             //append the required html
             $target.append($('<input>').attr('name', 'files').attr('type', 'file').attr('multiple', '').attr('data-url', newoptions.url).attr('class', 'upbtn'));
 

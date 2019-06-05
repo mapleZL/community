@@ -61,4 +61,13 @@ public interface IStAppletCartService {
      * @return
      */
     Integer getCount(Integer memberId, String villageCode);
+
+    /**
+     * 查询购物车中是否已存在该商品
+     * @param productId
+     * @param villageCode
+     * @param memberId
+     * @return
+     */
+    StAppletCart getCountByProduct(Integer productId, String villageCode, Integer memberId);
 }
