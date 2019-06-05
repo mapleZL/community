@@ -3,6 +3,7 @@ package com.phkj.service.order;
 
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.order.StAppletOrders;
+import com.phkj.entity.order.StAppletOrdersParam;
 import com.phkj.entity.order.StAppletOrdersProduct;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface IStAppletOrdersService {
      * @param stAppletOrders
      * @return
      */
-    ServiceResult<Integer> saveStAppletOrders(StAppletOrders stAppletOrders);
+    ServiceResult<Integer> saveStAppletOrders(List<StAppletOrdersParam> stAppletOrders);
 
     /**
      * 更新订单

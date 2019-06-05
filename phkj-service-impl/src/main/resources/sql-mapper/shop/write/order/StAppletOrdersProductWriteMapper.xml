@@ -193,4 +193,33 @@
 		)
 	</insert>
 
+	<insert id="batchInsertToOrdersProduct" parameterType="java.util.List">
+		insert into `st_applet_orders_product`
+		(
+			`orders_sn`,
+			`seller_id`,
+			`product_id`,
+			`product_name`,
+			`money_price`,
+			`number`,
+			`create_time`,
+			`update_time`,
+			`remark`
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+			#{item.ordersSn},
+			#{item.sellerId},
+			#{item.productId},
+			#{item.productName},
+			#{item.moneyPrice},
+			#{item.number},
+			#{item.createTime},
+			#{item.updateTime},
+			#{item.remark}
+		)
+		</foreach>
+	</insert>
+
 </mapper>

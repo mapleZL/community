@@ -3,7 +3,9 @@ package com.phkj.web.controller.order;
 import com.phkj.core.ResponseStateEnum;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.response.ResponseUtil;
+import com.phkj.entity.order.StAppletOrderBO;
 import com.phkj.entity.order.StAppletOrders;
+import com.phkj.entity.order.StAppletOrdersParam;
 import com.phkj.entity.order.StAppletOrdersProduct;
 import com.phkj.service.order.IStAppletOrdersService;
 import com.phkj.web.controller.BaseController;
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -128,5 +131,48 @@ public class AdminOrdersController extends BaseController {
         }
         ServiceResult<List<StAppletOrdersProduct>> result = stAppletOrdersService.detail(orderSn);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
+    }
+
+    /**
+     * 新增订单
+     *
+     * @param appletOrderBO
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/add", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseUtil addOrder(@RequestBody StAppletOrderBO appletOrderBO) {
+        List<StAppletOrdersParam> orders = appletOrderBO.getOrders();
+        ResponseUtil responseUtil = checkParam(orders);
+        if (null != responseUtil) {
+            return responseUtil;
+        }
+        ServiceResult<Integer> result = stAppletOrdersService.saveStAppletOrders(orders);
+        return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
+    }
+
+    private ResponseUtil checkParam(List<StAppletOrdersParam> orders) {
+        if(orders == null || orders.isEmpty()){
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "param is blank", false, null);
+        }
+        for (StAppletOrdersParam ordersParam : orders) {
+            if (StringUtils.isBlank(ordersParam.getMemberName()) || ordersParam.getMemberId() == null || ordersParam.getMemberId() == 0) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberName or memberId is blank", false, null);
+            }
+            if (ordersParam.getMoneyProduct() == null || ordersParam.getSellerId() == null || ordersParam.getSellerId() == 0) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "moneyProduct or sellerId is blank", false, null);
+            }
+            if (StringUtils.isBlank(ordersParam.getProductName()) || ordersParam.getProductId() == null || ordersParam.getProductId() == 0) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "productName or productId is blank", false, null);
+            }
+            if (ordersParam.getNumber() == null || ordersParam.getNumber() == 0 || ordersParam.getMoneyPrice() == null) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "moneyPrice or number is blank", false, null);
+            }
+            if (StringUtils.isBlank(ordersParam.getAddressInfo())) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "addressInfo is blank", false, null);
+            }
+        }
+        return null;
     }
 }
