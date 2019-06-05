@@ -22,8 +22,6 @@ import com.phkj.entity.member.MemberLoginLogs;
 import com.phkj.entity.member.MemberRule;
 import com.phkj.model.member.MemberModel;
 import com.phkj.service.member.IMemberService;
-import com.phkj.vo.member.FrontCheckPwdVO;
-import com.phkj.vo.member.FrontMemberProductBehaveStatisticsVO;
 
 @Service(value = "memberService")
 public class MemberServiceImpl implements IMemberService {
@@ -347,51 +345,6 @@ public class MemberServiceImpl implements IMemberService {
         } catch (Exception e) {
             serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
             log.error("[FrontMemberExtendService][editPassword]修改密码时发生异常:", e);
-        }
-        return serviceResult;
-    }
-
-    /**
-     * 根据产品获得用户评价数
-     *
-     * @param productId
-     * @param member
-     * @return
-     */
-    @Override
-    public ServiceResult<FrontMemberProductBehaveStatisticsVO> getBehaveStatisticsByProductId(Integer productId,
-                                                                                              Member member) {
-        ServiceResult<FrontMemberProductBehaveStatisticsVO> serviceResult = new ServiceResult<FrontMemberProductBehaveStatisticsVO>();
-        try {
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-            log.error("[FrontMemberExtendService][getBehaveStatisticsByProductId]获得用户评价数时发生异常:", e);
-        }
-        return serviceResult;
-    }
-
-    /**
-     * 判断支付密码是否正确
-     *
-     * @param balancePwd
-     * @param memberId
-     * @return 返回错误次数
-     */
-    @Override
-    public ServiceResult<FrontCheckPwdVO> checkcheckBalancePwd(String balancePwd,
-                                                               Integer memberId) {
-        ServiceResult<FrontCheckPwdVO> serviceResult = new ServiceResult<FrontCheckPwdVO>();
-        try {
-            serviceResult.setResult(memberModel.checkcheckBalancePwd(balancePwd, memberId));
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-            log.error("[FrontMemberExtendService][checkcheckBalancePwd]验证余额支付密码时发生异常:", e);
         }
         return serviceResult;
     }

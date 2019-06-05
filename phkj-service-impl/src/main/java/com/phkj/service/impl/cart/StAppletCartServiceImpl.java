@@ -173,4 +173,9 @@ public class StAppletCartServiceImpl implements IStAppletCartService {
     public Integer getCount(Integer memberId, String villageCode) {
         return stAppletCartModel.count(memberId, villageCode);
     }
+
+    @Override
+    public StAppletCart getCountByProduct(Integer productId, String villageCode, Integer memberId) {
+        return stAppletCartModel.getCountByProduct(memberId, productId, villageCode);
+    }
 }

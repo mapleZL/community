@@ -10,8 +10,6 @@ import com.phkj.entity.member.MemberCollectionProduct;
 import com.phkj.entity.member.MemberCollectionSeller;
 import com.phkj.entity.member.MemberLoginLogs;
 import com.phkj.entity.member.MemberRule;
-import com.phkj.vo.member.FrontCheckPwdVO;
-import com.phkj.vo.member.FrontMemberProductBehaveStatisticsVO;
 
 public interface IMemberService {
 
@@ -187,23 +185,6 @@ public interface IMemberService {
      * @return
      */
     ServiceResult<Member> editPassword(String oldPwd, String newPwd, Member member);
-
-    /**
-     * 根据查询条件取所有的评论 单品页使用 
-     * @param request
-     * @param pager
-     * @return
-     */
-    public ServiceResult<FrontMemberProductBehaveStatisticsVO> getBehaveStatisticsByProductId(Integer productId,
-                                                                                              Member member);
-
-    /**
-     * 判断 余额支付密码是否正确
-     * @param balancePwd
-     * @param request
-     * @return  返回错误次数
-     */
-    public ServiceResult<FrontCheckPwdVO> checkcheckBalancePwd(String balancePwd, Integer memberId);
 
     /**
      * 支付密码修改

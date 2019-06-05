@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.phkj.dao.shop.write.seller.SellerWriteDao">
-	<resultMap id="SellerResult" type="com.phkj.entity.seller.Seller">
+<mapper namespace="com.phkj.dao.shop.write.seller.StAppletSellerWriteDao">
+	<resultMap id="StAppletSellerResult" type="com.phkj.entity.seller.StAppletSeller">
 			<result property="id" column="id" />
 			<result property="memberId" column="member_id" />
 			<result property="name" column="name" />
@@ -22,45 +22,15 @@
 			<result property="auditStatus" column="audit_status" />
 			<result property="storeSlide" column="store_slide" />
 			<result property="sellerCode" column="seller_code" />
+			<result property="taxLicense" column="tax_license" />
+			<result property="organization" column="organization" />
+			<result property="bussinessLicense" column="bussiness_license" />
 	</resultMap>
 	
-	<delete id="deleteByMemberId" parameterType="Integer">
-        delete from `seller` where `member_id` = #{memberId}
-    </delete>
-
-    <update id="auditSeller">
-        update `seller` 
-    	set `audit_status` = #{auditStatus}
-        where `member_id` = #{memberId}
-	</update>
-    
-	<delete id="deleteByMemberIds">
-        delete from `seller` 
-       	where `member_id` in 
-		<foreach collection="memberIds" item="item" index="index" open="(" separator="," close=")">  
-		  #{item}  
-		</foreach>  
-    </delete>
-	
-	<!-- <select id="getSellerByMemberId" parameterType="Integer" resultMap="SellerResult">
-		select
-			*
-		from `seller`
-		where `member_id` = #{memberId}
-		limit 1
-	</select>
-	
-	<select id="get" parameterType="Integer" resultMap="SellerResult">
-		select
-		   *
-		from `seller`
-		where `id` = #{id}
-	</select> -->
-	
-	<update id="update" parameterType="com.phkj.entity.seller.Seller">
-        update `seller` 
+	<update id="update" parameterType="com.phkj.entity.seller.StAppletSeller">
+        update `st_applet_seller` 
     	<set>
-			<!-- <if test="id != null">`id`= #{id},</if> -->
+			<if test="id != null">`id`= #{id},</if>
 			<if test="memberId != null">`member_id`= #{memberId},</if>
 			<if test="name != null">`name`= #{name},</if>
 			<if test="sellerName != null">`seller_name`= #{sellerName},</if>
@@ -71,22 +41,27 @@
 			<if test="scoreDescription != null">`score_description`= #{scoreDescription},</if>
 			<if test="productNumber != null">`product_number`= #{productNumber},</if>
 			<if test="collectionNumber != null">`collection_number`= #{collectionNumber},</if>
-			<!-- <if test="createTime != null">`create_time`= #{createTime},</if> -->
+			<if test="createTime != null">`create_time`= #{createTime},</if>
 			<if test="saleMoney != null">`sale_money`= #{saleMoney},</if>
 			<if test="orderCount != null">`order_count`= #{orderCount},</if>
 			<if test="orderCountOver != null">`order_count_over`= #{orderCountOver},</if>
 			<if test="sellerKeyword != null">`seller_keyword`= #{sellerKeyword},</if>
 			<if test="sellerDes != null">`seller_des`= #{sellerDes},</if>
 			<if test="auditStatus != null">`audit_status`= #{auditStatus},</if>
-			<if test="storeSlide != null">`store_slide`= #{storeSlide}</if>
-			<if test="sellerCode != null">`seller_code`= #{sellerCode}</if>
+			<if test="storeSlide != null">`store_slide`= #{storeSlide},</if>
+			<if test="sellerCode != null">`seller_code`= #{sellerCode},</if>
+			<if test="taxLicense != null">`tax_license`= #{taxLicense},</if>
+			<if test="organization != null">`organization`= #{organization},</if>
+			<if test="bussinessLicense != null">`bussiness_license`= #{bussinessLicense}</if>
 	    </set>
         where `id` = #{id}
 	</update>
 	
-	<insert id="save" parameterType="com.phkj.entity.seller.Seller" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-		insert into `seller`
+	<insert id="insert" parameterType="com.phkj.entity.seller.StAppletSeller" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into 
+		`st_applet_seller`
 		(
+			
 			`member_id`,
 			`name`,
 			`seller_name`,
@@ -104,10 +79,15 @@
 			`seller_keyword`,
 			`seller_des`,
 			`audit_status`,
-			`store_slide`
+			`store_slide`,
+			`seller_code`,
+			`tax_license`,
+			`organization`,
+			`bussiness_license`
 		)
 		values
 		(
+			
 			#{memberId},
 			#{name},
 			#{sellerName},
@@ -118,65 +98,19 @@
 			#{scoreDescription},
 			#{productNumber},
 			#{collectionNumber},
-			now(),
+			#{createTime},
 			#{saleMoney},
 			#{orderCount},
 			#{orderCountOver},
 			#{sellerKeyword},
 			#{sellerDes},
 			#{auditStatus},
-			#{storeSlide}
+			#{storeSlide},
+			#{sellerCode},
+			#{taxLicense},
+			#{organization},
+			#{bussinessLicense}
 		)
 	</insert>
 	
-	<!-- <select id="getSellersCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-		select count(1) from seller
-		<include refid="getSellersCondition" />
-	</select> -->
-	
-	<!-- <select id="getSellers" resultType="com.phkjty.seller.Seller">
-		select * from seller
-		<include refid="getSellersCondition" />
-		order by id desc
-		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
-	</select> -->
-	
-	<sql id="getSellersCondition">
-		<where>
-			<if test="queryMap.q_name != null and queryMap.q_name != ''">
-				and `name` like CONCAT('%',#{queryMap.q_name},'%')
-			</if>
-			<if test="queryMap.q_auditStatus != null and queryMap.q_auditStatus != ''">
-				and `audit_status` = #{queryMap.q_auditStatus}
-			</if>
-			<if test="queryMap.q_sellerName != null and queryMap.q_sellerName != ''">
-				and `seller_name` like CONCAT('%',#{queryMap.q_sellerName},'%')
-			</if>
-		</where>
-	</sql>
-
-	<!-- 冻结（auditStatus=3）、解冻商家（auditStatus=2） -->
-	<update id="freezeSeller">
-        update `seller` 
-    	set `audit_status` = #{auditStatus}
-        where `id` = #{id}
-	</update>
-	
-	<!-- <select id="getSellerByName" resultType="com.phkjty.seller.Seller">
-		select * from seller
-		where `name` = #{name}
-	</select>
-
-	<select id="getSellerBySellerName" resultType="com.phkjty.seller.Seller">
-		select * from seller
-		where `seller_name` = #{sellerName}
-	</select>
-	<select id="checkSellerCode" resultType="com.phkjty.seller.Seller" parameterType="String">
-	select * from seller where `seller_code` = #{sellerCode}
-	</select>
-
-	<select id="getSellerListAll" resultType="com.phkjty.seller.Seller">
-		select * from seller
-		where `audit_status` = 2
-	</select> -->
 </mapper>

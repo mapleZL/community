@@ -18,4 +18,8 @@ public interface StAppletCartReadDao {
 
     Integer count(@Param("memberId") Integer memberId, @Param("villageCode") String villageCode);
 
+    StAppletCart getCountByProduct(@Param("memberId") Integer memberId,
+                                   @Param("productId") Integer productId,
+                                   @Param("villageCode") String villageCode);
+
 }

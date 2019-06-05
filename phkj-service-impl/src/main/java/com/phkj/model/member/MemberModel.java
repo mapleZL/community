@@ -23,12 +23,9 @@ import com.phkj.core.exception.BusinessException;
 import com.phkj.core.sms.MobileMessage;
 import com.phkj.dao.shop.read.member.MemberReadDao;
 import com.phkj.dao.shop.read.order.OrdersReadDao;
-import com.phkj.dao.shop.read.seller.SellerReadDao;
 import com.phkj.dao.shop.write.member.MemberWriteDao;
 import com.phkj.dao.shop.write.order.OrdersWriteDao;
-import com.phkj.dao.shop.write.seller.SellerWriteDao;
 import com.phkj.entity.member.Member;
-import com.phkj.vo.member.FrontCheckPwdVO;
 
 @Component(value = "memberModel")
 public class MemberModel {
@@ -46,10 +43,6 @@ public class MemberModel {
     private OrdersWriteDao ordersWriteDao;
     @Resource
     private OrdersReadDao ordersReadDao;
-    @Resource
-    private SellerWriteDao sellerWriteDao;
-    @Resource
-    private SellerReadDao sellerReadDao;
 
 
     /**
@@ -281,51 +274,6 @@ public class MemberModel {
         }
 
         return member;
-    }
-
-
-    /**
-     * 判断支付密码是否正确
-     *
-     * @param balancePwd
-     * @param request
-     * @return 返回错误次数
-     */
-    public FrontCheckPwdVO checkcheckBalancePwd(String balancePwd, Integer memberId) {
-
-        FrontCheckPwdVO vo = new FrontCheckPwdVO();
-        boolean correct = false;
-        // 参数校验
-        if (StringUtil.isEmpty(balancePwd)) {
-            throw new BusinessException("支付密码不能为空，请重试！");
-        }
-
-        Member memberdb = memberReadDao.get(memberId);
-        if (StringUtil.isEmpty(memberdb.getBalancePwd())) {
-            throw new BusinessException("未设置支付密码，请在余额菜单设置");
-        }
-
-        if (!memberdb.getBalancePwd().equals(Md5.getMd5String(balancePwd))) {
-            //密码不正确，记录输错次数
-            int errcount = memberdb.getPwdErrCount();
-            memberdb.setPwdErrCount(errcount + 1);
-            int count = memberWriteDao.update(memberdb);
-            if (count == 0) {
-                throw new BusinessException("验证密码时失败，请重试！");
-            }
-        } else {
-            correct = true;
-            // 输入正确后，错误次数清零
-            memberdb.setPwdErrCount(0);
-            int count = memberWriteDao.update(memberdb);
-            if (count == 0) {
-                throw new BusinessException("验证密码时失败，请重试！");
-            }
-        }
-        vo.setCorrect(correct);
-        vo.setPwdErrCount(memberdb.getPwdErrCount());
-
-        return vo;
     }
 
     /**

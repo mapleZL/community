@@ -61,6 +61,7 @@
                             var errMsg;
                             $.each(validate,
                             function(key, valueObj) {
+
                                 var ret = $.fn.multiupload.validate[key].call(this, file, valueObj, container);
                                 if (!ret) {
                                     suc = false;
