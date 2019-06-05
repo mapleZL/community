@@ -202,9 +202,10 @@
 			`product_name`,
 			`money_price`,
 			`number`,
+			`spec_info`,
+			`product_sku`,
 			`create_time`,
-			`update_time`,
-			`remark`
+			`update_time`
 		)
 		values
 		<foreach collection="list" item="item" index="index" separator="," >
@@ -215,9 +216,10 @@
 			#{item.productName},
 			#{item.moneyPrice},
 			#{item.number},
+			#{item.specInfo},
+			#{item.productSku},
 			#{item.createTime},
-			#{item.updateTime},
-			#{item.remark}
+			#{item.updateTime}
 		)
 		</foreach>
 	</insert>

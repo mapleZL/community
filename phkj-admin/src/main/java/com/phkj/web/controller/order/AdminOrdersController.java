@@ -3,10 +3,7 @@ package com.phkj.web.controller.order;
 import com.phkj.core.ResponseStateEnum;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.response.ResponseUtil;
-import com.phkj.entity.order.StAppletOrderBO;
-import com.phkj.entity.order.StAppletOrders;
-import com.phkj.entity.order.StAppletOrdersParam;
-import com.phkj.entity.order.StAppletOrdersProduct;
+import com.phkj.entity.order.*;
 import com.phkj.service.order.IStAppletOrdersService;
 import com.phkj.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
@@ -112,7 +109,7 @@ public class AdminOrdersController extends BaseController {
         }
         pageNum = pageNum == 0 ? 1 : pageNum;
         pageSize = pageSize == 0 ? 10 : pageSize;
-        ServiceResult<List<StAppletOrders>> result = stAppletOrdersService.getStAppletOrdersList(memberId, pageNum, pageSize);
+        ServiceResult<List<StAppletOrdersVO>> result = stAppletOrdersService.getStAppletOrdersList(memberId, pageNum, pageSize);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
     }
 
@@ -129,7 +126,7 @@ public class AdminOrdersController extends BaseController {
         if (StringUtils.isBlank(orderSn)) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "orderSn is blank", false, null);
         }
-        ServiceResult<List<StAppletOrdersProduct>> result = stAppletOrdersService.detail(orderSn);
+        ServiceResult<List<StAppletOrdersVO>> result = stAppletOrdersService.detail(orderSn);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
     }
 

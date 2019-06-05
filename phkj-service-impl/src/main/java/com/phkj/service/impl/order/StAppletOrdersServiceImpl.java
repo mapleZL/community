@@ -7,11 +7,15 @@ import com.phkj.core.exception.BusinessException;
 import com.phkj.entity.order.StAppletOrders;
 import com.phkj.entity.order.StAppletOrdersParam;
 import com.phkj.entity.order.StAppletOrdersProduct;
+import com.phkj.entity.order.StAppletOrdersVO;
+import com.phkj.entity.seller.Seller;
 import com.phkj.model.order.StAppletOrdersModel;
 import com.phkj.model.order.StAppletOrdersProductModel;
+import com.phkj.model.seller.SellerModel;
 import com.phkj.service.order.IStAppletOrdersService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +32,9 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
 
     @Resource
     private StAppletOrdersProductModel stAppletOrdersProductModel;
+
+    @Resource
+    private SellerModel sellerModel;
 
     /**
      * 根据id取得订单
@@ -62,20 +69,21 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
     public ServiceResult<Integer> saveStAppletOrders(List<StAppletOrdersParam> orders) {
         ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
+            Date date = new Date();
             StAppletOrders stAppletOrders = new StAppletOrders();
             stAppletOrders.setSellerId(orders.get(0).getSellerId());
             stAppletOrders.setMemberId(orders.get(0).getMemberId());
             stAppletOrders.setMemberName(orders.get(0).getMemberName());
             stAppletOrders.setMoneyProduct(orders.get(0).getMoneyProduct());
-            stAppletOrders.setOrderState(2);
+            stAppletOrders.setOrderState(1);
             stAppletOrders.setOrderSn(RandomUtil.getOrderSn());
             stAppletOrders.setOrderType(1);
             stAppletOrders.setDeleted(1);
-            stAppletOrders.setCreateTime(new Date());
-            stAppletOrders.setUpdateTime(new Date());
+            stAppletOrders.setCreateTime(date);
+            stAppletOrders.setUpdateTime(date);
+            stAppletOrders.setRemark(orders.get(0).getRemark());
             // 向订单明细表中插入数据
             List<StAppletOrdersProduct> list = new ArrayList<>();
-            Date date = new Date();
             for (StAppletOrdersParam ordersParam : orders) {
                 StAppletOrdersProduct product = new StAppletOrdersProduct();
                 product.setOrdersSn(stAppletOrders.getOrderSn());
@@ -84,6 +92,7 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 product.setProductName(ordersParam.getProductName());
                 product.setMoneyPrice(ordersParam.getMoneyPrice());
                 product.setNumber(ordersParam.getNumber());
+                product.setSpecInfo(ordersParam.getSpecInfo());
                 product.setCreateTime(date);
                 product.setUpdateTime(date);
                 list.add(product);
@@ -132,10 +141,37 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
     }
 
     @Override
-    public ServiceResult<List<StAppletOrders>> getStAppletOrdersList(Integer memberId, int pageNum, int pageSize) {
-        ServiceResult<List<StAppletOrders>> result = new ServiceResult<>();
+    public ServiceResult<List<StAppletOrdersVO>> getStAppletOrdersList(Integer memberId, int pageNum, int pageSize) {
+        ServiceResult<List<StAppletOrdersVO>> result = new ServiceResult<>();
+        List<StAppletOrdersVO> list = new ArrayList<>();
         try {
-            result.setResult(stAppletOrdersModel.getStAppletOrdersList(memberId, pageNum, pageSize));
+            pageNum = (pageNum - 1) * pageSize;
+            List<StAppletOrders> appletOrdersList = stAppletOrdersModel.getStAppletOrdersList(memberId, pageNum, pageSize);
+            for (StAppletOrders appletOrders : appletOrdersList) {
+                StAppletOrdersVO stAppletOrdersVO = new StAppletOrdersVO();
+                BeanUtils.copyProperties(appletOrders, stAppletOrdersVO);
+                // 获取第一件商品信息
+                List<StAppletOrdersProduct> productList = stAppletOrdersProductModel.getStAppletOrdersProductList(appletOrders.getOrderSn());
+                // 商品图片
+                String productSku = productList.get(0).getProductSku();
+                stAppletOrdersVO.setProductSku(productSku);
+                stAppletOrdersVO.setNumber(productList.get(0).getNumber());
+                stAppletOrdersVO.setMoneyPrice(productList.get(0).getMoneyPrice());
+                stAppletOrdersVO.setProductNum(productList.size());
+                stAppletOrdersVO.setProductName(productList.get(0).getProductName());
+                // 商品详情
+                String specInfo = productList.get(0).getSpecInfo();
+                stAppletOrdersVO.setSpecInfo(specInfo);
+                // 获取商家信息
+                Seller seller = sellerModel.getSellerById(appletOrders.getSellerId());
+                String sellerName = seller.getSellerName();
+                String sellerLogo = seller.getSellerLogo();
+                stAppletOrdersVO.setSellerName(sellerName);
+                stAppletOrdersVO.setSellerLogo(sellerLogo);
+                list.add(stAppletOrdersVO);
+            }
+
+            result.setResult(list);
             result.setSuccess(true);
             result.setCode("200");
             result.setMessage("ok");
@@ -152,10 +188,18 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
     }
 
     @Override
-    public ServiceResult<List<StAppletOrdersProduct>> detail(String orderSn) {
-        ServiceResult<List<StAppletOrdersProduct>> result = new ServiceResult<>();
+    public ServiceResult<List<StAppletOrdersVO>> detail(String orderSn) {
+        ServiceResult<List<StAppletOrdersVO>> result = new ServiceResult<>();
         try {
-            result.setResult(stAppletOrdersProductModel.getStAppletOrdersProductList(orderSn));
+            List<StAppletOrdersVO> list = new ArrayList<>();
+            List<StAppletOrdersProduct> productList = stAppletOrdersProductModel.getStAppletOrdersProductList(orderSn);
+            for (StAppletOrdersProduct product : productList){
+                StAppletOrdersVO stAppletOrdersVO = new StAppletOrdersVO();
+                BeanUtils.copyProperties(product, stAppletOrdersVO);
+                stAppletOrdersVO.setOrderSn(product.getOrdersSn());
+                list.add(stAppletOrdersVO);
+            }
+            result.setResult(list);
             result.setSuccess(true);
             result.setCode("200");
             result.setMessage("ok");
