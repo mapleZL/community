@@ -5,6 +5,7 @@ import com.phkj.core.ServiceResult;
 import com.phkj.entity.order.StAppletOrders;
 import com.phkj.entity.order.StAppletOrdersParam;
 import com.phkj.entity.order.StAppletOrdersProduct;
+import com.phkj.entity.order.StAppletOrdersVO;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public interface IStAppletOrdersService {
      * @param pageSize
      * @return
      */
-    ServiceResult<List<StAppletOrders>> getStAppletOrdersList(Integer memberId, int pageNum, int pageSize);
+    ServiceResult<List<StAppletOrdersVO>> getStAppletOrdersList(Integer memberId, int pageNum, int pageSize);
 
     /**
      * 订单详情

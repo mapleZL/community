@@ -26,7 +26,7 @@
 	<select id="getSellerByMemberId" parameterType="Integer" resultMap="SellerResult">
 		select
 			*
-		from `seller`
+		from `st_applet_seller`
 		where `member_id` = #{memberId}
 		limit 1
 	</select>
@@ -34,17 +34,17 @@
 	<select id="get" parameterType="Integer" resultMap="SellerResult">
 		select
 		   *
-		from `seller`
+		from `st_applet_seller`
 		where `id` = #{id}
 	</select>
 	
 	<select id="getSellersCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-		select count(1) from seller
+		select count(1) from st_applet_seller
 		<include refid="getSellersCondition" />
 	</select>
 	
 	<select id="getSellers" resultType="com.phkj.entity.seller.Seller">
-		select * from seller
+		select * from st_applet_seller
 		<include refid="getSellersCondition" />
 		order by id desc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>

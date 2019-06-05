@@ -39,6 +39,8 @@ public class StAppletOrdersParam implements Serializable {
     private Integer productId;
     private String productName;
     private Integer number;
+    private String specInfo;
+    private String productSku;
     private String remark;
 
     public Integer getSellerId() {
@@ -135,5 +137,21 @@ public class StAppletOrdersParam implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getSpecInfo() {
+        return specInfo;
+    }
+
+    public void setSpecInfo(String specInfo) {
+        this.specInfo = specInfo;
+    }
+
+    public String getProductSku() {
+        return productSku;
+    }
+
+    public void setProductSku(String productSku) {
+        this.productSku = productSku;
     }
 }

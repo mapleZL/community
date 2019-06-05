@@ -25,17 +25,17 @@
 	</resultMap>
 	
 	<delete id="deleteByMemberId" parameterType="Integer">
-        delete from `seller` where `member_id` = #{memberId}
+        delete from `st_applet_seller` where `member_id` = #{memberId}
     </delete>
 
     <update id="auditSeller">
-        update `seller` 
+        update `st_applet_seller`
     	set `audit_status` = #{auditStatus}
         where `member_id` = #{memberId}
 	</update>
     
 	<delete id="deleteByMemberIds">
-        delete from `seller` 
+        delete from `st_applet_seller`
        	where `member_id` in 
 		<foreach collection="memberIds" item="item" index="index" open="(" separator="," close=")">  
 		  #{item}  
@@ -58,7 +58,7 @@
 	</select> -->
 	
 	<update id="update" parameterType="com.phkj.entity.seller.Seller">
-        update `seller` 
+        update `st_applet_seller`
     	<set>
 			<!-- <if test="id != null">`id`= #{id},</if> -->
 			<if test="memberId != null">`member_id`= #{memberId},</if>
@@ -85,7 +85,7 @@
 	</update>
 	
 	<insert id="save" parameterType="com.phkj.entity.seller.Seller" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-		insert into `seller`
+		insert into `st_applet_seller`
 		(
 			`member_id`,
 			`name`,
@@ -157,7 +157,7 @@
 
 	<!-- 冻结（auditStatus=3）、解冻商家（auditStatus=2） -->
 	<update id="freezeSeller">
-        update `seller` 
+        update `st_applet_seller`
     	set `audit_status` = #{auditStatus}
         where `id` = #{id}
 	</update>
