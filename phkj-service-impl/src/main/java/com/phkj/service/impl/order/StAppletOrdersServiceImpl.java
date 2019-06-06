@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.phkj.entity.product.StAppletProduct;
+import com.phkj.model.product.StAppletProductModel;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
@@ -37,6 +39,9 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
 
     @Resource
     private StAppletSellerModel sellerModel;
+
+    @Resource
+    private StAppletProductModel stAppletProductModel;
 
     /**
      * 根据id取得订单
@@ -98,6 +103,8 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 product.setCreateTime(date);
                 product.setUpdateTime(date);
                 list.add(product);
+                // TODO 生成订单时,库存数量随之减少
+                changeProductStock(1, ordersParam.getProductId(), ordersParam.getNumber());
             }
             stAppletOrdersProductModel.batchInsertToOrdersProduct(list);
             result.setResult(stAppletOrdersModel.saveStAppletOrders(stAppletOrders));
@@ -117,6 +124,32 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
     }
 
     /**
+     * create by: zl
+     * description: 生成或取消订单时,商品库存随之改变
+     * create time:
+     *
+     * @return
+     * @Param: i
+     * @Param: productId
+     * @Param: number
+     */
+    private synchronized void changeProductStock(int type, Integer productId, Integer number) {
+        // type为1表示生成订单 2表示取消订单
+        StAppletProduct product = stAppletProductModel.getStAppletProductById(productId);
+        StAppletProduct stAppletProduct = new StAppletProduct();
+        if (type == 1) {
+            stAppletProduct.setProductStock(product.getProductStock() - number >= 0 ? product.getProductStock() - number : 0);
+        } else if (type == 2) {
+            stAppletProduct.setProductStock(product.getProductStock() + number);
+        }
+        stAppletProduct.setId(productId);
+        Integer i = stAppletProductModel.update(stAppletProduct);
+        if (i == 0) {
+            log.info("更新商品库存量失败, productId: " + productId);
+        }
+    }
+
+    /**
      * 更新订单
      *
      * @param stAppletOrders
@@ -130,6 +163,16 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
             result.setSuccess(true);
             result.setCode("200");
             result.setMessage("ok");
+            // TODO 取消订单时商品库存数量对应变化
+            if (stAppletOrders.getOrderState() == 6) {
+                String orderSn = stAppletOrders.getOrderSn();
+                List<StAppletOrdersProduct> productList = stAppletOrdersProductModel.getStAppletOrdersProductList(orderSn);
+                if (productList != null && !productList.isEmpty()) {
+                    for (StAppletOrdersProduct product : productList) {
+                        changeProductStock(2, product.getProductId(), product.getNumber());
+                    }
+                }
+            }
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
@@ -195,7 +238,7 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
         try {
             List<StAppletOrdersVO> list = new ArrayList<>();
             List<StAppletOrdersProduct> productList = stAppletOrdersProductModel.getStAppletOrdersProductList(orderSn);
-            for (StAppletOrdersProduct product : productList){
+            for (StAppletOrdersProduct product : productList) {
                 StAppletOrdersVO stAppletOrdersVO = new StAppletOrdersVO();
                 BeanUtils.copyProperties(product, stAppletOrdersVO);
                 stAppletOrdersVO.setOrderSn(product.getOrdersSn());

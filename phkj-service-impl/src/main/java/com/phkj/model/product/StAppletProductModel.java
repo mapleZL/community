@@ -78,7 +78,7 @@ public class StAppletProductModel {
     /**
     * 更新商品表
     * @param  stAppletProduct
-     * @param pictures 
+     * @param productPictureList
     * @return
     */
     public Boolean updateStAppletProduct(StAppletProduct stAppletProduct,
@@ -138,7 +138,7 @@ public class StAppletProductModel {
 
     /**
      * 删除商品
-     * @param id
+     * @param productId
      * @return
      */
     public Boolean delProduct(Integer productId) {

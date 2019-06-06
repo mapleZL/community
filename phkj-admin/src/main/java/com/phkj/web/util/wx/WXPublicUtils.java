@@ -28,7 +28,7 @@ public class WXPublicUtils {
         // 这里的 WXPublicConstants.TOKEN 填写你自己设置的Token就可以了
         String signature = SHA1.getSHA1(WXPublicConstants.TOKEN, timeStamp, nonce);
         if (!signature.equals(msgSignature)) {
-            log.info("微信验证失败," + "signature: " + signature + ", nonce: " + nonce);
+            log.error("微信验证失败," + "signature: " + signature + ", nonce: " + nonce);
             throw new AesException(AesException.ValidateSignatureError);
         }
         return true;
