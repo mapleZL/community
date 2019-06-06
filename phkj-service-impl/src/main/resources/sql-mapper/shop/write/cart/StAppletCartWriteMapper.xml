@@ -20,7 +20,6 @@
 	<update id="update" parameterType="com.phkj.entity.cart.StAppletCart">
         update `st_applet_cart` 
     	<set>
-			<if test="id != null">`id`= #{id},</if>
 			<if test="createTime != null">`create_time`= #{createTime},</if>
 			<if test="memberId != null">`member_id`= #{memberId},</if>
 			<if test="count != null">`count`= #{count},</if>
@@ -31,7 +30,7 @@
 			<if test="productGoodsId != null">`product_goods_id`= #{productGoodsId},</if>
 			<if test="checked != null">`checked`= #{checked},</if>
 			<if test="productPackageId != null">`product_package_id`= #{productPackageId},</if>
-			<if test="isSelfLabel != null">`is_self_label`= #{isSelfLabel}</if>
+			<if test="isSelfLabel != null">`is_self_label`= #{isSelfLabel},</if>
 			<if test="villageCode != null">`village_code` = #{villageCode}</if>
 	    </set>
         where `id` = #{id}

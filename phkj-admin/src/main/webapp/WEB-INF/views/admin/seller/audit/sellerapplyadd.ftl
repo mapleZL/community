@@ -35,6 +35,25 @@ $(function(){
   				 .attr("method", "POST")
   				 .submit();
   		}
+		
+	});
+	
+	$("#up_taxLicense").on('change', function() {
+		var formData = new FormData();
+		formData.append('file', $('#up_taxLicense')[0].files[0]);
+		upload("img2", formData);
+	});
+	
+	$("#up_organization").on('change', function() {
+		var formData = new FormData();
+		formData.append('file', $('#up_organization')[0].files[0]);
+		upload("img3", formData);
+	});
+	
+	$("#up_bussinessLicenseImage").on('change', function() {
+		var formData = new FormData();
+		formData.append('file', $('#up_bussinessLicenseImage')[0].files[0]);
+		upload("img4", formData);
 	});
 	
 	<#--鼠标移入移出图片-->
@@ -44,20 +63,55 @@ $(function(){
         $(this).find('.img-box').hide();
     })
     <#--删除图片-->
-    $('.del-img').live('click', function () {
+    $('.del-img1').live('click', function () {
         $(this).parent().parent().parent().remove();
         $('[name=fileIndex]').val($('[name=fileIndex]').val() - 1);
         if ($('[name=fileIndex]').val() == 0) {
             $('#previewImgBox').hide();
         }
     });
+    
+    $('.del-img2').live('click', function () {
+        $(this).parent().parent().parent().remove();
+        $("#img2").css("display", "none");
+    });
+    $('.del-img3').live('click', function () {
+        $(this).parent().parent().parent().remove();
+        $("#img3").css("display", "none");
+    });
+    $('.del-img4').live('click', function () {
+        $(this).parent().parent().parent().remove();
+        $("#img4").css("display", "none");
+    });
 });
 	
+	function upload(index, formData) {
+		$.ajax({
+			url:"/admin/file/uploadFile",
+			type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+            	console.log(result);
+            	var html = '';
+            	html += '<li><div class="img" style="left:100px;height: 21px; float: left;line-height: 150px;">';
+            	html += '<img id="prev_0" name="prev_0" src=' + result.data.url + ' width="250" height="150">';
+            	html += '<div class="img-box" style="width:250px;height:150px;">';
+            	html += '<a class="del-img del-' + index + '" style="top:2px;left:110px;" href="javascript:void(0);">删除</a>';
+            	html += '</div></li>';
+            	$("#" + index).html(html);
+            	$("#" + index).css("display", "block");
+            }
+		});
+	}
 </script>
 
 <div class="wrapper">
 	<div class="formbox-a">
-		<h2 class="h2-title">商家信息修改<span class="s-poar"><a class="a-back" href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/audit">返回</a></span></h2>
+		<h2 class="h2-title">商家信息修改<span class="s-poar"></span></h2>
 		
 		<#--1.addForm----------------->
 		<div class="form-contbox">
@@ -105,7 +159,7 @@ $(function(){
 	                            <div class='img'>
 	                                <img width='150' height='150'>
 	                                <div class='img-box'>
-	                                    <a class='del-img2' href='javascript:void(0);'>删除</a>
+	                                    <a class='del-img del-img1' href='javascript:void(0);'>删除</a>
 	                                </div>
 	                            </div>
 	                        </li>
@@ -125,6 +179,8 @@ $(function(){
 								style="height: 21px; float: left;line-height: 30px; vertical-align: middle;"
 								missingMessage="请选择图片"
 								class="txt w200 easyui-validatebox" data-options="required:true" />
+						<ul class="preview-img" id="img2" style="display: none">
+						</ul>
 						</p>
 					</div>
 					<br/>
@@ -135,6 +191,8 @@ $(function(){
 								style="height: 21px; float: left;line-height: 30px; vertical-align: middle;"
 								missingMessage="请选择图片"
 								class="txt w200 easyui-validatebox" data-options="required:true" />
+							<ul class="preview-img" id="img3" style="display: none">
+							</ul>
 						</p>
 					</div>
 					<br/>
@@ -145,6 +203,8 @@ $(function(){
 								style="height: 21px; float: left;line-height: 30px; vertical-align: middle;"
 								missingMessage="请选择图片"
 								class="txt w200 easyui-validatebox" data-options="required:true" />
+							<ul class="preview-img" id="img4" style="display: none">
+							</ul>
 						</p>
 					</div>
 					<div class="fluidbox">

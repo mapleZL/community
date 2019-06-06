@@ -51,6 +51,13 @@ public class AdminSellerController extends BaseController {
         return url;
     }
 
+    /**
+     * 商铺完善信息
+     * @param seller
+     * @param request
+     * @param dataMap
+     * @return
+     */
     @RequestMapping(value = "/create", method = { RequestMethod.POST })
     public String create(StAppletSeller seller, HttpServletRequest request, Map<String, Object> dataMap) {
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
@@ -92,6 +99,53 @@ public class AdminSellerController extends BaseController {
         
         dataMap.put("seller", seller);
         return "/admin/seller/audit/sellerapplyedit";
+    }
+    
+    /**
+     * 商铺信息修改
+     * @param seller
+     * @param request
+     * @param dataMap
+     * @return
+     */
+    @RequestMapping(value = "/update", method = { RequestMethod.POST })
+    public String update(StAppletSeller seller, HttpServletRequest request, Map<String, Object> dataMap) {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        CommonsMultipartFile multipartFile = (CommonsMultipartFile) multipartRequest
+                .getFile("up_bussinessLicenseImage");
+            //营业执照扫描件
+            String bli = fileService.uploadFile(multipartFile);
+            if (!StringUtil.isEmpty(bli)) {
+                seller.setBussinessLicense(bli);
+            }
+
+            //税务登记证
+            multipartFile = (CommonsMultipartFile) multipartRequest
+                    .getFile("up_taxLicense");
+            String bls = fileService.uploadFile(multipartFile);
+            if (!StringUtil.isEmpty(bls)) {
+                seller.setTaxLicense(bls);
+            }
+
+            //组织机构代码证
+            multipartFile = (CommonsMultipartFile) multipartRequest
+                    .getFile("up_organization");
+            String org = fileService.uploadFile(multipartFile);
+            if (!StringUtil.isEmpty(org)) {
+                seller.setOrganization(org);
+            }
+            String name = request.getParameter("name");
+            String sellerName = request.getParameter("sellerName");
+            String imageSrc = request.getParameter("imageSrc");
+            seller.setSellerLogo(imageSrc);
+            seller.setName(name);
+            seller.setSellerName(sellerName);
+            String id = request.getParameter("id");
+            seller.setId(Integer.valueOf(id));
+            sellerService.updateStAppletSeller(seller);
+            
+            dataMap.put("seller", seller);
+            return "/admin/seller/audit/sellerapplyedit";
     }
 
 }

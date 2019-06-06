@@ -112,7 +112,7 @@ public class StAppletCartServiceImpl implements IStAppletCartService {
         ServiceResult<Boolean> result = new ServiceResult<Boolean>();
         try {
             StAppletCart stAppletCart = stAppletCartModel.getStAppletCartById(id);
-            stAppletCart.setCount(num);
+            stAppletCart.setCount(stAppletCart.getCount() + num);
             stAppletCartModel.updateStAppletCart(stAppletCart);
             result.setSuccess(true);
         } catch (BusinessException e) {

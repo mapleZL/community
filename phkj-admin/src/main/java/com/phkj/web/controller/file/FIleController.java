@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.LogManager;
@@ -100,6 +101,23 @@ public class FIleController extends BaseController {
             return jsonResult;
         }
         return null;
+    }
+    
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    public @ResponseBody Object upload(MultipartFile file,HttpServletRequest request,
+                                HttpServletResponse response) {
+        HttpJsonResult<Map<String, Object>> jsonResult = new HttpJsonResult<Map<String, Object>>();
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            String url = fileService.uploadFile(file);
+            result.put("name", file.getOriginalFilename());
+            result.put("url", url);
+            jsonResult.setData(result);
+        } catch (Exception e) {
+            log.error("上传文件出错");
+            jsonResult.setMessage(e.getMessage());
+        }
+        return jsonResult;
     }
 
 }

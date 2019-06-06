@@ -31,7 +31,7 @@ $(function(){
         }
         
 		if($("#addForm").form('validate')){
-	 		$("#addForm").attr("action", "${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage/create")
+	 		$("#addForm").attr("action", "${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage/update")
   				 .attr("method", "POST")
   				 .submit();
   		}
@@ -57,7 +57,7 @@ $(function(){
 
 <div class="wrapper">
 	<div class="formbox-a">
-		<h2 class="h2-title">商家信息修改<span class="s-poar"><a class="a-back" href="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/audit">返回</a></span></h2>
+		<h2 class="h2-title">商家信息修改<span class="s-poar"></span></h2>
 		
 		<#--1.addForm----------------->
 		<div class="form-contbox">
@@ -65,6 +65,7 @@ $(function(){
 			<dl class="dl-group">
 				<dt class="dt-group"><span class="s-icon"></span>店铺及联系人信息</dt>
 				<dd class="dd-group">
+				<input id="id" type="hidden" value="${(seller.id)!''}"/>
 					<div class="fluidbox">
 						<p class="p12 p-item">
 							<label class="lab-item"><font class="red">*</font>店铺名称：</label>
