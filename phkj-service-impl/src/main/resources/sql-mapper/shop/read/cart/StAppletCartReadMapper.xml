@@ -28,7 +28,7 @@
 	    select
 		   *
 		from `st_applet_cart`
-		<include refid="whereConditions"/>
+		where product_id = #{productId}
 	</select>
 	
 	<select id="list" resultMap="StAppletCartResult">
@@ -54,9 +54,6 @@
             </if>
             <if test="villageCode != null and '' != villageCode">
                 and `village_code`= #{villageCode}
-            </if>
-            <if test="productId != null and '' != productId">
-                and `product_id`= #{productId}
             </if>
         </where>
     </sql>
