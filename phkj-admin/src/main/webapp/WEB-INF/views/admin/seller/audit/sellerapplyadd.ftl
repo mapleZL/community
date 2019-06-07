@@ -39,18 +39,30 @@ $(function(){
 	});
 	
 	$("#up_taxLicense").on('change', function() {
+		if ($("#picimg2").val()) {
+			$.messager.alert('提示',"税务登记证已存在，如需更新请先删除");
+            return;
+		}
 		var formData = new FormData();
 		formData.append('file', $('#up_taxLicense')[0].files[0]);
 		upload("img2", formData);
 	});
 	
 	$("#up_organization").on('change', function() {
+		if ($("#picimg3").val()) {
+			$.messager.alert('提示',"组织机构代码证已存在，如需更新请先删除");
+            return;
+		}
 		var formData = new FormData();
 		formData.append('file', $('#up_organization')[0].files[0]);
 		upload("img3", formData);
 	});
 	
 	$("#up_bussinessLicenseImage").on('change', function() {
+		if ($("#picimg4").val()) {
+			$.messager.alert('提示',"营业执照已存在，如需更新请先删除");
+            return;
+		}
 		var formData = new FormData();
 		formData.append('file', $('#up_bussinessLicenseImage')[0].files[0]);
 		upload("img4", formData);
@@ -102,6 +114,7 @@ $(function(){
             	html += '<div class="img-box" style="width:250px;height:150px;">';
             	html += '<a class="del-img del-' + index + '" style="top:2px;left:110px;" href="javascript:void(0);">删除</a>';
             	html += '</div></li>';
+            	$("#pic" + index).val(result.data.url);
             	$("#" + index).html(html);
             	$("#" + index).css("display", "block");
             }
@@ -181,6 +194,7 @@ $(function(){
 								class="txt w200 easyui-validatebox" data-options="required:true" />
 						<ul class="preview-img" id="img2" style="display: none">
 						</ul>
+						<input type="hidden" name="picimg2" id="picimg2"/>
 						</p>
 					</div>
 					<br/>
@@ -193,6 +207,7 @@ $(function(){
 								class="txt w200 easyui-validatebox" data-options="required:true" />
 							<ul class="preview-img" id="img3" style="display: none">
 							</ul>
+							<input type="hidden" name="picimg3" id="picimg3"/>
 						</p>
 					</div>
 					<br/>
@@ -205,6 +220,7 @@ $(function(){
 								class="txt w200 easyui-validatebox" data-options="required:true" />
 							<ul class="preview-img" id="img4" style="display: none">
 							</ul>
+							<input type="hidden" name="picimg4" id="picimg4"/>
 						</p>
 					</div>
 					<div class="fluidbox">

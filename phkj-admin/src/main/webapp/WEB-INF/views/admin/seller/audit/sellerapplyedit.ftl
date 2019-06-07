@@ -37,6 +37,49 @@ $(function(){
   		}
 	});
 	
+	$("#up_taxLicense").on('change', function() {
+		if ($("#picimg2").val()) {
+			$.messager.alert('提示',"税务登记证已存在，如需更新请先删除");
+            return;
+		}
+		var formData = new FormData();
+		formData.append('file', $('#up_taxLicense')[0].files[0]);
+		upload("img2", formData);
+	});
+	
+	$("#up_organization").on('change', function() {
+		if ($("#picimg3").val()) {
+			$.messager.alert('提示',"组织机构代码证已存在，如需更新请先删除");
+            return;
+		}
+		var formData = new FormData();
+		formData.append('file', $('#up_organization')[0].files[0]);
+		upload("img3", formData);
+	});
+	
+	$("#up_bussinessLicenseImage").on('change', function() {
+		if ($("#picimg4").val()) {
+			$.messager.alert('提示',"营业执照已存在，如需更新请先删除");
+            return;
+		}
+		var formData = new FormData();
+		formData.append('file', $('#up_bussinessLicenseImage')[0].files[0]);
+		upload("img4", formData);
+	});
+	
+	$('.del-img2').live('click', function () {
+        $(this).parent().parent().parent().remove();
+        $("#img2").css("display", "none");
+    });
+    $('.del-img3').live('click', function () {
+        $(this).parent().parent().parent().remove();
+        $("#img3").css("display", "none");
+    });
+    $('.del-img4').live('click', function () {
+        $(this).parent().parent().parent().remove();
+        $("#img4").css("display", "none");
+    });
+	
 	<#--鼠标移入移出图片-->
     $('.img').live('mouseover', function () {
         $(this).find('.img-box').show();
@@ -53,6 +96,29 @@ $(function(){
     });
 });
 	
+function upload(index, formData) {
+	$.ajax({
+		url:"/admin/file/uploadFile",
+		type: 'POST',
+        data: formData,
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (result) {
+        	console.log(result);
+        	var html = '';
+        	html += '<li><div class="img" style="left:100px;height: 21px; float: left;line-height: 150px;">';
+        	html += '<img id="prev_0" name="prev_0" src=' + result.data.url + ' width="250" height="150">';
+        	html += '<div class="img-box" style="width:250px;height:150px;">';
+        	html += '<a class="del-img del-' + index + '" style="top:2px;left:110px;" href="javascript:void(0);">删除</a>';
+        	html += '</div></li>';
+        	$("#pic" + index).val(result.data.url);
+        	$("#" + index).html(html);
+        	$("#" + index).css("display", "block");
+        }
+	});
+}
 </script>
 
 <div class="wrapper">
@@ -65,7 +131,7 @@ $(function(){
 			<dl class="dl-group">
 				<dt class="dt-group"><span class="s-icon"></span>店铺及联系人信息</dt>
 				<dd class="dd-group">
-				<input id="id" type="hidden" value="${(seller.id)!''}"/>
+				<input id="id" name="id" type="hidden" value="${(seller.id)!''}"/>
 					<div class="fluidbox">
 						<p class="p12 p-item">
 							<label class="lab-item"><font class="red">*</font>店铺名称：</label>
@@ -126,15 +192,18 @@ $(function(){
 								style="height: 21px; float: left;line-height: 30px; vertical-align: middle;"
 								missingMessage="请选择图片"
 								class="txt w200 easyui-validatebox" data-options="required:true" />
-								<ul class='preview-img' >
+								<ul class='preview-img' id="img2">
+								<#if seller.taxLicense??>
 									<li>
 										<div class='img' style="left:100px;height: 21px; float: left;line-height: 150px;">
 			                                <img id="prev_0" name="prev_0" src='${(seller.taxLicense)!''}' width='250' height='150'>
 			                                <div class='img-box' style="width:250px;height:150px;">
-			                                    <a class='del-img' style="top:10px;left:110px;" href='javascript:void(0);'>删除</a>
+			                                    <a class='del-img del-img2' style="top:10px;left:110px;" href='javascript:void(0);'>删除</a>
 	                                	</div>
 	                                </li>
+	                            </#if>
 	                            </ul>
+	                            <input type="hidden" name="picimg2" id="picimg2" value="${(seller.taxLicense)!''}"/>
 						</p>
 					</div>
 					<br/>
@@ -145,16 +214,19 @@ $(function(){
 								style="height: 21px; float: left;line-height: 30px; vertical-align: middle;"
 								missingMessage="请选择图片"
 								class="txt w200 easyui-validatebox" data-options="required:true" />
-								<ul class='preview-img'>
+								<ul class='preview-img' id="img3">
+								<#if seller.organization??>
 									<li>
 										<div class='img' style="left:100px;height: 21px; float: left;line-height: 150px;">
 			                                <img id="prev_0" name="prev_0" src='${(seller.organization)!''}' width='250' height='150'>
 			                                <div class='img-box' style="width:250px;height:150px;">
-			                                    <a class='del-img' style="top:10px;left:110px;" href='javascript:void(0);'>删除</a>
+			                                    <a class='del-img del-img3' style="top:10px;left:110px;" href='javascript:void(0);'>删除</a>
 			                                </div>
 			                            </div>
 			                         </li>
+			                    </#if>
 			                    </ul>
+			                    <input type="hidden" name="picimg3" id="picimg3" value="${(seller.organization)!''}"/>
 						</p>
 					</div>
 					<br/>
@@ -165,16 +237,19 @@ $(function(){
 								style="height: 21px; float: left;line-height: 30px; vertical-align: middle;"
 								missingMessage="请选择图片"
 								class="txt w200 easyui-validatebox" data-options="required:true" />
-								<ul class='preview-img'>
+								<ul class='preview-img' id="img4">
+								<#if seller.bussinessLicense??>
 									<li>
 										<div class='img' style="left:100px;height: 21px; float: left;line-height: 150px;">
-			                                <img id="prev_0" name="prev_0" src='${(seller.organization)!''}' width='250' height='150'>
+			                                <img id="prev_0" name="prev_0" src='${(seller.bussinessLicense)!''}' width='250' height='150'>
 			                                <div class='img-box' style="width:250px;height:150px;">
-			                                    <a class='del-img' style="top:10px;left:110px;" href='javascript:void(0);'>删除</a>
+			                                    <a class='del-img del-img4' style="top:10px;left:110px;" href='javascript:void(0);'>删除</a>
 			                                </div>
 			                            </div>
 									</li>
+								</#if>
 								</ul>
+								<input type="hidden" name="picimg4" id="picimg4" value="${(seller.bussinessLicense)!''}"/>
 						</p>
 					</div>
 					<div class="fluidbox">
@@ -197,7 +272,5 @@ $(function(){
 		</div>
 	</div>
 </div>
-
-
 
 <#include "/admin/commons/_detailfooter.ftl" />
