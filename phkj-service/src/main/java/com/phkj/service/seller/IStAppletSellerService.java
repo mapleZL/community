@@ -2,6 +2,7 @@ package com.phkj.service.seller;
 
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.seller.StAppletSeller;
+import com.phkj.entity.seller.StAppletSellerVO;
 
 public interface IStAppletSellerService {
 
@@ -27,4 +28,6 @@ public interface IStAppletSellerService {
     ServiceResult<Integer> updateStAppletSeller(StAppletSeller stAppletSeller);
 
     StAppletSeller getSellerByMemberId(Integer memberId);
+
+    ServiceResult<StAppletSellerVO> getSellerDetail(Integer sellerId);
 }

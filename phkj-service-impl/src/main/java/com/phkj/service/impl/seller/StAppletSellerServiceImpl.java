@@ -2,8 +2,10 @@ package com.phkj.service.impl.seller;
 
 import javax.annotation.Resource;
 
+import com.phkj.entity.seller.StAppletSellerVO;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.phkj.core.ConstantsEJS;
@@ -15,14 +17,15 @@ import com.phkj.service.seller.IStAppletSellerService;
 
 @Service(value = "stAppletSellerService")
 public class StAppletSellerServiceImpl implements IStAppletSellerService {
-	private static Logger      log = LogManager.getLogger(StAppletSellerServiceImpl.class);
-	
-	@Resource
-	private StAppletSellerModel stAppletSellerModel;
-    
-     /**
+    private static Logger log = LogManager.getLogger(StAppletSellerServiceImpl.class);
+
+    @Resource
+    private StAppletSellerModel stAppletSellerModel;
+
+    /**
      * 根据id取得商家表
-     * @param  stAppletSellerId
+     *
+     * @param stAppletSellerId
      * @return
      */
     @Override
@@ -33,23 +36,24 @@ public class StAppletSellerServiceImpl implements IStAppletSellerService {
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStAppletSellerService][getStAppletSellerById]根据id["+stAppletSellerId+"]取得商家表时出现未知异常：" + e.getMessage());
+            log.error("[IStAppletSellerService][getStAppletSellerById]根据id[" + stAppletSellerId + "]取得商家表时出现未知异常：" + e.getMessage());
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
-            log.error("[IStAppletSellerService][getStAppletSellerById]根据id["+stAppletSellerId+"]取得商家表时出现未知异常：",
-                e);
+            log.error("[IStAppletSellerService][getStAppletSellerById]根据id[" + stAppletSellerId + "]取得商家表时出现未知异常：",
+                    e);
         }
         return result;
     }
-    
+
     /**
      * 保存商家表
-     * @param  stAppletSeller
+     *
+     * @param stAppletSeller
      * @return
      */
-     @Override
-     public ServiceResult<Integer> saveStAppletSeller(StAppletSeller stAppletSeller) {
-     	ServiceResult<Integer> result = new ServiceResult<Integer>();
+    @Override
+    public ServiceResult<Integer> saveStAppletSeller(StAppletSeller stAppletSeller) {
+        ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
             result.setResult(stAppletSellerModel.saveStAppletSeller(stAppletSeller));
         } catch (BusinessException e) {
@@ -59,20 +63,20 @@ public class StAppletSellerServiceImpl implements IStAppletSellerService {
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[IStAppletSellerService][saveStAppletSeller]保存商家表时出现未知异常：",
-                e);
+                    e);
         }
         return result;
-     }
-     
-     /**
+    }
+
+    /**
      * 更新商家表
-     * @param  stAppletSeller
+     *
+     * @param stAppletSeller
      * @return
-     * @see com.phkj.service.StAppletSellerService#updateStAppletSeller(StAppletSeller)
      */
-     @Override
-     public ServiceResult<Integer> updateStAppletSeller(StAppletSeller stAppletSeller) {
-     	ServiceResult<Integer> result = new ServiceResult<Integer>();
+    @Override
+    public ServiceResult<Integer> updateStAppletSeller(StAppletSeller stAppletSeller) {
+        ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
             result.setResult(stAppletSellerModel.updateStAppletSeller(stAppletSeller));
         } catch (BusinessException e) {
@@ -82,13 +86,37 @@ public class StAppletSellerServiceImpl implements IStAppletSellerService {
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[IStAppletSellerService][updateStAppletSeller]更新商家表时出现未知异常：",
-                e);
+                    e);
         }
         return result;
-     }
+    }
 
     @Override
     public StAppletSeller getSellerByMemberId(Integer memebrId) {
         return stAppletSellerModel.getSellerByMemberId(memebrId);
+    }
+
+    @Override
+    public ServiceResult<StAppletSellerVO> getSellerDetail(Integer sellerId) {
+        ServiceResult<StAppletSellerVO> result = new ServiceResult<>();
+        try {
+            StAppletSellerVO stAppletSellerVO = new StAppletSellerVO();
+            StAppletSeller seller = stAppletSellerModel.getSellerById(sellerId);
+            if (seller != null) {
+                BeanUtils.copyProperties(seller, stAppletSellerVO);
+            }
+            result.setResult(stAppletSellerVO);
+            result.setSuccess(true);
+            result.setMessage("ok");
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error("[IStAppletSellerService][getSellerDetail]获取商家表时出现未知异常：" + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("[IStAppletSellerService][getSellerDetail]获取商家表时出现未知异常：",
+                    e);
+        }
+        return result;
     }
 }

@@ -59,6 +59,7 @@
                 /admin/sms/** = anon
                 /admin/user/** = anon
                 /admin/wx/** = anon
+                /admin/seller/** = anon
                 /admin/property/** = anon
                 /admin/mindex/banner/** = anon
                 /admin/member/car/** = anon

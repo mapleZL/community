@@ -163,7 +163,7 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
             result.setSuccess(true);
             result.setCode("200");
             result.setMessage("ok");
-            // TODO 取消订单时商品库存数量对应变化
+            // 取消订单时商品库存数量对应变化
             if (stAppletOrders.getOrderState() == 6) {
                 String orderSn = stAppletOrders.getOrderSn();
                 List<StAppletOrdersProduct> productList = stAppletOrdersProductModel.getStAppletOrdersProductList(orderSn);
@@ -197,22 +197,26 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 BeanUtils.copyProperties(appletOrders, stAppletOrdersVO);
                 // 获取第一件商品信息
                 List<StAppletOrdersProduct> productList = stAppletOrdersProductModel.getStAppletOrdersProductList(appletOrders.getOrderSn());
-                // 商品图片
-                String productSku = productList.get(0).getProductSku();
-                stAppletOrdersVO.setProductSku(productSku);
-                stAppletOrdersVO.setNumber(productList.get(0).getNumber());
-                stAppletOrdersVO.setMoneyPrice(productList.get(0).getMoneyPrice());
-                stAppletOrdersVO.setProductNum(productList.size());
-                stAppletOrdersVO.setProductName(productList.get(0).getProductName());
-                // 商品详情
-                String specInfo = productList.get(0).getSpecInfo();
-                stAppletOrdersVO.setSpecInfo(specInfo);
+                if (productList != null && !productList.isEmpty()) {
+                    // 商品图片
+                    String productSku = productList.get(0).getProductSku();
+                    stAppletOrdersVO.setProductSku(productSku);
+                    stAppletOrdersVO.setNumber(productList.get(0).getNumber());
+                    stAppletOrdersVO.setMoneyPrice(productList.get(0).getMoneyPrice());
+                    stAppletOrdersVO.setProductNum(productList.size());
+                    stAppletOrdersVO.setProductName(productList.get(0).getProductName());
+                    // 商品详情
+                    String specInfo = productList.get(0).getSpecInfo();
+                    stAppletOrdersVO.setSpecInfo(specInfo);
+                }
                 // 获取商家信息
                 StAppletSeller seller = sellerModel.getSellerById(appletOrders.getSellerId());
-                String sellerName = seller.getSellerName();
-                String sellerLogo = seller.getSellerLogo();
-                stAppletOrdersVO.setSellerName(sellerName);
-                stAppletOrdersVO.setSellerLogo(sellerLogo);
+                if (seller != null) {
+                    String sellerName = seller.getSellerName();
+                    String sellerLogo = seller.getSellerLogo();
+                    stAppletOrdersVO.setSellerName(sellerName);
+                    stAppletOrdersVO.setSellerLogo(sellerLogo);
+                }
                 list.add(stAppletOrdersVO);
             }
 

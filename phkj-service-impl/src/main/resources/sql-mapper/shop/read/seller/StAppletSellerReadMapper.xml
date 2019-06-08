@@ -35,6 +35,7 @@
 	</select>
 	
 	<select id="get" parameterType="Integer" resultMap="StAppletSellerResult">
+		select
 		   *
 		from `st_applet_seller`
 		where `id` = #{id}

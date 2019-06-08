@@ -6,6 +6,10 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.phkj.core.ResponseStateEnum;
+import com.phkj.core.ServiceResult;
+import com.phkj.core.response.ResponseUtil;
+import com.phkj.entity.seller.StAppletSellerVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +21,7 @@ import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.seller.IStAppletSellerService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 
@@ -44,6 +49,26 @@ public class AdminSellerController extends BaseController {
             url = "/admin/seller/audit/sellerapplyedit";
         }
         return url;
+    }
+
+
+
+
+    /**
+     * 获取商铺详情
+     *
+     * @param sellerId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/info", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResponseUtil detail(Integer sellerId) {
+        if (sellerId == null || sellerId == 0) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "sellerId is blank", false, null);
+        }
+        ServiceResult<StAppletSellerVO> result = sellerService.getSellerDetail(sellerId);
+        return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
     }
 
     /**

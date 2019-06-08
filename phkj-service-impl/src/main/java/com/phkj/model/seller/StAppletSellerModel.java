@@ -1,5 +1,9 @@
 package com.phkj.model.seller;
 
+import com.phkj.core.ResponseStateEnum;
+import com.phkj.core.ServiceResult;
+import com.phkj.core.response.ResponseUtil;
+import com.phkj.entity.order.StAppletOrders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -7,18 +11,24 @@ import com.phkj.core.StringUtil;
 import com.phkj.dao.shop.read.seller.StAppletSellerReadDao;
 import com.phkj.dao.shop.write.seller.StAppletSellerWriteDao;
 import com.phkj.entity.seller.StAppletSeller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
 
 @Component
 public class StAppletSellerModel {
 
     @Autowired
-    private StAppletSellerReadDao          stAppletSellerReadDao;
+    private StAppletSellerReadDao stAppletSellerReadDao;
     @Autowired
-    private StAppletSellerWriteDao         stAppletSellerWriteDao;
+    private StAppletSellerWriteDao stAppletSellerWriteDao;
 
     /**
      * 根据id取得商家表
-     * @param  stAppletSellerId
+     *
+     * @param stAppletSellerId
      * @return
      */
     public StAppletSeller getStAppletSellerById(Integer stAppletSellerId) {
@@ -27,7 +37,8 @@ public class StAppletSellerModel {
 
     /**
      * 保存商家表
-     * @param  stAppletSeller
+     *
+     * @param stAppletSeller
      * @return
      */
     public Integer saveStAppletSeller(StAppletSeller stAppletSeller) {
@@ -36,10 +47,11 @@ public class StAppletSellerModel {
     }
 
     /**
-    * 更新商家表
-    * @param  stAppletSeller
-    * @return
-    */
+     * 更新商家表
+     *
+     * @param stAppletSeller
+     * @return
+     */
     public Integer updateStAppletSeller(StAppletSeller stAppletSeller) {
         this.dbConstrains(stAppletSeller);
         return stAppletSellerWriteDao.update(stAppletSeller);
@@ -48,29 +60,29 @@ public class StAppletSellerModel {
     private void dbConstrains(StAppletSeller stAppletSeller) {
         stAppletSeller.setName(StringUtil.dbSafeString(stAppletSeller.getName(), false, 50));
         stAppletSeller
-            .setSellerName(StringUtil.dbSafeString(stAppletSeller.getSellerName(), false, 200));
+                .setSellerName(StringUtil.dbSafeString(stAppletSeller.getSellerName(), false, 200));
         stAppletSeller
-            .setSellerLogo(StringUtil.dbSafeString(stAppletSeller.getSellerLogo(), true, 255));
+                .setSellerLogo(StringUtil.dbSafeString(stAppletSeller.getSellerLogo(), true, 255));
         stAppletSeller
-            .setScoreService(StringUtil.dbSafeString(stAppletSeller.getScoreService(), true, 20));
+                .setScoreService(StringUtil.dbSafeString(stAppletSeller.getScoreService(), true, 20));
         stAppletSeller.setScoreDeliverGoods(
-            StringUtil.dbSafeString(stAppletSeller.getScoreDeliverGoods(), true, 20));
+                StringUtil.dbSafeString(stAppletSeller.getScoreDeliverGoods(), true, 20));
         stAppletSeller.setScoreDescription(
-            StringUtil.dbSafeString(stAppletSeller.getScoreDescription(), true, 20));
+                StringUtil.dbSafeString(stAppletSeller.getScoreDescription(), true, 20));
         stAppletSeller.setSellerKeyword(
-            StringUtil.dbSafeString(stAppletSeller.getSellerKeyword(), true, 255));
+                StringUtil.dbSafeString(stAppletSeller.getSellerKeyword(), true, 255));
         stAppletSeller
-            .setSellerDes(StringUtil.dbSafeString(stAppletSeller.getSellerDes(), true, 255));
+                .setSellerDes(StringUtil.dbSafeString(stAppletSeller.getSellerDes(), true, 255));
         stAppletSeller
-            .setStoreSlide(StringUtil.dbSafeString(stAppletSeller.getStoreSlide(), true, 65535));
+                .setStoreSlide(StringUtil.dbSafeString(stAppletSeller.getStoreSlide(), true, 65535));
         stAppletSeller
-            .setSellerCode(StringUtil.dbSafeString(stAppletSeller.getSellerCode(), true, 50));
+                .setSellerCode(StringUtil.dbSafeString(stAppletSeller.getSellerCode(), true, 50));
         stAppletSeller
-            .setTaxLicense(StringUtil.dbSafeString(stAppletSeller.getTaxLicense(), true, 500));
+                .setTaxLicense(StringUtil.dbSafeString(stAppletSeller.getTaxLicense(), true, 500));
         stAppletSeller
-            .setOrganization(StringUtil.dbSafeString(stAppletSeller.getOrganization(), true, 500));
+                .setOrganization(StringUtil.dbSafeString(stAppletSeller.getOrganization(), true, 500));
         stAppletSeller.setBussinessLicense(
-            StringUtil.dbSafeString(stAppletSeller.getBussinessLicense(), true, 500));
+                StringUtil.dbSafeString(stAppletSeller.getBussinessLicense(), true, 500));
     }
 
     public StAppletSeller getSellerByMemberId(Integer memebrId) {
