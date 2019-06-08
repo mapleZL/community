@@ -28,8 +28,7 @@
         };
 
         $("#add").click(function () {
-            
-            $('#productCateId').val($('#cateId').val());//品牌id
+            $('#productCateId').val($("#cateId").combotree('getValue'));//品牌id
             var costPrice = $('#costPrice').val();//成本价
             var protectedPrice = $('#protectedPrice').val();//保护价
             var marketPrice = $('#marketPrice').val();//市场价
@@ -124,7 +123,7 @@
                         </p>
                         <p class="p6 p-item">
                             <label class="lab-item"><font class="red">*</font>关键字: </label>
-                            <input type="text" id="keyword1" name="keyword1" value="${(product.keyword)!''}" class="txt w300 easyui-validatebox" missingMessage="关键字必填，2-50个字符" data-options="required:true,validType:'length[2,50]'"/>
+                            <input type="text" id="keyword" name="keyword" value="${(product.keyword)!''}" class="txt w300 easyui-validatebox" missingMessage="关键字必填，2-50个字符" data-options="required:true,validType:'length[2,50]'"/>
                         </p>
                         <input type="hidden" id="id" name="id" value="${(product.id)!''}"/>
                     </div>
@@ -145,8 +144,8 @@
 						<p class="p6 p-item">
                             <label class="lab-item"><font class="red">*</font>商品分类:</label>
                             <#if productCategory??>
-                            	<select name="cateId" id="cateId" level="0" class="w210 easyui-combobox">
-                            	<option>请选择</option>
+                            	<select name="cateId" id="cateId" level="0" class="txt w300 easyui-combobox">
+                            	<option value="0">请选择</option>
 		                     	<#list productCategory as category>
 									<option value="${(category.codeCd)!}">${(category.codeText)!}</option>
 								</#list>
@@ -187,7 +186,7 @@
                     <div class="fluidbox">
                     	<p class="p6 p-item">
                             <label class="lab-item"><font class="red">*</font>商品库存: </label>
-                            <input type="text" id="productStock" name="productStock1"
+                            <input type="text" id="productStock" name="productStock"
                                    value="${(product.productStock)!''}" class="txt w300 easyui-numberbox" />
                         </p>
                         <p class="p6 p-item">

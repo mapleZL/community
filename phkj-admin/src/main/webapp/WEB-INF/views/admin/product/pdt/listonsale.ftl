@@ -131,7 +131,7 @@ var codeBox;
                      </p>
                      <p class="p4 p-item">
                      	<label class="lab-item">促销状态: </label>
-                     		<select id="q_name2" name="q_name2" level="0" class="txt w210" onclick="luowo_display(this.value)">
+                     		<select id="q_name2" name="q_name2" level="0" class="txt w210 easyui-combobox" onclick="luowo_display(this.value)">
                      			<option value="">请选择</option>
                      			<option value="1">促销中</option>
                      			<option value="2">无促销</option>
