@@ -163,7 +163,7 @@
                             <input type="text" id="keyword1" name="keyword1" value="${(product.keyword)!''}" class="txt w400 easyui-validatebox" missingMessage="关键字必填，2-50个字符" data-options="required:true,validType:'length[2,50]'"/>
                         </p>
                     </div>
-
+					<input type="hidden" id="state" name="state" value="${(product.state)!''}">
                     <div class="fluidbox">
                         <p class="p6 p-item">
                             <label class="lab-item"><font class="red">*</font>SPU: </label>
@@ -181,7 +181,6 @@
                     <input type="hidden" id="protectedPrice" name="protectedPrice" value="${(product.protectedPrice)!''}"/>
                     <!--手机价-->
                     <input type="hidden" id="malMobilePrice" name="malMobilePrice" value="${(product.malMobilePrice)!''}" />
-                    <input type="hidden" name="sellerId" id="sellerId"/>
                     <input type="hidden" id="sellerCateId" name="sellerCateId" value="${(product.sellerCateId)!''}"/>
                     
                     <div class="fluidbox">

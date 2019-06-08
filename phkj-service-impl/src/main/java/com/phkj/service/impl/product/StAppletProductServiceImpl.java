@@ -58,7 +58,7 @@ public class StAppletProductServiceImpl implements IStAppletProductService {
     public ServiceResult<Boolean> updateOrCreate(StAppletProduct product, List<ProductPicture> pictures) {
         ServiceResult<Boolean> result = new ServiceResult<>();
         try {
-            if (product.getId() != null) {
+            if (product.getId() > 0) {
                 stAppletProductModel.updateStAppletProduct(product, pictures);
             } else {
                 stAppletProductModel.saveStAppletProduct(product, pictures);

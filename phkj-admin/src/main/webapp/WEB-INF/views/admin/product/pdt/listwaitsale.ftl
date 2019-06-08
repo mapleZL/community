@@ -105,7 +105,7 @@
         });
 		
         $("#newstypeWin").window({
-			width : 750,
+			width : 450,
 			height : 420,
 			title : "商品主图",
 			closed : true,
@@ -155,13 +155,13 @@
     }
     
     function imageFormat(value, row, index) {
-		return "<a class='newstype_view' onclick='showimg($(this).attr(\"masterImg\"));' href='javascript:;' imgpath='"
+		return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
 				+ value + "'>点击查看</a>";
 	}
 	
 	function showimg(href) {
 		if (href && href != 'null') {
-			html += "<img src='" + href + "' >"
+			var html = "<img src='" + href + "' >"
 			$("#newstypeTree").html(html);
 			$("#newstypeWin").window('open');
 		} else {
@@ -236,7 +236,7 @@
             <th field="createTime" width="150" align="center">创建时间</th>
             <th field="upTime" width="150" align="center">上架时间</th>
             <th field="sellerIsTop" width="70" align="center" formatter="sellerIsTopFormat">是否店铺推荐</th>
-            <th field="masterImg" width="70" align="center" formatter="imageFormat">图片</th>
+            <th field="masterImg" width="70" align="center" formatter="imageFormat">商品主图</th>
             <th field="state" width="90" align="center" formatter="stateFormat">状态</th>
         </tr>
         </thead>

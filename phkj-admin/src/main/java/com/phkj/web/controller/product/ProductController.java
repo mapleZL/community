@@ -171,7 +171,7 @@ public class ProductController extends BaseController {
                                                          HttpServletRequest request,
                                                          SystemAdmin user) {
         ServiceResult<Boolean> result = new ServiceResult<>();
-        if (product.getId() == null) {
+        if (product.getId() == null || product.getId() == 0) {
             product.setSellerId(user.getId());
             product.setCreateId(user.getId());
             product.setCreateTime(new Date());
@@ -180,6 +180,8 @@ public class ProductController extends BaseController {
             product.setIsSelf(StAppletProduct.IsSelfEnum.SELF.getValue());//自营
             product.setProductCateState(1);//分类正常
             product.setIsTop(1);//不推荐
+            product.setActualSales(0);
+            product.setMalMobilePrice(product.getMallPcPrice());
         }
         Integer state = product.getState();
         if (state == 3) {
@@ -398,6 +400,15 @@ public class ProductController extends BaseController {
         String cate_id = request.getParameter("q_cateId");
         if (!StringUtil.isEmpty(cate_id)) {
             queryMap.put("q_productCateId", cate_id);
+        }
+        String name2 = request.getParameter("q_name2");
+        if (!StringUtil.isEmpty(name2)) {
+            if (name2.equals("1")) {
+                queryMap.put("q_name2", "促销中");
+            } else {
+                queryMap.put("q_name2", "未促销");
+            }
+
         }
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         String userType = request.getParameter("seller");
