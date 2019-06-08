@@ -49,7 +49,6 @@ public class WXPublicUtils {
      */
     public static boolean checkSignature(String signature, String timestamp, String nonce) {
 
-        log.info("checkSignature, timestamp: " + timestamp + ", nonce: " + nonce);
         //1.定义数组存放tooken，timestamp,nonce
         String[] arr = {WXPublicConstants.TOKEN, timestamp, nonce};
         //2.对数组进行排序
@@ -93,7 +92,6 @@ public class WXPublicUtils {
             }
             return new String(buf);
         } catch (Exception e) {
-            // TODO: handle exception
             log.error("getSha1, sha1加密失败", e);
             return null;
 
