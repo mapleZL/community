@@ -23,7 +23,7 @@ public class WxPublicController {
 
     private static Logger log = LogManager.getLogger(WxPublicController.class);
 
-    @RequestMapping("/wxpublic/verify_wx_token")
+    @RequestMapping("/verifyToken")
     @ResponseBody
     public String verifyWXToken(HttpServletRequest request) throws AesException {
         String msgSignature = request.getParameter("signature");
