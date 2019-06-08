@@ -1,7 +1,10 @@
 package com.phkj.web.controller.cart;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -113,21 +116,31 @@ public class CartController {
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public @ResponseBody HttpJsonResult<List<StAppletCart>> list(Integer memberId,
+    public @ResponseBody HttpJsonResult<Map<Integer, List<StAppletCart>>> list(Integer memberId,
                                                                  String villageCode, Integer start,
                                                                  Integer pageSize) {
-        HttpJsonResult<List<StAppletCart>> result = new HttpJsonResult<>();
+        HttpJsonResult<Map<Integer, List<StAppletCart>>> result = new HttpJsonResult<>();
         try {
             ServiceResult<List<StAppletCart>> serviceResult = cartService.list(memberId,
                 villageCode, start, pageSize);
             if (serviceResult.getSuccess()) {
                 StAppletProduct product = null;
+                
+                List<StAppletCart> tempList = null;
+                Map<Integer, List<StAppletCart>> map = new HashMap<>();
                 // 展示时丰富字段
                 for (StAppletCart stAppletCart : serviceResult.getResult()) {
                     product = productService.getStAppletProductById(stAppletCart.getProductId()).getResult();
                     stAppletCart.setProduct(product);
+                    
+                    tempList = map.get(stAppletCart.getSellerId());
+                    if (tempList == null || tempList.size() == 0) {
+                        tempList = new ArrayList<>();
+                        map.put(stAppletCart.getSellerId(), tempList);
+                    }
+                    tempList.add(stAppletCart);
                 }
-                result.setData(serviceResult.getResult());
+                result.setData(map);
                 result.setTotal(cartService.getCount(memberId, villageCode));
             }
         } catch (Exception e) {
