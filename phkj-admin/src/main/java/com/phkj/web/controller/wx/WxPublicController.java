@@ -36,9 +36,6 @@ public class WxPublicController {
             String msgNonce = request.getParameter("nonce");
             String echostr = request.getParameter("echostr");
             log.info("msgSignature = " + msgSignature + ", msgTimestamp = " + msgTimestamp + ", msgNonce = " + msgNonce + ", echostr = " + echostr);
-//        if (WXPublicUtils.verifyUrl(msgSignature, msgTimestamp, msgNonce)) {
-//            return echostr;
-//        }
             out = response.getWriter();
 
             if (WXPublicUtils.checkSignature(msgSignature, msgTimestamp, msgNonce)) {
