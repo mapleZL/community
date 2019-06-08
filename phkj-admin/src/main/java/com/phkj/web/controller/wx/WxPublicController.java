@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * @author ：zl
@@ -25,18 +28,29 @@ public class WxPublicController {
 
     @RequestMapping("/verifyToken")
     @ResponseBody
-    public String verifyWXToken(HttpServletRequest request) throws AesException {
-        String msgSignature = request.getParameter("signature");
-        String msgTimestamp = request.getParameter("timestamp");
-        String msgNonce = request.getParameter("nonce");
-        String echostr = request.getParameter("echostr");
-        log.info("msgSignature = " + msgSignature + ", msgTimestamp = " + msgTimestamp + ", msgNonce = " + msgNonce + ", echostr = " + echostr);
+    public void verifyWXToken(HttpServletRequest request, HttpServletResponse response) throws AesException {
+        PrintWriter out = null;
+        try {
+            String msgSignature = request.getParameter("signature");
+            String msgTimestamp = request.getParameter("timestamp");
+            String msgNonce = request.getParameter("nonce");
+            String echostr = request.getParameter("echostr");
+            log.info("msgSignature = " + msgSignature + ", msgTimestamp = " + msgTimestamp + ", msgNonce = " + msgNonce + ", echostr = " + echostr);
 //        if (WXPublicUtils.verifyUrl(msgSignature, msgTimestamp, msgNonce)) {
 //            return echostr;
 //        }
-        if (WXPublicUtils.checkSignature(msgSignature, msgTimestamp, msgNonce)) {
-            return echostr;
+            out = response.getWriter();
+
+            if (WXPublicUtils.checkSignature(msgSignature, msgTimestamp, msgNonce)) {
+                log.info("Connect the weixin server is successful.");
+                response.getWriter().write(echostr);
+            }
+        } catch (IOException e) {
+            log.error("Failed to verify the signature!", e);
+        } finally {
+            if (out != null) {
+                out.close();
+            }
         }
-        return null;
     }
 }
