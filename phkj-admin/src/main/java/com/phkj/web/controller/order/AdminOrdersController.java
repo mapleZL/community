@@ -9,6 +9,7 @@ import com.phkj.entity.order.StAppletOrdersParam;
 import com.phkj.entity.order.StAppletOrdersVO;
 import com.phkj.service.order.IStAppletOrdersService;
 import com.phkj.web.controller.BaseController;
+import com.phkj.web.util.WebAdminSession;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class AdminOrdersController extends BaseController {
     @Autowired
     private IStAppletOrdersService stAppletOrdersService;
     Logger log = Logger.getLogger(this.getClass());
+
+    /**
+     * 登录用户角色
+     */
+    private static final String USER_TYPE_1 = "seller";
 
     /**
      * 默认页面
@@ -144,11 +150,16 @@ public class AdminOrdersController extends BaseController {
      * @return
      */
     @RequestMapping(value = "all", method = {RequestMethod.GET})
-    public  @ResponseBody
+    public @ResponseBody
     HttpJsonResult<List<StAppletOrders>> list(HttpServletRequest request,
-                                         ModelMap dataMap) {
+                                              ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
+        String userType = request.getParameter("q_userType");
+        // 登陆者为商户的时候才加上商品查询条件
+        if (USER_TYPE_1.equals(userType)) {
+            queryMap.put("q_sellerId", WebAdminSession.getAdminUser(request).getId() + "");
+        }
         ServiceResult<List<StAppletOrders>> serviceResult = stAppletOrdersService.page(queryMap,
                 pager);
         if (!serviceResult.getSuccess()) {
@@ -164,6 +175,43 @@ public class AdminOrdersController extends BaseController {
         jsonResult.setTotal(pager.getRowsCount());
 
         return jsonResult;
+    }
+
+    /**
+     * gridDatalist数据
+     *
+     * @param request
+     * @param dataMap
+     * @return
+     */
+    @RequestMapping(value = "confirmOrders", method = {RequestMethod.GET})
+    public String confirmOrders(HttpServletRequest request,
+                                ModelMap dataMap) {
+        Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
+        PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
+        String userType = request.getParameter("q_userType");
+        // 登陆者为商户的时候才加上商品查询条件
+        if (USER_TYPE_1.equals(userType)) {
+            queryMap.put("q_sellerId", WebAdminSession.getAdminUser(request).getId() + "");
+            queryMap.put("q_orderState", "1");
+        } else {
+
+        }
+        ServiceResult<List<StAppletOrders>> serviceResult = stAppletOrdersService.page(queryMap,
+                pager);
+        if (!serviceResult.getSuccess()) {
+            if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
+                throw new RuntimeException(serviceResult.getMessage());
+            } else {
+                throw new BusinessException(serviceResult.getMessage());
+            }
+        }
+
+        HttpJsonResult<List<StAppletOrders>> jsonResult = new HttpJsonResult<List<StAppletOrders>>();
+        jsonResult.setRows(serviceResult.getResult());
+        jsonResult.setTotal(pager.getRowsCount());
+
+        return "admin/seller/orders/orderconfirm";
     }
 
     /**
@@ -203,7 +251,7 @@ public class AdminOrdersController extends BaseController {
     }
 
     private ResponseUtil checkParam(List<StAppletOrdersParam> orders) {
-        if(orders == null || orders.isEmpty()){
+        if (orders == null || orders.isEmpty()) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "param is blank", false, null);
         }
         for (StAppletOrdersParam ordersParam : orders) {

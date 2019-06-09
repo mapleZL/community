@@ -11,74 +11,26 @@
 			$('#dataGrid').datagrid('reload',queryParamsHandler());
 		});
 		
-		// 审核通过
-		$('#btn_pass').click(function () {
-			// debugger;
+		// 确认订单
+		$('#a-gridCommit').click(function () {
 			var selected = $('#dataGrid').datagrid('getSelected');
 	 		if(!selected){
 				$.messager.alert('提示','请选择操作行。');
 				return;
 			}
 	 		// 判断是否是已经审核通过的数据
-			if(selected.status != 1){
-				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
+			if(selected.status == 1){
+				$.messager.alert('提示','该条订单已处理,请不要重复操作。');
 				return;
 			}
-	 		$.messager.confirm('确认', '确定审核通过该条申请吗', function(r){
+	 		$.messager.confirm('确认', '确定审核通过该条订单吗', function(r){
 				if (r){
 					$.messager.progress({text:"提交中..."});
 					$.ajax({
 						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/car/passInfo",
+					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/confirm",
 						dataType: "json",
-					    data: "id=" + selected.id,
-					    cache:false,
-						success:function(data, textStatus){
-							if (data.success) {
-								$('#dataGrid').datagrid('reload');
-						    } else {
-						    	$.messager.alert('提示',data.message);
-						    	$('#dataGrid').datagrid('reload');
-						    }
-							$.messager.progress('close');
-						}
-					});
-			    }
-			});
-		});
-		
-		$("#newstypeWin").window({
-			width : 750,
-			height : 420,
-			title : "车辆图片",
-			closed : true,
-			shadow : false,
-			modal : true,
-			collapsible : false,
-			minimizable : false,
-			maximizable : false
-		});
-		
-		// 审核不通过
-		$('#btn_noPass').click(function () {
-			var selected = $('#dataGrid').datagrid('getSelected');
-	 		if(!selected){
-				$.messager.alert('提示','请选择操作行。');
-				return;
-			}
-			// 判断是否是已经审核通过的数据
-			if(selected.status != 1){
-				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
-				return;
-			}
-	 		$.messager.confirm('确认', '确定驳回该条申请吗？', function(r){
-				if (r){
-					$.messager.progress({text:"提交中..."});
-					$.ajax({
-						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/member/car/noPassInfo",
-						dataType: "json",
-					    data: "id=" + selected.id,
+					    data: "orderSn=" + selected.orderSn,
 					    cache:false,
 						success:function(data, textStatus){
 							if (data.success) {
@@ -95,27 +47,6 @@
 		});
 		
 	});
-	
-	function imageFormat(value, row, index) {
-		return "<a class='newstype_view' onclick='showimg($(this).attr(\"imgpath\"));' href='javascript:;' imgpath='"
-				+ value + "'>点击查看</a>";
-	}
-	
-	function showimg(href) {
-		if (href && href != 'null') {
-			var imgs = JSON.parse(href);
-			var html = '';
-			for (var i = 0; i < imgs.length; i++) {
-				html += "<img src='" + imgs[i] + "' >"
-			}
-			$("#newstypeTree").html(html);
-			$("#newstypeWin").window('open');
-		} else {
-			$.messager.alert('提示','该条记录暂无图片。');
-			return;
-		}
-	}
-
 
 	function stateFormat(value,row,index){
 		return codeBox["ORDERS_STATE"][value];
@@ -163,7 +94,7 @@
 						,pagination:true
 						,pageSize:'${pageSize}'
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/all'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/confirm'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
@@ -171,17 +102,18 @@
 			<tr>
 				<th field="id" hidden="hidden"></th>
 				<th field="orderSn" width="150" align="center">订单编号</th>
-				<th field="orderType" width="100" align="center" formatter="ordersTypeFormat">订单类型</th>
-				<th field="moneyProduct" width="50" align="center">订单总价</th>
+				<th field="orderType" width="150" align="center" formatter="ordersTypeFormat">订单类型</th>
+				<th field="moneyProduct" width="150" align="center">订单总价</th>
 				<th field="createTime" width="150" align="center">创建时间</th>
 				<th field="updateTime" width="150" align="center">修改时间</th>
-				<th field="orderState" width="90" align="center" formatter="stateFormat">订单状态</th>
+				<th field="orderState" width="150" align="center" formatter="stateFormat">订单状态</th>
 			</tr>
 		</thead>
 	</table>
 
 	<div id="gridTools">
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+		<a id="a-gridCommit" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">确认订单</a>
 	</div>
 	
 </div>

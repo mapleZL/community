@@ -117,7 +117,7 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 changeProductStock(1, ordersParam.getProductId(), ordersParam.getNumber());
                 // 删除购物车中商品
                 Integer cartId = ordersParam.getCartId();
-                if (cartId != null || cartId != 0) {
+                if (cartId != null) {
                     stAppletCartModel.delCartById(cartId);
                 }
             }

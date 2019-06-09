@@ -114,11 +114,11 @@
         <tr>
             <th field="id" hidden="hidden"></th>
             <th field="orderSn" width="150" align="center">订单编号</th>
-            <th field="orderType" width="100" align="center" formatter="ordersTypeFormat">订单类型</th>
-            <th field="moneyProduct" width="50" align="center">订单总价</th>
+            <th field="orderType" width="150" align="center" formatter="ordersTypeFormat">订单类型</th>
+            <th field="moneyProduct" width="150" align="center">订单总价</th>
             <th field="createTime" width="150" align="center">创建时间</th>
             <th field="updateTime" width="150" align="center">修改时间</th>
-            <th field="orderState" width="90" align="center" formatter="stateFormat">订单状态</th>
+            <th field="orderState" width="150" align="center" formatter="stateFormat">订单状态</th>
         </tr>
         </thead>
     </table>
