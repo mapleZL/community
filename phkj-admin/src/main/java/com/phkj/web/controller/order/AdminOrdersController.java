@@ -50,11 +50,7 @@ public class AdminOrdersController extends BaseController {
 
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         dataMap.put("queryMap", queryMap);
-<<<<<<< HEAD
-        return "admin/seller/orders/listorder";
-=======
         return "admin/seller/orders/listorders";
->>>>>>> 37692b8ceac24cb8da635252062b92aa452ed2ed
     }
 
     /**
