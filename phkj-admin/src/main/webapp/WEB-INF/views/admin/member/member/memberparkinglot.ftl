@@ -177,10 +177,10 @@
 	</table>
 
 	<div id="gridTools">
-	<@shiro.hasPermission name="/admin/seller/manage/unfreeze">
+	<@shiro.hasPermission name="/admin/member/parking/lot/passInfo">
 		<a id="btn_pass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">审核通过</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/seller/manage/freeze">
+		<@shiro.hasPermission name="/admin/member/parking/lot/noPassInfo">
 		<a id="btn_noPass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">审核不通过</a>
 		</@shiro.hasPermission>
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
