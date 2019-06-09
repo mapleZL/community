@@ -3,9 +3,13 @@ package com.phkj.service.impl.order;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.alibaba.fastjson.JSON;
+import com.phkj.core.PagerInfo;
+import com.phkj.entity.member.MemberCar;
 import com.phkj.entity.product.StAppletProduct;
 import com.phkj.model.product.StAppletProductModel;
 import org.apache.log4j.LogManager;
@@ -26,6 +30,7 @@ import com.phkj.model.order.StAppletOrdersModel;
 import com.phkj.model.order.StAppletOrdersProductModel;
 import com.phkj.model.seller.StAppletSellerModel;
 import com.phkj.service.order.IStAppletOrdersService;
+import org.springframework.util.Assert;
 
 @Service(value = "stAppletOrdersService")
 public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
@@ -100,10 +105,11 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 product.setMoneyPrice(ordersParam.getMoneyPrice());
                 product.setNumber(ordersParam.getNumber());
                 product.setSpecInfo(ordersParam.getSpecInfo());
+                product.setProductSku(ordersParam.getProductSku());
                 product.setCreateTime(date);
                 product.setUpdateTime(date);
                 list.add(product);
-                // TODO 生成订单时,库存数量随之减少
+                // 生成订单时,库存数量随之减少
                 changeProductStock(1, ordersParam.getProductId(), ordersParam.getNumber());
             }
             stAppletOrdersProductModel.batchInsertToOrdersProduct(list);
@@ -262,5 +268,31 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                     e);
         }
         return result;
+    }
+
+    @Override
+    public ServiceResult<List<StAppletOrders>> page(Map<String, String> queryMap, PagerInfo pager) {
+        ServiceResult<List<StAppletOrders>> serviceResult = new ServiceResult<>();
+        serviceResult.setPager(pager);
+        try {
+            Assert.notNull(stAppletOrdersModel, "Property 'stAppletOrdersModel' is required.");
+            Integer start = 0, size = 0;
+            if (pager != null) {
+                pager.setRowsCount(stAppletOrdersModel.getOrdersCount(queryMap));
+                start = pager.getStart();
+                size = pager.getPageSize();
+            }
+            serviceResult.setResult(stAppletOrdersModel.getOrdersList(queryMap, start, size));
+        } catch (BusinessException e) {
+            serviceResult.setSuccess(false);
+            serviceResult.setMessage(e.getMessage());
+            log.error("[IStAppletOrdersService][page]查询订单表时出现异常：" + e.getMessage());
+        } catch (Exception e) {
+            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
+            log.error("[IStAppletOrdersService][page]param1:" + JSON.toJSONString(queryMap)
+                    + " &param2:" + JSON.toJSONString(pager));
+            log.error("[IMemberCarService][page]查询订单信息发生异常:", e);
+        }
+        return serviceResult;
     }
 }

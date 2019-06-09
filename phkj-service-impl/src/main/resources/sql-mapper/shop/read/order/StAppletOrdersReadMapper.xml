@@ -66,4 +66,32 @@
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
 	</select>
 
+	<sql id="getCondition">
+		<where>
+			<if test="queryMap.q_seller_id != null and queryMap.q_seller_id !=''">
+				and seller_id = #{queryMap.q_seller_id}
+			</if>
+			<if test="queryMap.q_order_state != null and queryMap.q_order_state !=''">
+				and order_state = #{queryMap.q_order_state}
+			</if>
+		</where>
+	</sql>
+
+	<select id="getOrdersCount" parameterType="java.util.Map" resultType="Integer">
+		select
+		count(*)
+		from `st_applet_orders`
+		<include refid="getCondition"/>
+	</select>
+
+
+	<select id="getOrdersList" parameterType="java.util.Map" resultMap="StAppletOrdersResult">
+		select
+		*
+		from `st_applet_orders`
+		<include refid="getCondition"/>
+		order by `create_time` desc
+		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+	</select>
+
 </mapper>

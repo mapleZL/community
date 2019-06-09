@@ -1,6 +1,7 @@
 package com.phkj.service.order;
 
 
+import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.order.StAppletOrders;
 import com.phkj.entity.order.StAppletOrdersParam;
@@ -8,6 +9,7 @@ import com.phkj.entity.order.StAppletOrdersProduct;
 import com.phkj.entity.order.StAppletOrdersVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IStAppletOrdersService {
 
@@ -52,4 +54,13 @@ public interface IStAppletOrdersService {
      * @return
      */
     ServiceResult<List<StAppletOrdersVO>> detail(String orderSn);
+
+    /**
+     * 获取订单列表
+     *
+     * @param queryMap
+     * @param pager
+     * @return
+     */
+    ServiceResult<List<StAppletOrders>> page(Map<String, String> queryMap, PagerInfo pager);
 }

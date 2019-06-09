@@ -1,22 +1,28 @@
 package com.phkj.web.controller.order;
 
-import com.phkj.core.ResponseStateEnum;
-import com.phkj.core.ServiceResult;
+import com.phkj.core.*;
+import com.phkj.core.exception.BusinessException;
 import com.phkj.core.response.ResponseUtil;
-import com.phkj.entity.order.*;
+import com.phkj.entity.order.StAppletOrderBO;
+import com.phkj.entity.order.StAppletOrders;
+import com.phkj.entity.order.StAppletOrdersParam;
+import com.phkj.entity.order.StAppletOrdersVO;
 import com.phkj.service.order.IStAppletOrdersService;
 import com.phkj.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Filename: AdminOrdersController.java
@@ -30,6 +36,22 @@ public class AdminOrdersController extends BaseController {
     @Autowired
     private IStAppletOrdersService stAppletOrdersService;
     Logger log = Logger.getLogger(this.getClass());
+
+    /**
+     * 默认页面
+     *
+     * @param dataMap
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "", method = {RequestMethod.GET})
+    public String index(HttpServletRequest request, ModelMap dataMap) throws Exception {
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+
+        Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
+        dataMap.put("queryMap", queryMap);
+        return "admin/order/orders/listorder";
+    }
 
     /**
      * 商家确认订单
@@ -113,8 +135,39 @@ public class AdminOrdersController extends BaseController {
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
     }
 
+
     /**
-     * 订单列表
+     * gridDatalist数据
+     *
+     * @param request
+     * @param dataMap
+     * @return
+     */
+    @RequestMapping(value = "all", method = {RequestMethod.GET})
+    public  @ResponseBody
+    HttpJsonResult<List<StAppletOrders>> list(HttpServletRequest request,
+                                         ModelMap dataMap) {
+        Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
+        PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
+        ServiceResult<List<StAppletOrders>> serviceResult = stAppletOrdersService.page(queryMap,
+                pager);
+        if (!serviceResult.getSuccess()) {
+            if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
+                throw new RuntimeException(serviceResult.getMessage());
+            } else {
+                throw new BusinessException(serviceResult.getMessage());
+            }
+        }
+
+        HttpJsonResult<List<StAppletOrders>> jsonResult = new HttpJsonResult<List<StAppletOrders>>();
+        jsonResult.setRows(serviceResult.getResult());
+        jsonResult.setTotal(pager.getRowsCount());
+
+        return jsonResult;
+    }
+
+    /**
+     * 订单详情
      *
      * @param orderSn
      * @return
