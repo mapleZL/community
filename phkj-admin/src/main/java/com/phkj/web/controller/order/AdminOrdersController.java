@@ -31,7 +31,7 @@ import java.util.Map;
  * @Author: 陆帅 * @Email: lu1632278229@sina.cn
  */
 @Controller
-@RequestMapping(value = "admin/order/orders")
+@RequestMapping(value = "/admin/order/orders")
 public class AdminOrdersController extends BaseController {
     @Autowired
     private IStAppletOrdersService stAppletOrdersService;
@@ -50,7 +50,7 @@ public class AdminOrdersController extends BaseController {
 
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         dataMap.put("queryMap", queryMap);
-        return "admin/order/orders/listorder";
+        return "admin/seller/orders/listorder";
     }
 
     /**

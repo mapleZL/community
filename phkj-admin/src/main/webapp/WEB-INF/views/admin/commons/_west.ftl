@@ -43,10 +43,10 @@
 	<@shiro.hasPermission name="/admin_menu_orders">
 	<div title="订单管理" class="ra_div">
 		<@shiro.hasPermission name="/admin/order/orders/confirm">
-		<a id='405' href="javascript:void(0);" onclick="addTab('待确认订单', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/confirm')">待确认订单</a>
+		<a href="javascript:void(0);" onclick="addTab('待确认订单', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/confirm')">待确认订单</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/order/orders/all">
-		<a id='406' href="javascript:void(0);" onclick="addTab('所有订单', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/all')">所有订单</a>
+		<@shiro.hasPermission name="/admin/order/orders">
+		<a href="javascript:void(0);" onclick="addTab('所有订单', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders')">所有订单</a>
 		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>
