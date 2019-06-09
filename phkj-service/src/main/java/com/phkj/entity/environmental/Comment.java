@@ -12,6 +12,16 @@ public class Comment {
 
     private String content;
 
+    private String villageCode ;
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
+
     public Comment() {
     }
 
