@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.write.resvervation.StAppletReservationWriteMapper">
+  <resultMap id="BaseResultMap" type="com.phkj.entity.resvervation.StAppletReservation">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="house" jdbcType="VARCHAR" property="house" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="examine_id" jdbcType="VARCHAR" property="examineId" />
+    <result column="examine_name" jdbcType="VARCHAR" property="examineName" />
+    <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId" />
+    <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
+    <result column="repair_id" jdbcType="VARCHAR" property="repairId" />
+    <result column="repair_name" jdbcType="VARCHAR" property="repairName" />
+    <result column="sts" jdbcType="VARCHAR" property="sts" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="modify_time" jdbcType="VARCHAR" property="modifyTime" />
+    <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
+
+  </resultMap>
+  <insert id="insert" parameterType="com.phkj.entity.resvervation.StAppletReservation">
+    insert into st_applet_reservation (id, type, house, 
+      create_user_id, create_user_name, telephone, 
+      start_time, end_time, content, 
+      examine_id, examine_name, modify_user_id, 
+      modify_user_name, repair_id, repair_name, 
+      sts, status ,create_time,modify_time,village_code)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{house,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=VARCHAR}, #{createUserName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}, 
+      #{examineId,jdbcType=VARCHAR}, #{examineName,jdbcType=VARCHAR}, #{modifyUserId,jdbcType=VARCHAR}, 
+      #{modifyUserName,jdbcType=VARCHAR}, #{repairId,jdbcType=VARCHAR}, #{repairName,jdbcType=VARCHAR}, 
+      #{sts,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{villageCode,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.phkj.entity.resvervation.StAppletReservation">
+    update st_applet_reservation
+    <set>
+      <if test="type != null and type != ''">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="house != null and house != ''">
+        house = #{house,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null and createUserName != ''">
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null and telephone != ''">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null and startTime != ''">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null and endTime != ''">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null and content != ''">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="examineId != null and examineId != ''">
+        examine_id = #{examineId,jdbcType=VARCHAR},
+      </if>
+      <if test="examineName != null and examineName != ''">
+        examine_name = #{examineName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null and modifyUserId != ''">
+        modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserName != null and modifyUserName != ''">
+        modify_user_name = #{modifyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="repairId != null and repairId != ''">
+        repair_id = #{repairId,jdbcType=VARCHAR},
+      </if>
+      <if test="repairName != null and repairName != ''">
+        repair_name = #{repairName,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null and sts != ''">
+        sts = #{sts,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null and status != ''">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null and createTime != ''">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="villageCode != null and villageCode != ''">
+        village_code = #{villageCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertSelective" parameterType="com.phkj.entity.resvervation.StAppletReservation">
+    insert into st_applet_reservation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="house != null">
+        house,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createUserName != null">
+        create_user_name,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="examineId != null">
+        examine_id,
+      </if>
+      <if test="examineName != null">
+        examine_name,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="modifyUserName != null">
+        modify_user_name,
+      </if>
+      <if test="repairId != null">
+        repair_id,
+      </if>
+      <if test="repairName != null">
+        repair_name,
+      </if>
+      <if test="sts != null">
+        sts,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="house != null">
+        #{house,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null">
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="examineId != null">
+        #{examineId,jdbcType=VARCHAR},
+      </if>
+      <if test="examineName != null">
+        #{examineName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserName != null">
+        #{modifyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="repairId != null">
+        #{repairId,jdbcType=VARCHAR},
+      </if>
+      <if test="repairName != null">
+        #{repairName,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null">
+        #{sts,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

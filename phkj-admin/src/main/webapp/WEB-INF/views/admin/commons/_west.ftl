@@ -134,7 +134,7 @@
         -->
 	<@shiro.hasPermission name="/admin_menu_shareInfo">
 		<div title="邻里共享" class="ra_div">
-			<@shiro.hasPermission name="/admin/share/">
+			<@shiro.hasPermission name="/admin/share">
                 <a href="javascript:void(0);" onclick="addTab('共享大厅', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/')">共享大厅</a>
 			</@shiro.hasPermission>
 			<@shiro.hasPermission name="/admin/share/system">
@@ -152,20 +152,20 @@
 	</@shiro.hasPermission>
 	<@shiro.hasPermission name="/admin_menu_environmental">
 		<div title="环境秩序" class="ra_div">
-			<@shiro.hasPermission name="/admin/overtime/">
+			<@shiro.hasPermission name="/admin/overtime">
                 <a href="javascript:void(0);" onclick="addTab('时效管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/')">时效管理</a>
 			</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/environ/">
+		<@shiro.hasPermission name="/admin/environ">
             <a href="javascript:void(0);" onclick="addTab('环境秩序', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/environ/')">环境秩序</a>
         </@shiro.hasPermission>
         </div>
 	</@shiro.hasPermission>
 	<@shiro.hasPermission name="/admin_menu_lostfound">
 		<div title="失物招领" class="ra_div">
-			<@shiro.hasPermission name="/admin/lost/">
+			<@shiro.hasPermission name="/admin/lost">
                 <a href="javascript:void(0);" onclick="addTab('失物招领大厅', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/lost/')">失物招领大厅</a>
 			</@shiro.hasPermission>
-			<@shiro.hasPermission name="/admin/lost/system/">
+			<@shiro.hasPermission name="/admin/lost/system">
                 <a href="javascript:void(0);" onclick="addTab('社区物业发布', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/lost/system')">物业登记</a>
 			</@shiro.hasPermission>
         </div>
