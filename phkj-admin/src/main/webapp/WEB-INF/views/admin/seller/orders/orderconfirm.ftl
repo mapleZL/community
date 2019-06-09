@@ -72,10 +72,10 @@
 						<label class="lab-item">订单编号 :</label>
 						<input type="text" class="txt" id="q_order_sn" name="q_order_sn" value="${q_order_sn!''}"/>
 					</p>
-					<p class="p4 p-item">
-						<label class="lab-item">状态 :</label>
-						<@cont.select id="q_order_state" name="q_order_state" value="${q_order_state!''}" codeDiv="ORDERS_STATE" mode="1"/>
-					</p>
+					<#--<p class="p4 p-item">-->
+						<#--<label class="lab-item">状态 :</label>-->
+						<#--<@cont.select id="q_order_state" name="q_order_state" value="${q_order_state!''}" codeDiv="ORDERS_STATE" mode="1"/>-->
+					<#--</p>-->
 				</div>
 			</form>
 		</div>
@@ -94,7 +94,7 @@
 						,pagination:true
 						,pageSize:'${pageSize}'
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/confirm'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/confirmOrders'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">

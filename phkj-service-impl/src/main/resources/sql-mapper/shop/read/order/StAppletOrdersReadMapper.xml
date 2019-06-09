@@ -74,6 +74,9 @@
 			<if test="queryMap.q_order_state != null and queryMap.q_order_state !=''">
 				and order_state = #{queryMap.q_order_state}
 			</if>
+			<if test="queryMap.q_order_sn != null and queryMap.q_order_sn !=''">
+				and order_sn = #{queryMap.q_order_sn}
+			</if>
 		</where>
 	</sql>
 

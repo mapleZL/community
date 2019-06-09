@@ -4,7 +4,6 @@
 <script>
 	$(function(){
 		<#noescape>
-            debugger
 	        codeBox = eval('(${initJSCodeContainer("ORDERS_TYPE","ORDERS_STATE")})');
 	    </#noescape>
 		// 删除
