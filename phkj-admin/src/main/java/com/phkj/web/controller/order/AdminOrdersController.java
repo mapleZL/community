@@ -60,6 +60,22 @@ public class AdminOrdersController extends BaseController {
     }
 
     /**
+     * 默认页面
+     *
+     * @param dataMap
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/confirmorder", method = {RequestMethod.GET})
+    public String confirm(HttpServletRequest request, ModelMap dataMap) throws Exception {
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+
+        Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
+        dataMap.put("queryMap", queryMap);
+        return "admin/seller/orders/orderconfirm";
+    }
+
+    /**
      * 商家确认订单
      *
      * @param orderSn
@@ -193,11 +209,11 @@ public class AdminOrdersController extends BaseController {
         String userType = request.getParameter("q_userType");
         // 登陆者为商户的时候才加上商品查询条件
         if (USER_TYPE_1.equals(userType)) {
-            queryMap.put("q_sellerId", WebAdminSession.getAdminUser(request).getId() + "");
+            queryMap.put("q_seller_id", WebAdminSession.getAdminUser(request).getId() + "");
         } else {
 
         }
-        queryMap.put("q_orderState", "1");
+        queryMap.put("q_order_state", "1");
         ServiceResult<List<StAppletOrders>> serviceResult = stAppletOrdersService.page(queryMap,
                 pager);
         if (!serviceResult.getSuccess()) {
@@ -211,7 +227,6 @@ public class AdminOrdersController extends BaseController {
         HttpJsonResult<List<StAppletOrders>> jsonResult = new HttpJsonResult<List<StAppletOrders>>();
         jsonResult.setRows(serviceResult.getResult());
         jsonResult.setTotal(pager.getRowsCount());
-//        dataMap.put("jsonResult", jsonResult);
         return jsonResult;
     }
 

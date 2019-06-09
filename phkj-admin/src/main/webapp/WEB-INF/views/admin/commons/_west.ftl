@@ -42,8 +42,8 @@
 
 	<@shiro.hasPermission name="/admin_menu_orders">
 	<div title="订单管理" class="ra_div">
-		<@shiro.hasPermission name="/admin/order/orders/confirmOrders">
-		<a href="javascript:void(0);" onclick="addTab('待确认订单', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/confirmOrders')">待确认订单</a>
+		<@shiro.hasPermission name="/admin/order/orders/confirmorder">
+		<a href="javascript:void(0);" onclick="addTab('待确认订单', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/confirmorder')">待确认订单</a>
 		</@shiro.hasPermission>
 		<@shiro.hasPermission name="/admin/order/orders">
 		<a href="javascript:void(0);" onclick="addTab('所有订单', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders')">所有订单</a>
