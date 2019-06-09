@@ -39,6 +39,7 @@ public class StAppletOrdersParam implements Serializable {
     private Integer productId;
     private String productName;
     private Integer number;
+    private Integer cartId;
     private String specInfo;
     private String productSku;
     private String remark;
@@ -153,5 +154,13 @@ public class StAppletOrdersParam implements Serializable {
 
     public void setProductSku(String productSku) {
         this.productSku = productSku;
+    }
+
+    public Integer getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Integer cartId) {
+        this.cartId = cartId;
     }
 }

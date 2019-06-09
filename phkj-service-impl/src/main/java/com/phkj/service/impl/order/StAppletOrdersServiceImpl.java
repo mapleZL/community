@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.phkj.core.PagerInfo;
 import com.phkj.entity.member.MemberCar;
 import com.phkj.entity.product.StAppletProduct;
+import com.phkj.model.cart.StAppletCartModel;
 import com.phkj.model.product.StAppletProductModel;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -47,6 +48,9 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
 
     @Resource
     private StAppletProductModel stAppletProductModel;
+
+    @Resource
+    private StAppletCartModel stAppletCartModel;
 
     /**
      * 根据id取得订单
@@ -111,6 +115,11 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 list.add(product);
                 // 生成订单时,库存数量随之减少
                 changeProductStock(1, ordersParam.getProductId(), ordersParam.getNumber());
+                // 删除购物车中商品
+                Integer cartId = ordersParam.getCartId();
+                if (cartId != null || cartId != 0) {
+                    stAppletCartModel.delCartById(cartId);
+                }
             }
             stAppletOrdersProductModel.batchInsertToOrdersProduct(list);
             result.setResult(stAppletOrdersModel.saveStAppletOrders(stAppletOrders));
