@@ -411,7 +411,7 @@ public class ProductController extends BaseController {
 
         }
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
-        String userType = request.getParameter("seller");
+        String userType = request.getParameter("q_userType");
         // 登陆者为商户的时候才加上商品查询条件
         if (USER_TYPE_1.equals(userType)) {
             queryMap.put("q_sellerId", WebAdminSession.getAdminUser(request).getId() + "");
