@@ -175,6 +175,9 @@ public class AdminOrdersController extends BaseController {
         // 登陆者为商户的时候才加上商品查询条件
         if (USER_TYPE_1.equals(userType)) {
             queryMap.put("q_sellerId", WebAdminSession.getAdminUser(request).getId() + "");
+        } else {
+            HttpJsonResult<List<StAppletOrders>> jsonResult = new HttpJsonResult<List<StAppletOrders>>();
+            return jsonResult;
         }
         ServiceResult<List<StAppletOrders>> serviceResult = stAppletOrdersService.page(queryMap,
                 pager);
@@ -211,7 +214,8 @@ public class AdminOrdersController extends BaseController {
         if (USER_TYPE_1.equals(userType)) {
             queryMap.put("q_seller_id", WebAdminSession.getAdminUser(request).getId() + "");
         } else {
-
+            HttpJsonResult<List<StAppletOrders>> jsonResult = new HttpJsonResult<List<StAppletOrders>>();
+            return jsonResult;
         }
         queryMap.put("q_order_state", "1");
         ServiceResult<List<StAppletOrders>> serviceResult = stAppletOrdersService.page(queryMap,
