@@ -50,7 +50,11 @@ public class AdminOrdersController extends BaseController {
 
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         dataMap.put("queryMap", queryMap);
+<<<<<<< HEAD
         return "admin/seller/orders/listorder";
+=======
+        return "admin/seller/orders/listorders";
+>>>>>>> 37692b8ceac24cb8da635252062b92aa452ed2ed
     }
 
     /**
@@ -89,7 +93,7 @@ public class AdminOrdersController extends BaseController {
         }
         StAppletOrders stAppletOrders = new StAppletOrders();
         stAppletOrders.setOrderSn(orderSn);
-        stAppletOrders.setOrderState(6);
+        stAppletOrders.setOrderState(5);
         stAppletOrders.setUpdateTime(new Date());
         ServiceResult<Integer> result = stAppletOrdersService.updateStAppletOrders(stAppletOrders);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());

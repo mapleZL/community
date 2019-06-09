@@ -142,16 +142,18 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
     private synchronized void changeProductStock(int type, Integer productId, Integer number) {
         // type为1表示生成订单 2表示取消订单
         StAppletProduct product = stAppletProductModel.getStAppletProductById(productId);
-        StAppletProduct stAppletProduct = new StAppletProduct();
-        if (type == 1) {
-            stAppletProduct.setProductStock(product.getProductStock() - number >= 0 ? product.getProductStock() - number : 0);
-        } else if (type == 2) {
-            stAppletProduct.setProductStock(product.getProductStock() + number);
-        }
-        stAppletProduct.setId(productId);
-        Integer i = stAppletProductModel.update(stAppletProduct);
-        if (i == 0) {
-            log.info("更新商品库存量失败, productId: " + productId);
+        if (product != null) {
+            StAppletProduct stAppletProduct = new StAppletProduct();
+            if (type == 1) {
+                stAppletProduct.setProductStock(product.getProductStock() - number >= 0 ? product.getProductStock() - number : 0);
+            } else if (type == 2) {
+                stAppletProduct.setProductStock(product.getProductStock() + number);
+            }
+            stAppletProduct.setId(productId);
+            Integer i = stAppletProductModel.update(stAppletProduct);
+            if (i == 0) {
+                log.info("更新商品库存量失败, productId: " + productId);
+            }
         }
     }
 
