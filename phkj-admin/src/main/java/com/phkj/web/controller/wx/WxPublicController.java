@@ -59,15 +59,19 @@ public class WxPublicController {
     @RequestMapping("/person")
     @ResponseBody
     public String person(String code, Model model) {
+        JSONObject userInfo = new JSONObject();
         if (code != null) {
             //1.通过code来换取access_token
             JSONObject json = WeChatUtil.getWebAccessToken(code);
             //获取网页授权access_token凭据
             String webAccessToken = json.getString("access_token");
+            log.info("webAccessToken, " + webAccessToken);
             //获取用户openid
             String openid = json.getString("openid");
+            log.info("openid, " + openid);
             //2.通过access_token和openid拉取用户信息
-            JSONObject userInfo = WeChatUtil.getUserInfo(webAccessToken, openid);
+            userInfo = WeChatUtil.getUserInfo(webAccessToken, openid);
+            log.info("userInfo, " + userInfo);
             //获取json对象中的键值对集合
             Set<Map.Entry<String, Object>> entries = userInfo.entrySet();
             for (Map.Entry<String, Object> entry : entries) {
@@ -75,6 +79,6 @@ public class WxPublicController {
                 model.addAttribute(entry.getKey(), entry.getValue());
             }
         }
-        return "admin/wx/person";
+        return userInfo.toJSONString();
     }
 }
