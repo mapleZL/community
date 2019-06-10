@@ -470,12 +470,12 @@ public class ProductController extends BaseController {
     @RequestMapping(value = "/pageList", method = { RequestMethod.GET })
     public @ResponseBody HttpJsonResult<List<StAppletProduct>> list(Integer start, Integer pageSize,
                                                                     Integer productCateId,
-                                                                    String villageCode) {
+                                                                    String villageCode, String search) {
         HttpJsonResult<List<StAppletProduct>> result = new HttpJsonResult<>();
         try {
-            List<StAppletProduct> list = productService.list(start, pageSize, productCateId, villageCode);
+            List<StAppletProduct> list = productService.list(start, pageSize, productCateId, villageCode, search);
             result.setData(list);
-            Integer count = productService.count(productCateId, villageCode);
+            Integer count = productService.count(productCateId, villageCode, search);
             result.setTotal(count);
         } catch (Exception e) {
             result.setMessage("查询商品列表失败");

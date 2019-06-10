@@ -70,7 +70,7 @@ public interface IStAppletProductService {
      * @return
      */
     List<StAppletProduct> list(Integer start, Integer pageSize, Integer productCateId,
-                               String villageCode);
+                               String villageCode, String search);
 
     /**
      * 查询总数
@@ -78,5 +78,5 @@ public interface IStAppletProductService {
      * @param villageCode
      * @return
      */
-    Integer count(Integer productCateId, String villageCode);
+    Integer count(Integer productCateId, String villageCode, String search);
 }

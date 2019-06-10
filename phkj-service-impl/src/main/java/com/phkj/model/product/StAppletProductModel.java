@@ -179,8 +179,8 @@ public class StAppletProductModel {
      * @return
      */
     public List<StAppletProduct> list(Integer start, Integer pageSize, Integer productCateId,
-                                      String villageCode) {
-        return stAppletProductReadDao.list(start, pageSize, productCateId, villageCode);
+                                      String villageCode, String search) {
+        return stAppletProductReadDao.list(start, pageSize, productCateId, villageCode, search);
     }
 
     /**
@@ -189,8 +189,8 @@ public class StAppletProductModel {
      * @param villageCode
      * @return
      */
-    public Integer count(Integer productCateId, String villageCode) {
-        return stAppletProductReadDao.countWx(productCateId, villageCode);
+    public Integer count(Integer productCateId, String villageCode, String search) {
+        return stAppletProductReadDao.countWx(productCateId, villageCode, search);
     }
 
 }

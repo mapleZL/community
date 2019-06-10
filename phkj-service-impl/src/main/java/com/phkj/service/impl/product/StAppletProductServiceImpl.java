@@ -163,11 +163,11 @@ public class StAppletProductServiceImpl implements IStAppletProductService {
 
     @Override
     public List<StAppletProduct> list(Integer pageNum, Integer pageSize, Integer productCateId,
-                                      String villageCode) {
+                                      String villageCode, String search) {
         List<StAppletProduct> list = null;
         try {
             Integer start = (pageNum - 1) * pageSize;
-            list = stAppletProductModel.list(start, pageSize, productCateId, villageCode);
+            list = stAppletProductModel.list(start, pageSize, productCateId, villageCode, search);
         } catch (Exception e) {
             log.error("ProductServiceImpl updateByIds param:" + pageNum + pageSize + productCateId + villageCode);
             log.error("ProductServiceImpl list exception:", e);
@@ -177,7 +177,7 @@ public class StAppletProductServiceImpl implements IStAppletProductService {
 
 
     @Override
-    public Integer count(Integer productCateId, String villageCode) {
-        return stAppletProductModel.count(productCateId, villageCode);
+    public Integer count(Integer productCateId, String villageCode, String search) {
+        return stAppletProductModel.count(productCateId, villageCode, search);
     }
 }

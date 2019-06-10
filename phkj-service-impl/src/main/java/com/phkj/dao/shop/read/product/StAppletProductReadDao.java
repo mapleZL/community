@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.junit.runners.Parameterized.Parameters;
 import org.springframework.stereotype.Repository;
 
 import com.phkj.entity.product.StAppletProduct;
@@ -22,9 +23,10 @@ public interface StAppletProductReadDao {
 
     List<StAppletProduct> list(@Param("start") Integer start, @Param("pageSize") Integer pageSize,
                                @Param("productCateId") Integer productCateId,
-                               @Param("villageCode") String villageCode);
+                               @Param("villageCode") String villageCode,
+                               @Param("search") String search);
 
     Integer countWx(@Param("productCateId") Integer productCateId,
-                    @Param("villageCode") String villageCode);
+                    @Param("villageCode") String villageCode, @Param("search") String search);
 
 }
