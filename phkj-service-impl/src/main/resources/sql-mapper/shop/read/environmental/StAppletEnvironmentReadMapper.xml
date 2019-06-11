@@ -45,7 +45,7 @@
       WHEN '6' THEN
       '违章搭建'
       WHEN '7' THEN
-      '违规停车' end as 'classify',
+      '违规停车' WHEN '8' then '宠物问题' else '其他' end as 'classify',
       title,
       content,
       img_url,
