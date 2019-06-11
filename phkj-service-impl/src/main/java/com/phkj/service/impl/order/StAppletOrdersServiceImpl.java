@@ -7,18 +7,15 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.alibaba.fastjson.JSON;
-import com.phkj.core.PagerInfo;
-import com.phkj.entity.member.MemberCar;
-import com.phkj.entity.product.StAppletProduct;
-import com.phkj.model.cart.StAppletCartModel;
-import com.phkj.model.product.StAppletProductModel;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
+import com.alibaba.fastjson.JSON;
 import com.phkj.core.ConstantsEJS;
+import com.phkj.core.PagerInfo;
 import com.phkj.core.RandomUtil;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.exception.BusinessException;
@@ -26,12 +23,14 @@ import com.phkj.entity.order.StAppletOrders;
 import com.phkj.entity.order.StAppletOrdersParam;
 import com.phkj.entity.order.StAppletOrdersProduct;
 import com.phkj.entity.order.StAppletOrdersVO;
+import com.phkj.entity.product.StAppletProduct;
 import com.phkj.entity.seller.StAppletSeller;
+import com.phkj.model.cart.StAppletCartModel;
 import com.phkj.model.order.StAppletOrdersModel;
 import com.phkj.model.order.StAppletOrdersProductModel;
+import com.phkj.model.product.StAppletProductModel;
 import com.phkj.model.seller.StAppletSellerModel;
 import com.phkj.service.order.IStAppletOrdersService;
-import org.springframework.util.Assert;
 
 @Service(value = "stAppletOrdersService")
 public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
@@ -305,5 +304,10 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
             log.error("[IMemberCarService][page]查询订单信息发生异常:", e);
         }
         return serviceResult;
+    }
+
+    @Override
+    public StAppletOrders getNormalAddress(Integer memberId) {
+        return stAppletOrdersModel.getNormalAddress(memberId);
     }
 }

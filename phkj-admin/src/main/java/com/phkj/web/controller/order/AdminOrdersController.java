@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -249,6 +251,23 @@ public class AdminOrdersController extends BaseController {
         }
         ServiceResult<List<StAppletOrdersVO>> result = stAppletOrdersService.detail(orderSn);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
+    }
+    
+    // 查询常用地址
+    @RequestMapping(value = "/address", method = RequestMethod.GET)
+    public @ResponseBody HttpJsonResult<String> address(Integer memberId, HttpServletResponse response) {
+        HttpJsonResult<String> result = new HttpJsonResult<>();
+        try {
+            StAppletOrders order = stAppletOrdersService.getNormalAddress(memberId);
+            if (order != null) {
+                result.setData(order.getAddressInfo());
+            }
+            
+        } catch (Exception e) {
+            log.error("查询用户常用地址发生错误", e);
+            result.setMessage("查询发生错误");
+        }
+        return result;
     }
 
     /**
