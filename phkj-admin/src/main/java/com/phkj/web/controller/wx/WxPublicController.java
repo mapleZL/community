@@ -64,6 +64,7 @@ public class WxPublicController {
             //1.通过code来换取access_token
             JSONObject json = WeChatUtil.getWebAccessToken(code);
             //获取网页授权access_token凭据
+            log.info("json, " + json);
             String webAccessToken = json.getString("access_token");
             log.info("webAccessToken, " + webAccessToken);
             //获取用户openid
