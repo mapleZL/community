@@ -30,7 +30,6 @@ public class WeChatUtil {
      */
     public static JSONObject getWebAccessToken(String code) {
         String result = HttpUtil.get(GET_WEB_ACCESSTOKEN_URL.replace("APPID", APPID).replace("SECRET", APPSECRET).replace("CODE", code));
-        log.info("getWebAccessToken,result, " + result);
         JSONObject json = JSONObject.parseObject(result);
         return json;
     }
@@ -52,7 +51,6 @@ public class WeChatUtil {
      */
     public static JSONObject getUserInfo(String accessToken, String openId) {
         String result = HttpUtil.get(GET_USERINFO_URL.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId));
-        log.info("getUserInfo,result, " + result);
         JSONObject json = JSONObject.parseObject(result);
         return json;
     }
