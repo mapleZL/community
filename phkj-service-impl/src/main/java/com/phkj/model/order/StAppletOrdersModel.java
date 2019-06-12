@@ -1,21 +1,20 @@
 package com.phkj.model.order;
 
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
 import com.phkj.core.StringUtil;
 import com.phkj.dao.shop.read.order.StAppletOrdersReadDao;
 import com.phkj.dao.shop.write.order.StAppletOrdersWriteDao;
 import com.phkj.entity.order.StAppletOrders;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
 
 @Component
 public class StAppletOrdersModel {
-
-    private static org.apache.log4j.Logger log = org.apache.log4j.LogManager
-            .getLogger(StAppletOrdersModel.class);
 
     @Resource
     private StAppletOrdersReadDao stAppletOrdersDao;
@@ -91,5 +90,9 @@ public class StAppletOrdersModel {
 
     public List<StAppletOrders> getOrdersList(Map<String, String> queryMap, Integer start, Integer size) {
         return stAppletOrdersDao.getOrdersList(queryMap, start, size);
+    }
+
+    public StAppletOrders getNormalAddress(Integer memberId) {
+        return stAppletOrdersDao.getNormalAddress(memberId);
     }
 }

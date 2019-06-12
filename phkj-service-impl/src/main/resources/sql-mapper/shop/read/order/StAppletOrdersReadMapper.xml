@@ -52,6 +52,14 @@
 		from `st_applet_orders`
 		where `id` = #{id}
 	</select>
+	
+	<select id="getNormalAddress" resultMap="StAppletOrdersResult">
+	    select
+		   *
+		from `st_applet_orders`
+		where `member_id` = #{memberId}
+		ORDER BY create_time DESC LIMIT 1
+	</select>
 
 	<select id="getStAppletOrdersList" parameterType="java.util.Map" resultMap="StAppletOrdersResult">
 		select

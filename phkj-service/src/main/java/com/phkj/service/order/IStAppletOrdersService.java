@@ -1,15 +1,14 @@
 package com.phkj.service.order;
 
 
+import java.util.List;
+import java.util.Map;
+
 import com.phkj.core.PagerInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.order.StAppletOrders;
 import com.phkj.entity.order.StAppletOrdersParam;
-import com.phkj.entity.order.StAppletOrdersProduct;
 import com.phkj.entity.order.StAppletOrdersVO;
-
-import java.util.List;
-import java.util.Map;
 
 public interface IStAppletOrdersService {
 
@@ -63,4 +62,11 @@ public interface IStAppletOrdersService {
      * @return
      */
     ServiceResult<List<StAppletOrders>> page(Map<String, String> queryMap, PagerInfo pager);
+
+    /**
+     * 查询用户常用列表
+     * @param memberId
+     * @return
+     */
+    StAppletOrders getNormalAddress(Integer memberId);
 }
