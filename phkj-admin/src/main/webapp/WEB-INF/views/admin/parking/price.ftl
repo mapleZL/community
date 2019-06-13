@@ -18,7 +18,7 @@
             $("#devWin").window({
                 width :700,
                 height : 500,
-                href : '${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/system/add',
+                href : '${domainUrlUtil.EJS_URL_RESOURCES}/admin/price/system/add',
                 title : "添加支付类型",
                 closed : true,
                 shadow : false,
@@ -41,74 +41,6 @@
 				maximizable : false
 			});
 
-		// 启用信息
-        $('#btn_stop').click(function () {
-            var selected = $('#dataGrid').datagrid('getSelected');
-            if(!selected){
-                $.messager.alert('提示','请选择操作行。');
-                return;
-            }
-            if(selected.sts == '停用'){
-                $.messager.alert('提示','已停用。');
-                return;
-			}
-            $.messager.confirm('确认', '确定停用该支付信息吗？', function(r){
-                if (r){
-                    $.messager.progress({text:"提交中..."});
-                    $.ajax({
-                        type:"GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/update",
-                        dataType: "json",
-                        data: "id=" + selected.id + "&type=0",
-                        cache:false,
-                        success:function(data, textStatus){
-                            if (data.success) {
-                                $('#dataGrid').datagrid('reload');
-                            } else {
-                                $.messager.alert('提示',data.message);
-                                $('#dataGrid').datagrid('reload');
-                            }
-                            $.messager.progress('close');
-                        }
-                    });
-                }
-            });
-        });
-
-		// 启用信息
-        $('#btn_sure').click(function () {
-            var selected = $('#dataGrid').datagrid('getSelected');
-            if(!selected){
-                $.messager.alert('提示','请选择操作行。');
-                return;
-            }
-            if(selected.sts == '启用'){
-                $.messager.alert('提示','已启用。');
-                return;
-            }
-            $.messager.confirm('确认', '确定启用该支付信息吗,并且停用同类支付?请核对好支付信息', function(r){
-                if (r){
-                    $.messager.progress({text:"提交中..."});
-                    $.ajax({
-                        type:"GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/update",
-                        dataType: "json",
-                        data: "id=" + selected.id + "&type=1",
-                        cache:false,
-                        success:function(data, textStatus){
-                            if (data.success) {
-                                $('#dataGrid').datagrid('reload');
-                            } else {
-                                $.messager.alert('提示',"启用失败!");
-                                $('#dataGrid').datagrid('reload');
-                            }
-                            $.messager.progress('close');
-                        }
-                    });
-                }
-            });
-        });
-
         // 删除支付
         $('#btn_del').click(function () {
             var selected = $('#dataGrid').datagrid('getSelected');
@@ -116,20 +48,24 @@
                 $.messager.alert('提示','请选择操作行。');
                 return;
             }
-            $.messager.confirm('确认', '确定删除该支付信息吗?', function(r){
+            if(selected.sts =='删除'){
+                $.messager.alert('提示','已删除。');
+                return;
+            }
+            $.messager.confirm('确认', '确定删除该价格吗?', function(r){
                 if (r){
                     $.messager.progress({text:"提交中..."});
                     $.ajax({
                         type:"GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/update",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/price/update",
                         dataType: "json",
-                        data: "id=" + selected.id + "&type=2",
+                        data: "id=" + selected.id + "&type=0",
                         cache:false,
                         success:function(data, textStatus){
                             if (data.success) {
                                 $('#dataGrid').datagrid('reload');
                             } else {
-                                $.messager.alert('提示',data.message);
+                                $.messager.alert('提示',"删除失败!");
                                 $('#dataGrid').datagrid('reload');
                             }
                             $.messager.progress('close');
@@ -138,6 +74,77 @@
                 }
             });
         });
+
+
+        // 启用
+        $('#btn_sure').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            if(selected.sts =='启用'){
+                $.messager.alert('提示','已启用。');
+                return;
+            }
+            $.messager.confirm('确认', '确定启用该价格吗?', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/price/update",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=1",
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $.messager.alert('提示',"删除失败!");
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
+
+        // 删除支付
+        $('#btn_stop').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            if(selected.sts =='停用'){
+                $.messager.alert('提示','已停用。');
+                return;
+            }
+            $.messager.confirm('确认', '确定停用该价格吗?', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/price/update",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=2",
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $.messager.alert('提示',"删除失败!");
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
 
 	});
 	
@@ -172,7 +179,7 @@
 <div id="searchbar" data-options="region:'north'" style="margin:0 auto;"
 	border="false">
 	<h2 class="h2-title">
-		支付列表 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
+		价钱管理 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
 	</h2>
 	<div id="searchbox" class="head-seachbox">
 		<div class="w-p99 marauto searchCont">
@@ -202,36 +209,32 @@
 						,pagination:true
 						,pageSize:'${pageSize}'
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/system/getAllPayment'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/price/getAllPrice'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
 		<thead>
 			<tr>
 				<th field="id" hidden="hidden"></th>
-				<th field="paymentType" width="90" align="center">支付类型</th>
-                <th field="bankName" width="90" align="center">银行名称</th>
-				<th field="paymentCode" width="90" align="center">支付账号</th>
-                <th field="qrCode" width="40" align="center" formatter="imageFormat">二维码</th>
-                <th field="sts" width="90" align="center">状态</th>
-				<th field="createUserName" width="70" align="center">创建人</th>
-				<th field="modifyUserName" width="70" align="center">修改人</th>
+				<th field="price" width="90" align="center">车位价钱(每月)</th>
+				<th field="createTime" width="90" align="center">创建时间</th>
+				<th field="sts" width="90" align="center">状态</th>
 			</tr>
 		</thead>
 	</table>
 
 	<div id="gridTools">
-		<@shiro.hasPermission name="/admin/payment/add">
-		<a id="btn_add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加支付</a>
+		<@shiro.hasPermission name="/admin/price/add">
+		<a id="btn_add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/payment/stop">
-		<a id="btn_stop" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">停用支付</a>
+		<@shiro.hasPermission name="/admin/price/stop">
+		<a id="btn_stop" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">停用</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/property/pass">
-		<a id="btn_sure" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">启用支付</a>
+		<@shiro.hasPermission name="/admin/price/pass">
+		<a id="btn_sure" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">启用</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/property/del">
-		<a id="btn_del" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除支付</a>
+		<@shiro.hasPermission name="/admin/price/del">
+		<a id="btn_del" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>
 		</@shiro.hasPermission>
 	</div>
 	

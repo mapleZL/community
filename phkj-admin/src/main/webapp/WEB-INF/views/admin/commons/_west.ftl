@@ -178,8 +178,8 @@
 				<@shiro.hasPermission name="/admin/payment">
 					<a href="javascript:void(0);" onclick="addTab('支付管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/')">支付管理</a>
 				</@shiro.hasPermission>
-				<@shiro.hasPermission name="/admin/lost/system">
-					<a href="javascript:void(0);" onclick="addTab('社区物业发布', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/lost/system')">物业登记</a>
+				<@shiro.hasPermission name="/admin/price">
+					<a href="javascript:void(0);" onclick="addTab('价钱设置', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/price/')">价钱设置</a>
 				</@shiro.hasPermission>
 			</div>
 	</@shiro.hasPermission>

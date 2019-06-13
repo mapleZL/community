@@ -1,53 +1,61 @@
 package com.phkj.entity.praking;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * @author 
  */
-public class StAppletPayment implements Serializable {
+public class StAppletParking implements Serializable {
     private Long id;
 
     /**
-     * 支付类型
+     * 车牌号码
      */
-    private String paymentType;
+    private String carNum;
 
     /**
-     * 支付账号
+     * 价钱
      */
-    private String paymentCode;
+    private BigDecimal price;
 
     /**
-     * 二维码
+     * 开始时间
      */
-    private String qrCode;
+    private Date startTime;
 
     /**
-     * 支付类型
+     * 结束时间
+     */
+    private Date endTime;
+
+    /**
+     * 联系电话
+     */
+    private String telephone;
+
+    /**
+     * 车位号码
+     */
+    private String prakingNum;
+
+    /**
+     * 状态
      */
     private String sts;
 
-    /**
-     * 支付类型
-     */
-    private String bankName;
+    private Date createTime;
 
-    /**
-     * 创建人
-     */
     private String createUserId;
 
     private String createUserName;
 
-    private Date createTime;
+    private Date modifyTime;
 
     private String modifyUserId;
 
     private String modifyUserName;
-
-    private Date modifyTime;
 
     private String villageCode;
 
@@ -61,28 +69,52 @@ public class StAppletPayment implements Serializable {
         this.id = id;
     }
 
-    public String getPaymentType() {
-        return paymentType;
+    public String getCarNum() {
+        return carNum;
     }
 
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
+    public void setCarNum(String carNum) {
+        this.carNum = carNum;
     }
 
-    public String getPaymentCode() {
-        return paymentCode;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setPaymentCode(String paymentCode) {
-        this.paymentCode = paymentCode;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public String getQrCode() {
-        return qrCode;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setQrCode(String qrCode) {
-        this.qrCode = qrCode;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getPrakingNum() {
+        return prakingNum;
+    }
+
+    public void setPrakingNum(String prakingNum) {
+        this.prakingNum = prakingNum;
     }
 
     public String getSts() {
@@ -93,12 +125,12 @@ public class StAppletPayment implements Serializable {
         this.sts = sts;
     }
 
-    public String getBankName() {
-        return bankName;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public String getCreateUserId() {
@@ -117,12 +149,12 @@ public class StAppletPayment implements Serializable {
         this.createUserName = createUserName;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getModifyTime() {
+        return modifyTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 
     public String getModifyUserId() {
@@ -139,14 +171,6 @@ public class StAppletPayment implements Serializable {
 
     public void setModifyUserName(String modifyUserName) {
         this.modifyUserName = modifyUserName;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
     }
 
     public String getVillageCode() {

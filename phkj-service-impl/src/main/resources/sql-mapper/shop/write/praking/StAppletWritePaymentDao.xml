@@ -14,6 +14,7 @@
     <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
   </resultMap>
   <sql id="Base_Column_List">
     id, payment_type, payment_code, qr_code, sts, create_user_id, create_user_name, create_time, 
@@ -33,12 +34,12 @@
     insert into st_applet_payment (id, payment_type, payment_code, 
       qr_code, sts, create_user_id, 
       create_user_name, create_time, modify_user_id, 
-      modify_user_name, modify_time, village_code
+      modify_user_name, modify_time, village_code,bank_name
       )
     values (#{id,jdbcType=BIGINT}, #{paymentType,jdbcType=VARCHAR}, #{paymentCode,jdbcType=VARCHAR}, 
       #{qrCode,jdbcType=VARCHAR}, #{sts,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR}, 
       #{createUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyUserId,jdbcType=VARCHAR}, 
-      #{modifyUserName,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{villageCode,jdbcType=VARCHAR}
+      #{modifyUserName,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{villageCode,jdbcType=VARCHAR}, #{bankName}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.phkj.entity.praking.StAppletPayment">
