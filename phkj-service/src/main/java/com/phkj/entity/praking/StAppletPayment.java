@@ -30,6 +30,11 @@ public class StAppletPayment implements Serializable {
     private String sts;
 
     /**
+     * 支付类型
+     */
+    private String bankName;
+
+    /**
      * 创建人
      */
     private String createUserId;
@@ -86,6 +91,14 @@ public class StAppletPayment implements Serializable {
 
     public void setSts(String sts) {
         this.sts = sts;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
     public String getCreateUserId() {

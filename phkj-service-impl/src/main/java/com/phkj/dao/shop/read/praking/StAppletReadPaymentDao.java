@@ -22,4 +22,6 @@ public interface StAppletReadPaymentDao {
 
     List<StAppletPayment> selectAllPayment(@Param("villageCode") String villageCode, @Param("type") String type,
                                            @Param("sts") String sts);
+
+    List<StAppletPayment> selectByType(@Param("type") String paymentType,@Param("id") String id);
 }

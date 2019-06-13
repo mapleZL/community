@@ -14,26 +14,28 @@
     <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
   </resultMap>
   <sql id="Base_Column_List">
     id, payment_type, payment_code, qr_code, sts, create_user_id, create_user_name, create_time, 
-    modify_user_id, modify_user_name, modify_time, village_code
+    modify_user_id, modify_user_name, modify_time, village_code,bank_name
   </sql>
 
   <select id="selectAllPayment" parameterType="java.lang.String" resultMap="BaseResultMap">
     SELECT
     id,
-    case payment_type when '1' then '支付宝' when '2' then '微信' else '银行卡' end as payment_type,
+    case payment_type when '1' then '支付宝' when '2' then '银行卡' else '微信' end as payment_type,
     payment_code,
     qr_code,
-    case sts when '1' then '正常' else '停用' end as sts ,
+    case sts when '1' then '正常' when '2'  then '删除'else '停用' end as sts ,
     create_user_id,
     create_user_name,
     create_time,
     modify_user_id,
     modify_user_name,
     modify_time,
-    village_code
+    village_code ,
+    bank_name
     FROM
     st_applet_payment
     where village_code = #{villageCode}
@@ -43,9 +45,16 @@
     <if test="sts != null and sts != ''">
       and sts = #{sts}
     </if>
+     and sts != '3'
+    order by create_time desc
   </select>
 
-
+  <select id="selectByType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from st_applet_payment
+    where  payment_type = #{type} and id != #{id}
+  </select>
 
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

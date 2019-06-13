@@ -12,44 +12,26 @@
 		$('#btn-gridSearch').click(function(){
 			$('#dataGrid').datagrid('reload',queryParamsHandler());
 		});
-		
-		// 接收报修
-		$('#btn_accept').click(function () {
-			var selected = $('#dataGrid').datagrid('getSelected');
-	 		if(!selected){
-				$.messager.alert('提示','请选择操作行。');
-				return;
-			}
-			// 判断是否是已经启动
-			if(selected.sts != 2){
-				$.messager.alert('提示','请确定该条维修记录为已下发。');
-				return;
-			}
-	 		$.messager.confirm('确认', '确认接收该条维修信息', function(r){
-				if (r){
-					$.messager.progress({text:"提交中..."});
-					$.ajax({
-						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/changeStatus",
-						dataType: "json",
-					    data: "id=" + selected.id +"&sts=4",
-					    cache:false,
-						success:function(data, textStatus){
-							if (data.success) {
-								$('#dataGrid').datagrid('reload');
-						    } else {
-						    	$.messager.alert('提示',data.message);
-						    	$('#dataGrid').datagrid('reload');
-						    }
-							$.messager.progress('close');
-						}
-					});
-			    }
-			});
+
+        // 添加
+        $('#btn_add').click(function() {
+            $("#devWin").window({
+                width :700,
+                height : 500,
+                href : '${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/system/add',
+                title : "添加支付类型",
+                closed : true,
+                shadow : false,
+                modal : true,
+                collapsible : false,
+                minimizable : false,
+                maximizable : false
+            }).window('open');
+        });
 	 		
-	 		$("#newstypeWin").window({
+		$("#newstypeWin").window({
 				width : 750,
-				height : 420,
+				height : 500,
 				title : "报修图片",
 				closed : true,
 				shadow : false,
@@ -58,42 +40,105 @@
 				minimizable : false,
 				maximizable : false
 			});
-		});
-		
-		// 确认完成
-		$('#btn_sure').click(function () {
-			var selected = $('#dataGrid').datagrid('getSelected');
-	 		if(!selected){
-				$.messager.alert('提示','请选择操作行。');
-				return;
+
+		// 启用信息
+        $('#btn_stop').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            if(selected.sts == '停用'){
+                $.messager.alert('提示','已停用。');
+                return;
 			}
-			// 判断是否是已经审核通过的数据
-			if(selected.status == 4){
-				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
-				return;
-			}
-	 		$.messager.confirm('确认', '确定禁用该维修人员？', function(r){
-				if (r){
-					$.messager.progress({text:"提交中..."});
-					$.ajax({
-						type:"GET",
-					    url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/changeStatus",
-						dataType: "json",
-					    data: "id=" + selected.id + "&sts=5",
-					    cache:false,
-						success:function(data, textStatus){
-							if (data.success) {
-								$('#dataGrid').datagrid('reload');
-						    } else {
-						    	$.messager.alert('提示',data.message);
-						    	$('#dataGrid').datagrid('reload');
-						    }
-							$.messager.progress('close');
-						}
-					});
-			    }
-			});
-		});
+            $.messager.confirm('确认', '确定停用该支付信息吗？', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/update",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=0",
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $.messager.alert('提示',data.message);
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
+		// 启用信息
+        $('#btn_sure').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            if(selected.sts == '启用'){
+                $.messager.alert('提示','已启用。');
+                return;
+            }
+            $.messager.confirm('确认', '确定启用该支付信息吗,并且停用同类支付?请核对好支付信息', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/update",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=1",
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $.messager.alert('提示',"启用失败!");
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
+        // 删除支付
+        $('#btn_del').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if(!selected){
+                $.messager.alert('提示','请选择操作行。');
+                return;
+            }
+            $.messager.confirm('确认', '确定删除该支付信息吗?', function(r){
+                if (r){
+                    $.messager.progress({text:"提交中..."});
+                    $.ajax({
+                        type:"GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/update",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=2",
+                        cache:false,
+                        success:function(data, textStatus){
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $.messager.alert('提示',data.message);
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
 	});
 	
 	function imageFormat(value, row, index) {
@@ -122,6 +167,7 @@
 	}
 </script>
 
+<div id="devWin"></div>
 
 <div id="searchbar" data-options="region:'north'" style="margin:0 auto;"
 	border="false">
@@ -133,11 +179,11 @@
 			<form class="form-search" action="doForm" method="post"
 				id="queryForm" name="queryForm">
 				<div class="fluidbox">
-					<p class="p4 p-item">
-						<label class="lab-item">维修详情 :</label> <input type="text"
-							class="txt" id="q_detail" name="q_detail" value="${q_detail!''}" />
-					</p>
-					<!-- <input type="hidden" id="q_sts" name="q_sts" value="2"/> -->
+					<#--<p class="p4 p-item">-->
+						<#--<label class="lab-item">维修详情 :</label> <input type="text"-->
+							<#--class="txt" id="q_detail" name="q_detail" value="${q_detail!''}" />-->
+					<#--</p>-->
+					<input type="hidden" id="q_sts" name="q_sts" value="2"/>
 				</div>
 			</form>
 		</div>
@@ -164,9 +210,10 @@
 			<tr>
 				<th field="id" hidden="hidden"></th>
 				<th field="paymentType" width="90" align="center">支付类型</th>
+                <th field="bankName" width="90" align="center">银行名称</th>
 				<th field="paymentCode" width="90" align="center">支付账号</th>
-				<th field="qrCode" width="90" align="center">二维码</th>
-				<th field="sts" width="90" align="center">状态</th>
+                <th field="qrCode" width="40" align="center" formatter="imageFormat">二维码</th>
+                <th field="sts" width="90" align="center">状态</th>
 				<th field="createUserName" width="70" align="center">创建人</th>
 				<th field="modifyUserName" width="70" align="center">修改人</th>
 			</tr>
@@ -174,13 +221,18 @@
 	</table>
 
 	<div id="gridTools">
-		<@shiro.hasPermission name="/admin/property/repair/delivery">
-		<a id="btn_accept" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">确认接收</a>
+		<@shiro.hasPermission name="/admin/payment/add">
+		<a id="btn_add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加支付</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/property/repair/nopass">
-		<a id="btn_sure" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">确认完成</a>
+		<@shiro.hasPermission name="/admin/payment/stop">
+		<a id="btn_stop" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">停用支付</a>
 		</@shiro.hasPermission>
-		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+		<@shiro.hasPermission name="/admin/property/pass">
+		<a id="btn_sure" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">启用支付</a>
+		</@shiro.hasPermission>
+		<@shiro.hasPermission name="/admin/property/del">
+		<a id="btn_del" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除支付</a>
+		</@shiro.hasPermission>
 	</div>
 	
 </div>

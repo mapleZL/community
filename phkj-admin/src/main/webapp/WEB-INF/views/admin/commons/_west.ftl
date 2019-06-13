@@ -176,7 +176,7 @@
 					<a href="javascript:void(0);" onclick="addTab('支付管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/payment/')">支付管理</a>
 				</@shiro.hasPermission>
 				<@shiro.hasPermission name="/admin/lost/system">
-					<a href="javascript:void(0);" onclick="addTab('社区物业发布', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/lost/system')">物业登记</a>
+					<a href="javascript:void(0);" onclick="addTab('租用列表', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/lost/system')">租用列表</a>
 				</@shiro.hasPermission>
 			</div>
 	</@shiro.hasPermission>
