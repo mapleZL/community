@@ -91,7 +91,7 @@ public class WxPublicController {
             return ResponseUtil.createResp("200", "ok", true, userInfo);
         } catch (Exception e) {
             log.error("获取用户微信信息异常,exception:{}", e);
-            return ResponseUtil.createResp("500", "ok", true, null);
+            return ResponseUtil.createResp("500", "ok", false, null);
         }
     }
 
@@ -100,8 +100,8 @@ public class WxPublicController {
      */
     @RequestMapping("/getWxConfig")
     @ResponseBody
-    public Map getWxConfig(@RequestParam String url) {
-        Map<String, String> map = new HashMap<>();
+    public ResponseUtil getWxConfig(@RequestParam String url) {
+        Map<String, String> map;
         try {
             String ticket;
             String accessToken = redisComponent.getRedisString(RedisKeyCommon.JS_ACCESS_TOKEN);
@@ -115,12 +115,11 @@ public class WxPublicController {
             }
             String timestamp = WeChatUtil.getTimestamp();
             String nonceStr = WeChatUtil.getNonceStr();
-//            jsApiList: ['chooseImage','uploadImage','previewImage','downloadImage']
             map = WeChatUtil.jsSdkSign(url, timestamp, nonceStr, ticket);
-            return map;
+            return ResponseUtil.createResp("200", "ok", true, map);
         } catch (Exception e) {
             log.error("getWxConfig, 获取config接口所需参数异常", e);
-            return map;
+            return ResponseUtil.createResp("500", "ok", false, null);
         }
     }
 
