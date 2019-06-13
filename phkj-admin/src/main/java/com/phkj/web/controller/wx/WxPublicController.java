@@ -1,21 +1,27 @@
 package com.phkj.web.controller.wx;
 
 import com.alibaba.fastjson.JSONObject;
+import com.phkj.core.redis.RedisComponent;
 import com.phkj.core.response.ResponseUtil;
+import com.phkj.web.common.RedisKeyCommon;
 import com.phkj.web.util.WeChatUtil;
-import com.phkj.web.util.wx.AesException;
-import com.phkj.web.util.wx.WXPublicUtils;
+import com.phkj.web.util.AesException;
+import com.phkj.web.util.WXPublicUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,6 +35,9 @@ import java.util.Set;
 @Controller
 @RequestMapping(value = "admin/wx")
 public class WxPublicController {
+
+    @Autowired
+    RedisComponent redisComponent;
 
     private static Logger log = LogManager.getLogger(WxPublicController.class);
 
@@ -85,4 +94,34 @@ public class WxPublicController {
             return ResponseUtil.createResp("500", "ok", true, null);
         }
     }
+
+    /**
+     * 获取前端面调用微信公众号js-sdk上传图片的config接口所需参数   
+     */
+    @RequestMapping("/getWxConfig")
+    @ResponseBody
+    public Map getWxConfig(@RequestParam String url) {
+        Map<String, String> map = new HashMap<>();
+        try {
+            String ticket;
+            String accessToken = redisComponent.getRedisString(RedisKeyCommon.JS_ACCESS_TOKEN);
+            if (StringUtils.isBlank(accessToken)) {
+                accessToken = WeChatUtil.getJsApiAccessToken();
+                redisComponent.setStringExpire(RedisKeyCommon.JS_ACCESS_TOKEN, accessToken, 7200000);
+                ticket = WeChatUtil.getJsApiTicket(accessToken);
+                redisComponent.setStringExpire(RedisKeyCommon.JS_API_TICKET, ticket, 7200000);
+            } else {
+                ticket = redisComponent.getRedisString(RedisKeyCommon.JS_API_TICKET);
+            }
+            String timestamp = WeChatUtil.getTimestamp();
+            String nonceStr = WeChatUtil.getNonceStr();
+//            jsApiList: ['chooseImage','uploadImage','previewImage','downloadImage']
+            map = WeChatUtil.jsSdkSign(url, timestamp, nonceStr, ticket);
+            return map;
+        } catch (Exception e) {
+            log.error("getWxConfig, 获取config接口所需参数异常", e);
+            return map;
+        }
+    }
+
 }

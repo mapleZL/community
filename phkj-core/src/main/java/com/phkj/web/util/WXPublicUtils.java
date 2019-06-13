@@ -1,4 +1,4 @@
-package com.phkj.web.util.wx;
+package com.phkj.web.util;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -16,26 +16,6 @@ import java.util.Arrays;
 public class WXPublicUtils {
 
     private static Logger log = LogManager.getLogger(WXPublicUtils.class);
-
-    /**
-     * 验证Token
-     *
-     * @param msgSignature 签名串，对应URL参数的signature
-     * @param timeStamp    时间戳，对应URL参数的timestamp
-     * @param nonce        随机串，对应URL参数的nonce
-     * @return 是否为安全签名
-     * @throws AesException 执行失败，请查看该异常的错误码和具体的错误信息
-     */
-    public static boolean verifyUrl(String msgSignature, String timeStamp, String nonce)
-            throws AesException {
-        // 这里的 WXPublicConstants.TOKEN 填写你自己设置的Token就可以了
-        String signature = SHA1.getSHA1(WXPublicConstants.TOKEN, timeStamp, nonce);
-        if (!signature.equals(msgSignature)) {
-            log.error("微信验证失败," + "signature: " + signature + ", nonce: " + nonce);
-            throw new AesException(AesException.ValidateSignatureError);
-        }
-        return true;
-    }
 
     /**
      * create by: zl
@@ -58,7 +38,7 @@ public class WXPublicUtils {
         for (String s : arr) {
             sb.append(s);
         }
-        //4.sha1加密,网上均有现成代码
+        //4.sha1加密
         String temp = getSha1(sb.toString());
         log.info("加密后的签名为：" + temp);
         //5.将加密后的字符串，与微信传来的加密签名比较，返回结果
