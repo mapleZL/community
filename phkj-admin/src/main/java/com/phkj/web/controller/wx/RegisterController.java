@@ -126,22 +126,22 @@ public class RegisterController {
      */
     private ResponseUtil checkParam(String phoneNum, String password, String smsCode) {
         if (StringUtils.isBlank(password)) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "password is blank", true, null);
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "password is blank", false, null);
         }
         if (StringUtils.isBlank(phoneNum) || StringUtils.isBlank(smsCode)) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phoneNum or smsCode is blank", true, null);
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phoneNum or smsCode is blank", false, null);
         }
         String code = redisComponent.getRedisString(phoneNum);
         if (StringUtils.isBlank(code)) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "您的验证码已失效", true, null);
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "您的验证码已失效", false, null);
         }
         if (!code.equals(smsCode)) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "验证码错误", true, null);
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "验证码错误", false, null);
         }
         ServiceResult<Member> memberByPhone = memberService.getMemberByPhone(phoneNum);
         if (memberByPhone.getSuccess() && memberByPhone.getResult() != null
                 && StringUtils.isNotBlank(memberByPhone.getResult().getPhone())) {
-            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "该手机号已注册", true, null);
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "您的手机号已注册,请勿重复操作", false, null);
         }
 //        ServiceResult<List<Member>> memberByName = memberService.getMemberByName(name);
 //        if (memberByName.getSuccess() && memberByName.getResult() != null
