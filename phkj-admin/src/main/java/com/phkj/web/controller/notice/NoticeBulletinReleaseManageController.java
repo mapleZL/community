@@ -88,7 +88,7 @@ public class NoticeBulletinReleaseManageController {
     }
 
     /**
-     * 头条通用查询
+     * 头条通用查询,政策法规(1)、通知通告(2)
      * @param start
      * @param pageNum
      * @param type
@@ -184,7 +184,7 @@ public class NoticeBulletinReleaseManageController {
     }
 
     /**
-     * 获取活动或者是头条详情
+     * 获取活动或者是头条详情,政策法规(1)、通知通告(2)
      * @param id
      * @param response
      * @return
