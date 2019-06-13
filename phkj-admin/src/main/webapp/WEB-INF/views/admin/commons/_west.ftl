@@ -125,7 +125,10 @@
 	<@shiro.hasPermission name="/admin_menu_activity">
 	<div title="活动管理" class="ra_div">
 		<@shiro.hasPermission name="/notice/activity">
-		<a href="javascript:void(0);" onclick="addTab('活动审核', '${domainUrlUtil.EJS_URL_RESOURCES}/notice/activity')">活动审核</a>
+		<a href="javascript:void(0);" onclick="addTab('活动审核', '${domainUrlUtil.EJS_URL_RESOURCES}/notice/activity')">活动报名审核</a>
+		</@shiro.hasPermission>
+		<@shiro.hasPermission name="/notice/activity">
+		<a href="javascript:void(0);" onclick="addTab('新增热门活动', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/event/add')">新增热门活动</a>
 		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>

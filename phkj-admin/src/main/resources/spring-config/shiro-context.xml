@@ -41,6 +41,7 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
+                /admin/event/** = anon
                 /admin/cart/** = anon
                 /admin/payment/** = anon
                 /admin/lost/** = anon

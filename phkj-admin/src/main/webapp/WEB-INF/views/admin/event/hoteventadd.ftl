@@ -1,5 +1,5 @@
 <#include "/admin/commons/_detailheader.ftl" />
-<#assign currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/product/"/>
+<#assign currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/event/"/>
 
 <#include "productimgcss.ftl"/>
 <script src="${(domainUrlUtil.EJS_STATIC_RESOURCES)!}/resources/admin/jslib/js/skupicupload.js"></script>
@@ -29,8 +29,10 @@
 
         $("#add").click(function () {
             var title = $('#title').val();
-            var postBegin = $('#postBegin').val();
-            var postEnd = $('#postEnd').val();
+            var postBegin = $('#begin').val();
+            var postEnd = $('#end').val();
+            $('#sourceName').val($("#source").combotree('getText'));
+            $('#sourceType').val($("#source").combotree('getValue'));
 
             var description = UM.getEditor('myEditor').getContent();
             if(description == ''){
@@ -95,7 +97,7 @@
 
 <div class="wrapper">
     <div class="formbox-a">
-        <h2 class="h2-title">发布商品-填写商品详细信息
+        <h2 class="h2-title">小区头条-热门活动信息填写
         </h2>
 
     <#--1.addForm----------------->
@@ -104,27 +106,34 @@
             <dl class="dl-group">
                 <dt class="dt-group"><span class="s-icon"></span>热门活动发布</dt>
                     <!-- 状态默认是新建 -->
-                    <input type="hidden" id="state" name="state" value="1"/>
+                    <input type="hidden" id="status" name="status" value="1"/>
                     <div class="fluidbox">
                         <p class="p6 p-item">
                             <label class="lab-item"><font class="red">*</font>标题: </label>
                             <input type="text" id="title" name="title" value="${(event.title)!''}" class="txt w300 easyui-validatebox" missingMessage="活动标题" data-options="required:true,validType:'length[3,100]'"/>
                         </p>
-                        <input type="hidden" id="id" name="id" value="${(event.id)!''}"/>
+                        <input type="hidden" id="id" name="id" value="0"/>
                         <p class="p6 p-item">
-                            <label class="lab-item"><font class="red">*</font>下发方: </label>
-                            <input type="text" id="sourceType" name="sourceType" value="${(event.sourceType)!''}" class="txt w300 easyui-validatebox" missingMessage="下发方" data-options="required:true,validType:'length[3,100]'"/>
+                            <label class="lab-item"><font class="red">*</font>下发方:</label>
+                            	<select name="source" id="source" level="0" class="txt w300 easyui-combobox">
+                            	<option value="0">请选择</option>
+								<option value="1">街道</option>
+								<option value="2">社区</option>
+								<option value="3">物业</option>
+								</select>
                         </p>
+                        <input type="hidden" name="sourceType" id="sourceType">
+                        <input type="hidden" name="sourceName" id="sourceName">
                     </div>
 					
                     <div class="fluidbox">
                         <p class="p6 p-item">
                             <label class="lab-item"><font class="red">*</font>开始时间: </label>
-                            <input type="text" id="postBegin" name="postBegin" value="${(event.postBegin)!''}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="txt w300" data-options="required:true"/>
+                            <input type="text" id="begin" name="begin" value="${(event.postBegin)!''}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="txt w300" data-options="required:true"/>
                         </p>
                         <p class="p6 p-item">
                             <label class="lab-item"><font class="red">*</font>结束时间: </label>
-                            <input type="text" id="postEnd" name="postEnd" value="${(event.postEnd)!''}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="txt w300" data-options="required:true"/>
+                            <input type="text" id="end" name="end" value="${(event.postEnd)!''}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="txt w300" data-options="required:true"/>
                         </p>
                     </div>
 

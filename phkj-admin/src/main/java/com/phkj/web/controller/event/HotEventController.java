@@ -2,6 +2,8 @@ package com.phkj.web.controller.event;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +65,11 @@ public class HotEventController {
     private IStAppletUserBrowseService       stAppletUserBrowseService;
     @Autowired
     private IStAppletCollectionManageService collectionManageService;
+    
+    @RequestMapping(value = "/add", method = { RequestMethod.GET })
+    public String getList(Map<String, Object> dataMap) throws Exception {
+        return "/admin/event/hoteventadd";
+    }
 
     /**
      * 新增或修改热门活动
@@ -71,11 +78,12 @@ public class HotEventController {
      * @param dataMap
      * @return
      * @throws IOException
+     * @throws ParseException 
      */
     @ResponseBody
     @RequestMapping(value = "/create", method = { RequestMethod.POST })
     public HttpJsonResult<Object> create(StAppletHotEvents event, HttpServletRequest request,
-                                         Map<String, Object> dataMap) throws IOException {
+                                         Map<String, Object> dataMap) throws IOException, ParseException {
         HttpJsonResult<Object> jsonResult = new HttpJsonResult<>();
         SystemAdmin user = WebAdminSession.getAdminUser(request);
         if (null == user) {
@@ -92,17 +100,23 @@ public class HotEventController {
 
     private ServiceResult<Integer> createOrUpdateEvent(StAppletHotEvents event,
                                                        HttpServletRequest request,
-                                                       SystemAdmin user) {
+                                                       SystemAdmin user) throws ParseException {
         ServiceResult<Integer> result = new ServiceResult<>();
-        if (event.getStatus() == 1 && event.getId() > 0) {
+        if (event.getId() > 0) {
             event.setCreateUserId(user.getId());
             event.setCreateTime(new Date());
         }
         event.setVillageCode(user.getVillageCode());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String postBegin = request.getParameter("begin");
+        String postEnd = request.getParameter("end");
+        
+        event.setPostBegin(sdf.parse(postBegin));
+        event.setPostEnd(sdf.parse(postEnd));
+        
         String pics = request.getParameter("imageSrc");
         if (!StringUtil.isEmpty(pics)) {
-            String[] split = pics.split(";");
-            event.setImg(split.toString());
+            event.setImg(pics);
         }
         if (event.getId() > 0) {
             result = hotEventsService.updateStAppletHotEvents(event);
