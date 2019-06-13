@@ -1,4 +1,4 @@
-package com.phkj.web.util.wx;
+package com.phkj.web.util;
 
 import java.security.MessageDigest;
 import java.util.Arrays;

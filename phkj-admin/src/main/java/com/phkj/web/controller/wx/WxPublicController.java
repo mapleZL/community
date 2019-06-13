@@ -1,20 +1,27 @@
 package com.phkj.web.controller.wx;
 
 import com.alibaba.fastjson.JSONObject;
+import com.phkj.core.redis.RedisComponent;
+import com.phkj.core.response.ResponseUtil;
+import com.phkj.web.common.RedisKeyCommon;
 import com.phkj.web.util.WeChatUtil;
-import com.phkj.web.util.wx.AesException;
-import com.phkj.web.util.wx.WXPublicUtils;
+import com.phkj.web.util.AesException;
+import com.phkj.web.util.WXPublicUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,6 +35,9 @@ import java.util.Set;
 @Controller
 @RequestMapping(value = "admin/wx")
 public class WxPublicController {
+
+    @Autowired
+    RedisComponent redisComponent;
 
     private static Logger log = LogManager.getLogger(WxPublicController.class);
 
@@ -58,28 +68,59 @@ public class WxPublicController {
 
     @RequestMapping("/person")
     @ResponseBody
-    public String person(String code, Model model) {
-        JSONObject userInfo = new JSONObject();
-        if (code != null) {
-            //1.通过code来换取access_token
-            JSONObject json = WeChatUtil.getWebAccessToken(code);
-            //获取网页授权access_token凭据
-            log.info("json, " + json);
-            String webAccessToken = json.getString("access_token");
-            log.info("webAccessToken, " + webAccessToken);
-            //获取用户openid
-            String openid = json.getString("openid");
-            log.info("openid, " + openid);
-            //2.通过access_token和openid拉取用户信息
-            userInfo = WeChatUtil.getUserInfo(webAccessToken, openid);
-            log.info("userInfo, " + userInfo);
-            //获取json对象中的键值对集合
-            Set<Map.Entry<String, Object>> entries = userInfo.entrySet();
-            for (Map.Entry<String, Object> entry : entries) {
-                //把键值对作为属性设置到model中
-                model.addAttribute(entry.getKey(), entry.getValue());
+    public ResponseUtil person(String code, Model model) {
+        try {
+            JSONObject userInfo = new JSONObject();
+            if (code != null) {
+                //1.通过code来换取access_token
+                JSONObject json = WeChatUtil.getWebAccessToken(code);
+                //获取网页授权access_token凭据
+                log.info("json, " + json);
+                String webAccessToken = json.getString("access_token");
+                //获取用户openid
+                String openid = json.getString("openid");
+                //2.通过access_token和openid拉取用户信息
+                userInfo = WeChatUtil.getUserInfo(webAccessToken, openid);
+                //获取json对象中的键值对集合
+                Set<Map.Entry<String, Object>> entries = userInfo.entrySet();
+                for (Map.Entry<String, Object> entry : entries) {
+                    //把键值对作为属性设置到model中
+                    model.addAttribute(entry.getKey(), entry.getValue());
+                }
             }
+            return ResponseUtil.createResp("200", "ok", true, userInfo);
+        } catch (Exception e) {
+            log.error("获取用户微信信息异常,exception:{}", e);
+            return ResponseUtil.createResp("500", "ok", false, null);
         }
-        return userInfo.toJSONString();
     }
+
+    /**
+     * 获取前端面调用微信公众号js-sdk上传图片的config接口所需参数   
+     */
+    @RequestMapping("/getWxConfig")
+    @ResponseBody
+    public ResponseUtil getWxConfig(@RequestParam String url) {
+        Map<String, String> map;
+        try {
+            String ticket;
+            String accessToken = redisComponent.getRedisString(RedisKeyCommon.JS_ACCESS_TOKEN);
+            if (StringUtils.isBlank(accessToken)) {
+                accessToken = WeChatUtil.getJsApiAccessToken();
+                redisComponent.setStringExpire(RedisKeyCommon.JS_ACCESS_TOKEN, accessToken, 7200000);
+                ticket = WeChatUtil.getJsApiTicket(accessToken);
+                redisComponent.setStringExpire(RedisKeyCommon.JS_API_TICKET, ticket, 7200000);
+            } else {
+                ticket = redisComponent.getRedisString(RedisKeyCommon.JS_API_TICKET);
+            }
+            String timestamp = WeChatUtil.getTimestamp();
+            String nonceStr = WeChatUtil.getNonceStr();
+            map = WeChatUtil.jsSdkSign(url, timestamp, nonceStr, ticket);
+            return ResponseUtil.createResp("200", "ok", true, map);
+        } catch (Exception e) {
+            log.error("getWxConfig, 获取config接口所需参数异常", e);
+            return ResponseUtil.createResp("500", "ok", false, null);
+        }
+    }
+
 }

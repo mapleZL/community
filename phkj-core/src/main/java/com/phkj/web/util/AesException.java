@@ -1,4 +1,4 @@
-package com.phkj.web.util.wx;
+package com.phkj.web.util;
 
 @SuppressWarnings("serial")
 public class AesException extends Exception {

@@ -360,6 +360,17 @@
                 <phkj.oss.accessKeySecret>jRPzHauftvtRLerrJj57rwEEaY6nY8</phkj.oss.accessKeySecret>
                 <phkj.oss.bucketName>community-pic</phkj.oss.bucketName>
 
+                <!-- phkj的oss配置,项目交换时切换为他们自己的 -->
+                <!--<phkj.oss.endpoint>http://oss-cn-beijing.aliyuncs.com</phkj.oss.endpoint>-->
+                <!--<phkj.oss.accessKeyId>LTAI5wyuPk30XLKa</phkj.oss.accessKeyId>-->
+                <!--<phkj.oss.accessKeySecret>imeo9MWXEZ0tjL9CTuTB9lUjKvu16G</phkj.oss.accessKeySecret>-->
+                <!--<phkj.oss.bucketName>community-phkj-pic</phkj.oss.bucketName>-->
+
+                <!-- 项目交换时切换为phkj的redis -->
+                <!--<phkj.spring.redis.host>118.126.66.195</phkj.spring.redis.host>-->
+                <!--<phkj.spring.redis.port>6379</phkj.spring.redis.port>-->
+                <!--<phkj.spring.redis.password>c428cb38d5f260853678922e</phkj.spring.redis.password>-->
+
                 <phkj.spring.redis.host>118.126.66.195</phkj.spring.redis.host>
                 <phkj.spring.redis.port>6379</phkj.spring.redis.port>
                 <phkj.spring.redis.password>c428cb38d5f260853678922e</phkj.spring.redis.password>

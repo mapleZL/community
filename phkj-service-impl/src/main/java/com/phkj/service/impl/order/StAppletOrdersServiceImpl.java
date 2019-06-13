@@ -96,6 +96,7 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
             stAppletOrders.setDeleted(1);
             stAppletOrders.setCreateTime(date);
             stAppletOrders.setUpdateTime(date);
+            stAppletOrders.setAddressInfo(orders.get(0).getAddressInfo());
             stAppletOrders.setRemark(orders.get(0).getRemark());
             // 向订单明细表中插入数据
             List<StAppletOrdersProduct> list = new ArrayList<>();
