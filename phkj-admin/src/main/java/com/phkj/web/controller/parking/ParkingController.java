@@ -66,6 +66,28 @@ public class ParkingController {
         return resultJson;
     }
 
+    /**
+     * 删除
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/deleteParking")
+    public ResponseUtil deleteParking(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            String id = request.getParameter("id");
+            String userId = request.getParameter("userId");
+            String userName = request.getParameter("userName");
+            if (parkingService.deleteParking(id, userId, userName)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            LOGGER.error("删除失败!" + e);
+            e.printStackTrace();
+        }
+        return responseUtil;
+    }
 
     /**
      * @param request

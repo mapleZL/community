@@ -71,7 +71,7 @@ public class ShareServiceImpl implements ShareService {
             //  停止共享
             if ("2".equals(type)) {
                 shareInfo.setSts("1");
-                shareInfo.setShareStatus("3");  //共享完成
+                shareInfo.setShareStatus("2");  //共享完成
             } else {
                 shareInfo.setSts("0");
             }
@@ -134,6 +134,7 @@ public class ShareServiceImpl implements ShareService {
         shareInfo.setCreateTime(new Date());
         shareInfo.setShareType("1"); //1居民 2 物业社区
         shareInfo.setSts("1"); //任务状态 0删除 1.正常
+        shareInfo.setShareStatus("0"); //
         int i = stAppletShareInfoMapper.insert(shareInfo);
         if (i > 0) {
             flag = true;

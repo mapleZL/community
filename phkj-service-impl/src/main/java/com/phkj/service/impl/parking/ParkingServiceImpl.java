@@ -147,7 +147,6 @@ public class ParkingServiceImpl implements ParkingService {
         if (null == parking) {
             return false;
         }
-
         //
         int months = getMonths(parking.getStartTime(), parking.getEndTime());
         Calendar cal = Calendar.getInstance();
@@ -165,6 +164,36 @@ public class ParkingServiceImpl implements ParkingService {
         return false;
     }
 
+    /**
+     * @param id
+     * @param userId
+     * @param userName
+     * @return
+     */
+    @Override
+    public boolean deleteParking(String id, String userId, String userName) {
+        StAppletParking parking = parkingReadDao.selectByPrimaryKey(Long.valueOf(id));
+        if (parking == null) {
+            return false;
+        }
+        parking.setSts("3");
+        parking.setModifyTime(new Date());
+        parking.setModifyUserId(userId);
+        parking.setModifyUserName(userName);
+        //
+        int i = parkingWriteDao.updateByPrimaryKeySelective(parking);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     public int getMonths(Date startDate, Date endDate) {
         Calendar startCalendar = new GregorianCalendar();
         startCalendar.setTime(startDate);

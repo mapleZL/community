@@ -143,13 +143,12 @@
 			<@shiro.hasPermission name="/admin/share">
                 <a href="javascript:void(0);" onclick="addTab('共享大厅', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/')">共享大厅</a>
 			</@shiro.hasPermission>
-			<@shiro.hasPermission name="/admin/share/system">
+			<@shiro.hasPermission name="/admin/share/wy">
                 <a href="javascript:void(0);" onclick="addTab('物业发布', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/share/system')">物业发布</a>
 			</@shiro.hasPermission>
         </div>
-
 	</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin_menu_complaint">
+    <@shiro.hasPermission name="/admin_menu_complaint">
 		<div title="意见投诉" class="ra_div">
 			<@shiro.hasPermission name="/admin/complaint/system">
                 <a href="javascript:void(0);" onclick="addTab('投诉信息', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/complaint/system')">意见投诉</a>

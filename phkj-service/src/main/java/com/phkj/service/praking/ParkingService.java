@@ -20,4 +20,6 @@ public interface ParkingService {
     Map<String,Object> getPayment(String villageCode);
 
     boolean updateParking(String id, String userId, String villageCode, String userName);
+
+    boolean deleteParking(String id, String userId, String userName);
 }
