@@ -2,6 +2,8 @@ package com.phkj.web.controller.event;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +65,18 @@ public class HotEventController {
     private IStAppletUserBrowseService       stAppletUserBrowseService;
     @Autowired
     private IStAppletCollectionManageService collectionManageService;
+    
+    @RequestMapping(value = "/add", method = { RequestMethod.GET })
+    public String getList(Map<String, Object> dataMap) throws Exception {
+        return "/admin/event/hoteventadd";
+    }
+    
+    //待审核商品列表
+    @RequestMapping(value = "/view", method = { RequestMethod.GET })
+    public String examineSale(HttpServletRequest request, Map<String, Object> dataMap) {
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+        return "/admin/event/eventexamine";
+    }
 
     /**
      * 新增或修改热门活动
@@ -71,11 +85,12 @@ public class HotEventController {
      * @param dataMap
      * @return
      * @throws IOException
+     * @throws ParseException 
      */
     @ResponseBody
     @RequestMapping(value = "/create", method = { RequestMethod.POST })
     public HttpJsonResult<Object> create(StAppletHotEvents event, HttpServletRequest request,
-                                         Map<String, Object> dataMap) throws IOException {
+                                         Map<String, Object> dataMap) throws IOException, ParseException {
         HttpJsonResult<Object> jsonResult = new HttpJsonResult<>();
         SystemAdmin user = WebAdminSession.getAdminUser(request);
         if (null == user) {
@@ -92,17 +107,23 @@ public class HotEventController {
 
     private ServiceResult<Integer> createOrUpdateEvent(StAppletHotEvents event,
                                                        HttpServletRequest request,
-                                                       SystemAdmin user) {
+                                                       SystemAdmin user) throws ParseException {
         ServiceResult<Integer> result = new ServiceResult<>();
-        if (event.getStatus() == 1 && event.getId() > 0) {
+        if (event.getId() > 0) {
             event.setCreateUserId(user.getId());
             event.setCreateTime(new Date());
         }
         event.setVillageCode(user.getVillageCode());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String postBegin = request.getParameter("begin");
+        String postEnd = request.getParameter("end");
+        
+        event.setPostBegin(sdf.parse(postBegin));
+        event.setPostEnd(sdf.parse(postEnd));
+        
         String pics = request.getParameter("imageSrc");
         if (!StringUtil.isEmpty(pics)) {
-            String[] split = pics.split(";");
-            event.setImg(split.toString());
+            event.setImg(pics);
         }
         if (event.getId() > 0) {
             result = hotEventsService.updateStAppletHotEvents(event);
@@ -125,7 +146,14 @@ public class HotEventController {
                                                         Map<String, Object> dataMap) throws IOException {
         HttpJsonResult<List<StAppletHotEvents>> jsonResult = new HttpJsonResult<>();
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
-
+        String title = request.getParameter("q_title");
+        String sourceType = request.getParameter("q_sourceId");
+        dataMap.put("q_title", title);
+        if (StringUtils.isNotBlank(sourceType) && !"0".equals(sourceType)) {
+            dataMap.put("q_sourceType", sourceType);
+        }
+        SystemAdmin user = WebAdminSession.getAdminUser(request);
+        dataMap.put("q_villageCode", user.getVillageCode());
         ServiceResult<List<StAppletHotEvents>> serviceResult = hotEventsService.getPageList(pager,
             dataMap);
         if (!serviceResult.getSuccess()) {
