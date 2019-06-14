@@ -21,6 +21,16 @@
     modify_user_id, modify_user_name, modify_time, village_code,bank_name
   </sql>
 
+  <select id="selectByPaymentType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    id,payment_type, payment_code, qr_code,bank_name,sts
+    FROM
+    st_applet_payment
+    WHERE
+    village_code = #{villageCode}
+    AND sts = '1'  and payment_type = #{type}
+  </select>
+
   <select id="selectAllPayment" parameterType="java.lang.String" resultMap="BaseResultMap">
     SELECT
     id,

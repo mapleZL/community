@@ -193,6 +193,7 @@
     st_applet_share_info t
     WHERE
     t.sts = '1'
+    and share_status != '3'
     <if test="taskType != null and taskType != '' ">
       and t.task_type = #{taskType}
     </if>

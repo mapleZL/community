@@ -23,4 +23,6 @@ public interface StAppletParkingPriceReadDao {
     List<StAppletParkingPrice> selectAll(@Param("villageCode") String villageCode);
 
     List<StAppletParkingPrice> selectByType(@Param("id") String id, @Param("villageCode") String villageCode);
+
+    StAppletParkingPrice selectParkingPriceBySts(@Param("villageCode") String villageCode, @Param("sts") String sts);
 }

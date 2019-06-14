@@ -70,7 +70,7 @@ public class ShareServiceImpl implements ShareService {
         if (null != shareInfo) {
             //  停止共享
             if ("2".equals(type)) {
-                shareInfo.setSts("0");
+                shareInfo.setSts("1");
                 shareInfo.setShareStatus("3");  //共享完成
             } else {
                 shareInfo.setSts("0");

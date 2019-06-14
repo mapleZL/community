@@ -1,5 +1,6 @@
 package com.phkj.dao.shop.read.praking;
 
+import com.phkj.entity.praking.StAppletParking;
 import com.phkj.entity.praking.StAppletPayment;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -23,5 +24,7 @@ public interface StAppletReadPaymentDao {
     List<StAppletPayment> selectAllPayment(@Param("villageCode") String villageCode, @Param("type") String type,
                                            @Param("sts") String sts);
 
-    List<StAppletPayment> selectByType(@Param("type") String paymentType,@Param("id") String id);
+    List<StAppletPayment> selectByType(@Param("type") String paymentType, @Param("id") String id);
+
+    StAppletPayment selectByPaymentType(@Param("villageCode") String villageCode, @Param("type") String type);
 }
