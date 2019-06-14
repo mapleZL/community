@@ -68,8 +68,11 @@
             <if test="param.q_title != null and '' != param.q_title">
                 and `title` like CONCAT('%',#{param.q_title},'%')
             </if>
+            <if test="param.q_sourceType != null and '' != param.q_sourceType">
+                and `source_type` = #{param.q_sourceType}
+            </if>
             <if test="param.q_villageCode != null and '' != param.q_villageCode">
-                and `village_code` = #{param.villageCode}
+                and `village_code` = #{param.q_villageCode}
             </if>
             <if test="param.q_status != null and '' != param.q_status">
                 and `status` = #{status}

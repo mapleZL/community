@@ -70,6 +70,13 @@ public class HotEventController {
     public String getList(Map<String, Object> dataMap) throws Exception {
         return "/admin/event/hoteventadd";
     }
+    
+    //待审核商品列表
+    @RequestMapping(value = "/view", method = { RequestMethod.GET })
+    public String examineSale(HttpServletRequest request, Map<String, Object> dataMap) {
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+        return "/admin/event/eventexamine";
+    }
 
     /**
      * 新增或修改热门活动
@@ -139,7 +146,14 @@ public class HotEventController {
                                                         Map<String, Object> dataMap) throws IOException {
         HttpJsonResult<List<StAppletHotEvents>> jsonResult = new HttpJsonResult<>();
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
-
+        String title = request.getParameter("q_title");
+        String sourceType = request.getParameter("q_sourceId");
+        dataMap.put("q_title", title);
+        if (StringUtils.isNotBlank(sourceType) && !"0".equals(sourceType)) {
+            dataMap.put("q_sourceType", sourceType);
+        }
+        SystemAdmin user = WebAdminSession.getAdminUser(request);
+        dataMap.put("q_villageCode", user.getVillageCode());
         ServiceResult<List<StAppletHotEvents>> serviceResult = hotEventsService.getPageList(pager,
             dataMap);
         if (!serviceResult.getSuccess()) {

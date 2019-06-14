@@ -330,11 +330,11 @@
                 <shop.read.username>root</shop.read.username>
                 <shop.read.password>Lushuai@1992</shop.read.password>
 
-                <mobile.write.url>jdbc:mysql://112.17.164.97:8858/st_dev</mobile.write.url>
+                <mobile.write.url>jdbc:mysql://112.17.164.97:8858/st_dev_aliy</mobile.write.url>
                 <mobile.write.username>st_epiboly</mobile.write.username>
                 <mobile.write.password>fxy001</mobile.write.password>
 
-                <mobile.read.url>jdbc:mysql://112.17.164.97:8858/st_dev</mobile.read.url>
+                <mobile.read.url>jdbc:mysql://112.17.164.97:8858/st_dev_aliy</mobile.read.url>
                 <mobile.read.username>st_epiboly</mobile.read.username>
                 <mobile.read.password>fxy001</mobile.read.password>
 
