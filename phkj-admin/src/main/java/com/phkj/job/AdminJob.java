@@ -201,11 +201,11 @@ public class AdminJob {
             Map<Long, List<StBaseinfoBuilding>> buildingsMap = new HashMap<>();
             List<StBaseinfoBuilding> buildingList = null;
             for (StBaseinfoBuilding building : buildings) {
-                if (buildingsMap.containsKey(building.getResidentiaId())) {
-                    buildingList = buildingsMap.get(building.getResidentiaId());
+                if (buildingsMap.containsKey(building.getSubareaId())) {
+                    buildingList = buildingsMap.get(building.getSubareaId());
                 } else {
                     buildingList = new ArrayList<>();
-                    buildingsMap.put(building.getResidentiaId(), buildingList);
+                    buildingsMap.put(building.getSubareaId(), buildingList);
                 }
                 buildingList.add(building);
             }
