@@ -147,6 +147,13 @@ $(function(){
 					</div>
 					</br>
 					<div class="fluidbox">
+						<p class="p12 p-item">
+							<label class="lab-item"><font class="red">*</font>联系方式：</label>
+							<input class="easyui-validatebox txt w280" type="text" id="phone" name="phone" value="${(seller.phone)!''}" data-options="required:true,validType:'length[0,50]'" >
+						</p>
+					</div>
+					</br>
+					<div class="fluidbox">
 					  <dd class="dd-group">
 	                    <span class="s-showbtn">
 	                    <label class="lab-item"><font class="red">*</font>店铺logo：</label>

@@ -42,6 +42,10 @@
                 return;
             }
             $('#description').val(description);//商品描述信息
+            if ($("#cateId").combotree('getValue') == 0) {
+            	$.messager.alert('提示',"请选择商品分类");
+                return;
+            }
 			
             <#--商品图片-->
             var image = $('img[name^=prev_]');

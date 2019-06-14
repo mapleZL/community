@@ -82,29 +82,19 @@ public class AdminSellerController extends BaseController {
     public String create(StAppletSeller seller, HttpServletRequest request,
                          Map<String, Object> dataMap) {
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
-        //        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        //        CommonsMultipartFile multipartFile = (CommonsMultipartFile) multipartRequest
-        //            .getFile("up_bussinessLicenseImage");
         //营业执照扫描件
-        //        String bli = fileService.uploadFile(multipartFile);
         String bli = request.getParameter("picimg2");
         if (!StringUtil.isEmpty(bli)) {
             seller.setBussinessLicense(bli);
         }
 
         //税务登记证
-        //        multipartFile = (CommonsMultipartFile) multipartRequest
-        //                .getFile("up_taxLicense");
-        //        String bls = fileService.uploadFile(multipartFile);
         String bls = request.getParameter("picimg3");
         if (!StringUtil.isEmpty(bls)) {
             seller.setTaxLicense(bls);
         }
 
         //组织机构代码证
-        //        multipartFile = (CommonsMultipartFile) multipartRequest
-        //                .getFile("up_organization");
-        //        String org = fileService.uploadFile(multipartFile);
         String org = request.getParameter("picimg4");
         if (!StringUtil.isEmpty(org)) {
             seller.setOrganization(org);
@@ -115,9 +105,11 @@ public class AdminSellerController extends BaseController {
         String name = request.getParameter("name");
         String sellerName = request.getParameter("sellerName");
         String imageSrc = request.getParameter("imageSrc");
+        String phone = request.getParameter("phone");
         seller.setSellerLogo(imageSrc);
         seller.setName(name);
         seller.setSellerName(sellerName);
+        seller.setPhone(phone);
         seller.setSellerCode(UUID.randomUUID().toString());
         sellerService.saveStAppletSeller(seller);
 
@@ -135,9 +127,6 @@ public class AdminSellerController extends BaseController {
     @RequestMapping(value = "/update", method = { RequestMethod.POST })
     public String update(StAppletSeller seller, HttpServletRequest request,
                          Map<String, Object> dataMap) {
-        //        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        //        CommonsMultipartFile multipartFile = (CommonsMultipartFile) multipartRequest
-        //                .getFile("up_bussinessLicenseImage");
         //营业执照扫描件
         String bli = request.getParameter("picimg2");
         if (!StringUtil.isEmpty(bli)) {
@@ -145,18 +134,11 @@ public class AdminSellerController extends BaseController {
         }
 
         //税务登记证
-        //        multipartFile = (CommonsMultipartFile) multipartRequest
-        //                .getFile("up_taxLicense");
-        //        String bls = fileService.uploadFile(multipartFile);
         String bls = request.getParameter("picimg3");
         if (!StringUtil.isEmpty(bls)) {
             seller.setTaxLicense(bls);
         }
 
-        //组织机构代码证
-        //        multipartFile = (CommonsMultipartFile) multipartRequest
-        //                .getFile("up_organization");
-        //        String org = fileService.uploadFile(multipartFile);
         String org = request.getParameter("picimg4");
         if (!StringUtil.isEmpty(org)) {
             seller.setOrganization(org);
@@ -164,9 +146,11 @@ public class AdminSellerController extends BaseController {
         String name = request.getParameter("name");
         String sellerName = request.getParameter("sellerName");
         String imageSrc = request.getParameter("imageSrc");
+        String phone = request.getParameter("phone");
         seller.setSellerLogo(imageSrc);
         seller.setName(name);
         seller.setSellerName(sellerName);
+        seller.setPhone(phone);
         String id = request.getParameter("id");
         seller.setId(Integer.valueOf(id));
         sellerService.updateStAppletSeller(seller);

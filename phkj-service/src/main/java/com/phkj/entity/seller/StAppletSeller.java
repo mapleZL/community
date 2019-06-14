@@ -37,10 +37,15 @@ import java.io.Serializable;
  */
 public class StAppletSeller implements Serializable {
 
+    /**
+     *Comment for <code>serialVersionUID</code>
+     */
+    private static final long    serialVersionUID = 1L;
     private java.lang.Integer    id;
     private java.lang.Integer    memberId;
     private java.lang.String     name;
     private java.lang.String     sellerName;
+    private String               phone;
     private java.lang.String     sellerLogo;
     private java.lang.Integer    sellerGrade;
     private java.lang.String     scoreService;
@@ -382,4 +387,13 @@ public class StAppletSeller implements Serializable {
     public void setBussinessLicense(java.lang.String bussinessLicense) {
         this.bussinessLicense = bussinessLicense;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
 }
