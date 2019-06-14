@@ -56,7 +56,6 @@ public class MemberHouseController extends BaseController {
     IStBaseinfoResidentHouseService residentHouseService;
     @Autowired
     IStBaseinfoResidentinfoService residentinfoService;
-
     @Autowired
     RedisComponent redisComponent;
 
@@ -339,7 +338,7 @@ public class MemberHouseController extends BaseController {
      * @param memberId
      * @return
      */
-    @RequestMapping(value = "/cache/get", method = RequestMethod.POST)
+    @RequestMapping(value = "/cache/get", method = RequestMethod.GET)
     @ResponseBody
     public ResponseUtil get(@RequestParam Integer memberId) {
         try {
@@ -348,11 +347,9 @@ public class MemberHouseController extends BaseController {
                         true);
             }
             String redisString = redisComponent.getRedisString(memberId.toString());
-            MemberHourseParam memberHourseParam;
+            MemberHourseParam memberHourseParam = null;
             if (StringUtils.isNotBlank(redisString)) {
                 memberHourseParam = JSON.parseObject(redisString, MemberHourseParam.class);
-            } else {
-                memberHourseParam = new MemberHourseParam();
             }
             return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), ResponseStateEnum.STATUS_OK.getMsg(), true,
                     memberHourseParam);
