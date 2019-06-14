@@ -34,6 +34,10 @@ public class MemberParam implements Serializable {
      * 名称
      */
     private String userName;
+    /**
+     * 头像
+     */
+    private String headIcon;
 
     public String getPhoneNum() {
         return phoneNum;
@@ -75,6 +79,14 @@ public class MemberParam implements Serializable {
         this.userName = userName;
     }
 
+    public String getHeadIcon() {
+        return headIcon;
+    }
+
+    public void setHeadIcon(String headIcon) {
+        this.headIcon = headIcon;
+    }
+
     @Override
     public String toString() {
         return "MemberParam{" +
@@ -83,6 +95,7 @@ public class MemberParam implements Serializable {
                 ", smsCode='" + smsCode + '\'' +
                 ", wxCode='" + wxCode + '\'' +
                 ", userName='" + userName + '\'' +
+                ", headIcon='" + headIcon + '\'' +
                 '}';
     }
 }

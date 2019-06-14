@@ -9,14 +9,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSON;
+import com.phkj.core.redis.RedisComponent;
+import com.phkj.entity.member.MemberHourseParam;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.phkj.core.AESHelper;
 import com.phkj.core.ConstantsEJS;
@@ -56,6 +56,8 @@ public class MemberHouseController extends BaseController {
     IStBaseinfoResidentHouseService residentHouseService;
     @Autowired
     IStBaseinfoResidentinfoService residentinfoService;
+    @Autowired
+    RedisComponent redisComponent;
 
     /**
      * 初始化列表页面
@@ -232,7 +234,7 @@ public class MemberHouseController extends BaseController {
      */
     @RequestMapping(value = "/all", method = {RequestMethod.GET})
     @ResponseBody
-    public ResponseUtil list(String memberId,String villageCode, HttpServletResponse response) {
+    public ResponseUtil list(String memberId, String villageCode, HttpServletResponse response) {
         if (StringUtils.isBlank(memberId) || StringUtils.isBlank(villageCode)) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
                     "createUserId or villageCode is blank", true, null);
@@ -304,5 +306,57 @@ public class MemberHouseController extends BaseController {
         HttpJsonResult<Boolean> jsonResult = new HttpJsonResult<Boolean>();
         jsonResult.setData(true);
         return jsonResult;
+    }
+
+    /**
+     * 缓存用户登录时的小区信息
+     *
+     * @param param
+     * @return
+     */
+    @RequestMapping(value = "/cache/save", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseUtil save(@RequestBody MemberHourseParam param) {
+        try {
+            if (param == null || param.getMemberId() == null) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true,
+                        true);
+            }
+            redisComponent.setStringPersistence(param.getMemberId().toString(), param.toJSONString());
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true,
+                    true);
+        } catch (Exception e) {
+            log.error("保存用户缓存信息异常", e);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), e.getMessage(), false,
+                    true);
+        }
+    }
+
+    /**
+     * 获取用户登录时的小区信息
+     *
+     * @param memberId
+     * @return
+     */
+    @RequestMapping(value = "/cache/get", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseUtil get(@RequestParam Integer memberId) {
+        try {
+            if (memberId == null || memberId == 0) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true,
+                        true);
+            }
+            String redisString = redisComponent.getRedisString(memberId.toString());
+            MemberHourseParam memberHourseParam = null;
+            if (StringUtils.isNotBlank(redisString)) {
+                memberHourseParam = JSON.parseObject(redisString, MemberHourseParam.class);
+            }
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), ResponseStateEnum.STATUS_OK.getMsg(), true,
+                    memberHourseParam);
+        } catch (Exception e) {
+            log.error("获取用户缓存信息异常", e);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), e.getMessage(), false,
+                    null);
+        }
     }
 }
