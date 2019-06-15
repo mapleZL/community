@@ -20,6 +20,23 @@
 			<result property="innnerType" column="innner_type" />
 			<result property="parkingStatus" column="parking_status" />
 	</resultMap>
+
+	<select id="selectLockByNum" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			pl.id,
+			pl.`code`,
+			pl.org_code AS orgCode,
+			ei.serial_number AS lockNum,
+			ei.STATUS,
+			ei.sts,
+			ei.id AS eid
+		FROM
+			st_baseinfo_parking_lot pl
+			INNER JOIN st_baseinfo_carport_equipment_relation er ON pl.id = er.carport_id
+			AND pl.CODE = #{carNum}
+			AND pl.org_code = #{villageCode}
+			INNER JOIN st_baseinfo_equipment_info ei ON er.equipment_id = ei.id
+	</select>
 	
 	<select id="get" parameterType="Long" resultMap="StBaseinfoParkingLotResult">
 		select
