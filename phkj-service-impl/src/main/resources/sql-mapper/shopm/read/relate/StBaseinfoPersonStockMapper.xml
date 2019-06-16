@@ -39,7 +39,7 @@
 			<result property="hkGroupPersonFlag" column="hk_group_person_flag" />
 	</resultMap>
 	
-	<select id="get" parameterType="Integer" resultMap="StBaseinfoPersonStockResult">
+	<select id="get" parameterType="Long" resultMap="StBaseinfoPersonStockResult">
 		select
 		   *
 		from `st_baseinfo_person_stock`

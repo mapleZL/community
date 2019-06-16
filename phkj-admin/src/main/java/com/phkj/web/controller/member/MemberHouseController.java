@@ -9,15 +9,17 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.alibaba.fastjson.JSON;
-import com.phkj.core.redis.RedisComponent;
-import com.phkj.entity.member.MemberHourseParam;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.phkj.core.AESHelper;
 import com.phkj.core.ConstantsEJS;
 import com.phkj.core.HttpJsonResult;
@@ -26,15 +28,17 @@ import com.phkj.core.ResponseStateEnum;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.WebUtil;
 import com.phkj.core.exception.BusinessException;
+import com.phkj.core.redis.RedisComponent;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.MemberPropertyStatus;
+import com.phkj.entity.member.MemberHourseParam;
 import com.phkj.entity.member.MemberHouse;
+import com.phkj.entity.relate.StBaseinfoPersonStock;
 import com.phkj.entity.relate.StBaseinfoResidentHouse;
-import com.phkj.entity.relate.StBaseinfoResidentinfo;
 import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.member.IMemberHouseService;
+import com.phkj.service.relate.IStBaseinfoPersonStockService;
 import com.phkj.service.relate.IStBaseinfoResidentHouseService;
-import com.phkj.service.relate.IStBaseinfoResidentinfoService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
 
@@ -51,13 +55,13 @@ import com.phkj.web.util.WebAdminSession;
 public class MemberHouseController extends BaseController {
 
     @Resource
-    IMemberHouseService memberHouseService;
+    private IMemberHouseService             memberHouseService;
     @Resource
-    IStBaseinfoResidentHouseService residentHouseService;
+    private IStBaseinfoResidentHouseService residentHouseService;
     @Autowired
-    IStBaseinfoResidentinfoService residentinfoService;
+    private IStBaseinfoPersonStockService   personStockService;
     @Autowired
-    RedisComponent redisComponent;
+    private RedisComponent                  redisComponent;
 
     /**
      * 初始化列表页面
@@ -66,7 +70,7 @@ public class MemberHouseController extends BaseController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "", method = {RequestMethod.GET})
+    @RequestMapping(value = "", method = { RequestMethod.GET })
     public String getList(Map<String, Object> dataMap) throws Exception {
         dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
         return "admin/member/member/memberhouselist";
@@ -111,12 +115,13 @@ public class MemberHouseController extends BaseController {
                 .getResidentBouseByParam(queryMap);
         if (stBaseinfoResidentHouse != null) {
             // 根据关联居民信息查找用户
-            StBaseinfoResidentinfo residentinfo = residentinfoService
-                    .getStBaseinfoResidentinfoById(stBaseinfoResidentHouse.getResidentId()).getResult();
-            if (residentinfo != null) {
+//            StBaseinfoResidentinfo residentinfo = residentinfoService
+//                    .getStBaseinfoResidentinfoById(stBaseinfoResidentHouse.getResidentId()).getResult();
+            StBaseinfoPersonStock personStock = personStockService.getStBaseinfoPersonStockById(stBaseinfoResidentHouse.getPersonStockId()).getResult();
+            if (personStock != null && personStock.getSourceTable().equals("st_baseinfo_residentinfo") && personStock.getEffectiveState().equals("Y")) {
                 // 身份证账号解密
-                String idNo = AESHelper.Decrypt(residentinfo.getEncryptionIdNumber());
-                if (residentinfo.getName().equals(memberHouse.getName())
+                String idNo = AESHelper.Decrypt(personStock.getEncryptionIdNumber());
+                if (personStock.getName().equals(memberHouse.getName())
                         && idNo.equals(memberHouse.getIdNumber())) {
                     return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "认证成功",
                             true, null);
@@ -144,55 +149,55 @@ public class MemberHouseController extends BaseController {
     private ResponseUtil checkParam(MemberHouse memberHouse) {
         if (memberHouse == null) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                    ResponseStateEnum.PARAM_EMPTY.getMsg(), false, null);
+                ResponseStateEnum.PARAM_EMPTY.getMsg(), false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getRegion())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "region is empity",
-                    false, null);
+                false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getCommunity())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "community is empity",
-                    false, null);
+                false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getBuilding())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "building is empity",
-                    false, null);
+                false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getRoom())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "room is empity", false,
-                    null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "room is empity",
+                false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getIdentityInformation())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                    "identityInformation is empity", false, null);
+                "identityInformation is empity", false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getIdNumber())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "idNumber is empity",
-                    false, null);
+                false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getStreet())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "street is empity",
-                    false, null);
+                false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getVillage())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "village is empity",
-                    false, null);
+                false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getUnit())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "unit is empity", false,
-                    null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "unit is empity",
+                false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getPhone())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phone is empity",
-                    false, null);
+                false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getName())) {
-            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "name is empity", false,
-                    null);
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "name is empity",
+                false, null);
         }
         if (StringUtils.isEmpty(memberHouse.getImg())) {
             ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "img is empity", false,
-                    null);
+                null);
         }
         return null;
     }
@@ -204,10 +209,9 @@ public class MemberHouseController extends BaseController {
      * @param dataMap
      * @return
      */
-    @RequestMapping(value = "/list", method = {RequestMethod.GET})
-    public @ResponseBody
-    HttpJsonResult<List<MemberHouse>> list(HttpServletRequest request,
-                                           ModelMap dataMap) {
+    @RequestMapping(value = "/list", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<List<MemberHouse>> list(HttpServletRequest request,
+                                                                ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.page(queryMap, pager);
@@ -232,16 +236,17 @@ public class MemberHouseController extends BaseController {
      * @param memberId
      * @return
      */
-    @RequestMapping(value = "/all", method = {RequestMethod.GET})
+    @RequestMapping(value = "/all", method = { RequestMethod.GET })
     @ResponseBody
     public ResponseUtil list(String memberId, String villageCode, HttpServletResponse response) {
         if (StringUtils.isBlank(memberId) || StringUtils.isBlank(villageCode)) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                    "createUserId or villageCode is blank", true, null);
+                "createUserId or villageCode is blank", true, null);
         }
-        ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.getAllHouse(memberId, villageCode);
+        ServiceResult<List<MemberHouse>> serviceResult = memberHouseService.getAllHouse(memberId,
+            villageCode);
         return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true,
-                serviceResult.getResult());
+            serviceResult.getResult());
     }
 
     /**
@@ -251,10 +256,9 @@ public class MemberHouseController extends BaseController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/passInfo", method = {RequestMethod.GET})
-    public @ResponseBody
-    HttpJsonResult<Boolean> pass(HttpServletRequest request,
-                                 HttpServletResponse response, Integer id) {
+    @RequestMapping(value = "/passInfo", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<Boolean> pass(HttpServletRequest request,
+                                                      HttpServletResponse response, Integer id) {
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         Integer userId = adminUser.getId();
         MemberHouse memberHouse = new MemberHouse();
@@ -283,10 +287,9 @@ public class MemberHouseController extends BaseController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/noPassInfo", method = {RequestMethod.GET})
-    public @ResponseBody
-    HttpJsonResult<Boolean> noPass(HttpServletRequest request,
-                                   HttpServletResponse response, Integer id) {
+    @RequestMapping(value = "/noPassInfo", method = { RequestMethod.GET })
+    public @ResponseBody HttpJsonResult<Boolean> noPass(HttpServletRequest request,
+                                                        HttpServletResponse response, Integer id) {
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         Integer userId = adminUser.getId();
         MemberHouse memberHouse = new MemberHouse();
@@ -319,16 +322,16 @@ public class MemberHouseController extends BaseController {
     public ResponseUtil save(@RequestBody MemberHourseParam param) {
         try {
             if (param == null || param.getMemberId() == null) {
-                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true,
-                        true);
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
+                    "memberId is blank", true, true);
             }
-            redisComponent.setStringPersistence(param.getMemberId().toString(), param.toJSONString());
-            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true,
-                    true);
+            redisComponent.setStringPersistence(param.getMemberId().toString(),
+                param.toJSONString());
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true, true);
         } catch (Exception e) {
             log.error("保存用户缓存信息异常", e);
-            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), e.getMessage(), false,
-                    true);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), e.getMessage(),
+                false, true);
         }
     }
 
@@ -343,20 +346,20 @@ public class MemberHouseController extends BaseController {
     public ResponseUtil get(@RequestParam Integer memberId) {
         try {
             if (memberId == null || memberId == 0) {
-                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "memberId is blank", true,
-                        true);
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
+                    "memberId is blank", true, true);
             }
             String redisString = redisComponent.getRedisString(memberId.toString());
             MemberHourseParam memberHourseParam = null;
             if (StringUtils.isNotBlank(redisString)) {
                 memberHourseParam = JSON.parseObject(redisString, MemberHourseParam.class);
             }
-            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), ResponseStateEnum.STATUS_OK.getMsg(), true,
-                    memberHourseParam);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(),
+                ResponseStateEnum.STATUS_OK.getMsg(), true, memberHourseParam);
         } catch (Exception e) {
             log.error("获取用户缓存信息异常", e);
-            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), e.getMessage(), false,
-                    null);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), e.getMessage(),
+                false, null);
         }
     }
 }
