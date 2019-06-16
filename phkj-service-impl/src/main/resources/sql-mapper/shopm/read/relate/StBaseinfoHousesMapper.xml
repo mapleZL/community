@@ -35,7 +35,7 @@
 	</select>
 	
 	<select id="getHouse" resultMap="StBaseinfoHousesResult">
-	    select * from `st_baseinfo_houses` where use_state = 1
+	    select * from `st_baseinfo_houses` where sts = 'Y'
 	</select>
 	
 	<update id="update" parameterType="com.phkj.entity.relate.StBaseinfoHouses">
