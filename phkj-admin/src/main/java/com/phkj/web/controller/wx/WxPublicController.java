@@ -70,6 +70,7 @@ public class WxPublicController {
     @ResponseBody
     public ResponseUtil person(String code, Model model) {
         try {
+            log.info("获取用户信息code：" + code);
             JSONObject userInfo = new JSONObject();
             if (code != null) {
                 //1.通过code来换取access_token

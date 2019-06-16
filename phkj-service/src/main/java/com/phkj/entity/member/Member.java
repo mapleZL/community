@@ -708,4 +708,59 @@ public class Member implements Serializable {
 	public void setIsTransferBussiness(java.lang.String isTransferBussiness) {
 		this.isTransferBussiness = isTransferBussiness;
 	}
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", grade=" + grade +
+                ", gradeValue=" + gradeValue +
+                ", integral=" + integral +
+                ", registerTime=" + registerTime +
+                ", lastLoginTime=" + lastLoginTime +
+                ", lastLoginIp='" + lastLoginIp + '\'' +
+                ", loginNumber=" + loginNumber +
+                ", lastAddressId=" + lastAddressId +
+                ", lastPaymentCode=" + lastPaymentCode +
+                ", gender=" + gender +
+                ", birthday=" + birthday +
+                ", email='" + email + '\'' +
+                ", qq='" + qq + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", phone='" + phone + '\'' +
+                ", pwdErrCount=" + pwdErrCount +
+                ", source=" + source +
+                ", balance=" + balance +
+                ", balancePwd='" + balancePwd + '\'' +
+                ", isEmailVerify=" + isEmailVerify +
+                ", isSmsVerify=" + isSmsVerify +
+                ", smsVerifyCode='" + smsVerifyCode + '\'' +
+                ", emailVerifyCode='" + emailVerifyCode + '\'' +
+                ", canReceiveSms=" + canReceiveSms +
+                ", canReceiveEmail=" + canReceiveEmail +
+                ", memberType=" + memberType +
+                ", status=" + status +
+                ", updateTime=" + updateTime +
+                ", saleCode='" + saleCode + '\'' +
+                ", inviterId='" + inviterId + '\'' +
+                ", quhaoNum=" + quhaoNum +
+                ", teleNum=" + teleNum +
+                ", fenjiNum=" + fenjiNum +
+                ", wechatNum='" + wechatNum + '\'' +
+                ", certificateNum='" + certificateNum + '\'' +
+                ", userCertify=" + userCertify +
+                ", wdName='" + wdName + '\'' +
+                ", wdwebAddress='" + wdwebAddress + '\'' +
+                ", realName='" + realName + '\'' +
+                ", userAddress='" + userAddress + '\'' +
+                ", userAddinfo='" + userAddinfo + '\'' +
+                ", dpAddress='" + dpAddress + '\'' +
+                ", dpAddinfo='" + dpAddinfo + '\'' +
+                ", isSyncOms='" + isSyncOms + '\'' +
+                ", isTransferBussiness='" + isTransferBussiness + '\'' +
+                ", headIcon='" + headIcon + '\'' +
+                '}';
+    }
 }
