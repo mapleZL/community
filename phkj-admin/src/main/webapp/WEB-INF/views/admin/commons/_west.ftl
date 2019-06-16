@@ -183,6 +183,9 @@
 				<@shiro.hasPermission name="/admin/price">
 					<a href="javascript:void(0);" onclick="addTab('价钱设置', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/price/')">价钱设置</a>
 				</@shiro.hasPermission>
+				<@shiro.hasPermission name="/admin/parking">
+					<a href="javascript:void(0);" onclick="addTab('租用列表', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/parking/system')">租用管理</a>
+				</@shiro.hasPermission>
 			</div>
 	</@shiro.hasPermission>
 

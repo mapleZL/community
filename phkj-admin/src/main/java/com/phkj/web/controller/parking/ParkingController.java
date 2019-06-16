@@ -43,6 +43,24 @@ public class ParkingController {
         return "/admin/parking/parkinglist";
     }
 
+    @ResponseBody
+    @RequestMapping("/system/update")
+    public ResponseUtil systemUpdateParking(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            String id = request.getParameter("id");
+            String type = request.getParameter("type");
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            if (parkingService.systemUpdateParking(id, type, adminUser)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("更新失败!");
+        }
+        return responseUtil;
+    }
+
     /**
      * 后台管理查询所有
      *
@@ -55,10 +73,13 @@ public class ParkingController {
         HttpJsonResult<List<StAppletParking>> resultJson = new HttpJsonResult<List<StAppletParking>>();
         try {
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
-            String sts = request.getParameter("sts");
+            String sts = request.getParameter("q_status");
             String page = request.getParameter("page");
             String rows = request.getParameter("rows");
             PageInfo<StAppletParking> pageInfo = parkingService.getSystemAll(sts, page, rows, adminUser.getVillageCode());
+            String total = String.valueOf(pageInfo.getTotal());
+            resultJson.setRows(pageInfo.getList());
+            resultJson.setTotal(Integer.valueOf(total));
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("查询失败!" + e);

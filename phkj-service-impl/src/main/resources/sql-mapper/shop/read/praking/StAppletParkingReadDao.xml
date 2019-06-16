@@ -17,11 +17,13 @@
     <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId" />
     <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
     <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
+    <result column="examine_id" jdbcType="VARCHAR" property="examineId" />
+    <result column="examine_name" jdbcType="VARCHAR" property="examineName" />
   </resultMap>
   <sql id="Base_Column_List">
     id, car_num, price, start_time, end_time, telephone, praking_num, sts, create_time, 
     create_user_id, create_user_name, modify_time, modify_user_id, modify_user_name, 
-    village_code
+    village_code,examine_id,examine_name
   </sql>
 
 
@@ -39,12 +41,16 @@
 
   <select id="getSystemAll" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
+    id, car_num, price, start_time, end_time, telephone, praking_num,
+    case sts when '0' then '待处理' when '1' then '已通过' when '2' then '已到期' when '3' then '未通过' when '4' then '删除' end as sts
+    , create_time,create_user_id, create_user_name, modify_time, modify_user_id, modify_user_name,
+    village_code , examine_id,examine_name
     from st_applet_parking
     where village_code = #{villageCode}
     <if test="sts != null and sts != ''">
       and sts = #{sts}
     </if>
+    order by create_time desc
   </select>
 
 
