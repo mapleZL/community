@@ -45,10 +45,7 @@
                 /admin/cart/** = anon
                 /admin/payment/** = anon
                 /admin/price/** = anon
-<<<<<<< HEAD
-=======
                 /admin/lock/** = anon
->>>>>>> 4181240d4c0e7755b4f20c576061e0e1b00938c1
                 /admin/parking/** = anon
                 /admin/lost/** = anon
                 /admin/product/** = anon

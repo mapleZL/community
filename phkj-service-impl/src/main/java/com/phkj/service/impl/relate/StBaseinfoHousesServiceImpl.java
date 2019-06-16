@@ -1,5 +1,7 @@
 package com.phkj.service.impl.relate;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.LogManager;
@@ -86,4 +88,9 @@ public class StBaseinfoHousesServiceImpl implements IStBaseinfoHousesService {
         }
         return result;
      }
+
+    @Override
+    public List<StBaseinfoHouses> getHouseSpriner(Integer buildingId, String unitId) {
+        return stBaseinfoHousesModel.getHouseSpriner(buildingId, unitId);
+    }
 }

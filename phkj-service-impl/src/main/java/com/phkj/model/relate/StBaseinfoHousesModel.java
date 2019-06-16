@@ -50,4 +50,8 @@ public class StBaseinfoHousesModel {
         return stBaseinfoHousesDao.getHouse();
     }
 
+    public List<StBaseinfoHouses> getHouseSpriner(Integer buildingId, String unitId) {
+        return stBaseinfoHousesDao.getHouseSpriner(buildingId, unitId);
+    }
+
 }

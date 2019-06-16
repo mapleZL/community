@@ -1,6 +1,8 @@
 package com.phkj.web.controller.config;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +29,12 @@ import com.phkj.entity.relate.StBaseinfoPersonStock;
 import com.phkj.entity.relate.StBaseinfoResidentCar;
 import com.phkj.entity.relate.StBaseinfoResidentinfo;
 import com.phkj.entity.relate.StBaseinfoUnits;
+import com.phkj.service.relate.IStBaseinfoHousesService;
 import com.phkj.service.relate.IStBaseinfoParkingLotService;
 import com.phkj.service.relate.IStBaseinfoPersonStockService;
 import com.phkj.service.relate.IStBaseinfoResidentCarService;
 import com.phkj.service.relate.IStBaseinfoResidentinfoService;
+import com.sun.xml.internal.rngom.digested.DAnnotation;
 
 /**
  * 
@@ -45,19 +49,21 @@ import com.phkj.service.relate.IStBaseinfoResidentinfoService;
 @Controller
 public class ConfigurationController {
 
-    private static final Logger               log = LogManager
+    private static final Logger            log = LogManager
         .getLogger(ConfigurationController.class);
 
     @Autowired
-    private RedisComponent                    redisComponent;
+    private RedisComponent                 redisComponent;
     @Autowired
-    private IStBaseinfoPersonStockService     personStockService;
+    private IStBaseinfoPersonStockService  personStockService;
     @Autowired
-    private IStBaseinfoResidentCarService     residentCarService;
+    private IStBaseinfoResidentCarService  residentCarService;
     @Autowired
-    private IStBaseinfoResidentinfoService    residentinfoService;
+    private IStBaseinfoResidentinfoService residentinfoService;
     @Autowired
-    private IStBaseinfoParkingLotService      parkingLotService;
+    private IStBaseinfoParkingLotService   parkingLotService;
+    @Autowired
+    private IStBaseinfoHousesService       houseServce;
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/linkage", method = RequestMethod.GET)
@@ -90,20 +96,24 @@ public class ConfigurationController {
                                                       Integer relateId, String unitId) {
         Object returnObj = null;
         try {
-            String jsonString = redisComponent.getRedisString(configCode);
             if (configCode.equals(RedisSychroKeyConfig.CODE_BUILD_SYN)) {
+                String jsonString = redisComponent.getRedisString(configCode);
                 Map<Integer, List<StBaseinfoBuilding>> buildingsMap = JSONObject
                     .parseObject(jsonString, Map.class);
                 returnObj = buildingsMap.get(relateId);
             } else if (configCode.equals(RedisSychroKeyConfig.CODE_UNIT_SYN)) {
+                String jsonString = redisComponent.getRedisString(configCode);
                 Map<Long, List<StBaseinfoUnits>> unitMap = JSONObject.parseObject(jsonString,
                     Map.class);
                 returnObj = unitMap.get(relateId);
             } else if (configCode.equals(RedisSychroKeyConfig.CODE_HOUSE_SYN)) {
-                Map<Long, Map<Long, List<StBaseinfoHouses>>> houseMap = JSONObject
-                    .parseObject(jsonString, Map.class);
-                Map<Long, List<StBaseinfoHouses>> secondMap = houseMap.get(relateId);
-                returnObj = secondMap.get(unitId);
+                //TODO 此处待优化
+//                Map<Long, Map<Long, List<StBaseinfoHouses>>> houseMap = JSONObject
+//                    .parseObject(jsonString, Map.class);
+//                Map<Long, List<StBaseinfoHouses>> secondMap = houseMap.get(relateId);
+//                returnObj = secondMap.get(unitId);
+                List<StBaseinfoHouses> list = houseServce.getHouseSpriner(relateId, unitId);
+                returnObj = list;
             }
         } catch (Exception e) {
             log.error("联级查询失败：", e);
