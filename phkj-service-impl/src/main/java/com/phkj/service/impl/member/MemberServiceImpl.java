@@ -203,6 +203,7 @@ public class MemberServiceImpl implements IMemberService {
     public ServiceResult<Member> memberRegister(Member member) {
         ServiceResult<Member> serviceResult = new ServiceResult<Member>();
         try {
+            log.info("memberRegister, 注册账号参数：" + member);
             serviceResult.setResult(memberModel.memberRegister(member));
             serviceResult.setCode("200");
             serviceResult.setSuccess(true);
@@ -331,8 +332,8 @@ public class MemberServiceImpl implements IMemberService {
     /**
      * 修改密码提交
      *
-     * @param oldPwd  旧密码
-     * @param newPwd  新密码
+     * @param oldPwd 旧密码
+     * @param newPwd 新密码
      * @param member
      * @return
      */
@@ -354,8 +355,8 @@ public class MemberServiceImpl implements IMemberService {
     /**
      * 支付密码修改
      *
-     * @param oldPwd  旧密码
-     * @param newPwd  新密码
+     * @param oldPwd   旧密码
+     * @param newPwd   新密码
      * @param memberId
      * @return
      */
