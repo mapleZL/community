@@ -73,6 +73,42 @@ public class RegisterController {
         }
     }
 
+    @RequestMapping(value = {"/forget/password"}, method = {RequestMethod.POST}, consumes = "application/json")
+    @ResponseBody
+    public ResponseUtil update(@RequestBody MemberParam memberParam) {
+        try {
+            String phoneNum = memberParam.getPhoneNum();
+            String password = memberParam.getPassword();
+            String smsCode = memberParam.getSmsCode();
+            if (StringUtils.isBlank(password)) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "password is blank", false, null);
+            }
+            if (StringUtils.isBlank(phoneNum) || StringUtils.isBlank(smsCode)) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phoneNum or smsCode is blank", false, null);
+            }
+            String code = redisComponent.getRedisString(phoneNum);
+            if (StringUtils.isBlank(code)) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "您的验证码已失效", false, null);
+            }
+            if (!code.equals(smsCode)) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "验证码错误", false, null);
+            }
+            ServiceResult<Member> memberByPhone = memberService.getMemberByPhone(phoneNum);
+            if (memberByPhone.getSuccess() && memberByPhone.getResult() == null) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "您的手机号尚未注册,请先注册", false, null);
+            }
+            Member phoneResult = memberByPhone.getResult();
+            Member member = new Member();
+            member.setPassword(Md5.getMd5String(password));
+            member.setId(phoneResult.getId());
+            ServiceResult<Boolean> result = memberService.updateMember(member);
+            return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getSuccess());
+        } catch (Exception e) {
+            logger.error("更新账号信息异常, exception:{}", e);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
+        }
+    }
+
     private void setMemberData(HttpServletRequest httpServletRequest, Member member) {
         member.setGrade(1);
         member.setGradeValue(0);
@@ -130,11 +166,6 @@ public class RegisterController {
                 && StringUtils.isNotBlank(memberByPhone.getResult().getPhone())) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "您的手机号已注册,请勿重复操作", false, null);
         }
-//        ServiceResult<List<Member>> memberByName = memberService.getMemberByName(name);
-//        if (memberByName.getSuccess() && memberByName.getResult() != null
-//                && memberByName.getResult().size() > 0) {
-//            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "用户名已存在", true, null);
-//        }
         return null;
     }
 }

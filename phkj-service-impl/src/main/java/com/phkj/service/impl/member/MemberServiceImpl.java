@@ -69,6 +69,8 @@ public class MemberServiceImpl implements IMemberService {
         ServiceResult<Boolean> serviceResult = new ServiceResult<Boolean>();
         try {
             serviceResult.setResult(memberModel.updateMember(member));
+            serviceResult.setMessage("ok");
+            serviceResult.setSuccess(true);
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());
