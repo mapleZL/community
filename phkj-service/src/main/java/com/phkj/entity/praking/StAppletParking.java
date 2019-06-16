@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author 
+ * @author
  */
 public class StAppletParking implements Serializable {
     private Long id;
@@ -58,6 +58,27 @@ public class StAppletParking implements Serializable {
     private String modifyUserName;
 
     private String villageCode;
+
+    private String examineId;
+
+    private String examineName;
+
+
+    public String getExamineId() {
+        return examineId;
+    }
+
+    public void setExamineId(String examineId) {
+        this.examineId = examineId;
+    }
+
+    public String getExamineName() {
+        return examineName;
+    }
+
+    public void setExamineName(String examineName) {
+        this.examineName = examineName;
+    }
 
     private static final long serialVersionUID = 1L;
 

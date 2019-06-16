@@ -11,6 +11,7 @@ import com.phkj.dao.shop.write.praking.StAppletParkingWriteDao;
 import com.phkj.entity.praking.StAppletParking;
 import com.phkj.entity.praking.StAppletParkingPrice;
 import com.phkj.entity.praking.StAppletPayment;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.praking.ParkingService;
 import jxl.write.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class ParkingServiceImpl implements ParkingService {
                 parkingReadDao.getSystemAll(sts, villageCode);
             }
         });
-        return null;
+        return pageInfo;
     }
 
     /**
@@ -181,6 +182,42 @@ public class ParkingServiceImpl implements ParkingService {
         parking.setModifyUserId(userId);
         parking.setModifyUserName(userName);
         //
+        int i = parkingWriteDao.updateByPrimaryKeySelective(parking);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * @param id
+     * @param type
+     * @param adminUser
+     * @return
+     */
+    @Override
+    public boolean systemUpdateParking(String id, String type, SystemAdmin adminUser) {
+
+        StAppletParking parking = parkingReadDao.selectByPrimaryKey(Long.valueOf(id));
+        if (null == parking) {
+            return false;
+        }
+
+        parking.setModifyUserName(adminUser.getName());
+        parking.setModifyUserId(adminUser.getId().toString());
+        parking.setModifyTime(new Date());
+        parking.setExamineId(adminUser.getId().toString());
+        parking.setExamineName(adminUser.getName());
+
+        // 通过
+        if ("1".equals(type)) {
+            parking.setSts("1");
+        } else if ("2".equals(type)) {
+            parking.setSts("3");
+        } else if ("3".equals(type)) {
+            parking.setSts("4");
+        }
         int i = parkingWriteDao.updateByPrimaryKeySelective(parking);
         if (i > 0) {
             return true;

@@ -17,6 +17,8 @@
     <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId" />
     <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
     <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
+    <result column="examine_id" jdbcType="VARCHAR" property="examineId" />
+    <result column="examine_name" jdbcType="VARCHAR" property="examineName" />
   </resultMap>
   <sql id="Base_Column_List">
     id, car_num, price, start_time, end_time, telephone, praking_num, sts, create_time, 
@@ -188,6 +190,12 @@
       </if>
       <if test="villageCode != null">
         village_code = #{villageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="examineId != null">
+        examine_id = #{examineId,jdbcType=VARCHAR},
+      </if>
+      <if test="examineName != null">
+        examine_name = #{examineName,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
