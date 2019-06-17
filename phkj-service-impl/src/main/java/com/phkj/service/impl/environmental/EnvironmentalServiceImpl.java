@@ -55,7 +55,7 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
     public boolean add(StAppletEnvironment stAppletEnviron) {
 
         // 查询超时时间
-        List<StAppletOverTime> stAppletOverTimes = timeReadMapper.selectAllOverTime();
+        List<StAppletOverTime> stAppletOverTimes = timeReadMapper.selectAllOverTime("1");
         StAppletOverTime stAppletOverTime = stAppletOverTimes.get(0);
         // 开始处理数据
         stAppletEnviron.setOverTime(getOverTime(new Date(), stAppletOverTime.getOverTime()));

@@ -188,6 +188,16 @@
 				</@shiro.hasPermission>
 			</div>
 	</@shiro.hasPermission>
+	<@shiro.hasPermission name="/admin_menu_visitor">
+			<div title="访客管理" class="ra_div">
+				<@shiro.hasPermission name="/admin/visitor">
+					<a href="javascript:void(0);" onclick="addTab('时限管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/visitor')">时限管理</a>
+				</@shiro.hasPermission>
+				<@shiro.hasPermission name="/admin/visnum">
+					<a href="javascript:void(0);" onclick="addTab('次数管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/visnum')">次数设置</a>
+				</@shiro.hasPermission>
+            </div>
+	</@shiro.hasPermission>
 
 	<#-- 移动端管理 -->
 	<@shiro.hasPermission name="/admin_menu_mobile">

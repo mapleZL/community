@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.phkj.dao.shop.read.environmental.StAppletOverTimeReadMapper;
 import com.phkj.dao.shop.write.environmental.StAppletOverTimeWriteMapper;
 import com.phkj.entity.environmental.StAppletOverTime;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.environmental.OverTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,14 +29,14 @@ public class OverTimeServiceImpl implements OverTimeService {
      * @return
      */
     @Override
-    public PageInfo<StAppletOverTime> getSystemAllOverTime(Integer page, Integer rows) {
+    public PageInfo<StAppletOverTime> getSystemAllOverTime(Integer page, Integer rows, String type) {
 
         int pageNum = (page == 0) ? 1 : page;
         int pageSize = (rows == 0) ? 20 : rows;
         PageInfo<StAppletOverTime> pageInfo = PageHelper.startPage(page, rows).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletOverTimeReadMapper.selectAllOverTime();
+                stAppletOverTimeReadMapper.selectAllOverTime(type);
             }
         });
         return pageInfo;
@@ -43,11 +44,15 @@ public class OverTimeServiceImpl implements OverTimeService {
 
     /**
      * @param stAppletOverTime
+     * @param adminUser
      * @return
      */
     @Override
-    public boolean add(StAppletOverTime stAppletOverTime) {
-
+    public boolean add(StAppletOverTime stAppletOverTime, SystemAdmin adminUser) {
+        stAppletOverTime.setCreateName(adminUser.getName());
+        stAppletOverTime.setCreateId(adminUser.getId().toString());
+        stAppletOverTime.setSts("0");
+        stAppletOverTime.setType("2");
         int insert = stAppletOverTimeWriteMapper.insert(stAppletOverTime);
         if (insert > 0) {
             return true;
@@ -74,6 +79,22 @@ public class OverTimeServiceImpl implements OverTimeService {
     @Override
     public boolean update(String id, String time) {
         int i = stAppletOverTimeWriteMapper.updateTimeById(id, time);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) {
+
+        StAppletOverTime stAppletOverTime = stAppletOverTimeReadMapper.selectByPrimaryKey(Long.valueOf(id));
+        if (null == stAppletOverTime) {
+            return false;
+        }
+
+        stAppletOverTime.setSts("3");
+        int i = stAppletOverTimeWriteMapper.updateByPrimaryKeySelective(stAppletOverTime);
         if (i > 0) {
             return true;
         }

@@ -7,6 +7,8 @@
     <result column="create_id" jdbcType="VARCHAR" property="createId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="sts" jdbcType="VARCHAR" property="sts" />
   </resultMap>
   <sql id="Base_Column_List">
     id, over_time, create_id, create_time, create_name
@@ -23,9 +25,9 @@
   </delete>
   <insert id="insert" parameterType="com.phkj.entity.environmental.StAppletOverTime">
     insert into st_applet_over_time (id, over_time, create_id, 
-      create_time, create_name)
+      create_time, create_name,type,sts)
     values (#{id,jdbcType=BIGINT}, #{overTime,jdbcType=VARCHAR}, #{createId,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createName,jdbcType=VARCHAR})
+      #{createTime,jdbcType=TIMESTAMP}, #{createName,jdbcType=VARCHAR},#{type} ,#{sts})
   </insert>
   <insert id="insertSelective" parameterType="com.phkj.entity.environmental.StAppletOverTime">
     insert into st_applet_over_time
@@ -78,6 +80,12 @@
       </if>
       <if test="createName != null">
         create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="sts != null">
+        sts = #{sts,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
