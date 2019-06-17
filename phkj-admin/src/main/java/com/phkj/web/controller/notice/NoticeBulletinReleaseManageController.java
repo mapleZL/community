@@ -34,6 +34,7 @@ import com.phkj.entity.relate.SystemAppfile;
 import com.phkj.service.notice.IStAppletCollectionManageService;
 import com.phkj.service.notice.IStAppletUserBrowseService;
 import com.phkj.service.notice.IStBrowseService;
+import com.phkj.service.relate.IStBaseinfoOrganizationService;
 import com.phkj.service.relate.IStNoticeBulletinReleaseManageService;
 import com.phkj.service.relate.ISystemAppfileService;
 import com.phkj.service.repair.IStAppletCommentService;
@@ -68,6 +69,8 @@ public class NoticeBulletinReleaseManageController {
     private IStNoticeBulletinReleaseManageService stNoticeBulletinReleaseManageService;
     @Autowired
     private IStAppletUserBrowseService            stAppletUserBrowseService;
+    @Autowired
+    private IStBaseinfoOrganizationService        orgationzationService;
 
     @RequestMapping("/add")
     public @ResponseBody ResponseUtil add(@RequestParam("id") Integer id, Integer memberId,
@@ -105,14 +108,18 @@ public class NoticeBulletinReleaseManageController {
                                                                                   HttpServletRequest request,
                                                                                   ModelMap dataMap) {
         int start = (pageNum - 1) * pageSize;
-        ServiceResult<List<StNoticeBulletinReleaseManage>> serviceResult = stNoticeBulletinReleaseManageService
-            .pageList(start, pageSize, type, villageCode);
-        List<StNoticeBulletinReleaseManage> list = serviceResult.getResult();
         StBrowse stBrowse = null;
         Long collectionManage = null;
         Long comment = null;
         Long browse = 0L;
         Map<String, String> sourceMap = new NoticeSourceConfig().getSourceMap();
+        List<String> codes = orgationzationService.getRelationOrgations(villageCode);
+        if (codes != null && codes.size() > 0) {
+            codes.add(villageCode);
+        }
+        ServiceResult<List<StNoticeBulletinReleaseManage>> serviceResult = stNoticeBulletinReleaseManageService
+                .pageList(start, pageSize, type, codes);
+            List<StNoticeBulletinReleaseManage> list = serviceResult.getResult();
         if (list != null) {
             String redisKey = null;
             for (StNoticeBulletinReleaseManage notice : list) {
@@ -127,7 +134,8 @@ public class NoticeBulletinReleaseManageController {
                 }
 
                 notice.setRate(browse);
-                StAppletUserBrowse stAppletUserBrowse = stAppletUserBrowseService.getUserBrowse(notice.getId().intValue(), memberId).getResult();
+                StAppletUserBrowse stAppletUserBrowse = stAppletUserBrowseService
+                    .getUserBrowse(notice.getId().intValue(), memberId).getResult();
                 if (stAppletUserBrowse != null && stAppletUserBrowse.getBrowse() > 0) {
                     notice.setHasBrowse(true);
                 }
@@ -168,7 +176,7 @@ public class NoticeBulletinReleaseManageController {
                 notice.setSourceName(sourceMap.get(notice.getSourceType()));
             }
         }
-        Integer count = stNoticeBulletinReleaseManageService.getCount(type, villageCode);
+        Integer count = stNoticeBulletinReleaseManageService.getCount(type, codes);
         if (!serviceResult.getSuccess()) {
             if (ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR.equals(serviceResult.getCode())) {
                 throw new RuntimeException(serviceResult.getMessage());
@@ -233,20 +241,19 @@ public class NoticeBulletinReleaseManageController {
         }
 
         releaseManage.setRate(browse);
-        StAppletUserBrowse stAppletUserBrowse = stAppletUserBrowseService.getUserBrowse(id.intValue(), memberId).getResult();
+        StAppletUserBrowse stAppletUserBrowse = stAppletUserBrowseService
+            .getUserBrowse(id.intValue(), memberId).getResult();
         if (stAppletUserBrowse != null && stAppletUserBrowse.getBrowse() > 0) {
             releaseManage.setHasBrowse(true);
         }
 
         // 获取收藏数量
-        collectionManage = collectionManageService.getCountByNoticeid(id)
-            .getResult();
+        collectionManage = collectionManageService.getCountByNoticeid(id).getResult();
         if (collectionManage == null) {
             collectionManage = 0L;
         }
         releaseManage.setCollect(collectionManage);
-        Integer count = collectionManageService.getCollectionCount(memberId, id)
-            .getResult();
+        Integer count = collectionManageService.getCollectionCount(memberId, id).getResult();
         if (count != null && count > 0) {
             releaseManage.setHasCollect(true);
         }

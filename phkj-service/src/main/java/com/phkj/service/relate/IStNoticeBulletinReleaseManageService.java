@@ -21,12 +21,12 @@ public interface IStNoticeBulletinReleaseManageService {
      * @return
      */
     ServiceResult<List<StNoticeBulletinReleaseManage>> pageList(Integer start, Integer pageSize,
-                                                                String type, String villageCode);
+                                                                String type, List<String> codes);
 
     /**
      * 获取总数
      * @param type
      * @return
      */
-    Integer getCount(String type, String villageCode);
+    Integer getCount(String type, List<String> codes);
 }

@@ -23,6 +23,12 @@
 		where `id` = #{id}
 	</select>
 	
+	<select id="getRelationOrgations" resultType="String">
+	    SELECT top_org_code FROM st_baseinfo_organization WHERE org_code = #{orgCode}
+		UNION
+		SELECT top_org_code FROM st_baseinfo_organization WHERE org_code = (SELECT top_org_code FROM st_baseinfo_organization WHERE org_code = #{orgCode})
+	</select>
+	
 	<select id="getOranizations" resultMap="StBaseinfoOrganizationResult">
 	    select * from `st_baseinfo_organization` where sts='Y'
 	</select>
