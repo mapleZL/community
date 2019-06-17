@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.phkj.dao.shopm.read.relate.StBaseinfoParkingLotDao">
-	<resultMap id="StBaseinfoParkingLotResult" type="com.phkj.entity.relate.StBaseinfoParkingLot">
-			<result property="id" column="id" />
-			<result property="subareaId" column="subarea_id" />
-			<result property="residentiaId" column="residentia_id" />
-			<result property="code" column="code" />
-			<result property="type" column="type" />
-			<result property="longitude" column="longitude" />
-			<result property="latitude" column="latitude" />
-			<result property="createUserId" column="create_user_id" />
-			<result property="createTime" column="create_time" />
-			<result property="modifyUserId" column="modify_user_id" />
-			<result property="modifyTime" column="modify_time" />
-			<result property="sts" column="sts" />
-			<result property="shiftCarId" column="shift_car_id" />
-			<result property="orgCode" column="org_code" />
-			<result property="topOrgCode" column="top_org_code" />
-			<result property="innnerType" column="innner_type" />
-			<result property="parkingStatus" column="parking_status" />
-	</resultMap>
+    <resultMap id="StBaseinfoParkingLotResult" type="com.phkj.entity.relate.StBaseinfoParkingLot">
+        <result property="id" column="id"/>
+        <result property="subareaId" column="subarea_id"/>
+        <result property="residentiaId" column="residentia_id"/>
+        <result property="code" column="code"/>
+        <result property="type" column="type"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyUserId" column="modify_user_id"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="sts" column="sts"/>
+        <result property="shiftCarId" column="shift_car_id"/>
+        <result property="orgCode" column="org_code"/>
+        <result property="topOrgCode" column="top_org_code"/>
+        <result property="innnerType" column="innner_type"/>
+        <result property="parkingStatus" column="parking_status"/>
+    </resultMap>
 
-	<select id="selectLockByNum" parameterType="java.lang.String" resultType="java.util.Map">
+    <select id="selectLockByNum" parameterType="java.lang.String" resultType="java.util.Map">
 		SELECT
 			pl.id,
 			pl.`code`,
@@ -37,44 +37,56 @@
 			AND pl.org_code = #{villageCode}
 			INNER JOIN st_baseinfo_equipment_info ei ON er.equipment_id = ei.id
 	</select>
-	
-	<select id="get" parameterType="Long" resultMap="StBaseinfoParkingLotResult">
+
+    <select id="get" parameterType="Long" resultMap="StBaseinfoParkingLotResult">
 		select
 		   *
 		from `st_baseinfo_parking_lot`
 		where `id` = #{id}
 	</select>
-	
-	<select id="getRelatedParkingLot" resultMap="StBaseinfoParkingLotResult">
+
+    <select id="getRelatedParkingLot" resultMap="StBaseinfoParkingLotResult">
 	    SELECT * FROM st_baseinfo_parking_lot WHERE id IN
 	    	(SELECT parkinglot_id FROM st_baseinfo_resident_carport WHERE residentinfo_id = #{residentinfoId})
 	</select>
-	
-	<update id="update" parameterType="com.phkj.entity.relate.StBaseinfoParkingLot">
-        update `st_baseinfo_parking_lot` 
-    	<set>
-			<if test="id != null">`id`= #{id},</if>
-			<if test="subareaId != null">`subarea_id`= #{subareaId},</if>
-			<if test="residentiaId != null">`residentia_id`= #{residentiaId},</if>
-			<if test="code != null">`code`= #{code},</if>
-			<if test="type != null">`type`= #{type},</if>
-			<if test="longitude != null">`longitude`= #{longitude},</if>
-			<if test="latitude != null">`latitude`= #{latitude},</if>
-			<if test="createUserId != null">`create_user_id`= #{createUserId},</if>
-			<if test="createTime != null">`create_time`= #{createTime},</if>
-			<if test="modifyUserId != null">`modify_user_id`= #{modifyUserId},</if>
-			<if test="modifyTime != null">`modify_time`= #{modifyTime},</if>
-			<if test="sts != null">`sts`= #{sts},</if>
-			<if test="shiftCarId != null">`shift_car_id`= #{shiftCarId},</if>
-			<if test="orgCode != null">`org_code`= #{orgCode},</if>
-			<if test="topOrgCode != null">`top_org_code`= #{topOrgCode},</if>
-			<if test="innnerType != null">`innner_type`= #{innnerType},</if>
-			<if test="parkingStatus != null">`parking_status`= #{parkingStatus}</if>
-	    </set>
+
+    <select id="getSurplusParkingLot" resultMap="StBaseinfoParkingLotResult">
+	    SELECT
+		 *
+		FROM
+		 st_baseinfo_parking_lot
+		WHERE
+		 org_code = #{orgCode}
+		and  sts = 'Y'
+		AND parking_status = 'N';
+	</select>
+
+    <update id="update" parameterType="com.phkj.entity.relate.StBaseinfoParkingLot">
+        update `st_baseinfo_parking_lot`
+        <set>
+            <if test="id != null">`id`= #{id},</if>
+            <if test="subareaId != null">`subarea_id`= #{subareaId},</if>
+            <if test="residentiaId != null">`residentia_id`= #{residentiaId},</if>
+            <if test="code != null">`code`= #{code},</if>
+            <if test="type != null">`type`= #{type},</if>
+            <if test="longitude != null">`longitude`= #{longitude},</if>
+            <if test="latitude != null">`latitude`= #{latitude},</if>
+            <if test="createUserId != null">`create_user_id`= #{createUserId},</if>
+            <if test="createTime != null">`create_time`= #{createTime},</if>
+            <if test="modifyUserId != null">`modify_user_id`= #{modifyUserId},</if>
+            <if test="modifyTime != null">`modify_time`= #{modifyTime},</if>
+            <if test="sts != null">`sts`= #{sts},</if>
+            <if test="shiftCarId != null">`shift_car_id`= #{shiftCarId},</if>
+            <if test="orgCode != null">`org_code`= #{orgCode},</if>
+            <if test="topOrgCode != null">`top_org_code`= #{topOrgCode},</if>
+            <if test="innnerType != null">`innner_type`= #{innnerType},</if>
+            <if test="parkingStatus != null">`parking_status`= #{parkingStatus}</if>
+        </set>
         where `id` = #{id}
-	</update>
-	
-	<insert id="insert" parameterType="com.phkj.entity.relate.StBaseinfoParkingLot" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    </update>
+
+    <insert id="insert" parameterType="com.phkj.entity.relate.StBaseinfoParkingLot" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
 		insert into 
 		`st_baseinfo_parking_lot`
 		(
@@ -117,5 +129,5 @@
 			#{parkingStatus}
 		)
 	</insert>
-	
+
 </mapper>

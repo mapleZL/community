@@ -17,14 +17,15 @@ import com.phkj.service.relate.IStBaseinfoParkingLotService;
 
 @Service(value = "stBaseinfoParkingLotService")
 public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotService {
-	private static Logger      log = LogManager.getLogger(StBaseinfoParkingLotServiceImpl.class);
-	
-	@Resource
-	private StBaseinfoParkingLotModel stBaseinfoParkingLotModel;
-    
-     /**
+    private static Logger log = LogManager.getLogger(StBaseinfoParkingLotServiceImpl.class);
+
+    @Resource
+    private StBaseinfoParkingLotModel stBaseinfoParkingLotModel;
+
+    /**
      * 根据id取得车位信息
-     * @param  stBaseinfoParkingLotId
+     *
+     * @param stBaseinfoParkingLotId
      * @return
      */
     @Override
@@ -35,23 +36,24 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStBaseinfoParkingLotService][getStBaseinfoParkingLotById]根据id["+stBaseinfoParkingLotId+"]取得车位信息时出现未知异常：" + e.getMessage());
+            log.error("[IStBaseinfoParkingLotService][getStBaseinfoParkingLotById]根据id[" + stBaseinfoParkingLotId + "]取得车位信息时出现未知异常：" + e.getMessage());
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
-            log.error("[IStBaseinfoParkingLotService][getStBaseinfoParkingLotById]根据id["+stBaseinfoParkingLotId+"]取得车位信息时出现未知异常：",
-                e);
+            log.error("[IStBaseinfoParkingLotService][getStBaseinfoParkingLotById]根据id[" + stBaseinfoParkingLotId + "]取得车位信息时出现未知异常：",
+                    e);
         }
         return result;
     }
-    
+
     /**
      * 保存车位信息
-     * @param  stBaseinfoParkingLot
+     *
+     * @param stBaseinfoParkingLot
      * @return
      */
-     @Override
-     public ServiceResult<Integer> saveStBaseinfoParkingLot(StBaseinfoParkingLot stBaseinfoParkingLot) {
-     	ServiceResult<Integer> result = new ServiceResult<Integer>();
+    @Override
+    public ServiceResult<Integer> saveStBaseinfoParkingLot(StBaseinfoParkingLot stBaseinfoParkingLot) {
+        ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
             result.setResult(stBaseinfoParkingLotModel.saveStBaseinfoParkingLot(stBaseinfoParkingLot));
         } catch (BusinessException e) {
@@ -61,20 +63,21 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[IStBaseinfoParkingLotService][saveStBaseinfoParkingLot]保存车位信息时出现未知异常：",
-                e);
+                    e);
         }
         return result;
-     }
-     
-     /**
+    }
+
+    /**
      * 更新车位信息
-     * @param  stBaseinfoParkingLot
+     *
+     * @param stBaseinfoParkingLot
      * @return
      * @see com.phkj.service.StBaseinfoParkingLotService#updateStBaseinfoParkingLot(StBaseinfoParkingLot)
      */
-     @Override
-     public ServiceResult<Integer> updateStBaseinfoParkingLot(StBaseinfoParkingLot stBaseinfoParkingLot) {
-     	ServiceResult<Integer> result = new ServiceResult<Integer>();
+    @Override
+    public ServiceResult<Integer> updateStBaseinfoParkingLot(StBaseinfoParkingLot stBaseinfoParkingLot) {
+        ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
             result.setResult(stBaseinfoParkingLotModel.updateStBaseinfoParkingLot(stBaseinfoParkingLot));
         } catch (BusinessException e) {
@@ -84,10 +87,10 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[IStBaseinfoParkingLotService][updateStBaseinfoParkingLot]更新车位信息时出现未知异常：",
-                e);
+                    e);
         }
         return result;
-     }
+    }
 
     @Override
     public ServiceResult<List<StBaseinfoParkingLot>> getRelatedParkingLot(Long residentinfoId) {
@@ -97,11 +100,39 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStBaseinfoParkingLotService][getRelatedParkingLot]根据id["+residentinfoId+"]取得车位信息时出现未知异常：" + e.getMessage());
+            log.error("[IStBaseinfoParkingLotService][getRelatedParkingLot]根据id[" + residentinfoId + "]取得车位信息时出现未知异常：" + e.getMessage());
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
-            log.error("[IStBaseinfoParkingLotService][getRelatedParkingLot]根据id["+residentinfoId+"]取得车位信息时出现未知异常：",
-                e);
+            log.error("[IStBaseinfoParkingLotService][getRelatedParkingLot]根据id[" + residentinfoId + "]取得车位信息时出现未知异常：",
+                    e);
+        }
+        return result;
+    }
+
+    /**
+     * create by: zl
+     * description: 获取剩余车位
+     * create time:
+     *
+     * @return
+     * @Param: orgCode
+     */
+    @Override
+    public ServiceResult<List<StBaseinfoParkingLot>> getSurplusParkingLot(String orgCode) {
+        ServiceResult<List<StBaseinfoParkingLot>> result = new ServiceResult<>();
+        try {
+            result.setResult(stBaseinfoParkingLotModel.getSurplusParkingLot(orgCode));
+            result.setSuccess(true);
+            result.setMessage("ok");
+            result.setCode("200");
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error("[IStBaseinfoParkingLotService][getSurplusParkingLot]根据[" + orgCode + "]取得剩余车位信息时出现未知异常：" + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("[IStBaseinfoParkingLotService][getSurplusParkingLot]根据[" + orgCode + "]取得剩余车位信息时出现未知异常：",
+                    e);
         }
         return result;
     }
