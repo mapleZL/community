@@ -5,9 +5,13 @@ import com.phkj.core.exception.BusinessException;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.MemberPropertyStatus;
 import com.phkj.entity.member.MemberParkingLot;
+import com.phkj.entity.relate.StBaseinfoParkingLot;
 import com.phkj.service.member.IMemberParkingLotService;
+import com.phkj.service.relate.IStBaseinfoParkingLotService;
 import com.phkj.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,8 +35,13 @@ import java.util.Map;
 @RequestMapping(value = "/admin/member/parking/lot")
 public class MemberParkingLotController extends BaseController {
 
+    private static Logger log = LogManager.getLogger(MemberParkingLotController.class);
+
     @Resource
     IMemberParkingLotService memberParkingLotService;
+
+    @Resource
+    IStBaseinfoParkingLotService stBaseinfoParkingLotService;
 
 
     /**
@@ -203,5 +212,28 @@ public class MemberParkingLotController extends BaseController {
         HttpJsonResult<Boolean> jsonResult = new HttpJsonResult<Boolean>();
         jsonResult.setData(true);
         return jsonResult;
+    }
+
+
+    /**
+     * 获取剩余车位
+     *
+     * @param orgCode
+     * @return
+     */
+    @RequestMapping(value = "/surplus/lots", method = {RequestMethod.GET})
+    public @ResponseBody
+    ResponseUtil getSurplusParkingLot(String orgCode) {
+        try {
+            if (StringUtils.isBlank(orgCode)) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "orgCode is blank", false, null);
+            }
+            ServiceResult<List<StBaseinfoParkingLot>> result = stBaseinfoParkingLotService.getSurplusParkingLot(orgCode);
+            return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
+        } catch (Exception e) {
+            log.error("获取剩余车位异常, exception:{}", e);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
+        }
+
     }
 }
