@@ -7,16 +7,18 @@
     <result column="create_id" jdbcType="VARCHAR" property="createId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="sts" jdbcType="VARCHAR" property="sts" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, over_time, create_id, create_time, create_name
+    id, over_time, create_id, create_time, create_name,type ,sts
   </sql>
 
 
-  <select id="selectAllOverTime"  resultMap="BaseResultMap">
+  <select id="selectAllOverTime"  parameterType="java.lang.String" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
-    from st_applet_over_time
+    id, over_time, create_id, create_time, create_name, type  , case sts when '1' then '启用' else '停用' end as sts
+    from st_applet_over_time where  type =#{type} and sts != '3'
   </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

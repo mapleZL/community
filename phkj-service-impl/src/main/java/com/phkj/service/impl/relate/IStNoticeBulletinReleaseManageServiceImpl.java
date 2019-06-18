@@ -27,15 +27,15 @@ public class IStNoticeBulletinReleaseManageServiceImpl implements
 
     @Override
     public ServiceResult<List<StNoticeBulletinReleaseManage>> pageList(Integer start, Integer pageSize,
-                                                                               String type, String villageCode) {
+                                                                               String type, List<String> codes) {
         ServiceResult<List<StNoticeBulletinReleaseManage>> serviceResult = new ServiceResult<List<StNoticeBulletinReleaseManage>>();
-        serviceResult.setResult(stNoticeBullentinReleaseManageModel.pageList(start, pageSize, type, villageCode));
+        serviceResult.setResult(stNoticeBullentinReleaseManageModel.pageList(start, pageSize, type, codes));
         return serviceResult;
     }
 
     @Override
-    public Integer getCount(String type, String villageCode) {
-        return stNoticeBullentinReleaseManageModel.getCount(type, villageCode);
+    public Integer getCount(String type, List<String> codes) {
+        return stNoticeBullentinReleaseManageModel.getCount(type, codes);
     }
 
 }

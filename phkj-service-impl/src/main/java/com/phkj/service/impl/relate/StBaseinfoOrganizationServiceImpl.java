@@ -93,4 +93,9 @@ public class StBaseinfoOrganizationServiceImpl implements IStBaseinfoOrganizatio
     public List<StBaseinfoOrganization> getOrganizationByRegion(String region) {
         return stBaseinfoOrganizationModel.getOrganizationByRegion(region);
     }
+
+    @Override
+    public List<String> getRelationOrgations(String villageCode) {
+        return stBaseinfoOrganizationModel.getRelationOrgations(villageCode);
+    }
 }

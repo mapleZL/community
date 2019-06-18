@@ -58,5 +58,9 @@ public class StBaseinfoOrganizationModel {
     public List<StBaseinfoOrganization> getOrganizationByRegion(String region) {
         return stBaseinfoOrganizationDao.getOrganizationByRegion(region);
     }
+
+    public List<String> getRelationOrgations(String villageCode) {
+        return stBaseinfoOrganizationDao.getRelationOrgations(villageCode);
+    }
      
 }

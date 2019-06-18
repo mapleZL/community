@@ -19,12 +19,12 @@ public class StNoticeBullentinReleaseManageModel {
         return stNoticeBulletinReleaseManageDao.getNoticeById(id);
     }
 
-    public List<StNoticeBulletinReleaseManage> pageList(Integer start, Integer pageSize, String type, String villageCode) {
-        return stNoticeBulletinReleaseManageDao.pageList(start, pageSize, type, villageCode);
+    public List<StNoticeBulletinReleaseManage> pageList(Integer start, Integer pageSize, String type, List<String> codes) {
+        return stNoticeBulletinReleaseManageDao.pageList(start, pageSize, type, codes);
     }
 
-    public Integer getCount(String type, String villageCode) {
-        return stNoticeBulletinReleaseManageDao.getCount(type, villageCode);
+    public Integer getCount(String type, List<String> codes) {
+        return stNoticeBulletinReleaseManageDao.getCount(type, codes);
     }
 
 }

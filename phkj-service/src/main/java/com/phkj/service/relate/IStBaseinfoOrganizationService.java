@@ -34,4 +34,11 @@ public interface IStBaseinfoOrganizationService {
      * @return
      */
     List<StBaseinfoOrganization> getOrganizationByRegion(String string);
+
+    /**
+     * 查询小区上级社区和街道code
+     * @param villageCode
+     * @return
+     */
+    List<String> getRelationOrgations(String villageCode);
 }
