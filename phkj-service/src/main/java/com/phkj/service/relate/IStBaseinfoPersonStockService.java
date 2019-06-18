@@ -1,5 +1,7 @@
 package com.phkj.service.relate;
 
+import java.util.List;
+
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.relate.StBaseinfoPersonStock;
 
@@ -32,4 +34,7 @@ public interface IStBaseinfoPersonStockService {
      * @return
      */
     StBaseinfoPersonStock getStBaseinfoPersonStock(String phone);
+
+    
+    StBaseinfoPersonStock getStBaseinfoPerson(List<Long> personStockIds, String name);
 }

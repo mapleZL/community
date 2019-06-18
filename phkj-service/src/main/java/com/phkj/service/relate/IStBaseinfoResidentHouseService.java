@@ -1,5 +1,6 @@
 package com.phkj.service.relate;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -35,5 +36,5 @@ public interface IStBaseinfoResidentHouseService {
      * @param queryMap
      * @return
      */
-    StBaseinfoResidentHouse getResidentBouseByParam(@Param("queryMap")Map<String, Object> queryMap);
+    List<StBaseinfoResidentHouse> getResidentBouseByParam(@Param("queryMap")Map<String, Object> queryMap);
 }

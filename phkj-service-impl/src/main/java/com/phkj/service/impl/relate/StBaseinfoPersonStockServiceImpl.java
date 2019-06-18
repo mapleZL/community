@@ -1,5 +1,7 @@
 package com.phkj.service.impl.relate;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.LogManager;
@@ -90,5 +92,10 @@ public class StBaseinfoPersonStockServiceImpl implements IStBaseinfoPersonStockS
     @Override
     public StBaseinfoPersonStock getStBaseinfoPersonStock(String phone) {
         return stBaseinfoPersonStockModel.getStBaseinfoPersonStock(phone);
+    }
+
+    @Override
+    public StBaseinfoPersonStock getStBaseinfoPerson(List<Long> personStockIds, String name) {
+        return stBaseinfoPersonStockModel.getStBaseinfoPerson(personStockIds, name);
     }
 }

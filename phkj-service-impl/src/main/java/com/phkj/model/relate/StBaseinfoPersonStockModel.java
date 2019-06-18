@@ -1,5 +1,7 @@
 package com.phkj.model.relate;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -42,6 +44,16 @@ public class StBaseinfoPersonStockModel {
 
     public StBaseinfoPersonStock getStBaseinfoPersonStock(String phone) {
         return stBaseinfoPersonStockDao.getStBaseinfoPersonStock(phone);
+    }
+
+    /**
+     * 获取关联人员
+     * @param personStockIds
+     * @param name
+     * @return
+     */
+    public StBaseinfoPersonStock getStBaseinfoPerson(List<Long> personStockIds, String name) {
+        return stBaseinfoPersonStockDao.getStBaseinfoPerson(personStockIds, name);
     }
 
 }

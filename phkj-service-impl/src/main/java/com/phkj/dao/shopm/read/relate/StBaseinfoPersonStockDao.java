@@ -1,5 +1,7 @@
 package com.phkj.dao.shopm.read.relate;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +17,7 @@ public interface StBaseinfoPersonStockDao {
     Integer update(StBaseinfoPersonStock stBaseinfoPersonStock);
 
     StBaseinfoPersonStock getStBaseinfoPersonStock(@Param("phone") String phone);
+
+    StBaseinfoPersonStock getStBaseinfoPerson(@Param("ids") List<Long> personStockIds,
+                                              @Param("name") String name);
 }

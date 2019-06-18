@@ -1,5 +1,6 @@
 package com.phkj.dao.shopm.read.relate;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -16,5 +17,5 @@ public interface StBaseinfoResidentHouseDao {
 	
 	Integer update(StBaseinfoResidentHouse stBaseinfoResidentHouse);
 
-    StBaseinfoResidentHouse getResidentBouseByParam(@Param("queryMap")Map<String, Object> queryMap);
+    List<StBaseinfoResidentHouse> getResidentBouseByParam(@Param("queryMap")Map<String, Object> queryMap);
 }

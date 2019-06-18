@@ -53,6 +53,19 @@
 		where `mobile` = #{phone}
 	</select>
 	
+    <select id="getStBaseinfoPerson" resultMap="StBaseinfoPersonStockResult">
+        select
+		   *
+		from `st_baseinfo_person_stock`
+		where name = #{name}
+			and `id` in
+	        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+	            ${item}
+	       	</foreach>
+	       	and `source_table` = 'st_baseinfo_residentinfo'
+	       	and `effective_state` = 'Y'
+    </select>
+	
 	<update id="update" parameterType="com.phkj.entity.relate.StBaseinfoPersonStock">
         update `st_baseinfo_person_stock` 
     	<set>

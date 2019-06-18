@@ -1,5 +1,6 @@
 package com.phkj.service.impl.relate;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -90,7 +91,7 @@ public class StBaseinfoResidentHouseServiceImpl implements IStBaseinfoResidentHo
      }
 
     @Override
-    public StBaseinfoResidentHouse getResidentBouseByParam(Map<String, Object> queryMap) {
+    public List<StBaseinfoResidentHouse> getResidentBouseByParam(Map<String, Object> queryMap) {
         return stBaseinfoResidentHouseModel.getResidentBouseByParam(queryMap);
     }
 }

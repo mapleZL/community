@@ -1,5 +1,6 @@
 package com.phkj.model.relate;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -42,7 +43,7 @@ public class StBaseinfoResidentHouseModel {
         return stBaseinfoResidentHouseDao.update(stBaseinfoResidentHouse);
     }
 
-    public StBaseinfoResidentHouse getResidentBouseByParam(Map<String, Object> queryMap) {
+    public List<StBaseinfoResidentHouse> getResidentBouseByParam(Map<String, Object> queryMap) {
         return stBaseinfoResidentHouseDao.getResidentBouseByParam(queryMap);
     }
 

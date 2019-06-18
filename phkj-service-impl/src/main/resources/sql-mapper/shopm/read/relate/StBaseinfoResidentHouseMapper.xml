@@ -30,7 +30,6 @@
 	<select id="getResidentBouseByParam" resultMap="StBaseinfoResidentHouseResult">
 	    select * from `st_baseinfo_resident_house`
 	    <include refid="getCondition"/>
-	    limit 1
 	</select>
 	
 	<sql id="getCondition">
@@ -40,6 +39,9 @@
           	 </if>
           	 <if test="queryMap.residentiaId != null and queryMap.residentiaId !=''">
                 and residentia_id = #{queryMap.residentiaId}
+          	 </if>
+          	 <if test="queryMap.relationship != null and queryMap.relationship !=''">
+                and relationship = #{queryMap.relationship}
           	 </if>
         </where>
     </sql>

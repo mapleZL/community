@@ -1,5 +1,6 @@
 package com.phkj.web.controller.member;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import com.phkj.core.AESHelper;
 import com.phkj.core.ConstantsEJS;
 import com.phkj.core.HttpJsonResult;
 import com.phkj.core.PagerInfo;
+import com.phkj.core.RelationShipConfig;
 import com.phkj.core.ResponseStateEnum;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.WebUtil;
@@ -107,18 +109,26 @@ public class MemberHouseController extends BaseController {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请勿重复认证", false, null);
             }
         }
+        RelationShipConfig relationShipConfig = new RelationShipConfig();
+        // 从配置信息中获取与业主的关系
+        Map<String, String> relationMap = relationShipConfig.getRelationMap();
         Map<String, Object> queryMap = new HashMap<>();
         queryMap.put("houseId", memberHouse.getRoomId());
         queryMap.put("residentiaId", memberHouse.getVillageId());
+        if (StringUtils.isNotBlank(memberHouse.getIdentityInformation())) {
+            queryMap.put("relationship", relationMap.get(memberHouse.getIdentityInformation()));
+        }
         // 根据房屋信息查询用户房屋信息
-        StBaseinfoResidentHouse stBaseinfoResidentHouse = residentHouseService
+        List<StBaseinfoResidentHouse> stBaseinfoResidentHouses = residentHouseService
                 .getResidentBouseByParam(queryMap);
-        if (stBaseinfoResidentHouse != null) {
+        if (stBaseinfoResidentHouses != null && stBaseinfoResidentHouses.size() > 0 ) {
+            List<Long> personStockIds = new ArrayList<>();
+            for (StBaseinfoResidentHouse house : stBaseinfoResidentHouses) {
+                personStockIds.add(house.getPersonStockId());
+            }
             // 根据关联居民信息查找用户
-//            StBaseinfoResidentinfo residentinfo = residentinfoService
-//                    .getStBaseinfoResidentinfoById(stBaseinfoResidentHouse.getResidentId()).getResult();
-            StBaseinfoPersonStock personStock = personStockService.getStBaseinfoPersonStockById(stBaseinfoResidentHouse.getPersonStockId()).getResult();
-            if (personStock != null && personStock.getSourceTable().equals("st_baseinfo_residentinfo") && personStock.getEffectiveState().equals("Y")) {
+            StBaseinfoPersonStock personStock = personStockService.getStBaseinfoPerson(personStockIds, memberHouse.getName());
+            if (personStock != null) {
                 // 身份证账号解密
                 String idNo = AESHelper.Decrypt(personStock.getEncryptionIdNumber());
                 if (personStock.getName().equals(memberHouse.getName())
