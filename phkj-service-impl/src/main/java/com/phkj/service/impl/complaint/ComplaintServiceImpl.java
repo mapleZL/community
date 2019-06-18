@@ -82,6 +82,17 @@ public class ComplaintServiceImpl implements ComplaintService {
         return false;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public StAppletComSugges getDetail(String id) {
+        StAppletComSugges stAppletComSugges = stAppletComSuggesReadDao.selectByPrimaryKey(Long.valueOf(id));
+        return stAppletComSugges;
+    }
+
 
     @Override
     public Map<String, Object> getAllMeComplaint(Integer pageNum, Integer pageSize, String type, String userId, String villageCode) {

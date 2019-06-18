@@ -15,4 +15,6 @@ public interface ComplaintService {
     PageInfo<StAppletComSugges> getAllComAndSugg(Integer page, Integer rows, String type, String sts, String villageCode);
 
     boolean updateComAndSuggess(String id, String type, SystemAdmin adminUser);
+
+    StAppletComSugges getDetail(String id);
 }

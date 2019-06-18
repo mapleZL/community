@@ -107,7 +107,7 @@ public class ComplaintController {
     @ResponseBody
     @RequestMapping(value = "/system/getAllComAndSugg")
     public HttpJsonResult<List<StAppletComSugges>> getAllCom(HttpServletRequest request, Integer page,
-                                                                    Integer rows, String taskType) {
+                                                             Integer rows, String taskType) {
         HttpJsonResult<List<StAppletComSugges>> resultJson = new HttpJsonResult<>();
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         String type = request.getParameter("q_type");
@@ -177,6 +177,23 @@ public class ComplaintController {
             e.printStackTrace();
             LOGGER.error("查询失败!");
         }
+        return responseUtil;
+    }
+
+
+    /**
+     * 查看详情
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getDetail")
+    public ResponseUtil getDetail(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        StAppletComSugges stAppletComSugges = complaintService.getDetail(id);
+        responseUtil.setSuccess(true);
+        responseUtil.setData(stAppletComSugges);
         return responseUtil;
     }
 }
