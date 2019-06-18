@@ -68,7 +68,6 @@ public class WxPublicController {
     public String person(String code, Model model) {
         String url = "redirect:http://zjphtech.com";
         try {
-            log.info("获取用户信息code：" + code);
             JSONObject userInfo = new JSONObject();
             if (code != null) {
                 //1.通过code来换取access_token
@@ -97,20 +96,6 @@ public class WxPublicController {
             //return ResponseUtil.createResp("500", "ok", false, null);
             return url;
         }
-    }
-
-    @RequestMapping("/code")
-    public String getCode(String code, HttpServletResponse response) {
-        String url = null;
-        try {
-            String result = HttpUtil.get(WXPublicConstants.GET_CODE_URL);
-            log.info("result, " + result);
-            log.info("code = " + code);
-            url = "redirect:http://zjphtech.com?code=" + code;
-        } catch (Exception e) {
-            log.error("获取微信code异常,exception:{}", e);
-        }
-        return url;
     }
 
     /**
