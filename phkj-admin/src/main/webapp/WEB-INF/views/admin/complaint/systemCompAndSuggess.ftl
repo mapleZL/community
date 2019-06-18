@@ -119,10 +119,10 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 			<form class="form-search" action="doForm" method="post"
 				id="queryForm" name="queryForm">
 				<div class="fluidbox">
-					<#--<p class="p4 p-item" >
+					<p class="p4 p-item" >
 						<label class="lab-item">内容类型 :</label> <@cont.select id="type"
 						codeDiv="COM_TYPE" name="q_type" style="width:100px"/>
-					</p>-->
+					</p>
 					<p class="p4 p-item" >
 						<label class="lab-item">审核结果 :</label> <@cont.select id="sts"
 						codeDiv="COM_STS" name="q_sts" style="width:100px"/>
@@ -145,7 +145,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 						,pagination:true
 						,pageSize:${pageSize}
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/complaint/system/getAllComplaint'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/complaint/system/getAllComAndSugg'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">

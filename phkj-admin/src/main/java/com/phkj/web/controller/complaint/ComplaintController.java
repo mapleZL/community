@@ -41,10 +41,22 @@ public class ComplaintController {
      * @return
      */
     @RequestMapping(value = "/system")
-    public String system(ModelMap modelMap) {
+    public String systemComp(ModelMap modelMap) {
         modelMap.put("pageSize", 30);
         modelMap.put("pageNum", "1");
         return "/admin/complaint/compAndSuggess";
+    }
+
+
+    /**
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/systemall")
+    public String systemSugg(ModelMap modelMap) {
+        modelMap.put("pageSize", 30);
+        modelMap.put("pageNum", "1");
+        return "/admin/complaint/systemCompAndSuggess";
     }
 
     @ResponseBody
@@ -73,7 +85,29 @@ public class ComplaintController {
     @ResponseBody
     @RequestMapping(value = "/system/getAllComplaint")
     public HttpJsonResult<List<StAppletComSugges>> getAllComAndSugg(HttpServletRequest request, Integer page,
-                                                                    Integer rows) {
+                                                                    Integer rows, String taskType) {
+        HttpJsonResult<List<StAppletComSugges>> resultJson = new HttpJsonResult<>();
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        String type = "2";
+        String sts = request.getParameter("q_sts");
+        PageInfo<StAppletComSugges> pageInfo = complaintService.getAllComAndSugg(page, rows, type, sts,
+                adminUser.getVillageCode());
+        String total = String.valueOf(pageInfo.getTotal());
+        resultJson.setRows(pageInfo.getList());
+        resultJson.setTotal(Integer.valueOf(total));
+        return resultJson;
+    }
+
+
+    /**
+     * 后台管理
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/system/getAllComAndSugg")
+    public HttpJsonResult<List<StAppletComSugges>> getAllCom(HttpServletRequest request, Integer page,
+                                                                    Integer rows, String taskType) {
         HttpJsonResult<List<StAppletComSugges>> resultJson = new HttpJsonResult<>();
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         String type = request.getParameter("q_type");
