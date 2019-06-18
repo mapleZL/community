@@ -69,14 +69,7 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
         if (!("6".equals(stAppletEnviron.getClassify()))) {
             return true;
         }
-        List<String> list = JSON.parseObject(stAppletEnviron.getImgUrl(), List.class);
-        String url = "";
-        if (list != null && list.size() > 0) {
-            for (String str : list) {
-                String replace = str.replace("data:image/jpeg;base64,", "");
-                url += replace + ",";
-            }
-        }
+
         StringBuffer str = new StringBuffer();
         Map<String, String> map = new HashMap<>();
         map.put("title", stAppletEnviron.getTitle());
@@ -87,7 +80,7 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
         map.put("eventSourceName", stAppletEnviron.getCreateUserName());
         map.put("orgCode", stAppletEnviron.getVillageCode());
         map.put("topOrgCode", "");
-        map.put("fileIds", url);
+        map.put("fileIds", stAppletEnviron.getImgUrl());
         // 使用httpClient发送请求发送到物业管理系统
         CloseableHttpClient build = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost("http://lifangwei.natapp1.cc/event/current/mobile/environment/save");
