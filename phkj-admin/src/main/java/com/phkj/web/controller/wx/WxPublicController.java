@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.phkj.core.redis.RedisComponent;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.web.common.RedisKeyCommon;
-import com.phkj.web.util.WeChatUtil;
-import com.phkj.web.util.AesException;
-import com.phkj.web.util.WXPublicUtils;
+import com.phkj.web.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -94,6 +92,20 @@ public class WxPublicController {
             log.error("获取用户微信信息异常,exception:{}", e);
             return ResponseUtil.createResp("500", "ok", false, null);
         }
+    }
+
+    @RequestMapping("/code")
+    public String getCode(String code, HttpServletResponse response) {
+        String url = null;
+        try {
+            String result = HttpUtil.get(WXPublicConstants.GET_CODE_URL);
+            log.info("result, " + result);
+            log.info("code = " + code);
+            url = "redirect:http://zjphtech.com?code=" + code;
+        } catch (Exception e) {
+            log.error("获取微信code异常,exception:{}", e);
+        }
+        return url;
     }
 
     /**
