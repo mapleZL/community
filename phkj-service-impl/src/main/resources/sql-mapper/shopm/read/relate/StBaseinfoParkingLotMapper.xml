@@ -58,7 +58,7 @@
 		WHERE
 		 org_code = #{orgCode}
 		and  sts = 'Y'
-		AND parking_status = 'N';
+		AND parking_status = 'N'
 	</select>
 
     <update id="update" parameterType="com.phkj.entity.relate.StBaseinfoParkingLot">

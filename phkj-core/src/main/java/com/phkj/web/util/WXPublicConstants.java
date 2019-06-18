@@ -16,6 +16,9 @@ public class WXPublicConstants {
     public static final String APPSECRET = "29e0f0e85c8135e18193063d3f2fb04c";
     //获取网页授权accessToken的接口
     public static final String GET_WEB_ACCESSTOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+    // 获取code
+    public static final String GET_CODE_URL =  "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3ec96b7fb94e38fa&redirect_uri=http://zjphtech.com/admin/wx/code&response_type=code&scope=snsapi_userinfo#wechat_redirect";
+
     //获取用户信息的接口
     public static final String GET_USERINFO_URL = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
 

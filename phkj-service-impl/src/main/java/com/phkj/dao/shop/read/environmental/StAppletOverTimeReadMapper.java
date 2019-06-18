@@ -1,6 +1,7 @@
 package com.phkj.dao.shop.read.environmental;
 
 import com.phkj.entity.environmental.StAppletOverTime;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,5 +20,5 @@ public interface StAppletOverTimeReadMapper {
 
     int updateByPrimaryKey(StAppletOverTime record);
 
-    List<StAppletOverTime> selectAllOverTime();
+    List<StAppletOverTime> selectAllOverTime(@Param("type") String type);
 }
