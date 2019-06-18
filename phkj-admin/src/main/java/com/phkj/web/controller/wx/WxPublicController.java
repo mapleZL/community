@@ -65,8 +65,8 @@ public class WxPublicController {
     }
 
     @RequestMapping("/person")
-    @ResponseBody
-    public ResponseUtil person(String code, Model model) {
+    public String person(String code, Model model) {
+        String url = "redirect:http://zjphtech.com";
         try {
             log.info("获取用户信息code：" + code);
             JSONObject userInfo = new JSONObject();
@@ -80,17 +80,22 @@ public class WxPublicController {
                 String openid = json.getString("openid");
                 //2.通过access_token和openid拉取用户信息
                 userInfo = WeChatUtil.getUserInfo(webAccessToken, openid);
+                String userName = userInfo.getString("nickname");
+                String headIcon = userInfo.getString("headimgurl");
                 //获取json对象中的键值对集合
                 Set<Map.Entry<String, Object>> entries = userInfo.entrySet();
                 for (Map.Entry<String, Object> entry : entries) {
                     //把键值对作为属性设置到model中
                     model.addAttribute(entry.getKey(), entry.getValue());
                 }
+                url = "redirect:http://zjphtech.com?userName=" + userName + "&headIcon=" + headIcon;
             }
-            return ResponseUtil.createResp("200", "ok", true, userInfo);
+            return url;
+            //return ResponseUtil.createResp("200", "ok", true, userInfo);
         } catch (Exception e) {
             log.error("获取用户微信信息异常,exception:{}", e);
-            return ResponseUtil.createResp("500", "ok", false, null);
+            //return ResponseUtil.createResp("500", "ok", false, null);
+            return url;
         }
     }
 
