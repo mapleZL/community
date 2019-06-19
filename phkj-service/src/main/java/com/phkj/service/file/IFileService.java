@@ -39,4 +39,12 @@ public interface IFileService {
      * @return
      */
     String upload(String imgString);
+
+    /**
+     * 上传base64文件
+     *
+     * @param file
+     * @return
+     */
+    String upload(File file);
 }

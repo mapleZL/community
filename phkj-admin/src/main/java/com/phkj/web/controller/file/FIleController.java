@@ -90,6 +90,27 @@ public class FIleController extends BaseController {
     }
 
     /**
+     * 上传图片
+     *
+     * @return
+     */
+    @RequestMapping("/upload2")
+    @ResponseBody
+    public ResponseUtil uploadFile2(String base64) {
+        try {
+            if (StringUtils.isBlank(base64)) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), false, null);
+            }
+            File file = BASE64Utils.base64ToInputStream(base64);
+            String url = fileService.upload(file);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), ResponseStateEnum.STATUS_OK.getMsg(), true, url);
+        } catch (Exception e) {
+            log.error("上传文件发生错误，请联系平台管理人员, exception:{}", e);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
+        }
+    }
+
+    /**
      * ajax商品图片上传
      *
      * @param request
