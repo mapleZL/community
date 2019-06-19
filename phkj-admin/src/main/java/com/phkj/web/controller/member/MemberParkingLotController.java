@@ -216,24 +216,66 @@ public class MemberParkingLotController extends BaseController {
 
 
     /**
-     * 获取剩余车位
+     * 获取当前小区剩余车位
      *
-     * @param orgCode
+     * @param villageCode
      * @return
      */
     @RequestMapping(value = "/surplus/lots", method = {RequestMethod.GET})
     public @ResponseBody
-    ResponseUtil getSurplusParkingLot(String orgCode) {
+    ResponseUtil getSurplusParkingLot(String villageCode) {
         try {
-            if (StringUtils.isBlank(orgCode)) {
+            if (StringUtils.isBlank(villageCode)) {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "orgCode is blank", false, null);
             }
-            ServiceResult<List<StBaseinfoParkingLot>> result = stBaseinfoParkingLotService.getSurplusParkingLot(orgCode);
+            ServiceResult<List<StBaseinfoParkingLot>> result = stBaseinfoParkingLotService.getSurplusParkingLot(villageCode);
             return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
         } catch (Exception e) {
             log.error("获取剩余车位异常, exception:{}", e);
             return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
         }
+    }
 
+
+    /**
+     * @param villageCode
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getAllNearbyParkingLot")
+    public ResponseUtil getAllNearbyParkingLot(String villageCode) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            if (StringUtils.isBlank(villageCode)) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "orgCode is blank", false, null);
+            }
+            ServiceResult<List<Map<String, Object>>> result = stBaseinfoParkingLotService.getNearbyParkingLot(villageCode);
+            return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
+        } catch (Exception e) {
+            log.error("获取剩余附近车位异常, exception:{}", e);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
+        }
+    }
+
+
+    /**
+     * 获取当前小区剩余车位
+     *
+     * @param villageCode
+     * @return
+     */
+    @RequestMapping(value = "/surplus/getSurplusParkingLotNum", method = {RequestMethod.GET})
+    public @ResponseBody
+    ResponseUtil getSurplusParkingLotNum(String villageCode) {
+        try {
+            if (StringUtils.isBlank(villageCode)) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "orgCode is blank", false, null);
+            }
+            ServiceResult<Integer> result = stBaseinfoParkingLotService.getSurplusParkingLotNum(villageCode);
+            return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
+        } catch (Exception e) {
+            log.error("获取剩余车位异常, exception:{}", e);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
+        }
     }
 }

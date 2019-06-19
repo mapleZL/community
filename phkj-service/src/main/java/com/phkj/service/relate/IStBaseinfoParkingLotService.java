@@ -1,6 +1,7 @@
 package com.phkj.service.relate;
 
 import java.util.List;
+import java.util.Map;
 
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.relate.StBaseinfoParkingLot;
@@ -46,4 +47,20 @@ public interface IStBaseinfoParkingLotService {
      * @return
      */
     ServiceResult<List<StBaseinfoParkingLot>> getSurplusParkingLot(String orgCode);
+
+    /**
+     * 获取剩余车位
+     *
+     * @param orgCode
+     * @return
+     */
+    ServiceResult< List<Map<String, Object>>> getNearbyParkingLot(String orgCode);
+
+
+    /**
+     *  获取当前小区车位
+     * @param orgCode
+     * @return
+     */
+    ServiceResult<Integer> getSurplusParkingLotNum(String orgCode);
 }

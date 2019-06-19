@@ -22,4 +22,8 @@ public interface StBaseinfoParkingLotDao {
     Map<String, String> selectLockByNum(@Param("carNum") String position, @Param("villageCode") String villageCode);
 
     List<StBaseinfoParkingLot> getSurplusParkingLot(@Param("orgCode") String orgCode);
+
+    List<Map<String, Object>> getNearbyParkingLot(@Param("orgCode")String orgCode);
+
+    int getNearbyParkingLotNum(@Param("orgCode")String orgCode);
 }

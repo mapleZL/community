@@ -1,6 +1,7 @@
 package com.phkj.service.impl.relate;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -73,7 +74,7 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
      *
      * @param stBaseinfoParkingLot
      * @return
-     * @see com.phkj.service.StBaseinfoParkingLotService#updateStBaseinfoParkingLot(StBaseinfoParkingLot)
+     * @see //com.phkj.service.StBaseinfoParkingLotService#updateStBaseinfoParkingLot(StBaseinfoParkingLot)
      */
     @Override
     public ServiceResult<Integer> updateStBaseinfoParkingLot(StBaseinfoParkingLot stBaseinfoParkingLot) {
@@ -122,6 +123,56 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
         ServiceResult<List<StBaseinfoParkingLot>> result = new ServiceResult<>();
         try {
             result.setResult(stBaseinfoParkingLotModel.getSurplusParkingLot(orgCode));
+            result.setSuccess(true);
+            result.setMessage("ok");
+            result.setCode("200");
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error("[IStBaseinfoParkingLotService][getSurplusParkingLot]根据[" + orgCode + "]取得剩余车位信息时出现未知异常：" + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("[IStBaseinfoParkingLotService][getSurplusParkingLot]根据[" + orgCode + "]取得剩余车位信息时出现未知异常：",
+                    e);
+        }
+        return result;
+    }
+
+    /**
+     * @param orgCode
+     * @return
+     */
+    @Override
+    public ServiceResult<List<Map<String, Object>>> getNearbyParkingLot(String orgCode) {
+        ServiceResult<List<Map<String, Object>>> result = new ServiceResult<>();
+        try {
+            List<Map<String, Object>> nearbyParkingLot = stBaseinfoParkingLotModel.getNearbyParkingLot(orgCode);
+            result.setResult(nearbyParkingLot);
+            result.setSuccess(true);
+            result.setMessage("ok");
+            result.setCode("200");
+        } catch (BusinessException e) {
+            result.setSuccess(false);
+            result.setMessage(e.getMessage());
+            log.error("[IStBaseinfoParkingLotService][getSurplusParkingLot]根据[" + orgCode + "]取得剩余车位信息时出现未知异常：" + e.getMessage());
+        } catch (Exception e) {
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("[IStBaseinfoParkingLotService][getSurplusParkingLot]根据[" + orgCode + "]取得剩余车位信息时出现未知异常：",
+                    e);
+        }
+        return result;
+    }
+
+
+    /**
+     * @param orgCode
+     * @return
+     */
+    @Override
+    public ServiceResult<Integer> getSurplusParkingLotNum(String orgCode) {
+        ServiceResult<Integer> result = new ServiceResult<>();
+        try {
+            result.setResult(stBaseinfoParkingLotModel.getSurplusParkingLotNum(orgCode));
             result.setSuccess(true);
             result.setMessage("ok");
             result.setCode("200");

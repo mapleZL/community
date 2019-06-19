@@ -21,6 +21,42 @@
         <result property="parkingStatus" column="parking_status"/>
     </resultMap>
 
+
+	<select id="getNearbyParkingLotNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+	    SELECT
+		 count(*)
+		FROM
+		 st_baseinfo_parking_lot
+		WHERE
+		 org_code = #{orgCode}
+		and  sts = 'Y'
+		AND parking_status = 'N'
+	</select>
+
+	<select id="getNearbyParkingLot" parameterType="java.lang.String" resultType="java.util.Map">
+	  SELECT
+			count( * ) as num,
+			tt.org_code,
+			tt.longitude,
+			tt.latitude,
+			sto.NAME
+		FROM
+			st_baseinfo_parking_lot tt
+			INNER JOIN st_baseinfo_organization sto ON tt.org_code = sto.org_code
+			AND tt.org_code IN (
+		SELECT DISTINCT
+			stl.org_code
+		FROM
+			st_baseinfo_parking_lot stl
+		WHERE
+			stl.top_org_code = ( SELECT DISTINCT st.top_org_code FROM st_baseinfo_parking_lot st WHERE org_code = #{orgCode} )
+			AND stl.org_code != #{orgCode}
+			)
+			AND tt.sts = 'Y'
+			AND tt.parking_status = 'N'
+	</select>
+
+
     <select id="selectLockByNum" parameterType="java.lang.String" resultType="java.util.Map">
 		SELECT
 			pl.id,

@@ -27,7 +27,7 @@
                 and user_name = #{queryMap.q_user_name}
           	 </if>
           	 <if test="queryMap.q_village_code != null and queryMap.q_village_code != ''">
-          	     and village_code = #{query.q_village_code}
+          	     and village_code = #{queryMap.q_village_code}
           	 </if>
         </where>
     </sql>

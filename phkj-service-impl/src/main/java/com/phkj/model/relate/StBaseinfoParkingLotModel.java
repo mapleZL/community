@@ -1,6 +1,7 @@
 package com.phkj.model.relate;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -64,5 +65,21 @@ public class StBaseinfoParkingLotModel {
     public List<StBaseinfoParkingLot> getSurplusParkingLot(String orgCode) {
         List<StBaseinfoParkingLot> surplusParkingLot = stBaseinfoParkingLotDao.getSurplusParkingLot(orgCode);
         return surplusParkingLot;
+    }
+
+    /**
+     * 获取剩余车位
+     *
+     * @param orgCode
+     * @return
+     */
+    public  List<Map<String, Object>> getNearbyParkingLot(String orgCode) {
+        List<Map<String, Object>> nearbyParkingLot = stBaseinfoParkingLotDao.getNearbyParkingLot(orgCode);
+        return nearbyParkingLot;
+    }
+
+    public int getSurplusParkingLotNum(String orgCode) {
+        int num = stBaseinfoParkingLotDao.getNearbyParkingLotNum(orgCode);
+        return num;
     }
 }
