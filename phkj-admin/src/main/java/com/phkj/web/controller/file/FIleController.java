@@ -1,5 +1,7 @@
 package com.phkj.web.controller.file;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,6 +13,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.phkj.web.util.BASE64Utils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -53,7 +57,7 @@ public class FIleController extends BaseController {
     @ResponseBody
     public ResponseUtil uploadFiles(@RequestParam List<MultipartFile> files) {
         try {
-            if(files == null || files.isEmpty()){
+            if (files == null || files.isEmpty()) {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
             }
             Set<String> set = fileService.uploadFiles(files);
@@ -63,7 +67,28 @@ public class FIleController extends BaseController {
             return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, new ArrayList<>());
         }
     }
-    
+
+    /**
+     * 上传图片
+     *
+     * @return
+     */
+    @RequestMapping("/upload")
+    @ResponseBody
+    public ResponseUtil uploadFile(String base64) {
+        try {
+            if (StringUtils.isBlank(base64)) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), false, null);
+            }
+            //File file = BASE64Utils.base64ToInputStream(base64);
+            String url = fileService.upload(base64);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), ResponseStateEnum.STATUS_OK.getMsg(), true, url);
+        } catch (Exception e) {
+            log.error("上传文件发生错误，请联系平台管理人员, exception:{}", e);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
+        }
+    }
+
     /**
      * ajax商品图片上传
      *
@@ -71,9 +96,10 @@ public class FIleController extends BaseController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/uploadPics", method = { RequestMethod.POST })
-    public @ResponseBody Object uploadImage(MultipartHttpServletRequest request,
-                                            HttpServletResponse response, String fileIndex) {
+    @RequestMapping(value = "/uploadPics", method = {RequestMethod.POST})
+    public @ResponseBody
+    Object uploadImage(MultipartHttpServletRequest request,
+                       HttpServletResponse response, String fileIndex) {
         log.info("UploadImageController uploadImage start");
         HttpJsonResult<Map<String, Object>> jsonResult = new HttpJsonResult<Map<String, Object>>();
         Map<String, Object> result = new HashMap<String, Object>();
@@ -102,10 +128,11 @@ public class FIleController extends BaseController {
         }
         return null;
     }
-    
+
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public @ResponseBody Object upload(MultipartFile file,HttpServletRequest request,
-                                HttpServletResponse response) {
+    public @ResponseBody
+    Object upload(MultipartFile file, HttpServletRequest request,
+                  HttpServletResponse response) {
         HttpJsonResult<Map<String, Object>> jsonResult = new HttpJsonResult<Map<String, Object>>();
         Map<String, Object> result = new HashMap<String, Object>();
         try {

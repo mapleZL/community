@@ -1,5 +1,6 @@
 package com.phkj.core.client;
 
+import java.io.File;
 import java.io.InputStream;
 
 /**
@@ -27,6 +28,24 @@ public interface FactoryClient {
      * @return
      */
     String uploadIfNotExits(InputStream inputStream, String key);
+
+    /**
+     * 上传文件
+     *
+     * @param file
+     * @param key
+     * @return
+     */
+    String uploadIfNotExits(File file, String key);
+
+    /**
+     * 上传文件
+     *
+     * @param imgString
+     * @param dir
+     * @return
+     */
+    String upload(String imgString, String dir);
 
     /**
      * 删除文件

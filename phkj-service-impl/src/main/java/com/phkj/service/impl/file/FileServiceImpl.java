@@ -1,5 +1,6 @@
 package com.phkj.service.impl.file;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
@@ -57,6 +58,17 @@ public class FileServiceImpl implements IFileService {
             String originalFilename = file.getOriginalFilename();
             return client.uploadIfNotExits(inputStream, originalFilename);
         } catch (IOException e) {
+            log.error("文件上传异常,exception:{}", e);
+            return null;
+        }
+    }
+
+    @Override
+    public String upload(String imgString) {
+        try {
+            FactoryClient client = new OSSClient();
+            return client.upload(imgString, "img");
+        } catch (Exception e) {
             log.error("文件上传异常,exception:{}", e);
             return null;
         }

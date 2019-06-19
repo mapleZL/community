@@ -2,6 +2,8 @@ package com.phkj.service.file;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
@@ -29,4 +31,12 @@ public interface IFileService {
      * @return
      */
     String uploadFile(MultipartFile file);
+
+    /**
+     * 上传base64文件
+     *
+     * @param imgString
+     * @return
+     */
+    String upload(String imgString);
 }

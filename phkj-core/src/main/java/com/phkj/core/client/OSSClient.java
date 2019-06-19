@@ -1,17 +1,19 @@
 package com.phkj.core.client;
 
+import com.aliyun.oss.ClientException;
+import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.PutObjectResult;
 import com.phkj.core.freemarkerutil.DomainUrlUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.misc.BASE64Decoder;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @Author:zl
@@ -123,6 +125,39 @@ public class OSSClient implements FactoryClient {
 
     /**
      * create by: zl
+     * description: 上传文件
+     * create time:
+     *
+     * @return
+     * @Param: inputStream
+     * @Param: code
+     */
+    public String uploadIfNotExits(File file, String code) {
+        com.aliyun.oss.OSSClient ossClient = null;
+        String url = null;
+        try {
+            ossClient = getClient();
+            if (null == ossClient) {
+                return null;
+            }
+            ossClient.putObject(DomainUrlUtil.OSS_BUCKETNAME, code, file);
+            url = getUrl(code);
+            LOGGER.info("文件上传后url：" + url);
+        } catch (Exception e) {
+            LOGGER.error("exception:{}", e);
+        } finally {
+            if (ossClient != null) {
+                try {
+                    ossClient.shutdown();
+                } catch (Exception e) {
+                }
+            }
+        }
+        return url;
+    }
+
+    /**
+     * create by: zl
      * description: 上传单个文件，以code保存
      * create time:
      *
@@ -144,6 +179,67 @@ public class OSSClient implements FactoryClient {
             }
         }
         return true;
+    }
+
+    /**
+     * create by: zl
+     * description: 上传单个文件，以code保存
+     * create time:
+     *
+     * @return
+     * @Param: inputStream
+     * @Param: code
+     */
+    public String upload(String imageString, String dir) {
+        com.aliyun.oss.OSSClient ossClient = null;
+        try {
+            ossClient = getClient();
+            if (null == ossClient) {
+                return null;
+            }
+            // 使用前端插件时可能有前有（"data:image/xxxx;base64,"）
+            // 获取图片格式
+            String suffix = imageString.substring(11, imageString.indexOf(";"));
+            // 使用插件传输产生的前缀
+            String prefix = imageString.substring(0, imageString.indexOf(",") + 1);
+            // 替换前缀为空
+            imageString = imageString.replace(prefix, "");
+            // imageString = imageString.substring(imageString.indexOf(",") + 1);
+
+            BASE64Decoder base64 = new BASE64Decoder();
+            byte[] imageByte = base64.decodeBuffer(imageString);
+
+            // 打包时将出现内部专用api异常
+            // BASE64Decoder decoder = new BASE64Decoder();
+            // byte[] imageByte = decoder.decodeBuffer(imageString);
+
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageByte);
+
+            // InputStream binaryStream = serialBlob.getBinaryStream();
+            // SerialBlob serialBlob = new SerialBlob(imageByte);
+            // dir为图片目录
+            String key = getFilename(dir, suffix);
+            ossClient.putObject(DomainUrlUtil.OSS_BUCKETNAME, key, byteArrayInputStream);
+            ossClient.shutdown();
+            return getUrl(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ossClient != null) {
+                    ossClient.shutdown();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return null;
+    }
+
+    // 生成文件名加目录
+    public String getFilename(String dir, String suffix) {
+        // 使用uuid生成唯一文件名
+        String uuid = UUID.randomUUID().toString();
+        return dir + "/" + uuid + "." + suffix;
     }
 
     /**
