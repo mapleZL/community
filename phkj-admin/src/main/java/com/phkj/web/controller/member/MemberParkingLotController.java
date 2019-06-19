@@ -2,6 +2,7 @@ package com.phkj.web.controller.member;
 
 import com.phkj.core.*;
 import com.phkj.core.exception.BusinessException;
+import com.phkj.core.redis.RedisComponent;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.echarts.component.MemberPropertyStatus;
 import com.phkj.entity.member.MemberParkingLot;
@@ -12,6 +13,7 @@ import com.phkj.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -216,28 +219,6 @@ public class MemberParkingLotController extends BaseController {
 
 
     /**
-     * 获取当前小区剩余车位
-     *
-     * @param villageCode
-     * @return
-     */
-    @RequestMapping(value = "/surplus/lots", method = {RequestMethod.GET})
-    public @ResponseBody
-    ResponseUtil getSurplusParkingLot(String villageCode) {
-        try {
-            if (StringUtils.isBlank(villageCode)) {
-                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "orgCode is blank", false, null);
-            }
-            ServiceResult<List<StBaseinfoParkingLot>> result = stBaseinfoParkingLotService.getSurplusParkingLot(villageCode);
-            return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
-        } catch (Exception e) {
-            log.error("获取剩余车位异常, exception:{}", e);
-            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
-        }
-    }
-
-
-    /**
      * @param villageCode
      * @return
      */
@@ -277,5 +258,42 @@ public class MemberParkingLotController extends BaseController {
             log.error("获取剩余车位异常, exception:{}", e);
             return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
         }
+    }
+
+    /**
+     * 获取当前小区剩余车位
+     *
+     * @param villageCode
+     * @return
+     */
+    @RequestMapping(value = "/surplus/lots", method = {RequestMethod.GET})
+    public @ResponseBody
+    ResponseUtil getSurplusParkingLot(String villageCode,String userId) {
+        try {
+            if (StringUtils.isBlank(villageCode)) {
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "orgCode is blank", false, null);
+            }
+            ServiceResult<List<StBaseinfoParkingLot>> result = stBaseinfoParkingLotService.getSurplusParkingLot(villageCode,userId);
+            return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
+        } catch (Exception e) {
+            log.error("获取剩余车位异常, exception:{}", e);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
+        }
+    }
+
+    /**
+     *
+     */
+    @ResponseBody
+    @RequestMapping("/applyParkingLot")
+    public ResponseUtil applyParkingLot(HttpServletRequest request, Date startTime) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String userId = request.getParameter("userId");
+        String userName = request.getParameter("userName");
+        String pkId = request.getParameter("id");
+        if (stBaseinfoParkingLotService.applyParkingLot(userId, userName, pkId, startTime)) {
+            responseUtil.setSuccess(true);
+        }
+        return responseUtil;
     }
 }

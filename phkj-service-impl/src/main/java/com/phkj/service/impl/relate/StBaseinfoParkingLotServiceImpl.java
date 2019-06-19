@@ -1,12 +1,17 @@
 package com.phkj.service.impl.relate;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.Resource;
 
+import com.alibaba.fastjson.JSON;
+import com.phkj.core.redis.RedisComponent;
+import com.phkj.web.common.RedisKeyCommon;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.omg.CORBA.OBJ_ADAPTER;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.phkj.core.ConstantsEJS;
@@ -22,6 +27,9 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
 
     @Resource
     private StBaseinfoParkingLotModel stBaseinfoParkingLotModel;
+
+    @Autowired
+    RedisComponent redisComponent;
 
     /**
      * 根据id取得车位信息
@@ -119,10 +127,30 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
      * @Param: orgCode
      */
     @Override
-    public ServiceResult<List<StBaseinfoParkingLot>> getSurplusParkingLot(String orgCode) {
+    public ServiceResult<List<StBaseinfoParkingLot>> getSurplusParkingLot(String orgCode, String userId) {
         ServiceResult<List<StBaseinfoParkingLot>> result = new ServiceResult<>();
         try {
-            result.setResult(stBaseinfoParkingLotModel.getSurplusParkingLot(orgCode));
+            String key = RedisKeyCommon.JS_PARKING_KEY + userId;
+            String redisString = redisComponent.getRedisString(key);
+            Map<String, Object> map = null;
+            if (StringUtils.isNotBlank(redisString)) {
+                map = JSON.parseObject(redisString, Map.class);
+            }
+            List<StBaseinfoParkingLot> list = new ArrayList<>();
+            List<StBaseinfoParkingLot> surplusParkingLot = stBaseinfoParkingLotModel.getSurplusParkingLot(orgCode);
+            if (surplusParkingLot != null && surplusParkingLot.size() > 0) {
+                for (StBaseinfoParkingLot parking : surplusParkingLot) {
+                    parking.setSts("0");
+                    if (null != map) {
+                        Object id = map.get(parking.getId().toString());
+                        if (id != null) {
+                            parking.setSts("1");
+                        }
+                    }
+                    list.add(parking);
+                }
+            }
+            result.setResult(list);
             result.setSuccess(true);
             result.setMessage("ok");
             result.setCode("200");
@@ -166,6 +194,7 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
 
     /**
      * @param orgCode
+     * @param
      * @return
      */
     @Override
@@ -186,5 +215,39 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
                     e);
         }
         return result;
+    }
+
+
+    /**
+     * @param userId
+     * @param userName
+     * @param pkId
+     * @param startTime
+     * @return
+     */
+    @Override
+    public boolean applyParkingLot(String userId, String userName, String pkId, Date startTime) {
+        // 拼接Key
+        String key = RedisKeyCommon.JS_PARKING_KEY + userId;
+        //
+        long time = startTime.getTime();
+        long nowTime = new Date().getTime();
+        long l = time - nowTime;
+        String redisString = redisComponent.getRedisString(key);
+        Map<String, Object> returnMap = null;
+        if (StringUtils.isNotBlank(redisString)) {
+            returnMap = JSON.parseObject(redisString, Map.class);
+            String value = userId + "_" + userName;
+            returnMap.put(pkId, value);
+            String json = JSON.toJSONString(returnMap);
+            redisComponent.setStringExpire(key, json, l);
+        } else {
+            returnMap = new HashMap<String, Object>();
+            String value = userId + "_" + userName;
+            returnMap.put(pkId, value);
+            String json = JSON.toJSONString(returnMap);
+            redisComponent.setStringExpire(key, json, l);
+        }
+        return true;
     }
 }

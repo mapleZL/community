@@ -13,4 +13,6 @@ public class RedisKeyCommon {
     public static final String JS_ACCESS_TOKEN = "js_access_token";
     // ticket
     public static final String JS_API_TICKET = "js_api_ticket";
+    // parking
+    public static final String JS_PARKING_KEY = "parking_lot_";
 }
