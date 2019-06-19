@@ -66,9 +66,10 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
         if (i <= 0) {
             return false;
         }
-        if (!("6".equals(stAppletEnviron.getClassify()))) {
+        // 放开全部类型，调用外部接口
+        /*if (!("6".equals(stAppletEnviron.getClassify()))) {
             return true;
-        }
+        }*/
 
         StringBuffer str = new StringBuffer();
         Map<String, String> map = new HashMap<>();
