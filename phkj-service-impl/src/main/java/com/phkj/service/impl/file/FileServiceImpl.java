@@ -73,4 +73,15 @@ public class FileServiceImpl implements IFileService {
             return null;
         }
     }
+
+    @Override
+    public String upload(File file) {
+        try {
+            FactoryClient client = new OSSClient();
+            return client.uploadIfNotExits(file, "aa.png");
+        } catch (Exception e) {
+            log.error("文件上传异常,exception:{}", e);
+            return null;
+        }
+    }
 }
