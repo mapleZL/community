@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -78,10 +79,30 @@ public class FileServiceImpl implements IFileService {
     public String upload(File file) {
         try {
             FactoryClient client = new OSSClient();
-            return client.uploadIfNotExits(file, "aa.png");
+            String filename = getFilename("png");
+            return client.uploadIfNotExits(file, filename);
         } catch (Exception e) {
             log.error("文件上传异常,exception:{}", e);
             return null;
         }
+    }
+
+    @Override
+    public String upload(InputStream inputStream) {
+        try {
+            FactoryClient client = new OSSClient();
+            String filename = getFilename("png");
+            return client.uploadIfNotExits(inputStream, filename);
+        } catch (Exception e) {
+            log.error("文件上传异常,exception:{}", e);
+            return null;
+        }
+    }
+
+    // 生成文件名加目录
+    public String getFilename(String prefix) {
+        // 使用uuid生成唯一文件名
+        String uuid = UUID.randomUUID().toString();
+        return uuid + "." + prefix;
     }
 }

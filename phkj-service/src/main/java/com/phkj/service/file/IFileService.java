@@ -47,4 +47,12 @@ public interface IFileService {
      * @return
      */
     String upload(File file);
+
+    /**
+     * 上传文件
+     *
+     * @param inputStream
+     * @return
+     */
+    String upload(InputStream inputStream);
 }
