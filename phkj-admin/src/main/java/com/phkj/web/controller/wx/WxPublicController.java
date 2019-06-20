@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -80,6 +81,7 @@ public class WxPublicController {
                 //2.通过access_token和openid拉取用户信息
                 userInfo = WeChatUtil.getUserInfo(webAccessToken, openid);
                 String userName = userInfo.getString("nickname");
+                userName = URLEncoder.encode(userName);
                 String headIcon = userInfo.getString("headimgurl");
                 //获取json对象中的键值对集合
                 Set<Map.Entry<String, Object>> entries = userInfo.entrySet();
