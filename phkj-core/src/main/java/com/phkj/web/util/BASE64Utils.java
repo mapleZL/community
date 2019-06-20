@@ -19,7 +19,7 @@ import java.io.InputStream;
 public class BASE64Utils {
     private static Logger log = LogManager.getLogger(BASE64Utils.class);
 
-    public static File base64ToInputStream(String strBase64) {
+    public static File base64ToInputStream2(String strBase64) {
         String string = strBase64;
         String fileName = "test.png";
         try {
@@ -36,6 +36,19 @@ public class BASE64Utils {
             }
             File file = new File(fileName);
             return file;
+        } catch (Exception e) {
+            log.error("base64转文件异常,exception: {}", e);
+            return null;
+        }
+    }
+
+    public static InputStream base64ToInputStream(String strBase64) {
+        String string = strBase64;
+        try {
+            // 解码，然后将字节转换为文件
+            byte[] bytes = new BASE64Decoder().decodeBuffer(string);   //将字符串转换为byte数组
+            InputStream in = new ByteArrayInputStream(bytes);
+            return in;
         } catch (Exception e) {
             log.error("base64转文件异常,exception: {}", e);
             return null;
