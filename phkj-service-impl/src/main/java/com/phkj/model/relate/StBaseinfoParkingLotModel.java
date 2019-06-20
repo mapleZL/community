@@ -73,7 +73,7 @@ public class StBaseinfoParkingLotModel {
      * @param orgCode
      * @return
      */
-    public  List<Map<String, Object>> getNearbyParkingLot(String orgCode) {
+    public List<Map<String, Object>> getNearbyParkingLot(String orgCode) {
         List<Map<String, Object>> nearbyParkingLot = stBaseinfoParkingLotDao.getNearbyParkingLot(orgCode);
         return nearbyParkingLot;
     }
@@ -81,5 +81,17 @@ public class StBaseinfoParkingLotModel {
     public int getSurplusParkingLotNum(String orgCode) {
         int num = stBaseinfoParkingLotDao.getNearbyParkingLotNum(orgCode);
         return num;
+    }
+
+
+    /**
+     * @param orgCode
+     * @param userId
+     * @return
+     */
+    public List<StBaseinfoParkingLot> getSurplusParkingLotAndMeParking(String orgCode, String userId) {
+        List<StBaseinfoParkingLot> surplusParkingLot = stBaseinfoParkingLotDao.getSurplusParkingLotAndMeParking
+                (orgCode, userId);
+        return surplusParkingLot;
     }
 }

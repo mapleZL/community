@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.relate.StBaseinfoParkingLot;
+import com.phkj.entity.relate.StBaseinfoParkingLotOrder;
 
 public interface IStBaseinfoParkingLotService {
 
@@ -66,7 +67,7 @@ public interface IStBaseinfoParkingLotService {
      * @param userId
      * @return
      */
-    ServiceResult<Integer> getSurplusParkingLotNum(String orgCode );
+    ServiceResult<Integer> getSurplusParkingLotNum(String orgCode);
 
     /**
      * @param userId
@@ -76,4 +77,12 @@ public interface IStBaseinfoParkingLotService {
      * @return
      */
     boolean applyParkingLot(String userId, String userName, String pkId, Date startTime);
+
+
+    /**
+     * @param parkingLot
+     * @return
+     */
+    boolean applyParking(StBaseinfoParkingLotOrder parkingLot);
+
 }

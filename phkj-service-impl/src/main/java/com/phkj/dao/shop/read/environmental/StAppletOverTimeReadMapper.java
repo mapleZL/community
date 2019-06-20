@@ -21,4 +21,6 @@ public interface StAppletOverTimeReadMapper {
     int updateByPrimaryKey(StAppletOverTime record);
 
     List<StAppletOverTime> selectAllOverTime(@Param("type") String type);
+
+    List<StAppletOverTime> getAllEnableTimeByType(@Param("id") String id);
 }

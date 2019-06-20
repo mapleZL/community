@@ -125,10 +125,10 @@ public class OverTimeController {
      * @return
      */
     @RequestMapping("/system/add")
-    public String add( StAppletOverTime stAppletOverTime, HttpServletRequest request) {
+    public String add(StAppletOverTime stAppletOverTime, HttpServletRequest request) {
         try {
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
-            if (overTimeService.add(stAppletOverTime,adminUser)) {
+            if (overTimeService.add(stAppletOverTime, adminUser)) {
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,13 +167,13 @@ public class OverTimeController {
         ResponseUtil responseUtil = new ResponseUtil();
         String id = request.getParameter("id");
         String time = request.getParameter("time");
-        if (overTimeService.update(id, time)) {
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        if (overTimeService.update(id, time, adminUser)) {
             responseUtil.setSuccess(true);
         }
 
         return "redirect:/admin/overtime/";
     }
-
 
 
     /**
@@ -186,7 +186,7 @@ public class OverTimeController {
         ResponseUtil responseUtil = new ResponseUtil();
         String id = request.getParameter("id");
         String type = request.getParameter("type");
-        if (overTimeService.delete(id) ){
+        if (overTimeService.delete(id,type)) {
             responseUtil.setSuccess(true);
         }
 
@@ -203,7 +203,8 @@ public class OverTimeController {
         ResponseUtil responseUtil = new ResponseUtil();
         String id = request.getParameter("id");
         String time = request.getParameter("time");
-        if (overTimeService.update(id, time)) {
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        if (overTimeService.update(id, time, adminUser)) {
             responseUtil.setSuccess(true);
         }
 

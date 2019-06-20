@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shopm.read.relate.StBaseinfoParkingLotOrderDao">
+  <resultMap id="BaseResultMap" type="com.phkj.entity.relate.StBaseinfoParkingLotOrder">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="parking_lot_id" jdbcType="BIGINT" property="parkingLotId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="house_id" jdbcType="BIGINT" property="houseId" />
+    <result column="relationship" jdbcType="VARCHAR" property="relationship" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_user_id" jdbcType="BIGINT" property="modifyUserId" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="sts" jdbcType="CHAR" property="sts" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+    <result column="top_org_code" jdbcType="VARCHAR" property="topOrgCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parking_lot_id, name, phone, house_id, relationship, status, order_time, create_user_id, 
+    create_time, modify_user_id, modify_time, sts, org_code, top_org_code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from st_baseinfo_parking_lot_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from st_baseinfo_parking_lot_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.phkj.entity.relate.StBaseinfoParkingLotOrder">
+    insert into st_baseinfo_parking_lot_order (id, parking_lot_id, name, 
+      phone, house_id, relationship, 
+      status, order_time, create_user_id, 
+      create_time, modify_user_id, modify_time, 
+      sts, org_code, top_org_code
+      )
+    values (#{id,jdbcType=BIGINT}, #{parkingLotId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{houseId,jdbcType=BIGINT}, #{relationship,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyUserId,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{sts,jdbcType=CHAR}, #{orgCode,jdbcType=VARCHAR}, #{topOrgCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.phkj.entity.relate.StBaseinfoParkingLotOrder">
+    insert into st_baseinfo_parking_lot_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="parkingLotId != null">
+        parking_lot_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="relationship != null">
+        relationship,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="sts != null">
+        sts,
+      </if>
+      <if test="orgCode != null">
+        org_code,
+      </if>
+      <if test="topOrgCode != null">
+        top_org_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parkingLotId != null">
+        #{parkingLotId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="relationship != null">
+        #{relationship,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sts != null">
+        #{sts,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="topOrgCode != null">
+        #{topOrgCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.phkj.entity.relate.StBaseinfoParkingLotOrder">
+    update st_baseinfo_parking_lot_order
+    <set>
+      <if test="parkingLotId != null">
+        parking_lot_id = #{parkingLotId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="relationship != null">
+        relationship = #{relationship,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sts != null">
+        sts = #{sts,jdbcType=CHAR},
+      </if>
+      <if test="orgCode != null">
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="topOrgCode != null">
+        top_org_code = #{topOrgCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.phkj.entity.relate.StBaseinfoParkingLotOrder">
+    update st_baseinfo_parking_lot_order
+    set parking_lot_id = #{parkingLotId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      house_id = #{houseId,jdbcType=BIGINT},
+      relationship = #{relationship,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_user_id = #{modifyUserId,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      sts = #{sts,jdbcType=CHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      top_org_code = #{topOrgCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

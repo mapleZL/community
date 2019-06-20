@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.phkj.dao.shopm.read.relate.StBaseinfoParkingLotOrderDao;
+import com.phkj.entity.relate.StBaseinfoParkingLotOrder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -273,12 +275,12 @@ public class MemberParkingLotController extends BaseController {
      */
     @RequestMapping(value = "/surplus/lots", method = {RequestMethod.GET})
     public @ResponseBody
-    ResponseUtil getSurplusParkingLot(String villageCode,String userId) {
+    ResponseUtil getSurplusParkingLot(String villageCode, String userId) {
         try {
             if (StringUtils.isBlank(villageCode)) {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "orgCode is blank", false, null);
             }
-            ServiceResult<List<StBaseinfoParkingLot>> result = stBaseinfoParkingLotService.getSurplusParkingLot(villageCode,userId);
+            ServiceResult<List<StBaseinfoParkingLot>> result = stBaseinfoParkingLotService.getSurplusParkingLot(villageCode, userId);
             return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getResult());
         } catch (Exception e) {
             log.error("获取剩余车位异常, exception:{}", e);
@@ -301,4 +303,25 @@ public class MemberParkingLotController extends BaseController {
         }
         return responseUtil;
     }
+
+
+    /**
+     * 新版立即预约车位
+     *
+     * @return
+     */
+    @RequestMapping("/apply")
+    public ResponseUtil applyParking(StBaseinfoParkingLotOrder parkingLot) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            if (stBaseinfoParkingLotService.applyParking(parkingLot)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("预约车位失败!, exception:{}", e);
+        }
+        return responseUtil;
+    }
+
 }
