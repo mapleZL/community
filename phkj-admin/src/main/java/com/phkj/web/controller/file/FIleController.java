@@ -1,7 +1,6 @@
 package com.phkj.web.controller.file;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,7 +12,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.phkj.web.util.BASE64Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -31,6 +29,7 @@ import com.phkj.core.ResponseStateEnum;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.service.file.IFileService;
 import com.phkj.web.controller.BaseController;
+import com.phkj.web.util.BASE64Utils;
 
 /**
  * 操作文件相关动作

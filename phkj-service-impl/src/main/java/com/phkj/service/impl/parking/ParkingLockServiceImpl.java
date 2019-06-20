@@ -1,13 +1,9 @@
 package com.phkj.service.impl.parking;
 
-import com.alibaba.fastjson.JSON;
-import com.phkj.dao.shop.read.member.MemberParkingLotReadDao;
-import com.phkj.dao.shopm.read.relate.StBaseinfoParkingLotDao;
-import com.phkj.entity.member.MemberParkingLot;
-import com.phkj.entity.relate.StBaseinfoParkingLot;
-import com.phkj.service.praking.ParkingLockService;
-import org.apache.http.Header;
-import org.apache.http.HeaderElement;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
@@ -16,16 +12,17 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import com.alibaba.fastjson.JSON;
+import com.phkj.dao.shop.read.member.MemberParkingLotReadDao;
+import com.phkj.dao.shopm.read.relate.StBaseinfoParkingLotDao;
+import com.phkj.entity.member.MemberParkingLot;
+import com.phkj.service.praking.ParkingLockService;
 
 @Service
 public class ParkingLockServiceImpl implements ParkingLockService {
@@ -68,7 +65,7 @@ public class ParkingLockServiceImpl implements ParkingLockService {
         map.put("params", "");
         //开始处理请求
         CloseableHttpClient build = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://lifangwei.natapp1.cc/mobile/operation/parkinglock/poleDown");
+        HttpPost httpPost = new HttpPost("http://112.17.164.97:8856/applet/mobile/operation/parkinglock/poleDown");
         StringEntity stringEntity = new StringEntity(JSON.toJSONString(map), "UTF-8");
         httpPost.setEntity(stringEntity);
         httpPost.setHeader("Content-Type", "application/json;charset=utf8");
@@ -144,7 +141,7 @@ public class ParkingLockServiceImpl implements ParkingLockService {
         map.put("params", "");
         //开始处理请求
         CloseableHttpClient build = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://lifangwei.natapp1.cc/mobile/operation/parkinglock/queryStatus");
+        HttpPost httpPost = new HttpPost("http://112.17.164.97:8856/applet/mobile/operation/parkinglock/queryStatus");
         StringEntity stringEntity = new StringEntity(JSON.toJSONString(map), "UTF-8");
         httpPost.setEntity(stringEntity);
         httpPost.setHeader("Content-Type", "application/json;charset=utf8");
