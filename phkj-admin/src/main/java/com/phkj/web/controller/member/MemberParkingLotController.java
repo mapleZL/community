@@ -1,19 +1,16 @@
 package com.phkj.web.controller.member;
 
-import com.phkj.core.*;
-import com.phkj.core.exception.BusinessException;
-import com.phkj.core.redis.RedisComponent;
-import com.phkj.core.response.ResponseUtil;
-import com.phkj.echarts.component.MemberPropertyStatus;
-import com.phkj.entity.member.MemberParkingLot;
-import com.phkj.entity.relate.StBaseinfoParkingLot;
-import com.phkj.service.member.IMemberParkingLotService;
-import com.phkj.service.relate.IStBaseinfoParkingLotService;
-import com.phkj.web.controller.BaseController;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +18,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import com.phkj.core.ConstantsEJS;
+import com.phkj.core.HttpJsonResult;
+import com.phkj.core.PagerInfo;
+import com.phkj.core.ResponseStateEnum;
+import com.phkj.core.ServiceResult;
+import com.phkj.core.WebUtil;
+import com.phkj.core.exception.BusinessException;
+import com.phkj.core.response.ResponseUtil;
+import com.phkj.echarts.component.MemberPropertyStatus;
+import com.phkj.entity.member.MemberParkingLot;
+import com.phkj.entity.relate.StBaseinfoParkingLot;
+import com.phkj.service.member.IMemberParkingLotService;
+import com.phkj.service.relate.IStBaseinfoParkingLotService;
+import com.phkj.web.controller.BaseController;
 
 /**
  * @Filename: MemberParkingLotController.java
