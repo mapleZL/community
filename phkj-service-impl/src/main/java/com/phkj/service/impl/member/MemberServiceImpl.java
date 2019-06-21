@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.phkj.core.ResponseStateEnum;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -208,14 +209,14 @@ public class MemberServiceImpl implements IMemberService {
             serviceResult.setCode("200");
             serviceResult.setSuccess(true);
             serviceResult.setMessage("ok");
-        } catch (BusinessException be) {
-            serviceResult.setSuccess(false);
-            serviceResult.setMessage(be.getMessage());
-            log.error("[MemberService][memberRegister]register exception:" + be);
+//        } catch (BusinessException be) {
+//            serviceResult.setSuccess(false);
+//            serviceResult.setMessage(be.getMessage());
+//            log.error("[MemberService][memberRegister]register exception:" + be);
         } catch (Exception e) {
-            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
-            log.error("[MemberService][memberRegister]member:" + JSON.toJSONString(member));
-            log.error("[MemberService][memberRegister]会员注册时发生异常:", e);
+            serviceResult.setError(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), "服务异常，请联系系统管理员。");
+            log.error("[MemberService][memberRegister]member:" + member);
+            log.error("[MemberService][memberRegister]member register exception:{}", e);
         }
         return serviceResult;
 
