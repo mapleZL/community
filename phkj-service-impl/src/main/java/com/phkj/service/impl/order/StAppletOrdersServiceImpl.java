@@ -227,7 +227,7 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                     stAppletOrdersVO.setSpecInfo(specInfo);
                 }
                 // 获取商家信息
-                StAppletSeller seller = sellerModel.getSellerById(appletOrders.getSellerId());
+                StAppletSeller seller = sellerModel.getSellerByMemberId(appletOrders.getSellerId());
                 if (seller != null) {
                     String sellerName = seller.getSellerName();
                     String sellerLogo = seller.getSellerLogo();
