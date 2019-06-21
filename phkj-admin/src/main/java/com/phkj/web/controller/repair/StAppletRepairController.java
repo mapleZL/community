@@ -97,6 +97,26 @@ public class StAppletRepairController extends BaseController {
     }
 
     /**
+     * create by: zl
+     * description: 编辑物业报修
+     * create time:
+     *
+     * @return
+     * @Param: stAppletRepair
+     */
+    @RequestMapping(value = "/update", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseUtil update(@RequestBody StAppletRepair stAppletRepair) {
+        if (stAppletRepair.getId() == null || stAppletRepair.getId() == 0) {
+            ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
+                    "id is blank", false, null);
+        }
+        ServiceResult<Integer> result = stAppletRepairService.updateStAppletRepair(stAppletRepair);
+        return ResponseUtil.createResp(result.getCode(), result.getMessage(), true,
+                result.getResult());
+    }
+
+    /**
      * 物业维修人员列表查询
      *
      * @param request
