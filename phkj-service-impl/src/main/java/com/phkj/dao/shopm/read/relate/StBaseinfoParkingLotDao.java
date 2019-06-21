@@ -23,7 +23,9 @@ public interface StBaseinfoParkingLotDao {
 
     List<StBaseinfoParkingLot> getSurplusParkingLot(@Param("orgCode") String orgCode);
 
-    List<Map<String, Object>> getNearbyParkingLot(@Param("orgCode")String orgCode);
+    List<Map<String, Object>> getNearbyParkingLot(@Param("orgCode") String orgCode);
 
-    int getNearbyParkingLotNum(@Param("orgCode")String orgCode);
+    int getNearbyParkingLotNum(@Param("orgCode") String orgCode);
+
+    List<StBaseinfoParkingLot> getSurplusParkingLotAndMeParking(@Param("orgCode") String orgCode, @Param("userId") String userId);
 }

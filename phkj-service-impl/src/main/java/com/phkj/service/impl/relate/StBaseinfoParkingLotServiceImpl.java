@@ -6,6 +6,9 @@ import javax.annotation.Resource;
 
 import com.alibaba.fastjson.JSON;
 import com.phkj.core.redis.RedisComponent;
+import com.phkj.dao.shop.read.member.MemberHouseReadDao;
+import com.phkj.dao.shopm.read.relate.StBaseinfoParkingLotOrderDao;
+import com.phkj.entity.relate.StBaseinfoParkingLotOrder;
 import com.phkj.web.common.RedisKeyCommon;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
@@ -30,6 +33,12 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
 
     @Autowired
     RedisComponent redisComponent;
+
+    @Autowired
+    MemberHouseReadDao memberHouseReadDao;
+
+    @Autowired
+    StBaseinfoParkingLotOrderDao stBaseinfoParkingLotOrderDao;
 
     /**
      * 根据id取得车位信息
@@ -130,6 +139,8 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
     public ServiceResult<List<StBaseinfoParkingLot>> getSurplusParkingLot(String orgCode, String userId) {
         ServiceResult<List<StBaseinfoParkingLot>> result = new ServiceResult<>();
         try {
+
+            //   ====测试逻辑
             String key = RedisKeyCommon.JS_PARKING_KEY + userId;
             String redisString = redisComponent.getRedisString(key);
             Map<String, Object> map = null;
@@ -150,6 +161,12 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
                     list.add(parking);
                 }
             }
+
+            // 最终版本
+            List<StBaseinfoParkingLot> parkingLot = stBaseinfoParkingLotModel.getSurplusParkingLotAndMeParking(
+                    orgCode, userId);
+
+            // 结束 ======
             result.setResult(list);
             result.setSuccess(true);
             result.setMessage("ok");
@@ -249,5 +266,27 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
             redisComponent.setStringExpire(key, json, l);
         }
         return true;
+    }
+
+
+    /**
+     * @param parkingLot
+     * @return
+     */
+    @Override
+    public boolean applyParking(StBaseinfoParkingLotOrder parkingLot) {
+        Long houseId = parkingLot.getHouseId();
+        // 根据Id查询房屋信息
+
+
+        //parkingLot
+        parkingLot.setStatus("Y");
+        parkingLot.setSts("Y");
+        parkingLot.setCreateTime(new Date());
+        int i = stBaseinfoParkingLotOrderDao.insert(parkingLot);
+        if (i > 0) {
+            return true;
+        }
+        return false;
     }
 }

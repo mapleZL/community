@@ -211,7 +211,7 @@ public class MemberServiceImpl implements IMemberService {
         } catch (BusinessException be) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(be.getMessage());
-            log.error("[MemberService][memberRegister]会员注册时发生异常:" + be.getMessage());
+            log.error("[MemberService][memberRegister]register exception:" + be);
         } catch (Exception e) {
             serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
             log.error("[MemberService][memberRegister]member:" + JSON.toJSONString(member));

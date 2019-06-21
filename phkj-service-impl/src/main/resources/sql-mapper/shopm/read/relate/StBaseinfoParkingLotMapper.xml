@@ -22,15 +22,64 @@
     </resultMap>
 
 
+    <select id="getSurplusParkingLotAndMeParking" resultMap="StBaseinfoParkingLotResult">
+	   SELECT
+            new_temp.*,
+            sto.NAME
+        FROM
+            (
+        SELECT
+            bl.id,
+            bl.org_code,
+            bl.parking_status,
+        CASE
+            bl.sts
+            WHEN 'Y' THEN
+            '1'
+            END AS sts,
+            bl.CODE,
+            bl.longitude,
+            bl.latitude,
+            bl.type
+        FROM
+            st_baseinfo_parking_lot bl
+            INNER JOIN st_baseinfo_parking_lot_order po ON bl.id = po.parking_lot_id
+            AND po.create_user_id = #{userId} UNION
+        SELECT
+            bl.id,
+            bl.org_code,
+            bl.parking_status,
+        CASE
+            bl.sts
+            WHEN 'Y' THEN
+            '0'
+            END AS sts,
+            bl.CODE,
+            bl.longitude,
+            bl.latitude,
+            bl.type
+        FROM
+            st_baseinfo_parking_lot bl
+        WHERE
+            bl.parking_status = 'N'
+            AND bl.sts = 'Y'
+            AND bl.org_code = #{orgCode}
+            AND bl.id NOT IN ( SELECT parking_lot_id FROM st_baseinfo_parking_lot_order WHERE `status` = 'Y' AND sts = 'Y' )
+            AND bl.type IN ( 'B', 'E' )
+            ) new_temp
+            INNER JOIN st_baseinfo_organization sto ON new_temp.org_code = sto.org_code
+	</select>
+
 	<select id="getNearbyParkingLotNum" parameterType="java.lang.String" resultType="java.lang.Integer">
 	    SELECT
-		 count(*)
-		FROM
-		 st_baseinfo_parking_lot
-		WHERE
-		 org_code = #{orgCode}
-		and  sts = 'Y'
-		AND parking_status = 'N'
+            count(*)
+        FROM
+            st_baseinfo_parking_lot
+        WHERE
+            parking_status = 'N'
+            AND sts = 'Y'
+            and org_code = #{orgCode}
+            AND id NOT IN ( SELECT parking_lot_id FROM st_baseinfo_parking_lot_order WHERE `status` = 'Y' AND sts = 'Y' )
 	</select>
 
 	<select id="getNearbyParkingLot" parameterType="java.lang.String" resultType="java.util.Map">

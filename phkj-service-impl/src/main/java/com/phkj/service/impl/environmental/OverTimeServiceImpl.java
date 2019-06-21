@@ -11,6 +11,8 @@ import com.phkj.service.environmental.OverTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  *
  */
@@ -74,10 +76,11 @@ public class OverTimeServiceImpl implements OverTimeService {
     /**
      * @param id
      * @param time
+     * @param adminUser
      * @return
      */
     @Override
-    public boolean update(String id, String time) {
+    public boolean update(String id, String time, SystemAdmin adminUser) {
         int i = stAppletOverTimeWriteMapper.updateTimeById(id, time);
         if (i > 0) {
             return true;
@@ -86,14 +89,27 @@ public class OverTimeServiceImpl implements OverTimeService {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(String id, String type) {
 
         StAppletOverTime stAppletOverTime = stAppletOverTimeReadMapper.selectByPrimaryKey(Long.valueOf(id));
         if (null == stAppletOverTime) {
             return false;
         }
-
-        stAppletOverTime.setSts("3");
+        if ("0".equals(type)) {
+            stAppletOverTime.setSts("0");
+        } else if ("1".equals(type)) {
+            stAppletOverTime.setSts("1");
+            // 查询所有启用数据
+            List<StAppletOverTime> list = stAppletOverTimeReadMapper.getAllEnableTimeByType(id);
+            if (null != list && list.size() > 0) {
+                for (StAppletOverTime appletOverTime : list) {
+                    appletOverTime.setSts("0");
+                    stAppletOverTimeWriteMapper.updateByPrimaryKeySelective(appletOverTime);
+                }
+            }
+        } else {
+            stAppletOverTime.setSts("3");
+        }
         int i = stAppletOverTimeWriteMapper.updateByPrimaryKeySelective(stAppletOverTime);
         if (i > 0) {
             return true;

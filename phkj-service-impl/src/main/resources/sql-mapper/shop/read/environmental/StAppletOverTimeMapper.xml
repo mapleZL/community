@@ -15,6 +15,12 @@
   </sql>
 
 
+  <select id="getAllEnableTimeByType"  parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    id, over_time, create_id, create_time, create_name, type  , case sts when '1' then '启用' else '停用' end as sts
+    from st_applet_over_time where  id != #{id} and sts = '1'
+  </select>
+
   <select id="selectAllOverTime"  parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     id, over_time, create_id, create_time, create_name, type  , case sts when '1' then '启用' else '停用' end as sts

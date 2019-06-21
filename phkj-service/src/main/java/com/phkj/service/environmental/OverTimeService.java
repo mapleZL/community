@@ -12,8 +12,8 @@ public interface OverTimeService {
 
     StAppletOverTime getSystemDetail(Integer id);
 
-    boolean update(String id, String time);
+    boolean update(String id, String time, SystemAdmin adminUser);
 
-    boolean delete(String id);
+    boolean delete(String id, String type);
 
 }
