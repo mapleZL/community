@@ -156,4 +156,10 @@ public class SystemAdminServiceImpl implements ISystemAdminService {
         }
         return result;
     }
+
+    @Override
+    public ServiceResult<List<SystemAdmin>> getRepairsByUser(String villageCode,
+                                                             List<Integer> ids) {
+        return systemAdminModel.getRepairsByUser(villageCode, ids);
+    }
 }

@@ -36,7 +36,7 @@ public class SystemAdmin implements Serializable {
     private String            tel;                                     //电话
     private Integer           status;                                  //状态 1-正常 2-冻结 3-删除
     private String            villageCode;                             //绑定小区code
-
+    private String            repairCode;
     private String            roleName;
 
     public String getRoleName() {
@@ -165,6 +165,14 @@ public class SystemAdmin implements Serializable {
 
     public void setVillageCode(String villageCode) {
         this.villageCode = villageCode;
+    }
+
+    public String getRepairCode() {
+        return repairCode;
+    }
+
+    public void setRepairCode(String repairCode) {
+        this.repairCode = repairCode;
     }
 
 }

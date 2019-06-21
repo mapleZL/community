@@ -35,6 +35,7 @@ public class SystemRoles implements Serializable {
     private Integer           status;                                  //1、未删除2、删除
     private String            roleCode;
     private String            villageCode;                             //角色归属小区code
+    private String            repairCode;                              //是否维修人员0.否，1.是
 
     /**
      * 获取id
@@ -149,5 +150,13 @@ public class SystemRoles implements Serializable {
     public void setVillageCode(String villageCode) {
         this.villageCode = villageCode;
     }
-    
+
+    public String getRepairCode() {
+        return repairCode;
+    }
+
+    public void setRepairCode(String repairCode) {
+        this.repairCode = repairCode;
+    }
+
 }

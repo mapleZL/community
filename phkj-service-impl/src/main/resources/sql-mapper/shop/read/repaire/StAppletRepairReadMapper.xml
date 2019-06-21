@@ -56,7 +56,7 @@
                 and house_name = #{queryMap.q_house_name}
           	 </if>
           	 <if test="queryMap.q_repair_id != null and queryMap.q_repair_id !=''">
-          	    and repair_id = #{queryMap.q_requir_id}
+          	    and repair_id = #{queryMap.q_repair_id}
           	 </if>
           	 <if test="queryMap.q_sts != null and queryMap.q_sts !=''">
           	     and sts = #{queryMap.q_sts}

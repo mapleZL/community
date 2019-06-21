@@ -28,6 +28,16 @@
 		where `id` = #{id}
 	</select>
 	
+	<select id="getRepairsByUser" resultMap="SystemAdminResult">
+	    select
+		   *
+		from `system_admin` where village_code = #{villageCode}
+		and `role_id` in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            ${item}
+       	</foreach>
+	</select>
+	
 	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">
 		select count(1) from `system_admin` t1
 		<include refid="whereConditions" />

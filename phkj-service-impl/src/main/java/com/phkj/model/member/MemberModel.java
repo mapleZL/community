@@ -180,10 +180,10 @@ public class MemberModel {
                 throw new BusinessException("密码不能为空，请重试！");
             }
             //判断用户名是否已存在
-            List<Member> byNameList = memberReadDao.getByName(member.getName());
-            if (byNameList != null && byNameList.size() > 0) {
-                throw new BusinessException("会员名称已存在，请重试！");
-            }
+//            List<Member> byNameList = memberReadDao.getByName(member.getName());
+//            if (byNameList != null && byNameList.size() > 0) {
+//                throw new BusinessException("会员名称已存在，请重试！");
+//            }
 
             // 保存会员注册信息
             int count = memberWriteDao.save(member);

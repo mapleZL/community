@@ -18,5 +18,7 @@ public interface SystemRolesReadDao {
     List<SystemRoles> page(@Param("queryMap") Map<String, String> queryMap,
                            @Param("start") Integer start, @Param("size") Integer size);
 
+    List<SystemRoles> getRepairs();
+
 
 }

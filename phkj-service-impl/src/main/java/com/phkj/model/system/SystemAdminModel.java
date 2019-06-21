@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
+import com.phkj.core.ServiceResult;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.dao.shop.read.system.SystemAdminReadDao;
 import com.phkj.dao.shop.read.system.SystemRolesReadDao;
@@ -98,6 +99,14 @@ public class SystemAdminModel {
      */
     public List<SystemAdmin> getSystemAdminByRoleId(String roleId) {
         return systemAdminReadDao.getSystemAdminByRoleId(roleId);
+    }
+
+    public ServiceResult<List<SystemAdmin>> getRepairsByUser(String villageCode,
+                                                             List<Integer> ids) {
+        ServiceResult<List<SystemAdmin>> result = new ServiceResult<>();
+        List<SystemAdmin> list = systemAdminReadDao.getRepairsByUser(villageCode, ids);
+        result.setResult(list);
+        return result;
     }
 
 }
