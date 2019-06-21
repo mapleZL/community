@@ -89,6 +89,7 @@ public class WxPublicController {
                     //把键值对作为属性设置到model中
                     model.addAttribute(entry.getKey(), entry.getValue());
                 }
+                log.info("person, userName = " + userName + ", headIcon = " + headIcon);
                 url = "redirect:http://zjphtech.com?userName=" + userName + "&headIcon=" + headIcon;
             }
             return url;

@@ -46,12 +46,12 @@ public class LoginController {
         logger.info("login param: " + memberParam);
         try {
             if (memberParam == null) {
-                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), false, null);
             }
             String phoneNum = memberParam.getPhoneNum();
             String password = memberParam.getPassword();
             if (StringUtils.isBlank(phoneNum) || StringUtils.isBlank(password)) {
-                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "phoneNum or password is blank", true, null);
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "请输入账号密码", false, null);
             }
             String ip = IPUtil.getIpAddr(httpServletRequest);
             // source为6表示微信登录

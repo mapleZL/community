@@ -67,8 +67,9 @@ public class RegisterController {
             member.setPhone(phoneNum);
             setMemberData(httpServletRequest, member);
             ServiceResult<Member> result = memberService.memberRegister(member);
+            logger.info("register, result: " + result.getResult());
             if (null == result.getResult()) {
-                return ResponseUtil.createResp("101", "register exception", false, result.getSuccess());
+                return ResponseUtil.createResp("101", "register exception", false, false);
             }
             return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getSuccess());
         } catch (Exception e) {
