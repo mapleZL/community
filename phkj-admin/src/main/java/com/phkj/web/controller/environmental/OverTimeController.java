@@ -57,7 +57,20 @@ public class OverTimeController {
     public String visitor(ModelMap modelMap) {
         modelMap.put("pageNum", "1");
         modelMap.put("pageSize", "30");
-        return "/views/admin/visitor/visnumlist.ftl";
+        return "/admin/visitor/vistimelist";
+    }
+
+    /**
+     * 访客时间限制
+     *
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/system/addTime", method = RequestMethod.GET)
+    public String addOverTime(ModelMap modelMap) {
+        modelMap.put("pageNum", "1");
+        modelMap.put("pageSize", "30");
+        return "/admin/environmental/addTime";
     }
 
     /**
@@ -86,7 +99,8 @@ public class OverTimeController {
         HttpJsonResult<List<StAppletOverTime>> jsonResult = new HttpJsonResult<List<StAppletOverTime>>();
         try {
             String type = "2";
-            PageInfo<StAppletOverTime> pageInfo = overTimeService.getSystemAllOverTime(page, rows, type);
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            PageInfo<StAppletOverTime> pageInfo = overTimeService.getSystemAllOverTime(page, rows, type,adminUser);
             jsonResult.setRows(pageInfo.getList());
             String total = String.valueOf(pageInfo.getTotal());
             jsonResult.setTotal(Integer.valueOf(total));
@@ -109,7 +123,8 @@ public class OverTimeController {
         HttpJsonResult<List<StAppletOverTime>> jsonResult = new HttpJsonResult<List<StAppletOverTime>>();
         try {
             String type = "1";
-            PageInfo<StAppletOverTime> pageInfo = overTimeService.getSystemAllOverTime(page, rows, type);
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            PageInfo<StAppletOverTime> pageInfo = overTimeService.getSystemAllOverTime(page, rows, type, adminUser);
             jsonResult.setRows(pageInfo.getList());
             String total = String.valueOf(pageInfo.getTotal());
             jsonResult.setTotal(Integer.valueOf(total));
@@ -127,6 +142,7 @@ public class OverTimeController {
     @RequestMapping("/system/add")
     public String add(StAppletOverTime stAppletOverTime, HttpServletRequest request) {
         try {
+            stAppletOverTime.setType("2");
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
             if (overTimeService.add(stAppletOverTime, adminUser)) {
             }
@@ -137,6 +153,24 @@ public class OverTimeController {
         return "redirect:/admin/overtime/visitor";
     }
 
+
+
+    /**
+     * @return
+     */
+    @RequestMapping("/system/addOverTime")
+    public String addOverTime(StAppletOverTime stAppletOverTime, HttpServletRequest request) {
+        try {
+            stAppletOverTime.setType("1");
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            if (overTimeService.add(stAppletOverTime, adminUser)) {
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("添加失败!" + e);
+        }
+        return "redirect:/admin/overtime/";
+    }
 
     /**
      * 后台管理详情

@@ -13,6 +13,22 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 		});
 
 
+        $('#btn_add').click(function () {
+            $("#devWin").window({
+                width: 400,
+                height: 210,
+                href: '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/addTime',
+                title: "添加时间",
+                closed: true,
+                shadow: false,
+                modal: true,
+                collapsible: false,
+                minimizable: false,
+                maximizable: false
+            }).window('open');
+        });
+
+
         $('#btn_udpate').click(function() {
             var selected = $('#dataGrid').datagrid('getSelected');
             if (!selected) {
@@ -24,7 +40,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                 width :400,
                 height : 210,
                 href : '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/detail?id=' + selected.id,
-                title : "选择维修人员",
+                title : "修改时间",
                 closed : true,
                 shadow : false,
                 modal : true,
@@ -34,7 +50,106 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
             }).window('open');
         });
 
+        // 删除
+        $('#btn_del').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if (!selected) {
+                $.messager.alert('提示', '请选择操作行。');
+                return;
+            }
+            if (selected.sts == '删除') {
+                $.messager.alert('提示', '已删除。');
+                return;
+            }
+            $.messager.confirm('确认', '确定删除该申请吗？', function (r) {
+                if (r) {
+                    $.messager.progress({text: "提交中..."});
+                    $.ajax({
+                        type: "GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/delete",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=3",
+                        cache: false,
+                        success: function (data, textStatus) {
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
 
+
+        // 停用
+        $('#btn_stop').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if (!selected) {
+                $.messager.alert('提示', '请选择操作行。');
+                return;
+            }
+            if (selected.sts == '停用') {
+                $.messager.alert('提示', '已停用。');
+                return;
+            }
+            $.messager.confirm('确认', '确定停用该申请吗？', function (r) {
+                if (r) {
+                    $.messager.progress({text: "提交中..."});
+                    $.ajax({
+                        type: "GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/delete",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=0",
+                        cache: false,
+                        success: function (data, textStatus) {
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
+
+
+        // 启用
+        $('#btn_pass').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if (!selected) {
+                $.messager.alert('提示', '请选择操作行。');
+                return;
+            }
+            if (selected.sts == '启用') {
+                $.messager.alert('提示', '已启用。');
+                return;
+            }
+            $.messager.confirm('确认', '确定启用该申请吗？', function (r) {
+                if (r) {
+                    $.messager.progress({text: "提交中..."});
+                    $.ajax({
+                        type: "GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/delete",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=1",
+                        cache: false,
+                        success: function (data, textStatus) {
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
 
 
 	});
@@ -90,14 +205,27 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 				<th field="overTime" width="30" align="center">限制时间</th>
 				<th field="createName" width="30" align="center">发布人</th>
 				<th field="createTime" width="30" align="center">创建时间</th>
+				<th field="sts" width="30" align="center">状态</th>
 			</tr>
 		</thead>
 	</table>
 
 	<div id="gridTools">
-			<@shiro.hasPermission name="/admin/share/aSubmitShare">
-        <a id="btn_udpate" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">修改时效</a>
+			<@shiro.hasPermission name="/admin/overtime/update">
+       				 <a id="btn_udpate" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">修改</a>
 			</@shiro.hasPermission>
+		<@shiro.hasPermission name="/admin/overtime/add">
+                <a id="btn_add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
+		</@shiro.hasPermission>
+        <@shiro.hasPermission name="/admin/overtime/del">
+                <a id="btn_del" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>
+		</@shiro.hasPermission>
+        <@shiro.hasPermission name="/admin/overtime/stop">
+                <a id="btn_stop" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">停用</a>
+		</@shiro.hasPermission>
+        <@shiro.hasPermission name="/admin/overtime/pass">
+                <a id="btn_pass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add"   plain="true">启用</a>
+		</@shiro.hasPermission>
 	</div>
 
 	<div class="wrapper" id="editWin">

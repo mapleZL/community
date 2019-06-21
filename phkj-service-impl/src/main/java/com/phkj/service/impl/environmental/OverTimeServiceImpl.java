@@ -28,10 +28,11 @@ public class OverTimeServiceImpl implements OverTimeService {
     /**
      * @param page
      * @param rows
+     * @param adminUser
      * @return
      */
     @Override
-    public PageInfo<StAppletOverTime> getSystemAllOverTime(Integer page, Integer rows, String type) {
+    public PageInfo<StAppletOverTime> getSystemAllOverTime(Integer page, Integer rows, String type, SystemAdmin adminUser) {
 
         int pageNum = (page == 0) ? 1 : page;
         int pageSize = (rows == 0) ? 20 : rows;
@@ -54,7 +55,6 @@ public class OverTimeServiceImpl implements OverTimeService {
         stAppletOverTime.setCreateName(adminUser.getName());
         stAppletOverTime.setCreateId(adminUser.getId().toString());
         stAppletOverTime.setSts("0");
-        stAppletOverTime.setType("2");
         int insert = stAppletOverTimeWriteMapper.insert(stAppletOverTime);
         if (insert > 0) {
             return true;

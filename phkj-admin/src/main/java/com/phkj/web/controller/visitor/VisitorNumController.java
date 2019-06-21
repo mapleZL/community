@@ -4,8 +4,9 @@ import com.github.pagehelper.PageInfo;
 import com.phkj.core.HttpJsonResult;
 import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.environmental.StAppletOverTime;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.environmental.OverTimeService;
-import com.phkj.web.controller.environmental.OverTimeController;
+import com.phkj.web.util.WebAdminSession;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class VisitorNumController {
     public String system(ModelMap modelMap) {
         modelMap.put("pageSize", "30");
         modelMap.put("pageNum", "1");
-        return "/admin/visitor/visnumlist";
+        return "/views/admin/visitor/vistimelist.ftl";
     }
 
 
@@ -53,7 +54,8 @@ public class VisitorNumController {
         HttpJsonResult<List<StAppletOverTime>> jsonResult = new HttpJsonResult<List<StAppletOverTime>>();
         try {
             String type = "3";
-            PageInfo<StAppletOverTime> pageInfo = overTimeService.getSystemAllOverTime(page, rows, type);
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            PageInfo<StAppletOverTime> pageInfo = overTimeService.getSystemAllOverTime(page, rows, type, adminUser);
             jsonResult.setRows(pageInfo.getList());
             String total = String.valueOf(pageInfo.getTotal());
             jsonResult.setTotal(Integer.valueOf(total));
@@ -64,5 +66,22 @@ public class VisitorNumController {
         return jsonResult;
     }
 
+
+    /**
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/system/update", method = RequestMethod.GET)
+    public String update(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        String time = request.getParameter("time");
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        if (overTimeService.update(id, time, adminUser)) {
+            responseUtil.setSuccess(true);
+        }
+
+        return "redirect:/admin/overtime/";
+    }
 
 }

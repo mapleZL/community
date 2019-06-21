@@ -200,14 +200,14 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 						,pagination:true
 						,pageSize:${pageSize}
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/getVisitorNum'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/getVisitorOverTime'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
         <thead>
         <tr>
             <th field="id" hidden="hidden"></th>
-            <th field="overTime" width="30" align="center">访问次数</th>
+            <th field="overTime" width="30" align="center">访问时效</th>
             <th field="createName" width="30" align="center">发布人</th>
             <th field="createTime" width="30" align="center">创建时间</th>
             <th field="sts" width="30" align="center">状态</th>
