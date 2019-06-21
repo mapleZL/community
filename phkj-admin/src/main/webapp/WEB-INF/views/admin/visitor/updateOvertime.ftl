@@ -28,7 +28,7 @@ form input[type="button"] {
         <input id="id" type="hidden" name="id" value="${overTime.id!}" />
 		<tr>
             <td><label>限制时间(小时)</label></td>
-            <td><input class="txt w200" id="time" name="time"  value=""/></td>
+            <td><input class="txt w200" id="time" name="time"  value="${overTime.overTime}"/></td>
 		</tr>
 		<tr>
 			<td colspan="2"><input type="button" id="submitBtn" class="btn" value="确定" /></td>

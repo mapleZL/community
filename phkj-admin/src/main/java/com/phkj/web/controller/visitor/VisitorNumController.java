@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/visnum")
@@ -34,11 +35,23 @@ public class VisitorNumController {
      * @param modelMap
      * @return
      */
-    @RequestMapping()
+    @RequestMapping
     public String system(ModelMap modelMap) {
         modelMap.put("pageSize", "30");
         modelMap.put("pageNum", "1");
-        return "/views/admin/visitor/vistimelist.ftl";
+        return "/admin/visitor/visnumlist";
+    }
+
+
+    /**
+     * 访客时间限制
+     *
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/addTime", method = RequestMethod.GET)
+    public String addTime(ModelMap modelMap) {
+        return "/admin/visitor/addTime";
     }
 
 
@@ -71,7 +84,7 @@ public class VisitorNumController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/system/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/system/updatenum", method = RequestMethod.GET)
     public String update(HttpServletRequest request) {
         ResponseUtil responseUtil = new ResponseUtil();
         String id = request.getParameter("id");
@@ -81,7 +94,58 @@ public class VisitorNumController {
             responseUtil.setSuccess(true);
         }
 
-        return "redirect:/admin/overtime/";
+        return "redirect:/admin/visnum/";
     }
+
+    /**
+     * @return
+     */
+    @RequestMapping("/system/addnum")
+    public String addOverTime(StAppletOverTime stAppletOverTime, HttpServletRequest request) {
+        try {
+            stAppletOverTime.setType("3");
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            if (overTimeService.add(stAppletOverTime, adminUser)) {
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("添加失败!" + e);
+        }
+        return "redirect:/admin/visnum/";
+    }
+
+    /**
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/system/delete", method = RequestMethod.GET)
+    public String delete(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        String type = request.getParameter("type");
+        if (overTimeService.delete(id, type)) {
+            responseUtil.setSuccess(true);
+        }
+
+        return "redirect:/admin/visnum/";
+    }
+
+
+    /**
+     * 后台管理详情
+     *
+     * @param request
+     * @param
+     * @param id
+     * @return
+     */
+    @RequestMapping("/system/detail")
+    public String getDetail(HttpServletRequest request, Map<String, Object> dataMap, Integer id, String type) {
+        StAppletOverTime stAppletOverTime = overTimeService.getSystemDetail(id);
+        dataMap.put("overTime", stAppletOverTime);
+        return "/admin/visitor/updatenum";
+    }
+
 
 }

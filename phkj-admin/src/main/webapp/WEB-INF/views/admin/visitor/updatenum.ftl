@@ -22,12 +22,13 @@ form input[type="button"] {
 </script>
 
 <form id="devForm"
-	action="${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/addnum"
-	method="post">
+	action="${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/updateVistime"
+	method="get">
 	<table cellpadding="20" cellspacing="10">
+        <input id="id" type="hidden" name="id" value="${overTime.id!}" />
 		<tr>
             <td><label>访客次数</label></td>
-            <td><input class="txt w200" id="time" name="overTime"  value="1"/></td>
+            <td><input class="txt w200" id="time" name="time"  value="${overTime.overTime}"/></td>
 		</tr>
 		<tr>
 			<td colspan="2"><input type="button" id="submitBtn" class="btn" value="确定" /></td>
