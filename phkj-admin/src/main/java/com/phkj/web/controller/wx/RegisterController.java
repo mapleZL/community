@@ -47,6 +47,7 @@ public class RegisterController {
     @RequestMapping(value = {"/register"}, method = {RequestMethod.POST})
     @ResponseBody
     public ResponseUtil register(@RequestBody MemberParam memberParam, HttpServletRequest httpServletRequest) {
+        logger.info("register, param: " + memberParam);
         try {
             if (memberParam == null) {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
@@ -66,6 +67,9 @@ public class RegisterController {
             member.setPhone(phoneNum);
             setMemberData(httpServletRequest, member);
             ServiceResult<Member> result = memberService.memberRegister(member);
+            if (null == result.getResult()) {
+                return ResponseUtil.createResp("101", "register exception", false, result.getSuccess());
+            }
             return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getSuccess());
         } catch (Exception e) {
             logger.error("用户注册账号异常, exception:{}", e);

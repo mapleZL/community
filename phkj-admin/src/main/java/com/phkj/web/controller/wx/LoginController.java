@@ -22,6 +22,8 @@ import com.phkj.entity.member.Member;
 import com.phkj.entity.member.MemberParam;
 import com.phkj.service.member.IMemberService;
 
+import java.net.URLDecoder;
+
 /**
  * @author ：zl
  * @date ：Created in 2019/5/13 17:22
@@ -40,7 +42,8 @@ public class LoginController {
 
     @RequestMapping(value = {"/login"}, method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseUtil register(@RequestBody MemberParam memberParam, HttpServletRequest httpServletRequest, HttpServletResponse response) {
+    public ResponseUtil login(@RequestBody MemberParam memberParam, HttpServletRequest httpServletRequest, HttpServletResponse response) {
+        logger.info("login param: " + memberParam);
         try {
             if (memberParam == null) {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), true, null);
@@ -57,7 +60,7 @@ public class LoginController {
             JSONObject jsonObject = new JSONObject();
             if (member != null) {
                 jsonObject.put("id", member.getId());
-                jsonObject.put("name", member.getName());
+                jsonObject.put("name", URLDecoder.decode(member.getName(), "utf-8"));
                 jsonObject.put("phoneNum", member.getPhone());
                 jsonObject.put("headIcon", member.getHeadIcon());
             } else {
@@ -65,7 +68,7 @@ public class LoginController {
             }
             return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, jsonObject);
         } catch (Exception e) {
-            logger.error("用户登录异常, exception:{}", e);
+            logger.error("login error, exception:{}", e);
             return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
         }
     }
