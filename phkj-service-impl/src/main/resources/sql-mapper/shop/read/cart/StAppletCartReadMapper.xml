@@ -29,6 +29,8 @@
 		   *
 		from `st_applet_cart`
 		where product_id = #{productId}
+		and `member_id` = #{memberId}
+		and `village_code` = #{villageCode}
 	</select>
 	
 	<select id="list" resultMap="StAppletCartResult">
