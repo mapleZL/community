@@ -197,7 +197,7 @@
 					<a href="javascript:void(0);" onclick="addTab('时限管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/visitor')">时限管理</a>
 				</@shiro.hasPermission>
 				<@shiro.hasPermission name="/admin/visnum">
-					<a href="javascript:void(0);" onclick="addTab('次数管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/visnum')">次数设置</a>
+					<a href="javascript:void(0);" onclick="addTab('次数管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum')">次数设置</a>
 				</@shiro.hasPermission>
             </div>
 	</@shiro.hasPermission>

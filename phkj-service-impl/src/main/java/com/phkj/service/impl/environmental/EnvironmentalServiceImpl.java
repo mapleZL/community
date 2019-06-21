@@ -138,7 +138,7 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
         PageInfo<StAppletEnvironment> pageInfo = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletEnvironmentReadMapper.selectMeEnevronList(userId,villageCode);
+                stAppletEnvironmentReadMapper.selectMeEnevronList(userId, villageCode);
             }
         });
 
@@ -225,6 +225,14 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
      */
     @Override
     public boolean addComment(Comment comment) {
+
+        // com
+        StAppletEnvironment env = stAppletEnvironmentReadMapper.selectByPrimaryKey(
+                Long.valueOf(comment.getId()));
+        if (null == env) {
+            return false;
+        }
+
         StAppletComment stAppletComment = new StAppletComment();
         stAppletComment.setRId(Long.valueOf(comment.getId()));
         stAppletComment.setSts(1);
@@ -238,6 +246,7 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
         if (i <= 0) {
             return false;
         }
+        env.setStatus("5");
         return true;
     }
 
@@ -261,6 +270,26 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
                 stAppletEnvironmentReadMapper.selectSystemAllEnviron(status, sts, type, villageCode);
             }
         });
+        List<StAppletEnvironment> newList = new ArrayList<>();
+        List<StAppletEnvironment> list = pageInfo.getList();
+        if (null != list && list.size() > 0) {
+            for (StAppletEnvironment env : list) {
+                String stuts = env.getStatus();
+                if ("待处理".equals(stuts)) {
+                    // 如果是待处理,判断时间是否超时
+                    long overTime = env.getOverTime().getTime();
+                    long nowTime = new Date().getTime();
+                    if (nowTime > overTime) {
+                        // 修改状态
+                        env.setStatus("3");
+                        stAppletEnvironmentWriteMapper.updateByPrimaryKey(env);
+                        env.setStatus("已超时");
+                    }
+                }
+                newList.add(env);
+            }
+        }
+        pageInfo.setList(newList);
         return pageInfo;
     }
 

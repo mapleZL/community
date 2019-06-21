@@ -58,7 +58,7 @@
       modify_user_id,
       modify_time,
       case sts when '1' then '正常'else '删除' end as 'sts'  ,
-      case STATUS when '0' then '待处理' when '1' then '处理中' when '2' then '已处理' when '3' then '已超时' when '4' then '已督查' end as 'status',
+      case STATUS when '0' then '待处理' when '1' then '处理中' when '2' then '已处理' when '3' then '已超时' when '4' then '已督查'else '已评论' end as 'status',
       over_time,
       village_code
       from st_applet_environment

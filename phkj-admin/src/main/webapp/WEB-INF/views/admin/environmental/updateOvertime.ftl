@@ -28,7 +28,7 @@ form input[type="button"] {
 	<table cellpadding="20" cellspacing="10">
 		<tr>
             <td><label>限制时间(小时)</label></td>
-            <td><input class="txt w200" id="time" name="time"  value=""/></td>
+            <td><input class="txt w200" id="time" name="time"  oninput="value=value.replace(/[^\d]/g,'')" value=""/></td>
 		</tr>
 		<tr>
 			<td colspan="2"><input type="button" id="submitBtn" class="btn" value="确定" /></td>

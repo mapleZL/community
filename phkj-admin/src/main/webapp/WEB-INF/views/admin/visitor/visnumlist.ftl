@@ -200,14 +200,14 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 						,pagination:true
 						,pageSize:${pageSize}
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/getVisitorOverTime'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/getVisitorNum'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
         <thead>
         <tr>
             <th field="id" hidden="hidden"></th>
-            <th field="overTime" width="30" align="center">限制时间</th>
+            <th field="overTime" width="30" align="center">访问次数</th>
             <th field="createName" width="30" align="center">发布人</th>
             <th field="createTime" width="30" align="center">创建时间</th>
             <th field="sts" width="30" align="center">状态</th>
@@ -217,8 +217,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 
     <div id="gridTools">
          <@shiro.hasPermission name="/admin/vistime/add">
-                <a id="btn_add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add"
-                   plain="true">添加</a>
+                <a id="btn_add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
          </@shiro.hasPermission>
          <@shiro.hasPermission name="/admin/vistime/udpate">
                 <a id="btn_udpate" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">修改</a>
@@ -230,8 +229,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                 <a id="btn_stop" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">停用</a>
         </@shiro.hasPermission>
         <@shiro.hasPermission name="/admin/vistime/pass">
-                <a id="btn_pass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add"
-                   plain="true">启用</a>
+                <a id="btn_pass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add"   plain="true">启用</a>
         </@shiro.hasPermission>
     </div>
 

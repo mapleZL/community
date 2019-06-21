@@ -57,7 +57,7 @@ public class OverTimeController {
     public String visitor(ModelMap modelMap) {
         modelMap.put("pageNum", "1");
         modelMap.put("pageSize", "30");
-        return "/admin/visitor/timelist";
+        return "/views/admin/visitor/visnumlist.ftl";
     }
 
     /**
