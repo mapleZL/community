@@ -120,6 +120,11 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/role"/>
 		});
 
 		$("#addBtn").click(function(){
+			var villageCode = $("#villageCode").combotree('getValue'); //归属小区编码
+			if (!villageCode) {
+				$.messager.alert('提示', '请选择角色归属小区。');
+				return;
+			}
 			var isValid = $("#addRoleForm").form('validate');
 			if(isValid){
 			$.messager.progress({
@@ -267,7 +272,16 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/role"/>
 								</p>
 							</div>
 							<br/>
-
+							<div class="fluidbox">
+								<p class="p12 p-item">
+									<label class="lab-item"><font class="red">*</font>是否小区维修人员:</label>
+		                            	<select name="repairCode" id="repairCode" level="0" class="w210 easyui-combobox">
+											<option value="0">否</option>
+											<option value="1">是</option>
+										</select>
+								</p>
+							</div>
+							<br/>
 						</dd>
 					</dl>
 

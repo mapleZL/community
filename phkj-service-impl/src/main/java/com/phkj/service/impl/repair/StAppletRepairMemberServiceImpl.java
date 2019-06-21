@@ -138,10 +138,10 @@ public class StAppletRepairMemberServiceImpl implements IStAppletRepairMemberSer
     }
 
     @Override
-    public List<StAppletRepairMember> list() {
+    public List<StAppletRepairMember> list(String villageCode) {
         List<StAppletRepairMember> list = null;
         try {
-            list = stAppletRepairMemberModel.getUseRepairMemberList();
+            list = stAppletRepairMemberModel.getUseRepairMemberList(villageCode);
         }  catch (Exception e) {
             log.error("[IStAppletRepairMemberService]查询维修人员列表信息发生异常:", e);
         }

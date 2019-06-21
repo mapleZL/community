@@ -60,4 +60,8 @@ public class SystemRolesModel {
             throw new BusinessException("删除角色表[" + id + "]时出错");
         return systemRolesWriteDao.del(id) > 0;
     }
+
+    public List<SystemRoles> getRepairs() {
+        return systemRolesReadDao.getRepairs();
+    }
 }

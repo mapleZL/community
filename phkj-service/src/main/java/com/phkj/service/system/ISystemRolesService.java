@@ -53,4 +53,6 @@ public interface ISystemRolesService {
      * @return
      */
     ServiceResult<Boolean> del(Integer id);
+
+    List<SystemRoles> getRepairs();
 }

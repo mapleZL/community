@@ -121,4 +121,9 @@ public class SystemRolesServiceImpl implements ISystemRolesService {
         }
         return serviceResult;
     }
+
+    @Override
+    public List<SystemRoles> getRepairs() {
+        return systemRolesModel.getRepairs();
+    }
 }

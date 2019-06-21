@@ -51,7 +51,7 @@
 	<select id="getUseRepairMemberList" resultMap="StAppletRepairMemberResult">
 	    select
 		   *
-		from `st_applet_repair_member` where sts=2 order by `create_time` desc
+		from `st_applet_repair_member` where `sts`=2 and `village_code` = #{villageCode} order by `create_time` desc
 	</select>
 	
 </mapper>

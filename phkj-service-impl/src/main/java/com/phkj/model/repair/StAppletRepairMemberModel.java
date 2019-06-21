@@ -67,7 +67,7 @@ public class StAppletRepairMemberModel {
      * 全查维修人员列表
      * @return
      */
-    public List<StAppletRepairMember> getUseRepairMemberList() {
-        return stAppletRepairMemberReadDao.getUseRepairMemberList();
+    public List<StAppletRepairMember> getUseRepairMemberList(String villageCode) {
+        return stAppletRepairMemberReadDao.getUseRepairMemberList(villageCode);
     }
 }

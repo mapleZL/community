@@ -32,7 +32,7 @@ form input[type="button"] {
 			<td><select class="txt w210" id="ccId" name="ccId"
 				onchange="$('#ccName').val(this.options[this.selectedIndex].text);">
 					<#list repairMembers as member>
-						<option value="${member.id!}" >
+						<option value="${member.userId!}" >
 							${member.userName!}
 						</option> 
 					</#list>

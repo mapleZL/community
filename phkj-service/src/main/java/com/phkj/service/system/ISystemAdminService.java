@@ -69,4 +69,6 @@ public interface ISystemAdminService {
      * @return
      */
     ServiceResult<List<SystemAdmin>> getSystemAdminByRoleId(String roleId);
+
+    ServiceResult<List<SystemAdmin>> getRepairsByUser(String villageCode, List<Integer> ids);
 }

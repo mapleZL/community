@@ -19,9 +19,12 @@ public interface SystemAdminReadDao {
                            @Param("start") Integer start, @Param("size") Integer size);
 
     List<SystemAdmin> getByName(@Param("name") String name);
-    
+
     SystemAdmin getByNamePwd(Map<String, Object> queryMap);
 
-    List<SystemAdmin> getSystemAdminByRoleId(@Param("roleId")String roleId);
+    List<SystemAdmin> getSystemAdminByRoleId(@Param("roleId") String roleId);
+
+    List<SystemAdmin> getRepairsByUser(@Param("villageCode") String villageCode,
+                                       @Param("ids") List<Integer> ids);
 
 }

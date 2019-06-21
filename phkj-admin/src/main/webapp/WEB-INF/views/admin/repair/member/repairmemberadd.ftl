@@ -13,6 +13,7 @@ $(function(){
 		
 		if($("#addForm").form('validate')){
 			$('#userName').val($("#userId").find("option:selected").text());
+			$('#userId').val($("#userId").find("option:selected").val());
 			var userName = $("#userName").val();
 			if (!userName) {
 				$.messager.alert('提示','维修人员姓名必填');
@@ -57,6 +58,7 @@ $(function(){
 							</select>
 						</p>
 						<input id="userName" name="userName" type="hidden" />
+						<input id="userId" name="userId" type="hidden"/>
 					</div>
 					<br/>
 					<div class="fluidbox">
