@@ -58,6 +58,9 @@
           	 <if test="queryMap.q_repair_id != null and queryMap.q_repair_id !=''">
           	    and repair_id = #{queryMap.q_repair_id}
           	 </if>
+          	 <if test="queryMap.q_villageCode != null and queryMap.q_villageCode !=''">
+				and village_code = #{queryMap.q_villageCode}
+			 </if>
           	 <if test="queryMap.q_sts != null and queryMap.q_sts !=''">
           	     and sts = #{queryMap.q_sts}
           	 </if>

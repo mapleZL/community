@@ -137,7 +137,7 @@ public class StAppletRepairController extends BaseController {
         if (systemRoles != null && systemRoles.getRepairCode().equals("1")) {
             queryMap.put("q_repair_id", adminUser.getId().toString());
         }
-
+        queryMap.put("q_villageCode", adminUser.getVillageCode());
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
         ServiceResult<List<StAppletRepair>> serviceResult = stAppletRepairService.page(queryMap,
                 pager);
