@@ -120,6 +120,7 @@ public class FIleController extends BaseController {
     @RequestMapping("/upload2")
     @ResponseBody
     public ResponseUtil uploadFile2(String base64) {
+        log.info("base64, " + base64);
         try {
             if (StringUtils.isBlank(base64)) {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), false, null);
