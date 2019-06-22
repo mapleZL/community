@@ -72,7 +72,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                     $.messager.progress({text: "提交中..."});
                     $.ajax({
                         type: "GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/delete",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/update",
                         dataType: "json",
                         data: "id=" + selected.id + "&type=3",
                         cache: false,
@@ -106,7 +106,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                     $.messager.progress({text: "提交中..."});
                     $.ajax({
                         type: "GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/delete",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/update",
                         dataType: "json",
                         data: "id=" + selected.id + "&type=0",
                         cache: false,
@@ -140,7 +140,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                     $.messager.progress({text: "提交中..."});
                     $.ajax({
                         type: "GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/delete",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/update",
                         dataType: "json",
                         data: "id=" + selected.id + "&type=1",
                         cache: false,

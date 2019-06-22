@@ -116,4 +116,25 @@ public class OverTimeServiceImpl implements OverTimeService {
         }
         return false;
     }
+
+    @Override
+    public boolean updateVisTime(String id, String type) {
+
+        StAppletOverTime stAppletOverTime = stAppletOverTimeReadMapper.selectByPrimaryKey(Long.valueOf(id));
+        if (null == stAppletOverTime) {
+            return false;
+        }
+        if ("0".equals(type)) {
+            stAppletOverTime.setSts("0");
+        } else if ("1".equals(type)) {
+            stAppletOverTime.setSts("1");
+        } else {
+            stAppletOverTime.setSts("3");
+        }
+        int i = stAppletOverTimeWriteMapper.updateByPrimaryKeySelective(stAppletOverTime);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
 }

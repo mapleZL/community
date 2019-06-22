@@ -16,4 +16,5 @@ public interface OverTimeService {
 
     boolean delete(String id, String type);
 
+    boolean updateVisTime(String id, String type);
 }
