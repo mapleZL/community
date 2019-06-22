@@ -10,6 +10,10 @@ import java.io.Serializable;
  * @version: $
  */
 public class StAppletSellerVO implements Serializable {
+    /**
+     *Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 1L;
     private java.lang.String     sellerName;
     private java.lang.String     sellerLogo;
     private java.lang.String     phone;

@@ -1,9 +1,5 @@
 package com.phkj.model.seller;
 
-import com.phkj.core.ResponseStateEnum;
-import com.phkj.core.ServiceResult;
-import com.phkj.core.response.ResponseUtil;
-import com.phkj.entity.order.StAppletOrders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +7,6 @@ import com.phkj.core.StringUtil;
 import com.phkj.dao.shop.read.seller.StAppletSellerReadDao;
 import com.phkj.dao.shop.write.seller.StAppletSellerWriteDao;
 import com.phkj.entity.seller.StAppletSeller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Date;
 
 @Component
 public class StAppletSellerModel {

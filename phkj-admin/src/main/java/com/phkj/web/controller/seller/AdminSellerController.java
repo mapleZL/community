@@ -6,22 +6,23 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.phkj.core.ResponseStateEnum;
-import com.phkj.core.ServiceResult;
-import com.phkj.core.response.ResponseUtil;
-import com.phkj.entity.seller.StAppletSellerVO;
+import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.phkj.core.ResponseStateEnum;
 import com.phkj.core.StringUtil;
+import com.phkj.core.response.ResponseUtil;
 import com.phkj.entity.seller.StAppletSeller;
+import com.phkj.entity.seller.StAppletSellerVO;
 import com.phkj.entity.system.SystemAdmin;
 import com.phkj.service.seller.IStAppletSellerService;
 import com.phkj.web.controller.BaseController;
 import com.phkj.web.util.WebAdminSession;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 
@@ -35,6 +36,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "admin/seller/manage")
 public class AdminSellerController extends BaseController {
+    
+    Logger log = Logger.getLogger(this.getClass());
 
     @Autowired
     private IStAppletSellerService sellerService;
@@ -67,8 +70,15 @@ public class AdminSellerController extends BaseController {
         if (sellerId == null || sellerId == 0) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "sellerId is blank", false, null);
         }
-        ServiceResult<StAppletSellerVO> result = sellerService.getSellerDetail(sellerId);
-        return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
+        try {
+            StAppletSeller seller = sellerService.getSellerByMemberId(sellerId);
+            StAppletSellerVO sellerVO = new StAppletSellerVO();
+            BeanUtils.copyProperties(seller, sellerVO);
+            return ResponseUtil.createResp("200", "OK", Boolean.TRUE, sellerVO);
+        } catch (Exception e) {
+            log.error("查询商家信息失败", e);
+            return ResponseUtil.createResp("500", "查询异常，请联系系统管理员", Boolean.FALSE, null);
+        }
     }
 
     /**
