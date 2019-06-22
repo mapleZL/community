@@ -1,5 +1,6 @@
 package com.phkj.service.impl.order;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -108,6 +109,10 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 product.setProductName(ordersParam.getProductName());
                 product.setMoneyPrice(ordersParam.getMoneyPrice());
                 product.setNumber(ordersParam.getNumber());
+                BigDecimal moneyPrice = ordersParam.getMoneyPrice();
+                double price = moneyPrice.doubleValue();
+                price = price * ordersParam.getNumber();
+                product.setMoneyAmount(new BigDecimal(price));
                 product.setSpecInfo(ordersParam.getSpecInfo());
                 product.setProductSku(ordersParam.getProductSku());
                 product.setCreateTime(date);
@@ -217,6 +222,13 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 // 获取第一件商品信息
                 List<StAppletOrdersProduct> productList = stAppletOrdersProductModel.getStAppletOrdersProductList(appletOrders.getOrderSn());
                 if (productList != null && !productList.isEmpty()) {
+                    double totalPrice = 0;
+                    for (StAppletOrdersProduct product : productList) {
+                        BigDecimal moneyPrice = product.getMoneyPrice();
+                        double price = moneyPrice.doubleValue();
+                        totalPrice += product.getNumber() * price;
+                    }
+                    stAppletOrdersVO.setTotalPrice(totalPrice);
                     // 商品图片
                     String productSku = productList.get(0).getProductSku();
                     stAppletOrdersVO.setProductSku(productSku);
@@ -238,7 +250,6 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
                 }
                 list.add(stAppletOrdersVO);
             }
-
             result.setResult(list);
             result.setSuccess(true);
             result.setCode("200");
