@@ -199,13 +199,16 @@ public class OSSClient implements FactoryClient {
             }
             // 使用前端插件时可能有前有（"data:image/xxxx;base64,"）
             // 获取图片格式
-            String suffix = imageString.substring(11, imageString.indexOf(";"));
-            // 使用插件传输产生的前缀
-            String prefix = imageString.substring(0, imageString.indexOf(",") + 1);
-            // 替换前缀为空
-            imageString = imageString.replace(prefix, "");
-            // imageString = imageString.substring(imageString.indexOf(",") + 1);
-
+            int indexOf = imageString.indexOf(";");
+            String suffix = "png";
+            if(indexOf != -1){
+                suffix = imageString.substring(11, imageString.indexOf(";"));
+                // 使用插件传输产生的前缀
+                String prefix = imageString.substring(0, imageString.indexOf(",") + 1);
+                // 替换前缀为空
+                imageString = imageString.replace(prefix, "");
+                // imageString = imageString.substring(imageString.indexOf(",") + 1);
+            }
             BASE64Decoder base64 = new BASE64Decoder();
             byte[] imageByte = base64.decodeBuffer(imageString);
 

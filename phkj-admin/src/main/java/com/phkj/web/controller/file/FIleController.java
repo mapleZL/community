@@ -73,7 +73,7 @@ public class FIleController extends BaseController {
      *
      * @return
      */
-    @RequestMapping("/upload")
+    @RequestMapping("/upload2")
     @ResponseBody
     public ResponseUtil uploadFile(String base64) {
         try {
@@ -88,39 +88,14 @@ public class FIleController extends BaseController {
         }
     }
 
-//    /**
-//     * 上传图片
-//     *
-//     * @return
-//     */
-//    @RequestMapping("/upload3")
-//    @ResponseBody
-//    public ResponseUtil uploadFile2(String base64) {
-//        try {
-//            if (StringUtils.isBlank(base64)) {
-//                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), false, null);
-//            }
-//            File file = BASE64Utils.base64ToInputStream(base64);
-//            if (file == null) {
-//                return ResponseUtil.createResp(ResponseStateEnum.FILE_ERROR.getCode(), ResponseStateEnum.FILE_ERROR.getMsg(), false, null);
-//            }
-//            String url = fileService.upload(file);
-//            return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), ResponseStateEnum.STATUS_OK.getMsg(), true, url);
-//        } catch (Exception e) {
-//            log.error("上传文件发生错误，请联系平台管理人员, exception:{}", e);
-//            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
-//        }
-//    }
-
     /**
      * 上传不带前缀的base64字符串
      *
      * @return
      */
-    @RequestMapping("/upload2")
+    @RequestMapping("/upload")
     @ResponseBody
     public ResponseUtil uploadFile2(String base64) {
-        log.info("base64, " + base64);
         try {
             if (StringUtils.isBlank(base64)) {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), ResponseStateEnum.PARAM_EMPTY.getMsg(), false, null);
