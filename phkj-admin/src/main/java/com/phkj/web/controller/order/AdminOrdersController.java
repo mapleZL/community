@@ -92,7 +92,28 @@ public class AdminOrdersController extends BaseController {
         }
         StAppletOrders stAppletOrders = new StAppletOrders();
         stAppletOrders.setOrderSn(orderSn);
-        stAppletOrders.setOrderState(3);
+        stAppletOrders.setOrderState(2);
+        stAppletOrders.setUpdateTime(new Date());
+        ServiceResult<Integer> result = stAppletOrdersService.updateStAppletOrders(stAppletOrders);
+        return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
+    }
+
+    /**
+     * 用户确认状态
+     *
+     * @param orderSn
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/updateState", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResponseUtil confirm(String orderSn, int state) {
+        if (StringUtils.isBlank(orderSn)) {
+            return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "orderSn is blank", false, null);
+        }
+        StAppletOrders stAppletOrders = new StAppletOrders();
+        stAppletOrders.setOrderSn(orderSn);
+        stAppletOrders.setOrderState(state);
         stAppletOrders.setUpdateTime(new Date());
         ServiceResult<Integer> result = stAppletOrdersService.updateStAppletOrders(stAppletOrders);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
@@ -252,17 +273,18 @@ public class AdminOrdersController extends BaseController {
         ServiceResult<List<StAppletOrdersVO>> result = stAppletOrdersService.detail(orderSn);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), result.getSuccess(), result.getResult());
     }
-    
+
     // 查询常用地址
     @RequestMapping(value = "/address", method = RequestMethod.GET)
-    public @ResponseBody HttpJsonResult<String> address(Integer memberId, String villageCode, HttpServletResponse response) {
+    public @ResponseBody
+    HttpJsonResult<String> address(Integer memberId, String villageCode, HttpServletResponse response) {
         HttpJsonResult<String> result = new HttpJsonResult<>();
         try {
             StAppletOrders order = stAppletOrdersService.getNormalAddress(memberId, villageCode);
             if (order != null) {
                 result.setData(order.getAddressInfo());
             }
-            
+
         } catch (Exception e) {
             log.error("查询用户常用地址发生错误", e);
             result.setMessage("查询发生错误");
