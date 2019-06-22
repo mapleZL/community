@@ -59,7 +59,7 @@
 
 		#{noticeId},
 		#{type},
-		#{villageCode}
+		#{villageCode},
 		#{memberId},
 		#{phone},
 		#{createId},
