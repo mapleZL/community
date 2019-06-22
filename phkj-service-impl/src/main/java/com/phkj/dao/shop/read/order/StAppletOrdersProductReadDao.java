@@ -13,4 +13,6 @@ public interface StAppletOrdersProductReadDao {
 	StAppletOrdersProduct get(Integer id);
 
     List<StAppletOrdersProduct> getStAppletOrdersProductList(@Param("ordersSn") String orderSn);
+
+    List<StAppletOrdersProduct> getProductList(@Param("ordersSn") String orderSn);
 }

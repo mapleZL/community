@@ -56,7 +56,11 @@ import java.io.Serializable;
  */
 public class StAppletOrdersProduct implements Serializable {
  
- 	private Integer id;
+ 	/**
+     *Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 1L;
+    private Integer id;
  	private Integer ordersId;
  	private String ordersSn;
  	private Integer sellerId;

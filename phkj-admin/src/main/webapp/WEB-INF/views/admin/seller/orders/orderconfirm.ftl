@@ -55,6 +55,58 @@
 	function ordersTypeFormat(value,row,index){
 		return codeBox["ORDERS_TYPE"][value];
 	}
+	
+	function detailFormatter(index,row){
+        return '<div style="padding:2px"><table class="ddv"></table></div>';
+    }
+	
+	function onExpandRow(index,row){
+        var ddv = $(this).datagrid('getRowDetail',index).find('table.ddv');
+        ddv.datagrid({
+           fitColumns:true,
+           singleSelect:true,
+           method:'get',
+           url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/ordersProduct/getOrdersProduct?orderId='+row.orderSn,
+			loadMsg : '数据加载中...',
+			height : 'auto',
+			columns : [[{
+				field : 'productName',
+				title : '货品名称',
+				width : 120,
+				align : 'left',
+				halign : 'center'
+			}, {
+				field : 'productSku',
+				title : '商品SKU',
+				width : 80,
+				align : 'left',
+				halign : 'center'
+			}, {
+				field : 'moneyPrice',
+				title : '商品单价',
+				width : 50,
+				align : 'center'
+			}, {
+				field : 'number',
+				title : '商品数量',
+				width : 50,
+				align : 'center'
+			}, {
+				field : 'moneyAmount',
+				title : '网单金额',
+				width : 50,
+				align : 'center'
+			}]],
+			onResize : function() {
+				$('#dataGrid').datagrid('fixDetailRowHeight',index);
+			},
+			onLoadSuccess : function() {
+				setTimeout(function() {
+					$('#dataGrid').datagrid('fixDetailRowHeight',index);
+				}, 0);
+			}
+		});
+	}
 </script>
 
 <div id="searchbar" data-options="region:'north'" style="margin:0 auto;"
@@ -90,6 +142,8 @@
 						,autoRowHeight:false
 						,fitColumns:true
 						,toolbar:'#gridTools'
+						,detailFormatter:detailFormatter
+						,onExpandRow:onExpandRow
 						,striped:true
 						,pagination:true
 						,pageSize:'${pageSize}'

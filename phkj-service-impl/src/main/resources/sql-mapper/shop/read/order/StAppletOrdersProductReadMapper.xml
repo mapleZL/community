@@ -65,5 +65,11 @@
 		</where>
 		order by `create_time` desc
 	</select>
+	
+	<select id="getProductList" resultMap="StAppletOrdersProductResult">
+	    SELECT * FROM 
+	    st_applet_orders_product 
+	    WHERE orders_sn = #{ordersSn}
+	</select>
 
 </mapper>

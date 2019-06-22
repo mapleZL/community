@@ -1,21 +1,20 @@
 package com.phkj.model.order;
 
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
 import com.phkj.core.StringUtil;
 import com.phkj.dao.shop.read.order.StAppletOrdersProductReadDao;
 import com.phkj.dao.shop.write.order.StAppletOrdersProductWriteDao;
 import com.phkj.entity.order.StAppletOrdersProduct;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
 
 @Component
 public class StAppletOrdersProductModel {
 
-	private static org.apache.log4j.Logger log = org.apache.log4j.LogManager
-                                                   .getLogger(StAppletOrdersProductModel.class);
     
     @Resource
     private StAppletOrdersProductReadDao stAppletOrdersProductReadDao;
@@ -67,5 +66,9 @@ public class StAppletOrdersProductModel {
 
     public void batchInsertToOrdersProduct(List<StAppletOrdersProduct> list) {
         stAppletOrdersProductWriteDao.batchInsertToOrdersProduct(list);
+    }
+
+    public List<StAppletOrdersProduct> getProductList(String orderSn) {
+        return stAppletOrdersProductReadDao.getProductList(orderSn);
     }
 }

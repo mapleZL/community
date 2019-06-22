@@ -10,6 +10,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 @Service(value = "stAppletOrdersProductService")
@@ -84,4 +86,12 @@ public class StAppletOrdersProductServiceImpl implements IStAppletOrdersProductS
         }
         return result;
      }
+
+    @Override
+    public ServiceResult<List<StAppletOrdersProduct>> getProductList(String orderSn) {
+        ServiceResult<List<StAppletOrdersProduct>> serviceResult = new ServiceResult<>();
+        List<StAppletOrdersProduct> list = stAppletOrdersProductModel.getProductList(orderSn);
+        serviceResult.setResult(list);
+        return serviceResult;
+    }
 }
