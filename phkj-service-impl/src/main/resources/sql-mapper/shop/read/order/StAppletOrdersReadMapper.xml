@@ -58,6 +58,7 @@
 		   *
 		from `st_applet_orders`
 		where `member_id` = #{memberId}
+		and seller_id in (SELECT `id` FROM system_admin WHERE village_code = #{villageCode})
 		ORDER BY create_time DESC LIMIT 1
 	</select>
 

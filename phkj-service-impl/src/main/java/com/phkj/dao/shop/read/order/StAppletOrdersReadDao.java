@@ -19,5 +19,5 @@ public interface StAppletOrdersReadDao {
 
     List<StAppletOrders> getOrdersList(@Param("queryMap") Map<String, String> queryMap,  @Param("start") Integer start,  @Param("size") Integer size);
     
-    StAppletOrders getNormalAddress(@Param("memberId") Integer memberId);
+    StAppletOrders getNormalAddress(@Param("memberId") Integer memberId, @Param("villageCode") String villageCode);
 }

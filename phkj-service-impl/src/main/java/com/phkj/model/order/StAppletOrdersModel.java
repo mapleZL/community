@@ -92,7 +92,7 @@ public class StAppletOrdersModel {
         return stAppletOrdersDao.getOrdersList(queryMap, start, size);
     }
 
-    public StAppletOrders getNormalAddress(Integer memberId) {
-        return stAppletOrdersDao.getNormalAddress(memberId);
+    public StAppletOrders getNormalAddress(Integer memberId, String villageCode) {
+        return stAppletOrdersDao.getNormalAddress(memberId, villageCode);
     }
 }

@@ -255,10 +255,10 @@ public class AdminOrdersController extends BaseController {
     
     // 查询常用地址
     @RequestMapping(value = "/address", method = RequestMethod.GET)
-    public @ResponseBody HttpJsonResult<String> address(Integer memberId, HttpServletResponse response) {
+    public @ResponseBody HttpJsonResult<String> address(Integer memberId, String villageCode, HttpServletResponse response) {
         HttpJsonResult<String> result = new HttpJsonResult<>();
         try {
-            StAppletOrders order = stAppletOrdersService.getNormalAddress(memberId);
+            StAppletOrders order = stAppletOrdersService.getNormalAddress(memberId, villageCode);
             if (order != null) {
                 result.setData(order.getAddressInfo());
             }
