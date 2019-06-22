@@ -173,7 +173,7 @@ public class AdminOrdersController extends BaseController {
                                               ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
-        String userType = request.getParameter("q_userType");
+        String userType = request.getParameter("userType");
         // 登陆者为商户的时候才加上商品查询条件
         if (USER_TYPE_1.equals(userType)) {
             queryMap.put("q_sellerId", WebAdminSession.getAdminUser(request).getId() + "");
@@ -211,7 +211,7 @@ public class AdminOrdersController extends BaseController {
                                                        ModelMap dataMap) {
         Map<String, String> queryMap = WebUtil.handlerQueryMap(request);
         PagerInfo pager = WebUtil.handlerPagerInfo(request, dataMap);
-        String userType = request.getParameter("q_userType");
+        String userType = request.getParameter("userType");
         // 登陆者为商户的时候才加上商品查询条件
         if (USER_TYPE_1.equals(userType)) {
             queryMap.put("q_seller_id", WebAdminSession.getAdminUser(request).getId() + "");
