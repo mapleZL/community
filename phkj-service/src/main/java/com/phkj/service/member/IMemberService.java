@@ -15,10 +15,17 @@ public interface IMemberService {
 
     /**
      * 根据id取得会员
+     * @param  id
+     * @return
+     */
+    ServiceResult<Member> getMemberById(Integer id);
+
+    /**
+     * 根据id取得会员
      * @param  memberId
      * @return
      */
-    ServiceResult<Member> getMemberById(Integer memberId);
+    ServiceResult<Member> getByMemberId(Integer memberId);
 
     /**
      * 根据条件取得会员

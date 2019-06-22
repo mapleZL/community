@@ -10,19 +10,22 @@ import com.phkj.entity.member.Member;
 
 /**
  * 会员表
- * 
+ *
  * @Filename: MemberReadDao.java
  * @Version: 1.0
  * @Author: 王方
- *
  */
 @Repository
 public interface MemberReadDao {
 
     Member get(java.lang.Integer id);
 
+
+    Member getByMemberId(@Param("memberId") Integer memberId);
+
     /**
      * 根据条件获取用户信息
+     *
      * @param queryMap
      * @param start
      * @param size
@@ -33,16 +36,20 @@ public interface MemberReadDao {
 
     /**
      * 根据条件获取用户数量
+     *
      * @param queryMap
      * @return
      */
     Integer getMembersCount(@Param("queryMap") Map<String, String> queryMap);
-    
-    
-    List<Member>getParterTuijianByMemberId1(@Param("memberId") Integer memberId,@Param("memberTuijianId")String memberTuijianId);
-    List<Member>getParterTuijianByMemberId(@Param("memberId") Integer memberId);
+
+
+    List<Member> getParterTuijianByMemberId1(@Param("memberId") Integer memberId, @Param("memberTuijianId") String memberTuijianId);
+
+    List<Member> getParterTuijianByMemberId(@Param("memberId") Integer memberId);
+
     /**
      * 根据用户名和密码获取用户
+     *
      * @param name
      * @param password
      * @return
@@ -51,6 +58,7 @@ public interface MemberReadDao {
 
     /**
      * 根据手机号和密码获取用户
+     *
      * @param phone
      * @param password
      * @return
@@ -59,6 +67,7 @@ public interface MemberReadDao {
 
     /**
      * 根据会员name获取会员
+     *
      * @param name
      * @return
      */
@@ -66,11 +75,12 @@ public interface MemberReadDao {
 
     /**
      * 根据会员phone获取会员
+     *
      * @param phone
      * @return
      */
     Member getByPhone(@Param("phone") String phone);
 
     Member getMemberBySellerId(@Param("sellerId") Integer sellerId);
-    
+
 }

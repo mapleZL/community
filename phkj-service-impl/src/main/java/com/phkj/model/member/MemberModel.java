@@ -48,11 +48,21 @@ public class MemberModel {
     /**
      * 根据id取得会员
      *
+     * @param id
+     * @return
+     */
+    public Member getMemberById(Integer id) {
+        return memberReadDao.get(id);
+    }
+
+    /**
+     * 根据memberId取得会员
+     *
      * @param memberId
      * @return
      */
-    public Member getMemberById(Integer memberId) {
-        return memberReadDao.get(memberId);
+    public Member getByMemberId(Integer memberId) {
+        return memberReadDao.getByMemberId(memberId);
     }
 
     /**
