@@ -141,6 +141,13 @@
 		where `name` = #{name}
 	</select>
 
+	<select id="getByMemberId" parameterType="Integer" resultMap="MemberResult">
+		select
+		   *
+		from `member`
+		where `member_id` = #{memberId}
+	</select>
+
 	<select id="getByPhone" parameterType="String" resultMap="MemberResult">
 		select
 		   *

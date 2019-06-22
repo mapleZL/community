@@ -32,10 +32,27 @@ public class MemberServiceImpl implements IMemberService {
     private MemberModel memberModel;
 
     @Override
-    public ServiceResult<Member> getMemberById(Integer memberId) {
+    public ServiceResult<Member> getMemberById(Integer id) {
         ServiceResult<Member> serviceResult = new ServiceResult<Member>();
         try {
-            serviceResult.setResult(memberModel.getMemberById(memberId));
+            serviceResult.setResult(memberModel.getMemberById(id));
+        } catch (BusinessException e) {
+            serviceResult.setSuccess(false);
+            serviceResult.setMessage(e.getMessage());
+            log.error(
+                    "[MemberService][getMemberById]根据id[" + id + "]取得会员表时出现异常：" + e.getMessage());
+        } catch (Exception e) {
+            serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, "服务异常，请联系系统管理员。");
+            log.error("[MemberService][getMemberById]根据id[" + id + "]取得会员表时出现未知异常：", e);
+        }
+        return serviceResult;
+    }
+
+    @Override
+    public ServiceResult<Member> getByMemberId(Integer memberId) {
+        ServiceResult<Member> serviceResult = new ServiceResult<Member>();
+        try {
+            serviceResult.setResult(memberModel.getByMemberId(memberId));
         } catch (BusinessException e) {
             serviceResult.setSuccess(false);
             serviceResult.setMessage(e.getMessage());

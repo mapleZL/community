@@ -155,8 +155,10 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
             StAppletProduct stAppletProduct = new StAppletProduct();
             if (type == 1) {
                 stAppletProduct.setProductStock(product.getProductStock() - number >= 0 ? product.getProductStock() - number : 0);
+                stAppletProduct.setActualSales(product.getActualSales() + number);
             } else if (type == 2) {
                 stAppletProduct.setProductStock(product.getProductStock() + number);
+                stAppletProduct.setActualSales(product.getActualSales() - number >= 0 ? product.getActualSales() - number : 0);
             }
             stAppletProduct.setId(productId);
             Integer i = stAppletProductModel.update(stAppletProduct);
