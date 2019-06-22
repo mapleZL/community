@@ -67,7 +67,7 @@
 			<form class="form-search" action="doForm" method="post"
 				id="queryForm" name="queryForm">
 				<div class="fluidbox">
-					<input type="hidden" id="userType" name="userType" value="seller"/>
+					<input type="hidden" id="q_userType" name="q_userType" value="seller"/>
 					<p class="p4 p-item">
 						<label class="lab-item">订单编号 :</label>
 						<input type="text" class="txt" id="q_order_sn" name="q_order_sn" value="${q_order_sn!''}"/>
