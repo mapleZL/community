@@ -44,7 +44,7 @@
         FROM
             st_baseinfo_parking_lot bl
             INNER JOIN st_baseinfo_parking_lot_order po ON bl.id = po.parking_lot_id
-            AND po.create_user_id = #{userId} UNION
+            AND po.create_user_id = #{userId} and po.status  = 'Y' AND po.sts = 'Y'  UNION
         SELECT
             bl.id,
             bl.org_code,
