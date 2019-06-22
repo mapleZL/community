@@ -38,30 +38,40 @@ public class ParkingLockServiceImpl implements ParkingLockService {
 
     /**
      * @param id
+     * @param type
      * @return
      */
     @Override
-    public boolean unLock(String id) {
+    public boolean unLock(String id, String type) {
 
-        // id select
-        MemberParkingLot parkingLot = memberParkingLotReadDao.get(Integer.valueOf(id));
-        if (null == parkingLot) {
-            LOGGER.info("未查询到该认证信息");
+        //
+        Map<String, String> lotMap = null;
+        if ("1".equals(type)) {
+            // id select
+            MemberParkingLot parkingLot = memberParkingLotReadDao.get(Integer.valueOf(id));
+            if (null == parkingLot) {
+                LOGGER.info("未查询到该认证信息");
+                return false;
+            }
+            //查询车位锁
+            lotMap = stBaseinfoParkingLotDao.selectLockByNum(parkingLot.getPosition(),
+                    parkingLot.getVillageCode());
+            if (null != lotMap && lotMap.size() == 0) {
+                LOGGER.info("未查询到车位锁!");
+                return false;
+            }
+        } else {
+            lotMap = stBaseinfoParkingLotDao.selectParkingLotById(id);
+        }
+
+        if (null == lotMap || lotMap.size() == 0) {
             return false;
         }
-        //查询车位锁
-        Map<String, String> lotMap = stBaseinfoParkingLotDao.selectLockByNum(parkingLot.getPosition(),
-                parkingLot.getVillageCode());
-        if (null != lotMap && lotMap.size() == 0) {
-            LOGGER.info("未查询到车位锁!");
-            return false;
-        }
-
         // 发送请求解锁
         Map<String, String> map = new HashMap<>();
         map.put("deviceCode", lotMap.get("lockNum"));
         map.put("type", "poleDown");
-        map.put("orgCode", parkingLot.getVillageCode());
+        map.put("orgCode", lotMap.get("orgCode"));
         map.put("params", "");
         //开始处理请求
         CloseableHttpClient build = HttpClientBuilder.create().build();
@@ -115,29 +125,39 @@ public class ParkingLockServiceImpl implements ParkingLockService {
 
     /**
      * @param id
+     * @param type
      * @return
      */
     @Override
-    public String getLockStatus(String id) {
-        // id select
-        MemberParkingLot parkingLot = memberParkingLotReadDao.get(Integer.valueOf(id));
-        if (null == parkingLot) {
-            LOGGER.info("未查询到该认证信息");
-            return "false";
-        }
-        //查询车位锁
-        Map<String, String> lotMap = stBaseinfoParkingLotDao.selectLockByNum(parkingLot.getPosition(),
-                parkingLot.getVillageCode());
-        if (null != lotMap && lotMap.size() == 0) {
-            LOGGER.info("未查询到车位锁!");
-            return "false";
+    public String getLockStatus(String id, String type) {
+        //
+        Map<String, String> lotMap = null;
+        if ("1".equals(type)) {
+            // id select
+            MemberParkingLot parkingLot = memberParkingLotReadDao.get(Integer.valueOf(id));
+            if (null == parkingLot) {
+                LOGGER.info("未查询到该认证信息");
+                return "false";
+            }
+            //查询车位锁
+            lotMap = stBaseinfoParkingLotDao.selectLockByNum(parkingLot.getPosition(),
+                    parkingLot.getVillageCode());
+            if (null != lotMap && lotMap.size() == 0) {
+                LOGGER.info("未查询到车位锁!");
+                return "false";
+            }
+        } else {
+            lotMap = stBaseinfoParkingLotDao.selectParkingLotById(id);
         }
 
+        if (null == lotMap || lotMap.size() == 0) {
+            return "false";
+        }
         // 发送请求解锁
         Map<String, String> map = new HashMap<>();
         map.put("deviceCode", lotMap.get("lockNum"));
         map.put("type", "queryStatus");
-        map.put("orgCode", parkingLot.getVillageCode());
+        map.put("orgCode", lotMap.get("orgCode"));
         map.put("params", "");
         //开始处理请求
         CloseableHttpClient build = HttpClientBuilder.create().build();
