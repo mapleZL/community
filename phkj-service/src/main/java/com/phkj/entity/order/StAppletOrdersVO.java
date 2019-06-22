@@ -44,6 +44,8 @@ public class StAppletOrdersVO implements Serializable {
     private Integer deleted;
     // 商品id
     private Integer productId;
+    // 订单总价
+    private Double totalPrice;
     // 商品名称
     private String productName;
 
@@ -181,5 +183,13 @@ public class StAppletOrdersVO implements Serializable {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
