@@ -90,7 +90,13 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
             stAppletOrders.setSellerId(orders.get(0).getSellerId());
             stAppletOrders.setMemberId(orders.get(0).getMemberId());
             stAppletOrders.setMemberName(orders.get(0).getMemberName());
-            stAppletOrders.setMoneyProduct(orders.get(0).getMoneyProduct());
+            stAppletOrders.setMobile(orders.get(0).getMobile());
+            BigDecimal moneyProduct = new BigDecimal(0);
+            for (StAppletOrdersParam param : orders) {
+                BigDecimal decimal = param.getMoneyProduct();
+                moneyProduct = moneyProduct.add(decimal);
+            }
+            stAppletOrders.setMoneyProduct(moneyProduct);
             stAppletOrders.setOrderState(1);
             stAppletOrders.setOrderSn(RandomUtil.getOrderSn());
             stAppletOrders.setOrderType(1);
