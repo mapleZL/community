@@ -143,7 +143,8 @@ public class MIndexBannerController extends BaseController {
                 return "admin/mindex/banner/banneradd";
             }
         }
-        return "redirect:";
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+        return "admin/mindex/banner/bannerlist";
     }
 
     @RequestMapping(value = "edit", method = { RequestMethod.GET })
