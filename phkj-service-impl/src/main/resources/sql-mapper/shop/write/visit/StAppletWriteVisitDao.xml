@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phkj.dao.shop.write.visit.StAppletWriteVisitDao">
+  <resultMap id="BaseResultMap" type="com.phkj.entity.visit.StAppletVisitor">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="over_time" jdbcType="TIMESTAMP" property="overTime" />
+    <result column="over_num" jdbcType="BIGINT" property="overNum" />
+    <result column="house_id" jdbcType="VARCHAR" property="houseId" />
+    <result column="house_name" jdbcType="VARCHAR" property="houseName" />
+    <result column="visitor_name" jdbcType="VARCHAR" property="visitorName" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="visitor_type" jdbcType="VARCHAR" property="visitorType" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="password_type" jdbcType="VARCHAR" property="passwordType" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="imgurl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId" />
+    <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="sts" jdbcType="VARCHAR" property="sts" />
+    <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, over_time, over_num, house_id, house_name, visitor_name, telephone, gender, visitor_type, 
+    apply_time, password_type, password, imgurl, create_time, create_user_id, create_user_name, 
+    modify_user_id, modify_user_name, modify_time, sts, village_code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from st_applet_visitor
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from st_applet_visitor
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.phkj.entity.visit.StAppletVisitor">
+    insert into st_applet_visitor (id, over_time, over_num, 
+      house_id, house_name, visitor_name, 
+      telephone, gender, visitor_type, 
+      apply_time, password_type, password, 
+      imgurl, create_time, create_user_id, 
+      create_user_name, modify_user_id, modify_user_name, 
+      modify_time, sts, village_code
+      )
+    values (#{id,jdbcType=BIGINT}, #{overTime,jdbcType=TIMESTAMP}, #{overNum,jdbcType=BIGINT}, 
+      #{houseId,jdbcType=VARCHAR}, #{houseName,jdbcType=VARCHAR}, #{visitorName,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{visitorType,jdbcType=VARCHAR}, 
+      #{applyTime,jdbcType=TIMESTAMP}, #{passwordType,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{imgurl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=VARCHAR}, 
+      #{createUserName,jdbcType=VARCHAR}, #{modifyUserId,jdbcType=VARCHAR}, #{modifyUserName,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{sts,jdbcType=VARCHAR}, #{villageCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.phkj.entity.visit.StAppletVisitor">
+    insert into st_applet_visitor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="overTime != null">
+        over_time,
+      </if>
+      <if test="overNum != null">
+        over_num,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="houseName != null">
+        house_name,
+      </if>
+      <if test="visitorName != null">
+        visitor_name,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="visitorType != null">
+        visitor_type,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="passwordType != null">
+        password_type,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="imgurl != null">
+        imgurl,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createUserName != null">
+        create_user_name,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="modifyUserName != null">
+        modify_user_name,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="sts != null">
+        sts,
+      </if>
+      <if test="villageCode != null">
+        village_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="overTime != null">
+        #{overTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overNum != null">
+        #{overNum,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorName != null">
+        #{visitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorType != null">
+        #{visitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passwordType != null">
+        #{passwordType,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null">
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserName != null">
+        #{modifyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sts != null">
+        #{sts,jdbcType=VARCHAR},
+      </if>
+      <if test="villageCode != null">
+        #{villageCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.phkj.entity.visit.StAppletVisitor">
+    update st_applet_visitor
+    <set>
+      <if test="overTime != null">
+        over_time = #{overTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overNum != null">
+        over_num = #{overNum,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        house_name = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorName != null">
+        visitor_name = #{visitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorType != null">
+        visitor_type = #{visitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passwordType != null">
+        password_type = #{passwordType,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        imgurl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null">
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserName != null">
+        modify_user_name = #{modifyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sts != null">
+        sts = #{sts,jdbcType=VARCHAR},
+      </if>
+      <if test="villageCode != null">
+        village_code = #{villageCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.phkj.entity.visit.StAppletVisitor">
+    update st_applet_visitor
+    set over_time = #{overTime,jdbcType=TIMESTAMP},
+      over_num = #{overNum,jdbcType=BIGINT},
+      house_id = #{houseId,jdbcType=VARCHAR},
+      house_name = #{houseName,jdbcType=VARCHAR},
+      visitor_name = #{visitorName,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      visitor_type = #{visitorType,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      password_type = #{passwordType,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      imgurl = #{imgurl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      create_user_name = #{createUserName,jdbcType=VARCHAR},
+      modify_user_id = #{modifyUserId,jdbcType=VARCHAR},
+      modify_user_name = #{modifyUserName,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      sts = #{sts,jdbcType=VARCHAR},
+      village_code = #{villageCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

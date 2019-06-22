@@ -31,7 +31,8 @@ public class ParkingLockController {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
             String id = request.getParameter("id");
-            if (parkingLockService.unLock(id)) {
+            String type = request.getParameter("type");
+            if (parkingLockService.unLock(id,type)) {
                 responseUtil.setSuccess(true);
             }
         } catch (Exception e) {
@@ -49,10 +50,10 @@ public class ParkingLockController {
      */
     @ResponseBody
     @RequestMapping("/getLockStatus")
-    public ResponseUtil getLockStatus(String id) {
+    public ResponseUtil getLockStatus(String id,String type) {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            String lockStatus = parkingLockService.getLockStatus(id);
+            String lockStatus = parkingLockService.getLockStatus(id,type);
             responseUtil.setSuccess(true);
             if ("0".equals(lockStatus)) {
                 responseUtil.setData("0");
