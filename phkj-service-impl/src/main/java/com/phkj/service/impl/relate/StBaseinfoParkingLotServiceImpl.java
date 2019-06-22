@@ -250,6 +250,9 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
         long time = startTime.getTime();
         long nowTime = new Date().getTime();
         long l = time - nowTime;
+        if (l < 1) {
+            l = 600000l;
+        }
         String redisString = redisComponent.getRedisString(key);
         Map<String, Object> returnMap = null;
         if (StringUtils.isNotBlank(redisString)) {
