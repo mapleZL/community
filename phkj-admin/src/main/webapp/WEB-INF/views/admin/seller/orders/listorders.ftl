@@ -70,6 +70,71 @@
         return codeBox["ORDERS_TYPE"][value];
     }
     
+    function detailFormatter(index,row){
+        return '<div style="padding:2px"><table class="ddv"></table></div>';
+    }
+	
+	function onExpandRow(index,row){
+        var ddv = $(this).datagrid('getRowDetail',index).find('table.ddv');
+        ddv.datagrid({
+           fitColumns:true,
+           singleSelect:true,
+           method:'get',
+           url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/ordersProduct/getOrdersProduct?orderSn='+row.orderSn,
+			loadMsg : '数据加载中...',
+			height : 'auto',
+			columns : [[{
+				field : 'productName',
+				title : '货品名称',
+				width : 120,
+				align : 'left',
+				halign : 'center'
+			}, {
+				field : 'moneyPrice',
+				title : '商品单价',
+				width : 50,
+				align : 'center'
+			}, {
+				field : 'number',
+				title : '商品数量',
+				width : 50,
+				align : 'center'
+			}, {
+				field : 'moneyAmount',
+				title : '网单金额',
+				width : 50,
+				align : 'center'
+			}]],
+			onResize : function() {
+				$('#dataGrid').datagrid('fixDetailRowHeight',index);
+			},
+			onLoadSuccess : function() {
+				setTimeout(function() {
+					$('#dataGrid').datagrid('fixDetailRowHeight',index);
+				}, 0);
+			}
+		});
+	}
+	
+	function goLinkedOrders(value,row,index){
+		var ordersSn = ''+row.orderSn;
+	     return "<font style='color:blue;cursor:pointer' title='"+
+                value+"' onclick='openwin(\""+ordersSn+"\")'>"+value+"</font>";
+	}
+	
+	function styler(value,row,index){
+		switch (row.orderState) {
+		case 3:
+			return  'color:red'; 
+			break;
+		case 6:
+			return  'color:#959595'; 
+			break;
+		default:
+			break;
+		}
+	}
+    
 </script>
 
 <#--1.queryForm----------------->
@@ -96,19 +161,24 @@
 
 <div data-options="region:'center'" border="false">
     <table id="dataGrid" class="easyui-datagrid"
-           data-options="rownumbers:true
-						,singleSelect:false
-						,autoRowHeight:false
-						,fitColumns:false
-						,toolbar:'#gridTools'
-						,striped:true
-						,pagination:true
-						,pageSize:'${pageSize}'
-						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/all'
-    					,queryParams:queryParamsHandler()
-    					,onLoadSuccess:dataGridLoadSuccess
-    					,method:'get'">
+   				data-options="rownumbers:true
+				,idField :'id'
+				,singleSelect:true
+				,rowStyler:styler
+				,view: detailview
+				,autoRowHeight:false
+				,fitColumns:false
+				,toolbar:'#gridTools'
+				,detailFormatter:detailFormatter
+				,onExpandRow:onExpandRow
+				,striped:true
+				,pagination:true
+				,pageSize:'${pageSize}'
+				,fit:true
+				,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/all'
+				,queryParams:queryParamsHandler()
+				,onLoadSuccess:dataGridLoadSuccess
+				,method:'get'">
         <thead>
         <tr>
             <th field="id" hidden="hidden"></th>

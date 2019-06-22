@@ -1,4 +1,5 @@
 <#include "/admin/commons/_detailheader.ftl" />
+<script type="text/javascript" src="${(domainUrlUtil.EJS_STATIC_RESOURCES)!}/resources/admin/jslib/easyui/datagrid-detailview.js"></script>
 <script language="javascript">
 	var codeBox;
 	$(function() {
@@ -66,19 +67,13 @@
            fitColumns:true,
            singleSelect:true,
            method:'get',
-           url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/ordersProduct/getOrdersProduct?orderId='+row.orderSn,
+           url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/ordersProduct/getOrdersProduct?orderSn='+row.orderSn,
 			loadMsg : '数据加载中...',
 			height : 'auto',
 			columns : [[{
 				field : 'productName',
 				title : '货品名称',
 				width : 120,
-				align : 'left',
-				halign : 'center'
-			}, {
-				field : 'productSku',
-				title : '商品SKU',
-				width : 80,
 				align : 'left',
 				halign : 'center'
 			}, {
@@ -106,6 +101,25 @@
 				}, 0);
 			}
 		});
+	}
+	
+	function goLinkedOrders(value,row,index){
+		var ordersSn = ''+row.orderSn;
+	     return "<font style='color:blue;cursor:pointer' title='"+
+                value+"' onclick='openwin(\""+ordersSn+"\")'>"+value+"</font>";
+	}
+	
+	function styler(value,row,index){
+		switch (row.orderState) {
+		case 3:
+			return  'color:red'; 
+			break;
+		case 6:
+			return  'color:#959595'; 
+			break;
+		default:
+			break;
+		}
 	}
 </script>
 
@@ -136,22 +150,24 @@
 
 <div data-options="region:'center'" border="false">
 	<table id="dataGrid" class="easyui-datagrid"
-		data-options="rownumbers:true
-						,idField :'id'
-						,singleSelect:true
-						,autoRowHeight:false
-						,fitColumns:true
-						,toolbar:'#gridTools'
-						,detailFormatter:detailFormatter
-						,onExpandRow:onExpandRow
-						,striped:true
-						,pagination:true
-						,pageSize:'${pageSize}'
-						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/confirmOrders'
-    					,queryParams:queryParamsHandler()
-    					,onLoadSuccess:dataGridLoadSuccess
-    					,method:'get'">
+   					data-options="rownumbers:true
+					,idField :'id'
+					,singleSelect:true
+					,rowStyler:styler
+					,view: detailview
+					,autoRowHeight:false
+					,fitColumns:false
+					,toolbar:'#gridTools'
+					,detailFormatter:detailFormatter
+					,onExpandRow:onExpandRow
+					,striped:true
+					,pagination:true
+					,pageSize:'${pageSize}'
+					,fit:true
+   					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/order/orders/confirmOrders'
+   					,queryParams:queryParamsHandler()
+   					,onLoadSuccess:dataGridLoadSuccess
+   					,method:'get'">
 		<thead>
 			<tr>
 				<th field="id" hidden="hidden"></th>
