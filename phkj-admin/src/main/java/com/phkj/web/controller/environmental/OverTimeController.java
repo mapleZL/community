@@ -227,6 +227,23 @@ public class OverTimeController {
         return "redirect:/admin/overtime/";
     }
 
+    /**
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/system/update", method = RequestMethod.GET)
+    public String updateVisTime(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        String type = request.getParameter("type");
+        if (overTimeService.updateVisTime(id,type)) {
+            responseUtil.setSuccess(true);
+        }
+
+        return "redirect:/admin/overtime/";
+    }
+
 
     /**
      * @param request
