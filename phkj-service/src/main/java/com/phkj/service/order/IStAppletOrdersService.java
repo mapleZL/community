@@ -68,5 +68,5 @@ public interface IStAppletOrdersService {
      * @param memberId
      * @return
      */
-    StAppletOrders getNormalAddress(Integer memberId);
+    StAppletOrders getNormalAddress(Integer memberId, String villageCode);
 }

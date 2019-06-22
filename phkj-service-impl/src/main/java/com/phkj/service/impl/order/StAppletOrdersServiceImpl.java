@@ -308,7 +308,7 @@ public class StAppletOrdersServiceImpl implements IStAppletOrdersService {
     }
 
     @Override
-    public StAppletOrders getNormalAddress(Integer memberId) {
-        return stAppletOrdersModel.getNormalAddress(memberId);
+    public StAppletOrders getNormalAddress(Integer memberId, String villageCode) {
+        return stAppletOrdersModel.getNormalAddress(memberId, villageCode);
     }
 }
