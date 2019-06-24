@@ -23,7 +23,7 @@ import com.phkj.service.repair.IStAppletRepairService;
 
 @Service(value = "stAppletRepairService")
 public class StAppletRepairServiceImpl implements IStAppletRepairService {
-    private static Logger log = LogManager.getLogger(StAppletRepairServiceImpl.class);
+    private static Logger       log = LogManager.getLogger(StAppletRepairServiceImpl.class);
 
     @Resource
     private StAppletRepairModel stAppletRepairModel;
@@ -45,11 +45,14 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStAppletRepairService][getStAppletRepairById]根据id[" + stAppletRepairId + "]取得st_applet_repair对象时出现未知异常：" + e.getMessage());
+            log.error("[IStAppletRepairService][getStAppletRepairById]根据id[" + stAppletRepairId
+                      + "]取得st_applet_repair对象时出现未知异常：" + e.getMessage());
         } catch (Exception e) {
-            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
-            log.error("[IStAppletRepairService][getStAppletRepairById]根据id[" + stAppletRepairId + "]取得st_applet_repair对象时出现未知异常：",
-                    e);
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("[IStAppletRepairService][getStAppletRepairById]根据id[" + stAppletRepairId
+                      + "]取得st_applet_repair对象时出现未知异常：",
+                e);
         }
         return result;
     }
@@ -79,11 +82,13 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStAppletRepairService][saveStAppletRepair]保存st_applet_repair对象时出现未知异常：" + e.getMessage());
+            log.error("[IStAppletRepairService][saveStAppletRepair]保存st_applet_repair对象时出现未知异常："
+                      + e.getMessage());
         } catch (Exception e) {
-            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[IStAppletRepairService][saveStAppletRepair]保存st_applet_repair对象时出现未知异常：",
-                    e);
+                e);
         }
         return result;
     }
@@ -103,11 +108,13 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStAppletRepairService][updateStAppletRepair]更新st_applet_repair对象时出现未知异常：" + e.getMessage());
+            log.error("[IStAppletRepairService][updateStAppletRepair]更新st_applet_repair对象时出现未知异常："
+                      + e.getMessage());
         } catch (Exception e) {
-            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[IStAppletRepairService][updateStAppletRepair]更新st_applet_repair对象时出现未知异常：",
-                    e);
+                e);
         }
         return result;
     }
@@ -123,19 +130,26 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
      * @Param: pageSize
      */
     @Override
-    public ServiceResult<List<StAppletRepair>> getStAppletRepairList(String createUserId, String villageCode, int pageNum, int pageSize) {
+    public ServiceResult<List<StAppletRepair>> getStAppletRepairList(String createUserId,
+                                                                     String villageCode,
+                                                                     int pageNum, int pageSize,
+                                                                     Integer status) {
         ServiceResult<List<StAppletRepair>> result = new ServiceResult<>();
         try {
             pageNum = (pageNum - 1) * pageSize;
-            result.setResult(stAppletRepairModel.getStAppletRepairList(createUserId, villageCode, pageNum, pageSize));
+            result.setResult(stAppletRepairModel.getStAppletRepairList(createUserId, villageCode,
+                pageNum, pageSize, status));
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStAppletRepairService][getStAppletRepairList]获取st_applet_repair对象列表时出现未知异常：" + e.getMessage());
+            log.error(
+                "[IStAppletRepairService][getStAppletRepairList]获取st_applet_repair对象列表时出现未知异常："
+                      + e.getMessage());
         } catch (Exception e) {
-            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
-            log.error("[IStAppletRepairService][getStAppletRepairList]获取st_applet_repair对象列表时出现未知异常：",
-                    e);
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error(
+                "[IStAppletRepairService][getStAppletRepairList]获取st_applet_repair对象列表时出现未知异常：", e);
         }
         return result;
     }

@@ -42,6 +42,9 @@
 			<if test="villageCode != null and villageCode !=''">
 				and village_code = #{villageCode}
 			</if>
+			<if test="status != null and status != ''">
+			    and sts = #{status}
+			</if>
 		</where>
 		order by `create_time` desc
 		<if test="size != null and size &gt; 0">limit #{start},#{size}</if>
