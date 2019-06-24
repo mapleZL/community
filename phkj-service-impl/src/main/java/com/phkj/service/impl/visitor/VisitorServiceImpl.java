@@ -49,7 +49,7 @@ public class VisitorServiceImpl implements VisitorService {
                 stAppletReadVisitDao.getAllVisitor(sts, type, villageCode);
             }
         });
-        return null;
+        return pageInfo;
     }
 
 

@@ -178,11 +178,16 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
             <form class="form-search" action="doForm" method="post"
                   id="queryForm" name="queryForm">
                 <div class="fluidbox">
-                    <p class="p4 p-item" hidden="hidden">
-                        <label class="lab-item">发布状态 :</label> <@cont.select id="status"
+                    <p class="p4 p-item" >
+                        <label class="lab-item">预约状态 :</label> <@cont.select id="status"
+                    codeDiv="SHARE_TASK_STATUS" name="q_status" style="width:100px"/>
+                    </p>
+                    <p class="p4 p-item" >
+                        <label class="lab-item">预约类型 :</label> <@cont.select id="status"
                     codeDiv="SHARE_TASK_STATUS" name="q_status" style="width:100px"/>
                     </p>
                 </div>
+
             </form>
         </div>
     </div>
@@ -207,32 +212,28 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
         <thead>
         <tr>
             <th field="id" hidden="hidden"></th>
-            <th field="overTime" width="30" align="center">访问次数</th>
-            <th field="createName" width="30" align="center">发布人</th>
-            <th field="createTime" width="30" align="center">创建时间</th>
-            <th field="sts" width="30" align="center">状态</th>
+            <th field="visitorName" width="30" align="center">预约人</th>
+            <th field="gender" width="10" align="center">性别</th>
+            <th field="telephone" width="30" align="center">电话</th>
+            <th field="houseId" width="30" align="center">房屋编码</th>
+            <th field="overNum" width="20" align="center">有效次数</th>
+            <th field="visitorType" width="20" align="center">预约类型</th>
+            <th field="passwordType" width="20" align="center">密码类型</th>
+            <th field="overTime" width="30" align="center">到期时间</th>
+            <th field="applyTime" width="30" align="center">预约时间</th>
+            <th field="createTime" width="30" align="center">申请时间</th>
+            <th field="sts" width="30" align="center">预约状态</th>
         </tr>
         </thead>
     </table>
 
     <div id="gridTools">
-         <@shiro.hasPermission name="/admin/visnum/add">
-                <a id="btn_add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
-         </@shiro.hasPermission>
-         <@shiro.hasPermission name="/admin/visnum/udpate">
-                <a id="btn_udpate" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">修改</a>
-         </@shiro.hasPermission>
-        <@shiro.hasPermission name="/admin/visnum/del">
-                <a id="btn_del" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>
-        </@shiro.hasPermission>
-        <@shiro.hasPermission name="/admin/visnum/stop">
-                <a id="btn_stop" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">停用</a>
-        </@shiro.hasPermission>
-        <@shiro.hasPermission name="/admin/visnum/pass">
-                <a id="btn_pass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add"   plain="true">启用</a>
+        <a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+
+        <@shiro.hasPermission name="/admin/share/deleteShareInfo">
+		    <a id="btn_freeze" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>
         </@shiro.hasPermission>
     </div>
-
     <div class="wrapper" id="editWin">
 
     </div>
