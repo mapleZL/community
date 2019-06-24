@@ -18,19 +18,18 @@ import com.phkj.core.exception.BusinessException;
 import com.phkj.entity.system.SystemAdmin;
 import com.phkj.model.system.SystemAdminModel;
 import com.phkj.service.system.ISystemAdminService;
+
 /**
- *                       
  * @Filename: SystemAdminServiceImpl.java
  * @Version: 1.0
  * @Author: 陆帅 * @Email: lu1632278229@sina.cn
- *
  */
 @Service(value = "systemAdminService")
 public class SystemAdminServiceImpl implements ISystemAdminService {
-    private static Logger                log = LogManager.getLogger(SystemAdminServiceImpl.class);
+    private static Logger log = LogManager.getLogger(SystemAdminServiceImpl.class);
 
     @Resource
-    private SystemAdminModel             systemAdminModel;
+    private SystemAdminModel systemAdminModel;
     @Resource
     private DataSourceTransactionManager transactionManager;
 
@@ -94,9 +93,9 @@ public class SystemAdminServiceImpl implements ISystemAdminService {
         } catch (Exception e) {
             e.printStackTrace();
             serviceResult.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
-                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+                    ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[SystemAdminServiceImpl][page] param1:" + JSON.toJSONString(queryMap)
-                      + " &param2:" + JSON.toJSONString(pager));
+                    + " &param2:" + JSON.toJSONString(pager));
             log.error("[SystemAdminServiceImpl][page] exception:" + e.getMessage());
         }
         return serviceResult;
@@ -120,6 +119,8 @@ public class SystemAdminServiceImpl implements ISystemAdminService {
         ServiceResult<SystemAdmin> result = new ServiceResult<SystemAdmin>();
         try {
             result.setResult(systemAdminModel.getSystemAdminByNamePwd(name, password));
+            result.setCode("200");
+            result.setMessage("ok");
         } catch (Exception e) {
             log.error("[SystemAdminServiceImpl][getSystemAdminByNamePwd] exception:", e);
             e.printStackTrace();
@@ -147,7 +148,7 @@ public class SystemAdminServiceImpl implements ISystemAdminService {
     public ServiceResult<List<SystemAdmin>> getSystemAdminByRoleId(String roleId) {
         ServiceResult<List<SystemAdmin>> result = new ServiceResult<List<SystemAdmin>>();
         try {
-            result.setResult(systemAdminModel.getSystemAdminByRoleId(roleId)); 
+            result.setResult(systemAdminModel.getSystemAdminByRoleId(roleId));
         } catch (Exception e) {
             log.error("[SystemAdminServiceImpl][getSystemAdminByRoleId] exception:", e);
             e.printStackTrace();
