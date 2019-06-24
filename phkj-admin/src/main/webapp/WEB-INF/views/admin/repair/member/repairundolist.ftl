@@ -72,7 +72,7 @@
 				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
-	 		$.messager.confirm('确认', '确定禁用该维修人员？', function(r){
+	 		$.messager.confirm('确认', '确认完成该条报修？', function(r){
 				if (r){
 					$.messager.progress({text:"提交中..."});
 					$.ajax({

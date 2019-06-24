@@ -56,6 +56,9 @@ public class RegisterController {
             String password = memberParam.getPassword();
             String smsCode = memberParam.getSmsCode();
             String userName = memberParam.getUserName();
+            if (StringUtils.isBlank(userName)) {
+                userName = phoneNum;
+            }
             ResponseUtil response = checkParam(phoneNum, password, smsCode);
             if (response != null) {
                 return response;
@@ -69,12 +72,12 @@ public class RegisterController {
             ServiceResult<Member> result = memberService.memberRegister(member);
             logger.info("register, result: " + result.getResult());
             if (null == result.getResult()) {
-                return ResponseUtil.createResp("101", "register exception", false, false);
+                return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "注册失败", false, false);
             }
             return ResponseUtil.createResp(result.getCode(), result.getMessage(), true, result.getSuccess());
         } catch (Exception e) {
             logger.error("用户注册账号异常, exception:{}", e);
-            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, null);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(), ResponseStateEnum.STATUS_SERVER_ERROR.getMsg(), false, false);
         }
     }
 
