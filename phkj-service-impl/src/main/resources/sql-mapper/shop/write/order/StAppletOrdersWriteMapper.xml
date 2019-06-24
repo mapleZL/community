@@ -78,7 +78,6 @@
 			<if test="orderType != null">`order_type`= #{orderType},</if>
 			<if test="sellerId != null">`seller_id`= #{sellerId},</if>
 			<if test="memberId != null">`member_id`= #{memberId},</if>
-			<if test="memberName != null">`member_name`= #{memberName},</if>
 			<if test="orderState != null">`order_state`= #{orderState},</if>
 			<if test="payTime != null">`pay_time`= #{payTime},</if>
 			<if test="paymentStatus != null">`payment_status`= #{paymentStatus},</if>
