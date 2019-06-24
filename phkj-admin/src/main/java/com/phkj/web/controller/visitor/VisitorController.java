@@ -56,6 +56,9 @@ public class VisitorController {
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
             PageInfo<StAppletVisitor> pageInfo = visitorService.getAllVisitor(sts, type, page, rows,
                     adminUser.getVillageCode());
+            String total = String.valueOf(pageInfo.getTotal());
+            httpJsonResult.setTotal(Integer.valueOf(total));
+            httpJsonResult.setRows(pageInfo.getList());
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("查询失败!" + e);

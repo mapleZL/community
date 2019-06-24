@@ -55,7 +55,7 @@
         case sts when '0' then '删除' when '1' then '正常' else '失效' end as sts,
         village_code
     FROM
-        st_applet_visitor and village_code = #{villageCode}
+        st_applet_visitor where  village_code = #{villageCode}
         <if test="type != null and type != ''">
           and visitor_type = #{type}
         </if>
