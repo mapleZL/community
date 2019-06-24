@@ -25,9 +25,9 @@
   </delete>
   <insert id="insert" parameterType="com.phkj.entity.environmental.StAppletOverTime">
     insert into st_applet_over_time (id, over_time, create_id, 
-      create_time, create_name,type,sts)
+      create_time, create_name,type,sts,village_code)
     values (#{id,jdbcType=BIGINT}, #{overTime,jdbcType=VARCHAR}, #{createId,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createName,jdbcType=VARCHAR},#{type} ,#{sts})
+      #{createTime,jdbcType=TIMESTAMP}, #{createName,jdbcType=VARCHAR},#{type} ,#{sts},#{villageCode})
   </insert>
   <insert id="insertSelective" parameterType="com.phkj.entity.environmental.StAppletOverTime">
     insert into st_applet_over_time

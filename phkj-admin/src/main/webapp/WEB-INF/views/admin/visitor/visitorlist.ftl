@@ -23,8 +23,8 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
             $("#devWin").window({
                 width: 400,
                 height: 210,
-                href: '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/detail?id=' + selected.id + "&type=2",
-                title: "修改时效设置",
+                href: '${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/detail?id=' + selected.id + "&type=2",
+                title: "修改访客次数",
                 closed: true,
                 shadow: false,
                 modal: true,
@@ -45,8 +45,8 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
             $("#devWin").window({
                 width: 400,
                 height: 210,
-                href: '${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/addTime',
-                title: "添加时效设置",
+                href: '${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/addTime',
+                title: "访客次数",
                 closed: true,
                 shadow: false,
                 modal: true,
@@ -72,7 +72,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                     $.messager.progress({text: "提交中..."});
                     $.ajax({
                         type: "GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/update",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/delete",
                         dataType: "json",
                         data: "id=" + selected.id + "&type=3",
                         cache: false,
@@ -106,7 +106,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                     $.messager.progress({text: "提交中..."});
                     $.ajax({
                         type: "GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/update",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/delete",
                         dataType: "json",
                         data: "id=" + selected.id + "&type=0",
                         cache: false,
@@ -140,7 +140,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                     $.messager.progress({text: "提交中..."});
                     $.ajax({
                         type: "GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/update",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/delete",
                         dataType: "json",
                         data: "id=" + selected.id + "&type=1",
                         cache: false,
@@ -200,14 +200,14 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 						,pagination:true
 						,pageSize:${pageSize}
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/getVisitorOverTime'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/visit/system/getAlVisitor'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
         <thead>
         <tr>
             <th field="id" hidden="hidden"></th>
-            <th field="overTime" width="30" align="center">访问时效</th>
+            <th field="overTime" width="30" align="center">访问次数</th>
             <th field="createName" width="30" align="center">发布人</th>
             <th field="createTime" width="30" align="center">创建时间</th>
             <th field="sts" width="30" align="center">状态</th>
@@ -216,19 +216,19 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
     </table>
 
     <div id="gridTools">
-         <@shiro.hasPermission name="/admin/vistime/add">
+         <@shiro.hasPermission name="/admin/visnum/add">
                 <a id="btn_add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
          </@shiro.hasPermission>
-         <@shiro.hasPermission name="/admin/vistime/udpate">
+         <@shiro.hasPermission name="/admin/visnum/udpate">
                 <a id="btn_udpate" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true">修改</a>
          </@shiro.hasPermission>
-        <@shiro.hasPermission name="/admin/vistime/del">
+        <@shiro.hasPermission name="/admin/visnum/del">
                 <a id="btn_del" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>
         </@shiro.hasPermission>
-        <@shiro.hasPermission name="/admin/vistime/stop">
+        <@shiro.hasPermission name="/admin/visnum/stop">
                 <a id="btn_stop" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">停用</a>
         </@shiro.hasPermission>
-        <@shiro.hasPermission name="/admin/vistime/pass">
+        <@shiro.hasPermission name="/admin/visnum/pass">
                 <a id="btn_pass" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add"   plain="true">启用</a>
         </@shiro.hasPermission>
     </div>

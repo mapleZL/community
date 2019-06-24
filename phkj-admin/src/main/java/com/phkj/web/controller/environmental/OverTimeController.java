@@ -100,7 +100,7 @@ public class OverTimeController {
         try {
             String type = "2";
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
-            PageInfo<StAppletOverTime> pageInfo = overTimeService.getSystemAllOverTime(page, rows, type,adminUser);
+            PageInfo<StAppletOverTime> pageInfo = overTimeService.getSystemAllOverTime(page, rows, type, adminUser);
             jsonResult.setRows(pageInfo.getList());
             String total = String.valueOf(pageInfo.getTotal());
             jsonResult.setTotal(Integer.valueOf(total));
@@ -142,8 +142,9 @@ public class OverTimeController {
     @RequestMapping("/system/add")
     public String add(StAppletOverTime stAppletOverTime, HttpServletRequest request) {
         try {
-            stAppletOverTime.setType("2");
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            stAppletOverTime.setType("2");
+            stAppletOverTime.setVillageCode(adminUser.getVillageCode());
             if (overTimeService.add(stAppletOverTime, adminUser)) {
             }
         } catch (Exception e) {
@@ -154,15 +155,15 @@ public class OverTimeController {
     }
 
 
-
     /**
      * @return
      */
     @RequestMapping("/system/addOverTime")
     public String addOverTime(StAppletOverTime stAppletOverTime, HttpServletRequest request) {
         try {
-            stAppletOverTime.setType("1");
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            stAppletOverTime.setType("1");
+            stAppletOverTime.setVillageCode(adminUser.getVillageCode());
             if (overTimeService.add(stAppletOverTime, adminUser)) {
             }
         } catch (Exception e) {
@@ -220,7 +221,7 @@ public class OverTimeController {
         ResponseUtil responseUtil = new ResponseUtil();
         String id = request.getParameter("id");
         String type = request.getParameter("type");
-        if (overTimeService.delete(id,type)) {
+        if (overTimeService.delete(id, type)) {
             responseUtil.setSuccess(true);
         }
 
@@ -237,7 +238,7 @@ public class OverTimeController {
         ResponseUtil responseUtil = new ResponseUtil();
         String id = request.getParameter("id");
         String type = request.getParameter("type");
-        if (overTimeService.updateVisTime(id,type)) {
+        if (overTimeService.updateVisTime(id, type)) {
             responseUtil.setSuccess(true);
         }
 

@@ -39,7 +39,7 @@ public class OverTimeServiceImpl implements OverTimeService {
         PageInfo<StAppletOverTime> pageInfo = PageHelper.startPage(page, rows).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletOverTimeReadMapper.selectAllOverTime(type);
+                stAppletOverTimeReadMapper.selectAllOverTime(type,adminUser.getVillageCode());
             }
         });
         return pageInfo;

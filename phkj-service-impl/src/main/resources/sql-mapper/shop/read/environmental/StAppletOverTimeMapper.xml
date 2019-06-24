@@ -9,11 +9,18 @@
     <result column="create_name" jdbcType="VARCHAR" property="createName" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="sts" jdbcType="VARCHAR" property="sts" />
+    <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
   </resultMap>
   <sql id="Base_Column_List">
     id, over_time, create_id, create_time, create_name,type ,sts
   </sql>
 
+
+  <select id="getDataByType"  parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    id, over_time, create_id, create_time, create_name, type  ,  sts
+    from st_applet_over_time where  type = #{type} and sts = '1' and village_code = #{villageCode} order by over_time asc
+  </select>
 
   <select id="getAllEnableTimeByType"  parameterType="java.lang.String" resultMap="BaseResultMap">
     select
@@ -24,7 +31,7 @@
   <select id="selectAllOverTime"  parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     id, over_time, create_id, create_time, create_name, type  , case sts when '1' then '启用' else '停用' end as sts
-    from st_applet_over_time where  type =#{type} and sts != '3'
+    from st_applet_over_time where  type =#{type} and sts != '3' and village_code = #{villageCode}
   </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

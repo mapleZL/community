@@ -33,6 +33,16 @@ public class StAppletOverTime implements Serializable {
 
     private String sts;
 
+    private String villageCode;
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
+
     public String getType() {
         return type;
     }

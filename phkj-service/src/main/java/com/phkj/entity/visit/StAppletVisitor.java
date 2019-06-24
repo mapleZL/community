@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 
+ * @author
  */
 public class StAppletVisitor implements Serializable {
+
     private Long id;
 
     /**
@@ -96,6 +97,16 @@ public class StAppletVisitor implements Serializable {
      * 社区编码
      */
     private String villageCode;
+
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     private static final long serialVersionUID = 1L;
 

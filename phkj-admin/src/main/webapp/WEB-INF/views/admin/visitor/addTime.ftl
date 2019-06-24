@@ -22,11 +22,11 @@ form input[type="button"] {
 </script>
 
 <form id="devForm"
-	action="${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/addnum"
+	action="${domainUrlUtil.EJS_URL_RESOURCES}/admin/overtime/system/add"
 	method="post">
 	<table cellpadding="20" cellspacing="10">
 		<tr>
-            <td><label>访客次数</label></td>
+            <td><label>访客时效(分钟)</label></td>
             <td><input class="txt w200" id="time" name="overTime"  value="1"/></td>
 		</tr>
 		<tr>

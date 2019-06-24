@@ -51,7 +51,7 @@ public class VisitorNumController {
      */
     @RequestMapping(value = "/addTime", method = RequestMethod.GET)
     public String addTime(ModelMap modelMap) {
-        return "/admin/visitor/addTime";
+        return "/admin/visitor/addnum";
     }
 
 
@@ -100,11 +100,12 @@ public class VisitorNumController {
     /**
      * @return
      */
-    @RequestMapping("/system/addnum")
+    @RequestMapping("/system/addNum")
     public String addOverTime(StAppletOverTime stAppletOverTime, HttpServletRequest request) {
         try {
-            stAppletOverTime.setType("3");
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            stAppletOverTime.setType("3");
+            stAppletOverTime.setVillageCode(adminUser.getVillageCode());
             if (overTimeService.add(stAppletOverTime, adminUser)) {
             }
         } catch (Exception e) {

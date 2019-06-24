@@ -183,7 +183,7 @@
 						<#--<label class="lab-item">维修详情 :</label> <input type="text"-->
 							<#--class="txt" id="q_detail" name="q_detail" value="${q_detail!''}" />-->
 					<#--</p>-->
-					<input type="hidden" id="q_sts" name="q_sts" value="2"/>
+					<input type="hidden" id="q_sts" name="q_sts" value=""/>
 				</div>
 			</form>
 		</div>
