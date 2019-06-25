@@ -4,16 +4,14 @@ import java.util.*;
 
 import javax.annotation.Resource;
 
-import com.alibaba.fastjson.JSON;
 import com.phkj.core.redis.RedisComponent;
 import com.phkj.dao.shop.read.member.MemberHouseReadDao;
+import com.phkj.dao.shop.read.visit.StAppletReadVisitDao;
 import com.phkj.dao.shopm.read.relate.StBaseinfoParkingLotOrderDao;
 import com.phkj.entity.relate.StBaseinfoParkingLotOrder;
-import com.phkj.web.common.RedisKeyCommon;
-import org.apache.commons.lang.StringUtils;
+import com.phkj.entity.visit.StAppletVisitor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +36,10 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
     MemberHouseReadDao memberHouseReadDao;
 
     @Autowired
-    StBaseinfoParkingLotOrderDao stBaseinfoParkingLotOrderDao;
+    StBaseinfoParkingLotOrderDao parkingLotOrderDao;
+
+    @Autowired
+    StAppletReadVisitDao stAppletReadVisitDao;
 
     /**
      * 根据id取得车位信息
@@ -141,7 +142,7 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
         try {
 
             //   ====测试逻辑
-            String key = RedisKeyCommon.JS_PARKING_KEY + userId;
+         /*   String key = RedisKeyCommon.JS_PARKING_KEY + userId;
             String redisString = redisComponent.getRedisString(key);
             Map<String, Object> map = null;
             if (StringUtils.isNotBlank(redisString)) {
@@ -161,13 +162,12 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
                     list.add(parking);
                 }
             }
-
+*/
             // 最终版本
             List<StBaseinfoParkingLot> parkingLot = stBaseinfoParkingLotModel.getSurplusParkingLotAndMeParking(
                     orgCode, userId);
-
             // 结束 ======
-            result.setResult(list);
+            result.setResult(parkingLot);
             result.setSuccess(true);
             result.setMessage("ok");
             result.setCode("200");
@@ -236,38 +236,36 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
 
 
     /**
-     * @param userId
-     * @param userName
-     * @param pkId
-     * @param startTime
+     * @param parkingLotOrder
      * @return
      */
     @Override
-    public boolean applyParkingLot(String userId, String userName, String pkId, Date startTime) {
+    public boolean applyParkingLot(StBaseinfoParkingLotOrder parkingLotOrder) {
         // 拼接Key
-        String key = RedisKeyCommon.JS_PARKING_KEY + userId;
-        //
-        long time = startTime.getTime();
-        long nowTime = new Date().getTime();
-        long l = time - nowTime;
-        if (l < 1) {
-            l = 600000l;
-        }
-        String redisString = redisComponent.getRedisString(key);
-        Map<String, Object> returnMap = null;
-        if (StringUtils.isNotBlank(redisString)) {
-            returnMap = JSON.parseObject(redisString, Map.class);
-            String value = userId + "_" + userName;
-            returnMap.put(pkId, value);
-            String json = JSON.toJSONString(returnMap);
-            redisComponent.setStringExpire(key, json, l);
-        } else {
-            returnMap = new HashMap<String, Object>();
-            String value = userId + "_" + userName;
-            returnMap.put(pkId, value);
-            String json = JSON.toJSONString(returnMap);
-            redisComponent.setStringExpire(key, json, l);
-        }
+//        String key = RedisKeyCommon.JS_PARKING_KEY + userId;
+//        long time = startTime.getTime();
+//        long nowTime = new Date().getTime();
+//        long l = time - nowTime;
+//        if (l < 1) {
+//            l = 600000l;
+//        }
+//        String redisString = redisComponent.getRedisString(key);
+//        Map<String, Object> returnMap = null;
+//        if (StringUtils.isNotBlank(redisString)) {
+//            returnMap = JSON.parseObject(redisString, Map.class);
+//            String value = userId + "_" + userName;
+//            returnMap.put(pkId, value);
+//            String json = JSON.toJSONString(returnMap);
+//            redisComponent.setStringExpire(key, json, l);
+//        } else {
+//            returnMap = new HashMap<String, Object>();
+//            String value = userId + "_" + userName;
+//            returnMap.put(pkId, value);
+//            String json = JSON.toJSONString(returnMap);
+//            redisComponent.setStringExpire(key, json, l);
+//        }
+        parkingLotOrder.setSts("1");
+        parkingLotOrder.setCreateTime(new Date());
         return true;
     }
 
@@ -277,19 +275,34 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
      * @return
      */
     @Override
-    public boolean applyParking(StBaseinfoParkingLotOrder parkingLot) {
+    public String applyParking(StBaseinfoParkingLotOrder parkingLot) {
         Long houseId = parkingLot.getHouseId();
-        // 根据Id查询房屋信息
+        // 判断用户信息
+        String type = parkingLot.getType();
 
-
-        //parkingLot
-        parkingLot.setStatus("Y");
-        parkingLot.setSts("Y");
-        parkingLot.setCreateTime(new Date());
-        int i = stBaseinfoParkingLotOrderDao.insert(parkingLot);
-        if (i > 0) {
-            return true;
+        /**
+         *  访客车位 判断是否有申请预约访问
+         */
+        if ("B".equals(type)) {
+            List<StAppletVisitor> list = stAppletReadVisitDao.selectByUserId(parkingLot.getWechatUserId().toString());
+            if (null == list || list.size() == 0) {
+                return "暂无访客申请!";
+            }
+            StAppletVisitor visitor = list.get(0);
+            long time = visitor.getOverTime().getTime();
+            long nowDate = new Date().getTime();
+            if (time < nowDate) {
+                return "访客申请过期!";
+            }
         }
-        return false;
+        // 如果没问题申请成功
+        parkingLot.setSts("Y");
+        parkingLot.setStatus("Y");
+        parkingLot.setCreateTime(new Date());
+        int i = parkingLotOrderDao.insert(parkingLot);
+        if (i < 0) {
+            return "预约失败!";
+        }
+        return "";
     }
 }

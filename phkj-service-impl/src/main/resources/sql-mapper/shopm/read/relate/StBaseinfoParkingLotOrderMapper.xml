@@ -10,6 +10,7 @@
     <result column="relationship" jdbcType="VARCHAR" property="relationship" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="wechat_user_id" jdbcType="BIGINT" property="wechatUserId" />
     <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_user_id" jdbcType="BIGINT" property="modifyUserId" />
@@ -17,10 +18,13 @@
     <result column="sts" jdbcType="CHAR" property="sts" />
     <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
     <result column="top_org_code" jdbcType="VARCHAR" property="topOrgCode" />
+    <result column="car_num" jdbcType="VARCHAR" property="carNum" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, parking_lot_id, name, phone, house_id, relationship, status, order_time, create_user_id, 
-    create_time, modify_user_id, modify_time, sts, org_code, top_org_code
+    id, parking_lot_id, name, phone, house_id, relationship, status, order_time, wechat_user_id, 
+    create_user_id, create_time, modify_user_id, modify_time, sts, org_code, top_org_code, 
+    car_num, type
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -35,15 +39,17 @@
   <insert id="insert" parameterType="com.phkj.entity.relate.StBaseinfoParkingLotOrder">
     insert into st_baseinfo_parking_lot_order (id, parking_lot_id, name, 
       phone, house_id, relationship, 
-      status, order_time, create_user_id, 
-      create_time, modify_user_id, modify_time, 
-      sts, org_code, top_org_code
+      status, order_time, wechat_user_id, 
+      create_user_id, create_time, modify_user_id, 
+      modify_time, sts, org_code, 
+      top_org_code, car_num, type
       )
     values (#{id,jdbcType=BIGINT}, #{parkingLotId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{houseId,jdbcType=BIGINT}, #{relationship,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyUserId,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{sts,jdbcType=CHAR}, #{orgCode,jdbcType=VARCHAR}, #{topOrgCode,jdbcType=VARCHAR}
+      #{status,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{wechatUserId,jdbcType=BIGINT}, 
+      #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyUserId,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{sts,jdbcType=CHAR}, #{orgCode,jdbcType=VARCHAR}, 
+      #{topOrgCode,jdbcType=VARCHAR}, #{carNum,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.phkj.entity.relate.StBaseinfoParkingLotOrder">
@@ -73,6 +79,9 @@
       <if test="orderTime != null">
         order_time,
       </if>
+      <if test="wechatUserId != null">
+        wechat_user_id,
+      </if>
       <if test="createUserId != null">
         create_user_id,
       </if>
@@ -93,6 +102,12 @@
       </if>
       <if test="topOrgCode != null">
         top_org_code,
+      </if>
+      <if test="carNum != null">
+        car_num,
+      </if>
+      <if test="type != null">
+        type,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -120,6 +135,9 @@
       <if test="orderTime != null">
         #{orderTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="wechatUserId != null">
+        #{wechatUserId,jdbcType=BIGINT},
+      </if>
       <if test="createUserId != null">
         #{createUserId,jdbcType=BIGINT},
       </if>
@@ -140,6 +158,12 @@
       </if>
       <if test="topOrgCode != null">
         #{topOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum != null">
+        #{carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -167,6 +191,9 @@
       <if test="orderTime != null">
         order_time = #{orderTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="wechatUserId != null">
+        wechat_user_id = #{wechatUserId,jdbcType=BIGINT},
+      </if>
       <if test="createUserId != null">
         create_user_id = #{createUserId,jdbcType=BIGINT},
       </if>
@@ -188,6 +215,12 @@
       <if test="topOrgCode != null">
         top_org_code = #{topOrgCode,jdbcType=VARCHAR},
       </if>
+      <if test="carNum != null">
+        car_num = #{carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -200,13 +233,16 @@
       relationship = #{relationship,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       order_time = #{orderTime,jdbcType=TIMESTAMP},
+      wechat_user_id = #{wechatUserId,jdbcType=BIGINT},
       create_user_id = #{createUserId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_user_id = #{modifyUserId,jdbcType=BIGINT},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       sts = #{sts,jdbcType=CHAR},
       org_code = #{orgCode,jdbcType=VARCHAR},
-      top_org_code = #{topOrgCode,jdbcType=VARCHAR}
+      top_org_code = #{topOrgCode,jdbcType=VARCHAR},
+      car_num = #{carNum,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -1,6 +1,5 @@
 package com.phkj.service.relate;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,25 +63,21 @@ public interface IStBaseinfoParkingLotService {
      * 获取当前小区车位
      *
      * @param orgCode
-     * @param userId
      * @return
      */
     ServiceResult<Integer> getSurplusParkingLotNum(String orgCode);
 
     /**
-     * @param userId
-     * @param userName
-     * @param pkId
-     * @param startTime
+     * @param parkingLotOrder
      * @return
      */
-    boolean applyParkingLot(String userId, String userName, String pkId, Date startTime);
+    boolean applyParkingLot(StBaseinfoParkingLotOrder parkingLotOrder);
 
 
     /**
      * @param parkingLot
      * @return
      */
-    boolean applyParking(StBaseinfoParkingLotOrder parkingLot);
+    String applyParking(StBaseinfoParkingLotOrder parkingLot);
 
 }

@@ -30,12 +30,12 @@ public class StBaseinfoParkingLotOrder implements Serializable {
     private Long houseId;
 
     /**
-     * 访客身份
+     * 访客身份 1.亲戚, 2子女,3朋友 4其他
      */
     private String relationship;
 
     /**
-     * 车辆离开时修改此状态
+     * 车辆离开时修改此状态（N未使用/Y已使用）
      */
     private String status;
 
@@ -43,6 +43,11 @@ public class StBaseinfoParkingLotOrder implements Serializable {
      * 预约时间
      */
     private Date orderTime;
+
+    /**
+     * 微信登录ID
+     */
+    private Long wechatUserId;
 
     private Long createUserId;
 
@@ -57,6 +62,16 @@ public class StBaseinfoParkingLotOrder implements Serializable {
     private String orgCode;
 
     private String topOrgCode;
+
+    /**
+     * 车牌号码
+     */
+    private String carNum;
+
+    /**
+     * 车位类型 B,E
+     */
+    private String type;
 
     private static final long serialVersionUID = 1L;
 
@@ -124,6 +139,14 @@ public class StBaseinfoParkingLotOrder implements Serializable {
         this.orderTime = orderTime;
     }
 
+    public Long getWechatUserId() {
+        return wechatUserId;
+    }
+
+    public void setWechatUserId(Long wechatUserId) {
+        this.wechatUserId = wechatUserId;
+    }
+
     public Long getCreateUserId() {
         return createUserId;
     }
@@ -178,5 +201,21 @@ public class StBaseinfoParkingLotOrder implements Serializable {
 
     public void setTopOrgCode(String topOrgCode) {
         this.topOrgCode = topOrgCode;
+    }
+
+    public String getCarNum() {
+        return carNum;
+    }
+
+    public void setCarNum(String carNum) {
+        this.carNum = carNum;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

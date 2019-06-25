@@ -65,7 +65,18 @@
         order by create_time desc
   </select>
 
-
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+        *
+    FROM
+        st_applet_visitor
+    WHERE
+        create_user_id = #{userId}
+        AND sts = '1'
+        AND over_time > now( )
+    ORDER BY
+        create_time DESC
+  </select>
 
 
 

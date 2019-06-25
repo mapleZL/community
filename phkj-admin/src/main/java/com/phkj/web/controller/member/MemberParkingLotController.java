@@ -1,6 +1,5 @@
 package com.phkj.web.controller.member;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +7,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.phkj.dao.shopm.read.relate.StBaseinfoParkingLotOrderDao;
 import com.phkj.entity.relate.StBaseinfoParkingLotOrder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
@@ -292,13 +290,10 @@ public class MemberParkingLotController extends BaseController {
      *
      */
     @ResponseBody
-    @RequestMapping("/applyParkingLot")
-    public ResponseUtil applyParkingLot(HttpServletRequest request, Date startTime) {
+    @RequestMapping("/apply")
+    public ResponseUtil applyParkingLot(@RequestBody StBaseinfoParkingLotOrder parkingLotOrder) {
         ResponseUtil responseUtil = new ResponseUtil();
-        String userId = request.getParameter("userId");
-        String userName = request.getParameter("userName");
-        String pkId = request.getParameter("id");
-        if (stBaseinfoParkingLotService.applyParkingLot(userId, userName, pkId, startTime)) {
+        if (stBaseinfoParkingLotService.applyParkingLot(parkingLotOrder)) {
             responseUtil.setSuccess(true);
         }
         return responseUtil;
@@ -310,12 +305,16 @@ public class MemberParkingLotController extends BaseController {
      *
      * @return
      */
-    @RequestMapping("/apply")
-    public ResponseUtil applyParking(StBaseinfoParkingLotOrder parkingLot) {
+    @ResponseBody
+    @RequestMapping("/applyParkingLot")
+    public ResponseUtil applyParking(@RequestBody StBaseinfoParkingLotOrder parkingLot) {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            if (stBaseinfoParkingLotService.applyParking(parkingLot)) {
-                responseUtil.setSuccess(true);
+            String str = stBaseinfoParkingLotService.applyParking(parkingLot);
+            responseUtil.setSuccess(true);
+            if (StringUtils.isNotBlank(str)) {
+                responseUtil.setSuccess(false);
+                responseUtil.setMsg(str);
             }
         } catch (Exception e) {
             e.printStackTrace();
