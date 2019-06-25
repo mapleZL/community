@@ -59,9 +59,10 @@
         <if test="type != null and type != ''">
           and visitor_type = #{type}
         </if>
-        <if  test="sts != null and type != ''">
+        <if  test="sts != null and sts != ''">
           and sts = #{sts}
         </if>
+        order by create_time desc
   </select>
 
 

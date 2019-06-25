@@ -40,6 +40,24 @@ public class VisitorController {
         return "/admin/visitor/visitorlist";
     }
 
+
+    /**
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/system/delete")
+    public ResponseUtil delete(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        String id = request.getParameter("id");
+        WebAdminSession.getAdminUser(request);
+        if (visitorService.delete(id,adminUser)) {
+            responseUtil.setSuccess(true);
+        }
+        return responseUtil;
+    }
+
+
     /**
      * @param request
      * @return

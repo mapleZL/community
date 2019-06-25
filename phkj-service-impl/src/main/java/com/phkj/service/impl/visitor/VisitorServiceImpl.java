@@ -8,8 +8,10 @@ import com.phkj.dao.shop.read.environmental.StAppletOverTimeReadMapper;
 import com.phkj.dao.shop.read.visit.StAppletReadVisitDao;
 import com.phkj.dao.shop.write.visit.StAppletWriteVisitDao;
 import com.phkj.entity.environmental.StAppletOverTime;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.entity.visit.StAppletVisitor;
 import com.phkj.service.visit.VisitorService;
+import com.sun.corba.se.spi.ior.ObjectKey;
 import com.sun.jdi.ObjectCollectedException;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
@@ -50,6 +52,29 @@ public class VisitorServiceImpl implements VisitorService {
             }
         });
         return pageInfo;
+    }
+
+
+    /**
+     * @param id
+     * @param adminUser
+     * @return
+     */
+    @Override
+    public boolean delete(String id, SystemAdmin adminUser) {
+        StAppletVisitor visitor = stAppletReadVisitDao.selectByPrimaryKey(Long.valueOf(id));
+        if (null == visitor) {
+            return false;
+        }
+        visitor.setSts("0");
+        visitor.setModifyTime(new Date());
+        visitor.setModifyUserId(adminUser.getId().toString());
+        visitor.setModifyUserName(adminUser.getName());
+        int i = stAppletWriteVisitDao.updateByPrimaryKey(visitor);
+        if (i > 0) {
+            return true;
+        }
+        return false;
     }
 
 
@@ -119,9 +144,11 @@ public class VisitorServiceImpl implements VisitorService {
                 }
                 //解析参数
                 String jsonStr = EntityUtils.toString(responseEntity, "utf-8");
-                returnMap = JSON.parseObject(jsonStr, Map.class);
-                if (null != returnMap && returnMap.size() > 0) {
-                    password = String.valueOf(returnMap.get("resultData"));
+                Map<String, Object> map = JSON.parseObject(jsonStr, Map.class);
+                if (null != map && map.size() > 0) {
+                    password = String.valueOf(map.get("resultData"));
+                    returnMap.put("type", visitor.getPasswordType());
+                    returnMap.put("password", password);
                 }
             } else {
                 return null;

@@ -57,7 +57,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
         });
 
         // 删除
-        $('#btn_del').click(function () {
+        $('#btn_delete').click(function () {
             var selected = $('#dataGrid').datagrid('getSelected');
             if (!selected) {
                 $.messager.alert('提示', '请选择操作行。');
@@ -72,7 +72,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                     $.messager.progress({text: "提交中..."});
                     $.ajax({
                         type: "GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/delete",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/visit/system/delete",
                         dataType: "json",
                         data: "id=" + selected.id + "&type=3",
                         cache: false,
@@ -90,72 +90,9 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
         });
 
 
-        // 停用
-        $('#btn_stop').click(function () {
-            var selected = $('#dataGrid').datagrid('getSelected');
-            if (!selected) {
-                $.messager.alert('提示', '请选择操作行。');
-                return;
-            }
-            if (selected.sts == '删除') {
-                $.messager.alert('提示', '已停用。');
-                return;
-            }
-            $.messager.confirm('确认', '确定停用该申请吗？', function (r) {
-                if (r) {
-                    $.messager.progress({text: "提交中..."});
-                    $.ajax({
-                        type: "GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/delete",
-                        dataType: "json",
-                        data: "id=" + selected.id + "&type=0",
-                        cache: false,
-                        success: function (data, textStatus) {
-                            if (data.success) {
-                                $('#dataGrid').datagrid('reload');
-                            } else {
-                                $('#dataGrid').datagrid('reload');
-                            }
-                            $.messager.progress('close');
-                        }
-                    });
-                }
-            });
-        });
 
 
-        // 启用
-        $('#btn_pass').click(function () {
-            var selected = $('#dataGrid').datagrid('getSelected');
-            if (!selected) {
-                $.messager.alert('提示', '请选择操作行。');
-                return;
-            }
-            if (selected.sts == '启用') {
-                $.messager.alert('提示', '已启用。');
-                return;
-            }
-            $.messager.confirm('确认', '确定启用该申请吗？', function (r) {
-                if (r) {
-                    $.messager.progress({text: "提交中..."});
-                    $.ajax({
-                        type: "GET",
-                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/delete",
-                        dataType: "json",
-                        data: "id=" + selected.id + "&type=1",
-                        cache: false,
-                        success: function (data, textStatus) {
-                            if (data.success) {
-                                $('#dataGrid').datagrid('reload');
-                            } else {
-                                $('#dataGrid').datagrid('reload');
-                            }
-                            $.messager.progress('close');
-                        }
-                    });
-                }
-            });
-        });
+
 
     });
 
@@ -179,12 +116,12 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
                   id="queryForm" name="queryForm">
                 <div class="fluidbox">
                     <p class="p4 p-item" >
-                        <label class="lab-item">预约状态 :</label> <@cont.select id="status"
-                    codeDiv="SHARE_TASK_STATUS" name="q_status" style="width:100px"/>
+                        <label class="lab-item">预约状态 :</label> <@cont.select id="sts"
+                    codeDiv="VISITOR_STS" name="q_sts" style="width:100px"/>
                     </p>
                     <p class="p4 p-item" >
-                        <label class="lab-item">预约类型 :</label> <@cont.select id="status"
-                    codeDiv="SHARE_TASK_STATUS" name="q_status" style="width:100px"/>
+                        <label class="lab-item">预约类型 :</label> <@cont.select id="type"
+                    codeDiv="VISITOR_TYPE" name="q_type" style="width:100px"/>
                     </p>
                 </div>
 
@@ -231,7 +168,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
         <a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
 
         <@shiro.hasPermission name="/admin/share/deleteShareInfo">
-		    <a id="btn_freeze" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>
+		    <a id="btn_delete" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>
         </@shiro.hasPermission>
     </div>
     <div class="wrapper" id="editWin">
