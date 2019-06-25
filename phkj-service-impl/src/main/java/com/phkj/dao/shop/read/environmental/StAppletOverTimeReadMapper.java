@@ -20,7 +20,9 @@ public interface StAppletOverTimeReadMapper {
 
     int updateByPrimaryKey(StAppletOverTime record);
 
-    List<StAppletOverTime> selectAllOverTime(@Param("type") String type);
+    List<StAppletOverTime> selectAllOverTime(@Param("type") String type, @Param("villageCode") String villageCode);
 
     List<StAppletOverTime> getAllEnableTimeByType(@Param("id") String id);
+
+    List<StAppletOverTime> getDataByType(@Param("type") String type,@Param("villageCode") String villageCode);
 }

@@ -52,6 +52,7 @@
                 /admin/share/** = anon
                 /admin/environ/** = anon
                 /admin/visnum/** = anon
+                /admin/visit/** = anon
                 /admin/complaint/** = anon
                 /admin/member/pet/** = anon
                 /admin/overtime/** = anon

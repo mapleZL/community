@@ -199,6 +199,9 @@
 				<@shiro.hasPermission name="/admin/visnum">
 					<a href="javascript:void(0);" onclick="addTab('次数管理', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum')">次数设置</a>
 				</@shiro.hasPermission>
+				<@shiro.hasPermission name="/admin/visit">
+					<a href="javascript:void(0);" onclick="addTab('访客记录', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/visit')">访客记录</a>
+				</@shiro.hasPermission>
             </div>
 	</@shiro.hasPermission>
 

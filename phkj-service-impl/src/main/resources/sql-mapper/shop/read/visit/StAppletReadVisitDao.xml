@@ -29,6 +29,46 @@
     apply_time, password_type, password, imgurl, create_time, create_user_id, create_user_name, 
     modify_user_id, modify_user_name, modify_time, sts, village_code
   </sql>
+
+
+  <select id="getAllVisitor" parameterType="java.lang.String"  resultMap="BaseResultMap">
+    SELECT
+        id,
+        over_time,
+        over_num,
+        house_id,
+        house_name,
+        visitor_name,
+        telephone,
+        case gender when '1' then '男' else '女' end as gender,
+        case visitor_type when '1' then '亲戚' when '2' then '子女' when '3' then '朋友' else '其他' end as visitor_type,
+        apply_time,
+        case password_type when '1' then '二维码' else '密码' end as password_type,
+        `password`,
+        imgurl,
+        create_time,
+        create_user_id,
+        create_user_name,
+        modify_user_id,
+        modify_user_name,
+        modify_time,
+        case sts when '0' then '删除' when '1' then '正常' else '失效' end as sts,
+        village_code
+    FROM
+        st_applet_visitor where  village_code = #{villageCode}
+        <if test="type != null and type != ''">
+          and visitor_type = #{type}
+        </if>
+        <if  test="sts != null and sts != ''">
+          and sts = #{sts}
+        </if>
+        order by create_time desc
+  </select>
+
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
