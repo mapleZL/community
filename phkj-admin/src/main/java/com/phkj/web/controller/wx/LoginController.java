@@ -32,7 +32,7 @@ import java.net.URLDecoder;
  * @version: 0.0.1$
  */
 @Controller
-@RequestMapping(value = "/admin/user")
+@RequestMapping(value = "admin/user")
 public class LoginController {
 
     Logger logger = LoggerFactory.getLogger(LoginController.class);
