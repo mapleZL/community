@@ -32,7 +32,7 @@ import java.net.URLDecoder;
  * @version: 0.0.1$
  */
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/admin/user")
 public class LoginController {
 
     Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -43,7 +43,7 @@ public class LoginController {
     @Autowired
     ISystemAdminService systemAdminService;
 
-    @RequestMapping(value = {"/user/login"}, method = {RequestMethod.POST})
+    @RequestMapping(value = {"/login"}, method = {RequestMethod.POST})
     @ResponseBody
     public ResponseUtil login(@RequestBody MemberParam memberParam, HttpServletRequest httpServletRequest, HttpServletResponse response) {
         try {
