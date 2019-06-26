@@ -45,7 +45,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
             $("#devWin").window({
                 width: 400,
                 height: 210,
-                href: '${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/addTime',
+                href: '${domainUrlUtil.EJS_URL_RESOURCES}/admin/visit/getall',
                 title: "访客次数",
                 closed: true,
                 shadow: false,
@@ -57,7 +57,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
         });
 
         // 删除
-        $('#btn_delete').click(function () {
+        $('#btn_del').click(function () {
             var selected = $('#dataGrid').datagrid('getSelected');
             if (!selected) {
                 $.messager.alert('提示', '请选择操作行。');
@@ -90,9 +90,72 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
         });
 
 
+        // 停用
+        $('#btn_stop').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if (!selected) {
+                $.messager.alert('提示', '请选择操作行。');
+                return;
+            }
+            if (selected.sts == '删除') {
+                $.messager.alert('提示', '已停用。');
+                return;
+            }
+            $.messager.confirm('确认', '确定停用该申请吗？', function (r) {
+                if (r) {
+                    $.messager.progress({text: "提交中..."});
+                    $.ajax({
+                        type: "GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/delete",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=0",
+                        cache: false,
+                        success: function (data, textStatus) {
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
 
 
-
+        // 启用
+        $('#btn_pass').click(function () {
+            var selected = $('#dataGrid').datagrid('getSelected');
+            if (!selected) {
+                $.messager.alert('提示', '请选择操作行。');
+                return;
+            }
+            if (selected.sts == '启用') {
+                $.messager.alert('提示', '已启用。');
+                return;
+            }
+            $.messager.confirm('确认', '确定启用该申请吗？', function (r) {
+                if (r) {
+                    $.messager.progress({text: "提交中..."});
+                    $.ajax({
+                        type: "GET",
+                        url: "${domainUrlUtil.EJS_URL_RESOURCES}/admin/visnum/system/delete",
+                        dataType: "json",
+                        data: "id=" + selected.id + "&type=1",
+                        cache: false,
+                        success: function (data, textStatus) {
+                            if (data.success) {
+                                $('#dataGrid').datagrid('reload');
+                            } else {
+                                $('#dataGrid').datagrid('reload');
+                            }
+                            $.messager.progress('close');
+                        }
+                    });
+                }
+            });
+        });
 
     });
 
@@ -108,23 +171,18 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 <div id="searchbar" data-options="region:'north'" style="margin:0 auto;"
      border="false">
     <h2 class="h2-title">
-        时效管理 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
+        车位预约 <span class="s-poar"><a class="a-extend" href="#">收起</a></span>
     </h2>
     <div id="searchbox" class="head-seachbox">
         <div class="w-p99 marauto searchCont">
             <form class="form-search" action="doForm" method="post"
                   id="queryForm" name="queryForm">
                 <div class="fluidbox">
-                    <p class="p4 p-item" >
-                        <label class="lab-item">预约状态 :</label> <@cont.select id="sts"
-                    codeDiv="VISITOR_STS" name="q_sts" style="width:100px"/>
-                    </p>
-                    <p class="p4 p-item" >
-                        <label class="lab-item">预约类型 :</label> <@cont.select id="type"
-                    codeDiv="VISITOR_TYPE" name="q_type" style="width:100px"/>
+                    <p class="p4 p-item" hidden="hidden">
+                        <label class="lab-item">发布状态 :</label> <@cont.select id="status"
+                    codeDiv="SHARE_TASK_STATUS" name="q_status" style="width:100px"/>
                     </p>
                 </div>
-
             </form>
         </div>
     </div>
@@ -142,35 +200,31 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 						,pagination:true
 						,pageSize:${pageSize}
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/visit/system/getAlVisitor'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/visit/system/getAll'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
         <thead>
         <tr>
             <th field="id" hidden="hidden"></th>
-            <th field="visitorName" width="30" align="center">预约人</th>
-            <th field="gender" width="10" align="center">性别</th>
-            <th field="telephone" width="30" align="center">电话</th>
-            <th field="houseId" width="30" align="center">房屋编码</th>
-            <th field="overNum" width="20" align="center">有效次数</th>
-            <th field="visitorType" width="20" align="center">预约类型</th>
-            <th field="passwordType" width="20" align="center">密码类型</th>
-            <th field="overTime" width="30" align="center">到期时间</th>
-            <th field="applyTime" width="30" align="center">预约时间</th>
-            <th field="createTime" width="30" align="center">申请时间</th>
-            <th field="sts" width="30" align="center">预约状态</th>
+            <th field="name" width="30" align="center">申请人</th>
+            <th field="carNum" width="30" align="center">车牌号</th>
+            <th field="relationship" width="30" align="center">访客身份</th>
+            <th field="houseId" width="30" align="center">房屋编号</th>
+            <th field="phone" width="30" align="center">联系电话</th>
+            <th field="orderTime" width="30" align="center">预约时间</th>
+            <th field="type" width="30" align="center">车位类型</th>
+            <th field="status" width="30" align="center">使用状态</th>
         </tr>
         </thead>
     </table>
 
     <div id="gridTools">
-        <a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
-
-        <@shiro.hasPermission name="/admin/visitor/delete">
-		    <a id="btn_delete" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>
-        </@shiro.hasPermission>
+        <#--<@shiro.hasPermission name="/admin/visparking/delete">-->
+                <#--<a id="btn_del" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>-->
+        <#--</@shiro.hasPermission>-->
     </div>
+
     <div class="wrapper" id="editWin">
 
     </div>

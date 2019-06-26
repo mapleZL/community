@@ -7,12 +7,12 @@ import com.github.pagehelper.PageInfo;
 import com.phkj.dao.shop.read.environmental.StAppletOverTimeReadMapper;
 import com.phkj.dao.shop.read.visit.StAppletReadVisitDao;
 import com.phkj.dao.shop.write.visit.StAppletWriteVisitDao;
+import com.phkj.dao.shopm.read.relate.StBaseinfoParkingLotOrderDao;
 import com.phkj.entity.environmental.StAppletOverTime;
+import com.phkj.entity.relate.StBaseinfoParkingLotOrder;
 import com.phkj.entity.system.SystemAdmin;
 import com.phkj.entity.visit.StAppletVisitor;
 import com.phkj.service.visit.VisitorService;
-import com.sun.corba.se.spi.ior.ObjectKey;
-import com.sun.jdi.ObjectCollectedException;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
@@ -39,6 +39,31 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Autowired
     StAppletOverTimeReadMapper overTimeReadMapper;
+
+    @Autowired
+    StBaseinfoParkingLotOrderDao parkingLotOrderDao;
+
+
+    /**
+     * @param page
+     * @param rows
+     * @param sts
+     * @param type
+     * @param adminUser
+     * @return
+     */
+    @Override
+    public PageInfo<StBaseinfoParkingLotOrder> getAllVisParkinigLot(String page, String rows, String sts, String type, SystemAdmin adminUser) {
+
+        PageInfo<StBaseinfoParkingLotOrder> pageInfo = PageHelper.startPage(Integer.valueOf(page),
+                Integer.valueOf(rows)).doSelectPageInfo(new ISelect() {
+            @Override
+            public void doSelect() {
+                parkingLotOrderDao.getAll(sts, type,adminUser.getVillageCode());
+            }
+        });
+        return pageInfo;
+    }
 
 
     @Override
