@@ -51,7 +51,7 @@
     st_baseinfo_parking_lot_order
     where org_code = #{villageCode}
     <if test="sts != null and sts != ''">
-      and sts = #{sts}
+      and status = #{sts}
     </if>
      <if test="type != null and type != ''">
        and type = #{type}

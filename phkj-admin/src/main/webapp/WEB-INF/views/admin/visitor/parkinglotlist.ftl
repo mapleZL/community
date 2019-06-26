@@ -178,9 +178,9 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
             <form class="form-search" action="doForm" method="post"
                   id="queryForm" name="queryForm">
                 <div class="fluidbox">
-                    <p class="p4 p-item" hidden="hidden">
-                        <label class="lab-item">发布状态 :</label> <@cont.select id="status"
-                    codeDiv="SHARE_TASK_STATUS" name="q_status" style="width:100px"/>
+                    <p class="p4 p-item" >
+                        <label class="lab-item">使用状态 :</label> <@cont.select id="status"
+                    codeDiv="VIS_PARKING_STATUS" name="q_status" style="width:100px"/>
                     </p>
                 </div>
             </form>
@@ -220,7 +220,8 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
     </table>
 
     <div id="gridTools">
-        <#--<@shiro.hasPermission name="/admin/visparking/delete">-->
+        <a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+    <#--<@shiro.hasPermission name="/admin/visparking/delete">-->
                 <#--<a id="btn_del" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-delete" plain="true">删除</a>-->
         <#--</@shiro.hasPermission>-->
     </div>

@@ -46,7 +46,7 @@ public class VisitParkingLotController {
         HttpJsonResult<List<StBaseinfoParkingLotOrder>> returnJson = new HttpJsonResult<>();
         String page = request.getParameter("page");
         String rows = request.getParameter("rows");
-        String sts = request.getParameter("sts");
+        String sts = request.getParameter("q_status");
         String type = request.getParameter("type");
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         PageInfo<StBaseinfoParkingLotOrder> pageInfo = visitorService.getAllVisParkinigLot(page, rows, sts, type,
