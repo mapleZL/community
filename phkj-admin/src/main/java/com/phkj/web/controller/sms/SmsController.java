@@ -38,14 +38,14 @@ public class SmsController {
     //产品域名,开发者无需替换
     static final String domain = "dysmsapi.aliyuncs.com";
     //短信验证码过期时间
-    public static final int SMS_CODE_EXPIRE_TIME = 30 * 60 * 1000;//短信验证码30分钟过期
+    public static final int SMS_CODE_EXPIRE_TIME = 60 * 1000;//短信验证码1分钟过期
 
-    // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-    static final String accessKeyId = "LTAIkSc7CUIulce0";
-    static final String accessKeySecret = "jRPzHauftvtRLerrJj57rwEEaY6nY8";
+    // 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
+    static final String accessKeyId = "LTAIbUMpy6LTJi0I";
+    static final String accessKeySecret = "Bp6Gz905HLRvufr2P53eh6zx90HllM";
 
-    static final String signName = "泉福鑫";
-    static final String templateCode = "SMS_165117683";
+    static final String signName = "仆汇科技";
+    static final String templateCode = "SMS_167735160";
 
     @Autowired
     RedisComponent redisComponent;
