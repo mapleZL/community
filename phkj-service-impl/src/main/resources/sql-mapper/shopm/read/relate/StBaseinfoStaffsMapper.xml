@@ -192,4 +192,23 @@
 		and sts = 'Y'
 	</select>
 	
+	<select id="getStaffsByParam" parameterType="java.util.Map" resultType="Integer">
+	    select count(id) from 
+	    `st_baseinfo_staffs`
+	    <include refid="getCondition"/>
+	    
+	</select>
+	
+	<sql id="getCondition">
+        <where>
+            and sts = 'Y'
+             <if test="param.name != null and param.name !=''">
+                and name = #{param.name}
+          	 </if>
+          	 <if test="param.idNo != null and param.idNo !=''">
+                and encryption_id_number = #{param.idNo}
+          	 </if>
+        </where>
+    </sql>
+	
 </mapper>

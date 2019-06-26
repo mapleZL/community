@@ -4,6 +4,7 @@ package com.phkj.service.property;
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.property.PropertiItem;
 import com.phkj.entity.property.StBaseinfoStaffs;
+import com.phkj.entity.system.SystemAdmin;
 
 import java.util.List;
 
@@ -39,4 +40,6 @@ public interface IStBaseinfoStaffsService {
      * @return
      */
     ServiceResult<List<PropertiItem>> getStaffsOnDutyList();
+
+    boolean checkAdminUser(SystemAdmin admin);
 }

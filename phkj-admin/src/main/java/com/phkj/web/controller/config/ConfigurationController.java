@@ -1,8 +1,6 @@
 package com.phkj.web.controller.config;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +32,6 @@ import com.phkj.service.relate.IStBaseinfoParkingLotService;
 import com.phkj.service.relate.IStBaseinfoPersonStockService;
 import com.phkj.service.relate.IStBaseinfoResidentCarService;
 import com.phkj.service.relate.IStBaseinfoResidentinfoService;
-import com.sun.xml.internal.rngom.digested.DAnnotation;
 
 /**
  * 

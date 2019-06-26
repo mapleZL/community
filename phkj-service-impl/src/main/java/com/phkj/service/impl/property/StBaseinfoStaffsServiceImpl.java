@@ -1,11 +1,13 @@
 package com.phkj.service.impl.property;
 
+import com.phkj.core.AESHelper;
 import com.phkj.core.ConstantsEJS;
 import com.phkj.core.ServiceResult;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.entity.property.PropertiItem;
 import com.phkj.entity.property.StBaseinfoDepartment;
 import com.phkj.entity.property.StBaseinfoStaffs;
+import com.phkj.entity.system.SystemAdmin;
 import com.phkj.model.property.StBaseinfoDepartmentModel;
 import com.phkj.model.property.StBaseinfoStaffsModel;
 import com.phkj.service.property.IStBaseinfoStaffsService;
@@ -15,14 +17,16 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service(value = "stBaseinfoStaffsService")
 public class StBaseinfoStaffsServiceImpl implements IStBaseinfoStaffsService {
-    private static Logger log = LogManager.getLogger(StBaseinfoStaffsServiceImpl.class);
+    private static Logger             log = LogManager.getLogger(StBaseinfoStaffsServiceImpl.class);
 
     @Resource
-    private StBaseinfoStaffsModel stBaseinfoStaffsModel;
+    private StBaseinfoStaffsModel     stBaseinfoStaffsModel;
 
     @Resource
     private StBaseinfoDepartmentModel stBaseinfoDepartmentModel;
@@ -41,11 +45,14 @@ public class StBaseinfoStaffsServiceImpl implements IStBaseinfoStaffsService {
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStBaseinfoStaffsService][getStBaseinfoStaffsById]根据id[" + stBaseinfoStaffsId + "]取得工作人员信息管理表时出现未知异常：" + e.getMessage());
+            log.error("[IStBaseinfoStaffsService][getStBaseinfoStaffsById]根据id["
+                      + stBaseinfoStaffsId + "]取得工作人员信息管理表时出现未知异常：" + e.getMessage());
         } catch (Exception e) {
-            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
-            log.error("[IStBaseinfoStaffsService][getStBaseinfoStaffsById]根据id[" + stBaseinfoStaffsId + "]取得工作人员信息管理表时出现未知异常：",
-                    e);
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("[IStBaseinfoStaffsService][getStBaseinfoStaffsById]根据id["
+                      + stBaseinfoStaffsId + "]取得工作人员信息管理表时出现未知异常：",
+                e);
         }
         return result;
     }
@@ -67,7 +74,7 @@ public class StBaseinfoStaffsServiceImpl implements IStBaseinfoStaffsService {
             List<Long> list = new ArrayList<>();
             // 获取值班人员
             List<StBaseinfoStaffs> staffsOnDutyList = stBaseinfoStaffsModel.getStaffsOnDutyList();
-            for (StBaseinfoStaffs stBaseinfoStaffs : staffsOnDutyList){
+            for (StBaseinfoStaffs stBaseinfoStaffs : staffsOnDutyList) {
                 list.add(stBaseinfoStaffs.getJobsId());
                 PropertiItem propertiItem = new PropertiItem();
                 propertiItem.setName(stBaseinfoStaffs.getName());
@@ -76,7 +83,8 @@ public class StBaseinfoStaffsServiceImpl implements IStBaseinfoStaffsService {
                 items.add(propertiItem);
             }
             // 获取人员部门及领导id
-            List<StBaseinfoDepartment> departmentList = stBaseinfoDepartmentModel.getDepartmentList(list);
+            List<StBaseinfoDepartment> departmentList = stBaseinfoDepartmentModel
+                .getDepartmentList(list);
             for (PropertiItem item : items) {
                 for (StBaseinfoDepartment department : departmentList) {
                     if (item.getJobsId().equals(department.getId())) {
@@ -87,10 +95,10 @@ public class StBaseinfoStaffsServiceImpl implements IStBaseinfoStaffsService {
                 }
             }
             list.clear();
-            for(StBaseinfoDepartment department : departmentList){
+            for (StBaseinfoDepartment department : departmentList) {
                 list.add(department.getTopId());
             }
-//            departmentList.forEach(department -> list.add(department.getTopId()));
+            //            departmentList.forEach(department -> list.add(department.getTopId()));
             // 获取领导姓名和手机号
             List<StBaseinfoStaffs> staffs = stBaseinfoStaffsModel.getStaffsByJobsId(list);
             for (PropertiItem item : items) {
@@ -110,14 +118,13 @@ public class StBaseinfoStaffsServiceImpl implements IStBaseinfoStaffsService {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
             log.error(
-                    "[IStBaseinfoStaffsService][getStaffsOnDutyList]获取StBaseinfoStaffs对象列表时出现未知异常："
-                            + e.getMessage());
+                "[IStBaseinfoStaffsService][getStaffsOnDutyList]获取StBaseinfoStaffs对象列表时出现未知异常："
+                      + e.getMessage());
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
-                    ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error(
-                    "[IStBaseinfoStaffsService][getStaffsOnDutyList]获取StBaseinfoStaffs对象列表时出现未知异常：",
-                    e);
+                "[IStBaseinfoStaffsService][getStaffsOnDutyList]获取StBaseinfoStaffs对象列表时出现未知异常：", e);
         }
         return result;
     }
@@ -136,11 +143,12 @@ public class StBaseinfoStaffsServiceImpl implements IStBaseinfoStaffsService {
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStBaseinfoStaffsService][saveStBaseinfoStaffs]保存工作人员信息管理表时出现未知异常：" + e.getMessage());
+            log.error("[IStBaseinfoStaffsService][saveStBaseinfoStaffs]保存工作人员信息管理表时出现未知异常："
+                      + e.getMessage());
         } catch (Exception e) {
-            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
-            log.error("[IStBaseinfoStaffsService][saveStBaseinfoStaffs]保存工作人员信息管理表时出现未知异常：",
-                    e);
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("[IStBaseinfoStaffsService][saveStBaseinfoStaffs]保存工作人员信息管理表时出现未知异常：", e);
         }
         return result;
     }
@@ -159,12 +167,28 @@ public class StBaseinfoStaffsServiceImpl implements IStBaseinfoStaffsService {
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStBaseinfoStaffsService][updateStBaseinfoStaffs]更新工作人员信息管理表时出现未知异常：" + e.getMessage());
+            log.error("[IStBaseinfoStaffsService][updateStBaseinfoStaffs]更新工作人员信息管理表时出现未知异常："
+                      + e.getMessage());
         } catch (Exception e) {
-            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
-            log.error("[IStBaseinfoStaffsService][updateStBaseinfoStaffs]更新工作人员信息管理表时出现未知异常：",
-                    e);
+            result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR,
+                ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
+            log.error("[IStBaseinfoStaffsService][updateStBaseinfoStaffs]更新工作人员信息管理表时出现未知异常：", e);
         }
         return result;
+    }
+
+    /**
+     * 查看无业人员是否已经登记
+     * @param admin
+     * @return
+     * @see com.phkj.service.property.IStBaseinfoStaffsService#checkAdminUser(com.phkj.entity.system.SystemAdmin)
+     */
+    @Override
+    public boolean checkAdminUser(SystemAdmin admin) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("name", admin.getRelName());
+        String idNo = AESHelper.Encrypt(admin.getIdNo());
+        param.put("idNo", idNo);
+        return stBaseinfoStaffsModel.getStaffsByParam(param) > 0;
     }
 }

@@ -4,6 +4,14 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
 <script>
 	$(function() {
 		$("#addBtn").click(function() {
+			if (!$("#name").val()) {
+				$.messager.alert('提示', '用户姓名必填。');
+				return;
+			}
+			if (!$("#idNo").val()) {
+				$.messager.alert('提示', '用户身份证号必填。');
+				return;
+			}
 			var isValid = $("#adForm").form('validate');
 			if (isValid) {
 				$.messager.progress({
@@ -93,7 +101,28 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
 							</span>
 						</p>
 					</div>
-					
+					<div class="fluidbox">
+						<p class="p12 p-item">
+							<label class="lab-item"><font class="red">*</font>姓名: </label>
+							<span id="namespan"> <input
+								class="txt w200 easyui-validatebox" type="text" id="relName"
+								name="relName" value="${(admin.relName)!}"
+								data-options="validType:'length[1,20]'"
+								class="txt w400" /> <span class="title_span">填写使用人真实姓名</span>
+							</span>
+						</p>
+					</div>
+					<div class="fluidbox">
+						<p class="p12 p-item">
+							<label class="lab-item"><font class="red">*</font>身份证号: </label>
+							<span id="idNospan"> <input
+								class="txt w200 easyui-validatebox" type="text" id="idNo"
+								name="idNo" value="${(admin.idNo)!}"
+								data-options="validType:'length[1,20]'"
+								class="txt w400" /> <span class="title_span">填写使用人真实身份证号</span>
+							</span>
+						</p>
+					</div>
 					<div class="fluidbox">
 						<p class="p12 p-item">
 							<label class="lab-item"><font class="red">*</font>角色: </label>

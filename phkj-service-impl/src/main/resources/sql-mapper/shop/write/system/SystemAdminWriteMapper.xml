@@ -10,6 +10,8 @@
 			<result property="createTime" column="create_time" />
 			<result property="createUser" column="create_user" />
 			<result property="tel" column="tel" />
+			<result property="relName" column="rel_name"/>
+			<result property="idNo" column="id_no"/>
 			<result property="status" column="status" />
 	</resultMap>
 	
@@ -26,7 +28,9 @@
 			<if test="roleId != null">`role_id`= #{roleId},</if>
 			<if test="villageCode != null">`village_code`= #{villageCode},</if>
 			<if test="tel != null">`tel`= #{tel},</if>
-			<if test="status != null">`status`= #{status}</if>
+			<if test="status != null">`status`= #{status},</if>
+			<if test="idNo != null">`id_no` =#{idNo},</if>
+			<if test="relName != null">`rel_name` =#{relName}</if>
 	    </set>
         where `id` = #{id}
 	</update>
@@ -43,6 +47,8 @@
 			`create_time`,
 			`create_user`,
 			`tel`,
+			`id_no`,
+			`rel_name`,
 			`status`
 		)
 		values
@@ -55,6 +61,8 @@
 			#{createTime},
 			#{createUser},
 			#{tel},
+			#{idNo},
+			#{relName},
 			#{status}
 		)
 	</insert>

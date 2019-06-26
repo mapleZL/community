@@ -248,6 +248,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/role"/>
 									<span class="title_span">1-20个字符,唯一</span>
 								</p>
 							</div>
+							<br />
 							<div class="fluidbox">
 								<p class="p12 p-item">
 									<label class="lab-item"><font class="red">*</font>角色归属小区:
@@ -267,7 +268,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/role"/>
 								<p class="p12 p-item">
 									<label class="lab-item"><font class="red">*</font>角色描述:
 									</label> <input class="txt w200 easyui-validatebox" type="text" id="content"
-										name="content" style="width: 300px;"
+										name="content" style="width: 200px;"
 										data-options="required:true,validType:['length[1,200]']" />
 								</p>
 							</div>

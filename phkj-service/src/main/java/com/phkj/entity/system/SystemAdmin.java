@@ -38,6 +38,8 @@ public class SystemAdmin implements Serializable {
     private String            villageCode;                             //绑定小区code
     private String            repairCode;
     private String            roleName;
+    private String            relName;                                 //用户真实姓名
+    private String            idNo;                                    //身份证号
 
     public String getRoleName() {
         return roleName;
@@ -173,6 +175,22 @@ public class SystemAdmin implements Serializable {
 
     public void setRepairCode(String repairCode) {
         this.repairCode = repairCode;
+    }
+
+    public String getRelName() {
+        return relName;
+    }
+
+    public void setRelName(String relName) {
+        this.relName = relName;
+    }
+
+    public String getIdNo() {
+        return idNo;
+    }
+
+    public void setIdNo(String idNo) {
+        this.idNo = idNo;
     }
 
 }

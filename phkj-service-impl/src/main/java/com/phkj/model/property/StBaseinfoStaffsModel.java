@@ -1,19 +1,19 @@
 package com.phkj.model.property;
 
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
 import com.phkj.core.StringUtil;
 import com.phkj.dao.shopm.read.relate.StBaseinfoStaffsDao;
 import com.phkj.entity.property.StBaseinfoStaffs;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 @Component
 public class StBaseinfoStaffsModel {
-
-    private static org.apache.log4j.Logger log = org.apache.log4j.LogManager
-            .getLogger(StBaseinfoStaffsModel.class);
 
     @Resource
     private StBaseinfoStaffsDao stBaseinfoStaffsDao;
@@ -88,5 +88,9 @@ public class StBaseinfoStaffsModel {
      */
     public List<StBaseinfoStaffs> getStaffsByJobsId(List<Long> list) {
         return stBaseinfoStaffsDao.getStaffsByJobsId(list);
+    }
+
+    public int getStaffsByParam(Map<String, Object> param) {
+        return stBaseinfoStaffsDao.getStaffsByParam(param);
     }
 }

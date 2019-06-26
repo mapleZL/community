@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.phkj.core.AESHelper;
 import com.phkj.core.ConstantsEJS;
 import com.phkj.core.HttpJsonResult;
 import com.phkj.core.Md5;
@@ -27,6 +29,7 @@ import com.phkj.core.WebUtil;
 import com.phkj.core.exception.BusinessException;
 import com.phkj.entity.system.SystemAdmin;
 import com.phkj.entity.system.SystemRoles;
+import com.phkj.service.property.IStBaseinfoStaffsService;
 import com.phkj.service.system.ISystemAdminService;
 import com.phkj.service.system.ISystemRolesService;
 import com.phkj.web.controller.BaseController;
@@ -46,11 +49,13 @@ import com.phkj.web.util.WebAdminSession;
 @RequestMapping(value = "admin/system/adminuser")
 @Scope("prototype")
 public class AdminUserController extends BaseController {
-    Logger                      log = Logger.getLogger(this.getClass());
+    Logger                           log = Logger.getLogger(this.getClass());
     @Resource(name = "systemAdminService")
-    private ISystemAdminService systemAdminService;
+    private ISystemAdminService      systemAdminService;
     @Resource
-    private ISystemRolesService rolesService;
+    private ISystemRolesService      rolesService;
+    @Autowired
+    private IStBaseinfoStaffsService staffsService;
 
     @RequestMapping(value = "", method = { RequestMethod.GET })
     public String adminUser(HttpServletRequest request,
@@ -164,10 +169,18 @@ public class AdminUserController extends BaseController {
         ServiceResult<Integer> serviceResult = null;
         String msg = "";
         PrintWriter pw = null;
-        // 绑定登录用户的小区code
-        SystemRoles systemRoles = rolesService.getSystemRolesById(admin.getRoleId()).getResult();
-        admin.setVillageCode(systemRoles.getVillageCode());
+
         try {
+            pw = response.getWriter();
+            // 校验用户是否需已经存在
+            if (!checkAdminUser(admin)) {
+                pw.print("该创建用户尚未查询到登记信息，请检查！");
+                return;
+            }
+            
+            // 绑定登录用户的小区code
+            SystemRoles systemRoles = rolesService.getSystemRolesById(admin.getRoleId()).getResult();
+            admin.setVillageCode(systemRoles.getVillageCode());
             if (admin.getId() == null || admin.getId().intValue() == 0) {
                 admin.setCreateTime(new Date());
                 admin.setCreateUser(WebAdminSession.getAdminUser(request).getId());
@@ -186,13 +199,17 @@ public class AdminUserController extends BaseController {
                     throw new BusinessException(serviceResult.getMessage());
                 }
             }
-            pw = response.getWriter();
             msg = serviceResult.getMessage();
         } catch (Exception e) {
             e.printStackTrace();
             msg = e.getMessage();
         }
         pw.print(msg);
+    }
+
+    // 校验创建的用户是否是否为登记的物业人员
+    private boolean checkAdminUser(SystemAdmin admin) {
+        return staffsService.checkAdminUser(admin);
     }
 
     /**
@@ -262,4 +279,5 @@ public class AdminUserController extends BaseController {
         jsonResult.setData(true);
         return jsonResult;
     }
+    
 }

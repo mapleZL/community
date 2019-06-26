@@ -10,6 +10,8 @@
 			<result property="createTime" column="create_time" />
 			<result property="createUser" column="create_user" />
 			<result property="tel" column="tel" />
+			<result property="relName" column="rel_name"/>
+			<result property="idNo" column="id_no"/>
 			<result property="status" column="status" />
 	</resultMap>
 	
