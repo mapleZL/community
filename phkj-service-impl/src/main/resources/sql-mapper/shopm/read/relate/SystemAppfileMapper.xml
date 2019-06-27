@@ -36,14 +36,14 @@
 	
 	<sql id="getCondition">
         <where>
-             <if test="objModule != null and objModule !=''">
+             <!-- <if test="objModule != null and objModule !=''">
                 and object_module = #{objModule}
-          	 </if>
+          	 </if> -->
           	 <if test="objId != null and objId !=''">
                 and object_id =#{objId}
           	 </if>
-          	 <if test="objType != null and objType !=''">
-                and object_type =#{objType}
+          	 <if test="objModule != null and objModule !=''">
+                and object_type =#{objModule}
           	 </if>
         </where>
     </sql>
