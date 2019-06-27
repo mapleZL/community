@@ -26,6 +26,42 @@
     create_user_id, create_time, modify_user_id, modify_time, sts, org_code, top_org_code, 
     car_num, type
   </sql>
+
+  <select id="getAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    id,
+    parking_lot_id,
+    name,
+    phone,
+    house_id,
+    relationship,
+    case status when 'Y' then '使用中' else '未使用' end as status,
+    order_time,
+    wechat_user_id,
+    create_user_id,
+    create_time,
+    modify_user_id,
+    modify_time,
+    sts,
+    org_code,
+    top_org_code,
+    car_num,
+    case type when 'B' then '访客车位' else '孝心车位' end as type
+    FROM
+    st_baseinfo_parking_lot_order
+    where org_code = #{villageCode}
+    <if test="sts != null and sts != ''">
+      and status = #{sts}
+    </if>
+     <if test="type != null and type != ''">
+       and type = #{type}
+     </if>
+    order by create_time desc
+  </select>
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

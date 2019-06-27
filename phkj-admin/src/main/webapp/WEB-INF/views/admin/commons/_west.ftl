@@ -202,6 +202,9 @@
 				<@shiro.hasPermission name="/admin/visit">
 					<a href="javascript:void(0);" onclick="addTab('访客记录', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/visit')">访客记录</a>
 				</@shiro.hasPermission>
+				<@shiro.hasPermission name="/admin/visparking">
+					<a href="javascript:void(0);" onclick="addTab('智慧停车', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/visit/applyLot')">智慧停车</a>
+				</@shiro.hasPermission>
             </div>
 	</@shiro.hasPermission>
 
