@@ -57,6 +57,7 @@ public class MemberPetController {
 
     /**
      * 通过申请接口
+     *
      * @param request
      * @return
      */
@@ -70,7 +71,7 @@ public class MemberPetController {
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
             Integer userId = adminUser.getId();
             String name = adminUser.getName();
-            if (iMemberPetService.systemUpdatePet(id, type,userId,name)) {
+            if (iMemberPetService.systemUpdatePet(id, type, userId, name)) {
                 responseUtil.setSuccess(true);
             }
         } catch (Exception e) {
@@ -79,6 +80,38 @@ public class MemberPetController {
         }
         return responseUtil;
     }
+
+
+    /**
+     * 通过申请接口
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/system/wx/updatePet")
+    public ResponseUtil systemWxUpdate(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        String id = request.getParameter("id");
+        String type = request.getParameter("type");
+        String userId = request.getParameter("userId");
+        String name = request.getParameter("userName");
+        if (type.equals("1")) {
+            type = "pass";
+        } else if (type.equals("2")) {
+            type = "noPass";
+        }
+        try {
+            if (iMemberPetService.systemUpdatePet(id, type, Integer.valueOf(userId), name)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("审批失败!" + e);
+        }
+        return responseUtil;
+    }
+
 
     /**
      * 后台管理页面列表页
@@ -95,7 +128,31 @@ public class MemberPetController {
         String sts = request.getParameter("q_status");
         HttpJsonResult<List<StAppletPetWithBLOBs>> jsonResult = new HttpJsonResult<List<StAppletPetWithBLOBs>>();
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
-        PageInfo<StAppletPetWithBLOBs> pageInfo = iMemberPetService.getAllPetList(page, rows, sts,adminUser.getVillageCode());
+        PageInfo<StAppletPetWithBLOBs> pageInfo = iMemberPetService.getAllPetList(page, rows, sts, adminUser.getVillageCode());
+        String total = String.valueOf(pageInfo.getTotal());
+        jsonResult.setRows(pageInfo.getList());
+        jsonResult.setTotal(Integer.valueOf(total));
+        return jsonResult;
+    }
+
+
+    /**
+     * 后台管理页面列表页
+     *
+     * @param request
+     * @param page
+     * @param rows
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/system/wx/getAllPetList")
+    public HttpJsonResult<List<StAppletPetWithBLOBs>> getWxAllPetList(HttpServletRequest request, Integer page,
+                                                                      Integer rows) {
+        String sts = request.getParameter("status");
+        String villageCode = request.getParameter("villageCode");
+        HttpJsonResult<List<StAppletPetWithBLOBs>> jsonResult = new HttpJsonResult<List<StAppletPetWithBLOBs>>();
+        SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        PageInfo<StAppletPetWithBLOBs> pageInfo = iMemberPetService.getAllPetList(page, rows, sts, villageCode);
         String total = String.valueOf(pageInfo.getTotal());
         jsonResult.setRows(pageInfo.getList());
         jsonResult.setTotal(Integer.valueOf(total));
@@ -209,7 +266,7 @@ public class MemberPetController {
             String userId = request.getParameter("userId");
             String sts = request.getParameter("sts");
             String villageCode = request.getParameter("villageCode");
-            PageInfo<Map<String, Object>> pageInfo = iMemberPetService.getMePetListByPage(userId, sts, pageNum, pageSize,villageCode);
+            PageInfo<Map<String, Object>> pageInfo = iMemberPetService.getMePetListByPage(userId, sts, pageNum, pageSize, villageCode);
             Map<String, Object> map = new HashMap<>();
             map.put("list", pageInfo.getList());
             map.put("total", pageInfo.getTotal());
