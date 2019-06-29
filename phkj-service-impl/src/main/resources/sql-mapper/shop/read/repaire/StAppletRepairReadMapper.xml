@@ -39,6 +39,9 @@
 			<if test="createUserId != null and createUserId !=''">
 				and create_user_id = #{createUserId}
 			</if>
+			<if test="repairId != null and repairId != ''">
+			    and repair_id = #{repairId}
+			</if>
 			<if test="villageCode != null and villageCode !=''">
 				and village_code = #{villageCode}
 			</if>

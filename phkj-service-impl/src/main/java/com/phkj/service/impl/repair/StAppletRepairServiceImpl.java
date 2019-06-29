@@ -131,13 +131,14 @@ public class StAppletRepairServiceImpl implements IStAppletRepairService {
      */
     @Override
     public ServiceResult<List<StAppletRepair>> getStAppletRepairList(String createUserId,
+                                                                     String repairId,
                                                                      String villageCode,
                                                                      int pageNum, int pageSize,
                                                                      Integer status) {
         ServiceResult<List<StAppletRepair>> result = new ServiceResult<>();
         try {
             pageNum = (pageNum - 1) * pageSize;
-            result.setResult(stAppletRepairModel.getStAppletRepairList(createUserId, villageCode,
+            result.setResult(stAppletRepairModel.getStAppletRepairList(createUserId, repairId, villageCode,
                 pageNum, pageSize, status));
         } catch (BusinessException e) {
             result.setSuccess(false);

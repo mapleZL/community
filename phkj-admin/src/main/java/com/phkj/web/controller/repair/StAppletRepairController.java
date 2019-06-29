@@ -232,7 +232,7 @@ public class StAppletRepairController extends BaseController {
 
     /**
      * create by: zl
-     * description: 查看物业报修列表记录
+     * description: 查看物业报修列表记录(物业角色和居民查询通用)
      * create time:
      *
      * @return
@@ -240,15 +240,15 @@ public class StAppletRepairController extends BaseController {
      */
     @RequestMapping(value = "/list", method = { RequestMethod.GET })
     @ResponseBody
-    public ResponseUtil list(String createUserId, String villageCode, int pageNum, int pageSize, Integer status) {
-        if (StringUtils.isBlank(createUserId)) {
+    public ResponseUtil list(String createUserId, String villageCode, int pageNum, int pageSize, Integer status, String repairId) {
+        if (StringUtils.isBlank(createUserId) && StringUtils.isBlank(repairId)) {
             return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(),
-                "createUserId is blank", true, null);
+                "createUserId or repairId is blank", true, null);
         }
         pageNum = pageNum == 0 ? 1 : pageNum;
         pageSize = pageSize == 0 ? 10 : pageSize;
         ServiceResult<List<StAppletRepair>> result = stAppletRepairService
-            .getStAppletRepairList(createUserId, villageCode, pageNum, pageSize, status);
+            .getStAppletRepairList(createUserId, repairId, villageCode, pageNum, pageSize, status);
         return ResponseUtil.createResp(result.getCode(), result.getMessage(), true,
             result.getResult());
     }
