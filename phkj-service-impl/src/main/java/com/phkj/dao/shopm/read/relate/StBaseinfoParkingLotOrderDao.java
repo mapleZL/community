@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface StBaseinfoParkingLotOrderDao {
@@ -22,4 +23,8 @@ public interface StBaseinfoParkingLotOrderDao {
 
     List<StBaseinfoParkingLotOrder> getAll(@Param("sts") String sts, @Param("type") String type,
                                            @Param("villageCode") String villageCode);
+
+
+    List<Map<String, Object>> systemParkingLot(@Param("orgCode") String villageCode,
+                                               @Param("userId") String userId);
 }

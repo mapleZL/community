@@ -1,5 +1,6 @@
 package com.phkj.web.controller.member;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.pagehelper.PageInfo;
 import com.phkj.entity.relate.StBaseinfoParkingLotOrder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
@@ -286,19 +288,6 @@ public class MemberParkingLotController extends BaseController {
         }
     }
 
-    /**
-     *
-     */
-    @ResponseBody
-    @RequestMapping("/apply")
-    public ResponseUtil applyParkingLot(@RequestBody StBaseinfoParkingLotOrder parkingLotOrder) {
-        ResponseUtil responseUtil = new ResponseUtil();
-        if (stBaseinfoParkingLotService.applyParkingLot(parkingLotOrder)) {
-            responseUtil.setSuccess(true);
-        }
-        return responseUtil;
-    }
-
 
     /**
      * 新版立即预约车位
@@ -319,6 +308,46 @@ public class MemberParkingLotController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             log.error("预约车位失败!, exception:{}", e);
+        }
+        return responseUtil;
+    }
+
+
+    /**
+     *
+     */
+    @ResponseBody
+    @RequestMapping("/systemParkingLot")
+    public ResponseUtil systemParkingLot(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            String villageCode = request.getParameter("villageCode");
+            String userId = request.getParameter("userId");
+            String page = request.getParameter("page");
+            String rows = request.getParameter("rows");
+            PageInfo<Map<String, Object>> pageInfo = stBaseinfoParkingLotService.systemParkingLot(villageCode, userId, page, rows);
+            // 处理数据
+            Map<String, Object> returnMap = new HashMap<>();
+            returnMap.put("total", pageInfo.getTotal());
+            returnMap.put("list", pageInfo.getList());
+            responseUtil.setSuccess(true);
+            responseUtil.setData(returnMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("查询车位失败!, exception:{}", e);
+        }
+        return responseUtil;
+    }
+
+    /**
+     *
+     */
+    @ResponseBody
+    @RequestMapping("/systemApply")
+    public ResponseUtil systemApply(@RequestBody StBaseinfoParkingLotOrder parkingLotOrder) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        if (stBaseinfoParkingLotService.systemApply(parkingLotOrder)) {
+            responseUtil.setSuccess(true);
         }
         return responseUtil;
     }

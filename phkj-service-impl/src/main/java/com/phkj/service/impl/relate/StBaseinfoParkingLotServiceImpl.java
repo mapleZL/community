@@ -4,6 +4,9 @@ import java.util.*;
 
 import javax.annotation.Resource;
 
+import com.github.pagehelper.ISelect;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.phkj.core.redis.RedisComponent;
 import com.phkj.dao.shop.read.member.MemberHouseReadDao;
 import com.phkj.dao.shop.read.visit.StAppletReadVisitDao;
@@ -304,5 +307,40 @@ public class StBaseinfoParkingLotServiceImpl implements IStBaseinfoParkingLotSer
             return "预约失败!";
         }
         return "";
+    }
+
+
+    /**
+     * @param villageCode
+     * @param userId
+     * @param page
+     * @param rows
+     * @return
+     */
+    @Override
+    public PageInfo<Map<String, Object>> systemParkingLot(String villageCode, String userId, String page, String rows) {
+
+        PageInfo<Map<String, Object>> pageInfo = PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(rows)).
+                doSelectPageInfo(new ISelect() {
+                    @Override
+                    public void doSelect() {
+                        parkingLotOrderDao.systemParkingLot(villageCode, userId);
+                    }
+                });
+        return pageInfo;
+    }
+
+    @Override
+    public boolean systemApply(StBaseinfoParkingLotOrder parkingLot) {
+
+        // 如果没问题申请成功
+        parkingLot.setSts("Y");
+        parkingLot.setStatus("Y");
+        parkingLot.setCreateTime(new Date());
+        int i = parkingLotOrderDao.insert(parkingLot);
+        if (i < 0) {
+            return false;
+        }
+        return true;
     }
 }

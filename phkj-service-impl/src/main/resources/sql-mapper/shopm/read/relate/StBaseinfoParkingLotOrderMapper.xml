@@ -20,6 +20,7 @@
     <result column="top_org_code" jdbcType="VARCHAR" property="topOrgCode" />
     <result column="car_num" jdbcType="VARCHAR" property="carNum" />
     <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="apply_type" jdbcType="VARCHAR" property="applyType" />
   </resultMap>
   <sql id="Base_Column_List">
     id, parking_lot_id, name, phone, house_id, relationship, status, order_time, wechat_user_id, 
@@ -59,6 +60,77 @@
     order by create_time desc
   </select>
 
+  <select id="systemParkingLot" resultType="java.util.Map">
+    SELECT
+        new_temp.*,
+        sto.name
+    FROM
+        (
+    SELECT
+        bl.id,
+        bl.org_code,
+        bl.parking_status,
+    CASE
+        bl.sts
+        WHEN 'Y' THEN
+        '2'
+        END AS sts,
+        bl.code,
+        bl.longitude,
+        bl.latitude,
+        bl.type
+    FROM
+        st_baseinfo_parking_lot bl
+        INNER JOIN st_baseinfo_parking_lot_order po ON bl.id = po.parking_lot_id
+        AND po.org_code = #{orgCode}
+        AND po.STATUS = 'Y'
+        AND po.sts = 'Y'
+        AND bl.type IN ( 'E' ) UNION
+    SELECT
+        bl.id,
+        bl.org_code,
+        bl.parking_status,
+    CASE
+        bl.sts
+        WHEN 'Y' THEN
+        '1'
+        END AS sts,
+        bl.code,
+        bl.longitude,
+        bl.latitude,
+        bl.type
+    FROM
+        st_baseinfo_parking_lot bl
+        INNER JOIN st_baseinfo_parking_lot_order po ON bl.id = po.parking_lot_id
+        AND po.wechat_user_id = #{userId}
+        AND po.org_code = #{orgCode}
+        AND po.STATUS = 'Y'
+        AND po.sts = 'Y' UNION
+    SELECT
+        bl.id,
+        bl.org_code,
+        bl.parking_status,
+    CASE
+        bl.sts
+        WHEN 'Y' THEN
+        '0'
+        END AS sts,
+        bl.code,
+        bl.longitude,
+        bl.latitude,
+        bl.type
+    FROM
+        st_baseinfo_parking_lot bl
+    WHERE
+        bl.parking_status = 'N'
+        AND bl.sts = 'Y'
+        AND bl.org_code = #{orgCode}
+        AND bl.id NOT IN ( SELECT parking_lot_id FROM st_baseinfo_parking_lot_order WHERE `status` = 'Y' AND sts = 'Y' )
+        AND bl.type IN ( 'B' )
+        ) new_temp
+        INNER JOIN st_baseinfo_organization sto ON new_temp.org_code = sto.org_code
+	</select>
+
 
 
 
@@ -78,14 +150,14 @@
       status, order_time, wechat_user_id, 
       create_user_id, create_time, modify_user_id, 
       modify_time, sts, org_code, 
-      top_org_code, car_num, type
+      top_org_code, car_num, type,apply_type
       )
     values (#{id,jdbcType=BIGINT}, #{parkingLotId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{houseId,jdbcType=BIGINT}, #{relationship,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{wechatUserId,jdbcType=BIGINT}, 
       #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyUserId,jdbcType=BIGINT}, 
       #{modifyTime,jdbcType=TIMESTAMP}, #{sts,jdbcType=CHAR}, #{orgCode,jdbcType=VARCHAR}, 
-      #{topOrgCode,jdbcType=VARCHAR}, #{carNum,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
+      #{topOrgCode,jdbcType=VARCHAR}, #{carNum,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},#{applyType}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.phkj.entity.relate.StBaseinfoParkingLotOrder">

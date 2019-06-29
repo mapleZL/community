@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 
+ * @author
  */
 public class StBaseinfoParkingLotOrder implements Serializable {
     private Long id;
@@ -67,6 +67,16 @@ public class StBaseinfoParkingLotOrder implements Serializable {
      * 车牌号码
      */
     private String carNum;
+
+    private String applyType;
+
+    public String getApplyType() {
+        return applyType;
+    }
+
+    public void setApplyType(String applyType) {
+        this.applyType = applyType;
+    }
 
     /**
      * 车位类型 B,E

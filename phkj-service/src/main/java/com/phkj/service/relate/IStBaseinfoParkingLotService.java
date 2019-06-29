@@ -3,6 +3,7 @@ package com.phkj.service.relate;
 import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.PageInfo;
 import com.phkj.core.ServiceResult;
 import com.phkj.entity.relate.StBaseinfoParkingLot;
 import com.phkj.entity.relate.StBaseinfoParkingLotOrder;
@@ -80,4 +81,18 @@ public interface IStBaseinfoParkingLotService {
      */
     String applyParking(StBaseinfoParkingLotOrder parkingLot);
 
+    /**
+     * @param villageCode
+     * @param userId
+     * @param page
+     * @param rows
+     * @return
+     */
+    PageInfo<Map<String, Object>> systemParkingLot(String villageCode, String userId, String page, String rows);
+
+    /**
+     * @param parkingLotOrder
+     * @return
+     */
+    boolean systemApply(StBaseinfoParkingLotOrder parkingLotOrder);
 }
