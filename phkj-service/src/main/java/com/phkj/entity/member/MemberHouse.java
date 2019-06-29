@@ -64,6 +64,7 @@ public class MemberHouse implements Serializable {
     private java.lang.String  unit;
     private java.lang.Long    roomId;
     private java.lang.String  room;
+    private String            houseCode;
     private java.lang.String  identityInformation;
     private java.lang.String  name;
     private java.lang.String  idNumber;
@@ -489,4 +490,13 @@ public class MemberHouse implements Serializable {
     public void setVillageCode(String villageCode) {
         this.villageCode = villageCode;
     }
+
+    public String getHouseCode() {
+        return houseCode;
+    }
+
+    public void setHouseCode(String houseCode) {
+        this.houseCode = houseCode;
+    }
+
 }

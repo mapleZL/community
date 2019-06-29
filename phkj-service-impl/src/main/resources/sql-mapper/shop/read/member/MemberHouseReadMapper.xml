@@ -19,6 +19,7 @@
 			<result property="unit" column="unit" />
 			<result property="roomId" column="room_id" />
 			<result property="room" column="room" />
+			<result property="houseCode" column="house_code"/>
 			<result property="identityInformation" column="identity_information" />
 			<result property="name" column="name" />
 			<result property="idNumber" column="id_number" />

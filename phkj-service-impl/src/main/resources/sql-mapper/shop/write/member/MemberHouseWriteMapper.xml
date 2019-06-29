@@ -13,6 +13,7 @@
 			<result property="building" column="building" />
 			<result property="unit" column="unit" />
 			<result property="room" column="room" />
+			<result property="houseCode" column="house_code"/>
 			<result property="identityInformation" column="identity_information" />
 			<result property="name" column="name" />
 			<result property="idNumber" column="id_number" />
@@ -40,6 +41,7 @@
 			<if test="building != null">`building`= #{building},</if>
 			<if test="unit != null">`unit`= #{unit},</if>
 			<if test="room != null">`room`= #{room},</if>
+			<if test="houseCode != null and houseCode != ''">`house_code` = #{houseCode}</if>
 			<if test="identityInformation != null">`identity_information`= #{identityInformation},</if>
 			<if test="name != null">`name`= #{name},</if>
 			<if test="idNumber != null">`id_number`= #{idNumber},</if>
@@ -78,6 +80,7 @@
 			`unit_id`,
 			`room`,
 			`room_id`,
+			`house_code`,
 			`identity_information`,
 			`name`,
 			`id_number`,
@@ -111,6 +114,7 @@
 			#{unitId},
 			#{room},
 			#{roomId},
+			#{houseCode},
 			#{identityInformation},
 			#{name},
 			#{idNumber},
