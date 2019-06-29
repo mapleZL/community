@@ -71,7 +71,7 @@ public class MemberPetController {
             SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
             Integer userId = adminUser.getId();
             String name = adminUser.getName();
-            if (iMemberPetService.systemUpdatePet(id, type, userId, name)) {
+            if (iMemberPetService.systemUpdatePet(id, type, userId, name, "")) {
                 responseUtil.setSuccess(true);
             }
         } catch (Exception e) {
@@ -96,13 +96,14 @@ public class MemberPetController {
         String type = request.getParameter("type");
         String userId = request.getParameter("userId");
         String name = request.getParameter("userName");
+        String msg = request.getParameter("msg");
         if (type.equals("1")) {
             type = "pass";
         } else if (type.equals("2")) {
             type = "noPass";
         }
         try {
-            if (iMemberPetService.systemUpdatePet(id, type, Integer.valueOf(userId), name)) {
+            if (iMemberPetService.systemUpdatePet(id, type, Integer.valueOf(userId), name,msg)) {
                 responseUtil.setSuccess(true);
             }
         } catch (Exception e) {

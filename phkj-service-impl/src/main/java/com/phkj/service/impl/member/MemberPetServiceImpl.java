@@ -32,10 +32,11 @@ public class MemberPetServiceImpl implements IMemberPetService {
      * @param type
      * @param userId
      * @param name
+     * @param msg
      * @return
      */
     @Override
-    public boolean systemUpdatePet(String id, String type, Integer userId, String name) {
+    public boolean systemUpdatePet(String id, String type, Integer userId, String name, String message) {
 
         StAppletPetWithBLOBs pet = stAppletPetReadDao.selectByPrimaryKey(Long.valueOf(id));
         if (null != pet) {
@@ -53,6 +54,7 @@ public class MemberPetServiceImpl implements IMemberPetService {
             }
             pet.setModifyTime(new Date());
             pet.setModifyUserId(userId.toString());
+            pet.setMsg(message);
             int i = stAppletPetReadDao.updateByPrimaryKeySelective(pet);
             if (i > 0) {
                 StAppletRecord record = new StAppletRecord();

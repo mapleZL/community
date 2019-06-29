@@ -20,5 +20,5 @@ public interface IMemberPetService {
 
     PageInfo<StAppletPetWithBLOBs> getAllPetList(Integer page, Integer rows, String sts, String villageCode);
 
-    boolean systemUpdatePet(String id, String type, Integer userId, String name);
+    boolean systemUpdatePet(String id, String type, Integer userId, String name, String msg);
 }
