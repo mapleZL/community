@@ -61,6 +61,30 @@ public class ParkingController {
         return responseUtil;
     }
 
+
+    @ResponseBody
+    @RequestMapping("/system/wx/update")
+    public ResponseUtil systemWxUpdateParking(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            String id = request.getParameter("id");
+            String type = request.getParameter("type");
+            String userId = request.getParameter("userId");
+            String userName = request.getParameter("userName");
+            SystemAdmin adminUser = new SystemAdmin();
+            adminUser.setId(Integer.valueOf(userId));
+            adminUser.setName(userName);
+            if (parkingService.systemUpdateParking(id, type, adminUser)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("更新失败!");
+        }
+        return responseUtil;
+    }
+
+
     /**
      * 后台管理查询所有
      *
@@ -86,6 +110,34 @@ public class ParkingController {
         }
         return resultJson;
     }
+
+
+    /**
+     * 后台管理查询所有
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/system/wx/getSystemAll")
+    public HttpJsonResult<List<StAppletParking>> getWxSystemAll(HttpServletRequest request) {
+        HttpJsonResult<List<StAppletParking>> resultJson = new HttpJsonResult<List<StAppletParking>>();
+        try {
+            String sts = request.getParameter("status");
+            String villageCode = request.getParameter("villageCode");
+            String page = request.getParameter("page");
+            String rows = request.getParameter("rows");
+            PageInfo<StAppletParking> pageInfo = parkingService.getSystemAll("0", page, rows, villageCode);
+            String total = String.valueOf(pageInfo.getTotal());
+            resultJson.setRows(pageInfo.getList());
+            resultJson.setTotal(Integer.valueOf(total));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("查询失败!" + e);
+        }
+        return resultJson;
+    }
+
 
     /**
      * 删除

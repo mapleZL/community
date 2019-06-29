@@ -211,11 +211,12 @@ public class ShareController {
      *
      * @param request
      * @param shareInfo
-     * @param modelMap
+     * @param
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "/system/wx/addShare", method = RequestMethod.POST)
-    public ResponseUtil systemWxAddShare(HttpServletRequest request, StAppletShareInfo shareInfo, ModelMap modelMap) {
+    public ResponseUtil systemWxAddShare(HttpServletRequest request,@RequestBody StAppletShareInfo shareInfo) {
         ResponseUtil responseUtil = new ResponseUtil();
         shareInfo.setCreateTime(new Date());
         shareInfo.setShareStatus("0");
