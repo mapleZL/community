@@ -175,11 +175,6 @@ public class LostFoundServiceImpl implements LostFoundService {
 
     @Override
     public boolean addSystemLostFound(StAppletLostFound stAppletLostFound, SystemAdmin adminUser) {
-
-        stAppletLostFound.setCreateUserId(adminUser.getId().toString());
-        stAppletLostFound.setModifyUserName(adminUser.getName());
-        stAppletLostFound.setModifyUserId(adminUser.getId().toString());
-        stAppletLostFound.setVillageCode(adminUser.getVillageCode());
         stAppletLostFound.setStatus("2");
         stAppletLostFound.setSts("1");
         stAppletLostFound.setCreateTime(new Date());

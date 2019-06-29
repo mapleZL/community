@@ -76,11 +76,32 @@ public class LostFoundController {
     public String systemAddLostFound(StAppletLostFound stAppletLostFound, HttpServletRequest request) {
         ResponseUtil responseUtil = new ResponseUtil();
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+        stAppletLostFound.setCreateUserId(adminUser.getId().toString());
+        stAppletLostFound.setModifyUserName(adminUser.getName());
+        stAppletLostFound.setModifyUserId(adminUser.getId().toString());
+        stAppletLostFound.setVillageCode(adminUser.getVillageCode());
         if (lostFoundService.addSystemLostFound(stAppletLostFound, adminUser)) {
             responseUtil.setSuccess(true);
         }
         return "redirect:/admin/lost/system/";
     }
+
+    /**
+     * 物业发布
+     *
+     * @param stAppletLostFound
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/system/wx/addLostFound")
+    public ResponseUtil systemWxAddLostFound(@RequestBody StAppletLostFound stAppletLostFound, HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        if (lostFoundService.addSystemLostFound(stAppletLostFound, null)) {
+            responseUtil.setSuccess(true);
+        }
+        return responseUtil;
+    }
+
 
     /**
      * 社区管理 删除
@@ -118,6 +139,37 @@ public class LostFoundController {
             String sts = request.getParameter("q_sts");
             PageInfo<StAppletLostFound> pageInfo = lostFoundService.getSystemLostFoundList(page, rows, type,
                     sts, adminUser.getVillageCode());
+            String total = String.valueOf(pageInfo.getTotal());
+            jsonResult.setRows(pageInfo.getList());
+            jsonResult.setTotal(Integer.valueOf(total));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("查询失败!");
+        }
+        return jsonResult;
+    }
+
+
+    /**
+     * 列表大厅
+     *
+     * @param page
+     * @param rows
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/system/wx/getSystemLostFoundList")
+    public HttpJsonResult<List<StAppletLostFound>> getWxSystemLostFoundList(Integer page, Integer rows,
+                                                                            HttpServletRequest request) {
+        HttpJsonResult<List<StAppletLostFound>> jsonResult = new HttpJsonResult<List<StAppletLostFound>>();
+        try {
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            String type = request.getParameter("type");
+            String sts = request.getParameter("sts");
+            String villageCode = request.getParameter("villageCode");
+            PageInfo<StAppletLostFound> pageInfo = lostFoundService.getSystemAllLostFound(page, rows, type,
+                    sts, villageCode);
             String total = String.valueOf(pageInfo.getTotal());
             jsonResult.setRows(pageInfo.getList());
             jsonResult.setTotal(Integer.valueOf(total));

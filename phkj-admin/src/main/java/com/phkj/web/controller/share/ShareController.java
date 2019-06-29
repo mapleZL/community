@@ -171,7 +171,7 @@ public class ShareController {
         String userId = request.getParameter("userId");
         String villageCode = request.getParameter("villageCode");
         try {
-            Map<String, Object> returnMap = shareService.getMeApplyInfoList(status, userId, pageNum, pageSize,villageCode);
+            Map<String, Object> returnMap = shareService.getMeApplyInfoList(status, userId, pageNum, pageSize, villageCode);
             responseUtil.setData(returnMap);
             responseUtil.setSuccess(true);
         } catch (Exception e) {
@@ -207,6 +207,26 @@ public class ShareController {
     }
 
     /**
+     * 发布新任务
+     *
+     * @param request
+     * @param shareInfo
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/system/wx/addShare", method = RequestMethod.POST)
+    public ResponseUtil systemWxAddShare(HttpServletRequest request, StAppletShareInfo shareInfo, ModelMap modelMap) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        shareInfo.setCreateTime(new Date());
+        shareInfo.setShareStatus("0");
+        shareInfo.setShareType("2");  // 物业发布信息
+        if (shareService.createShareInfo(shareInfo)) {
+            responseUtil.setSuccess(true);
+        }
+        return responseUtil;
+    }
+
+    /**
      * 后台管理 获取发布大厅信息
      *
      * @param request
@@ -229,7 +249,7 @@ public class ShareController {
             userId = adminUser.getId();
         }
         String villageCode = adminUser.getVillageCode();
-        Map<String, Object> returnMap = shareService.getComShareInfoList(userId, taskType, status, page, rows,villageCode);
+        Map<String, Object> returnMap = shareService.getComShareInfoList(userId, taskType, status, page, rows, villageCode);
         String total = (String) returnMap.get("total");
         List<Map> list = (List<Map>) returnMap.get("list");
         jsonResult.setRows(list);
@@ -277,7 +297,37 @@ public class ShareController {
             String taskType = request.getParameter("q_taskType");
             String status = request.getParameter("q_status");
             String villageCode = adminUser.getVillageCode();
-            Map<String, Object> returnMap = shareService.getShareInfoList(taskType, status, page, rows,villageCode);
+            Map<String, Object> returnMap = shareService.getShareInfoList(taskType, status, page, rows, villageCode);
+            String total = (String) returnMap.get("total");
+            List<Map> list = (List<Map>) returnMap.get("list");
+            jsonResult.setRows(list);
+            jsonResult.setTotal(Integer.valueOf(total));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("查询失败! 错误信息" + e);
+        }
+        return jsonResult;
+    }
+
+    /**
+     * 后台管理页面
+     *
+     * @param request
+     * @param page
+     * @param rows
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/wx/getShareInfoList", method = RequestMethod.GET)
+    public HttpJsonResult<List<Map>> getWxShareInfoList(HttpServletRequest request, Integer page,
+                                                        Integer rows) {
+        HttpJsonResult<List<Map>> jsonResult = new HttpJsonResult<List<Map>>();
+        try {
+            SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
+            String taskType = request.getParameter("taskType");
+            String status = request.getParameter("status");
+            String villageCode = request.getParameter("villageCode");
+            Map<String, Object> returnMap = shareService.getShareInfoList(taskType, status, page, rows, villageCode);
             String total = (String) returnMap.get("total");
             List<Map> list = (List<Map>) returnMap.get("list");
             jsonResult.setRows(list);
@@ -324,7 +374,7 @@ public class ShareController {
             String userId = request.getParameter("userId");
             String taskType = request.getParameter("taskType");
             String villageCode = request.getParameter("villageCode");
-            Map<String, Object> returnMap = shareService.getMeShareInfo(userId, taskType, pageNum, pageSize,villageCode);
+            Map<String, Object> returnMap = shareService.getMeShareInfo(userId, taskType, pageNum, pageSize, villageCode);
             responseUtil.setSuccess(true);
             responseUtil.setData(returnMap);
         } catch (Exception e) {
