@@ -31,7 +31,7 @@
         content,
         email,
         case type when '1' then '投诉' else '意见反馈' end  as 'type' ,
-        case sts when '0' then '未审核' else  'selectAllMeComplaint' end as 'sts',
+        case sts when '0' then '未审核' else  '已审核' end as 'sts',
         create_time,
         create_user_id,
         create_name,
@@ -70,7 +70,10 @@
         img_url ,
         village_code
         from st_applet_com_sugges
-        where  create_user_id = #{userId} and `type` = #{type} and village_code = #{villageCode}
+        where  create_user_id = #{userId} and village_code = #{villageCode}
+        <if test="type != null and type != ''">
+          and `type` = #{type}
+        </if>
     </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
