@@ -152,7 +152,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
         <thead>
         <tr>
             <th field="id" hidden="hidden"></th>
-            <th field="type" width="70" align="center">环境分类</th>
+            <th field="type" width="70" align="center">分类</th>
             <th field="title" width="80" align="center">标题</th>
             <th field="content" width="100" align="center">内容</th>
             <th field="createTime" width="70" align="center">发布时间</th>
