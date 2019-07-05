@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -65,12 +66,12 @@ public class HotEventController {
     private IStAppletUserBrowseService       stAppletUserBrowseService;
     @Autowired
     private IStAppletCollectionManageService collectionManageService;
-    
+
     @RequestMapping(value = "/add", method = { RequestMethod.GET })
     public String getList(Map<String, Object> dataMap) throws Exception {
         return "/admin/event/hoteventadd";
     }
-    
+
     //待审核商品列表
     @RequestMapping(value = "/view", method = { RequestMethod.GET })
     public String examineSale(HttpServletRequest request, Map<String, Object> dataMap) {
@@ -90,7 +91,8 @@ public class HotEventController {
     @ResponseBody
     @RequestMapping(value = "/create", method = { RequestMethod.POST })
     public HttpJsonResult<Object> create(StAppletHotEvents event, HttpServletRequest request,
-                                         Map<String, Object> dataMap) throws IOException, ParseException {
+                                         Map<String, Object> dataMap) throws IOException,
+                                                                      ParseException {
         HttpJsonResult<Object> jsonResult = new HttpJsonResult<>();
         SystemAdmin user = WebAdminSession.getAdminUser(request);
         if (null == user) {
@@ -117,10 +119,10 @@ public class HotEventController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String postBegin = request.getParameter("begin");
         String postEnd = request.getParameter("end");
-        
+
         event.setPostBegin(sdf.parse(postBegin));
         event.setPostEnd(sdf.parse(postEnd));
-        
+
         String pics = request.getParameter("imageSrc");
         if (!StringUtil.isEmpty(pics)) {
             event.setImg(pics);
@@ -132,6 +134,28 @@ public class HotEventController {
         }
 
         return result;
+    }
+
+    /**
+     * 物业端增加热门活动
+     * @param event
+     * @param request
+     * @return
+     * @throws IOException
+     * @throws ParseException
+     */
+    @ResponseBody
+    @RequestMapping(value = "/wxCreate", method = { RequestMethod.POST })
+    public HttpJsonResult<Object> create(@RequestBody StAppletHotEvents event,
+                                         HttpServletRequest request) throws IOException,
+                                                                     ParseException {
+        HttpJsonResult<Object> jsonResult = new HttpJsonResult<>();
+        event.setCreateTime(new Date());
+        ServiceResult<Integer> result = hotEventsService.saveStAppletHotEvents(event);
+        if (!result.getSuccess()) {
+            jsonResult.setMessage(result.getMessage());
+        }
+        return jsonResult;
     }
 
     /**
@@ -262,16 +286,18 @@ public class HotEventController {
      */
     @ResponseBody
     @RequestMapping(value = "/detail", method = { RequestMethod.GET })
-    public HttpJsonResult<StAppletHotEvents> detail(Long id, Integer memberId, HttpServletRequest request) {
+    public HttpJsonResult<StAppletHotEvents> detail(Long id, Integer memberId,
+                                                    HttpServletRequest request) {
         HttpJsonResult<StAppletHotEvents> result = new HttpJsonResult<>();
-        StAppletHotEvents event = hotEventsService.getStAppletHotEventsById(id.intValue()).getResult();
-        
+        StAppletHotEvents event = hotEventsService.getStAppletHotEventsById(id.intValue())
+            .getResult();
+
         StBrowse stBrowse = null;
         String redisKey = null;
         Long collectionManage = null;
         Long comment = null;
         Long browse = 0L;
-        
+
         if (StringUtils.isNotBlank(event.getImg())) {
             String[] imgs = event.getImg().split(",");
             event.setImgs(Arrays.asList(imgs));
@@ -281,8 +307,7 @@ public class HotEventController {
         redisKey = RedisSychroKeyConfig.REDIS_CODE_BROWSE_PREFIX + event.getId();
         browse = redisComponet.increment(redisKey, 0L);
         if (browse == 0) {
-            stBrowse = browseService.getBrowseByNoticeId(id)
-                .getResult();
+            stBrowse = browseService.getBrowseByNoticeId(id).getResult();
             if (stBrowse != null) {
                 browse = stBrowse.getBrowseVolume();
             }
@@ -296,21 +321,18 @@ public class HotEventController {
         }
 
         // 获取收藏数量
-        collectionManage = collectionManageService
-            .getCountByNoticeid(id).getResult();
+        collectionManage = collectionManageService.getCountByNoticeid(id).getResult();
         if (collectionManage == null) {
             collectionManage = 0L;
         }
         event.setCollect(collectionManage);
-        Integer num = collectionManageService
-            .getCollectionCount(memberId, id).getResult();
+        Integer num = collectionManageService.getCollectionCount(memberId, id).getResult();
         if (num != null && num > 0) {
             event.setHasCollect(true);
         }
 
         // 获取评论数量
-        comment = commentService.getCountByRId(id, "notice")
-            .getResult();
+        comment = commentService.getCountByRId(id, "notice").getResult();
         if (comment == null) {
             comment = 0L;
         }
@@ -319,7 +341,7 @@ public class HotEventController {
         if (num != null && num > 0) {
             event.setHasComment(true);
         }
-        
+
         result.setData(event);
         return result;
     }
