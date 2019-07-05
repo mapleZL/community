@@ -41,5 +41,10 @@ public interface IStBaseinfoStaffsService {
      */
     ServiceResult<List<PropertiItem>> getStaffsOnDutyList();
 
+    /**
+     * 校验是否是是物业人员
+     * @param admin
+     * @return
+     */
     boolean checkAdminUser(SystemAdmin admin);
 }
