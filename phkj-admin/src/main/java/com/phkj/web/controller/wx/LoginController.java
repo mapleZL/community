@@ -99,7 +99,7 @@ public class LoginController {
             if (admin != null) {
                 jsonObject.put("id", admin.getId());
                 jsonObject.put("name", admin.getName());
-                jsonObject.put("roleId", admin.getRoleId());
+                jsonObject.put("idNo", admin.getIdNo());
             } else {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "用户名或密码错误", false, jsonObject);
             }
