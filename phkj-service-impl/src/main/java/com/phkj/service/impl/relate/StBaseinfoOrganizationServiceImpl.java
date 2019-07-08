@@ -98,4 +98,9 @@ public class StBaseinfoOrganizationServiceImpl implements IStBaseinfoOrganizatio
     public List<String> getRelationOrgations(String villageCode) {
         return stBaseinfoOrganizationModel.getRelationOrgations(villageCode);
     }
+
+    @Override
+    public StBaseinfoOrganization getOrganization(String villageCode) {
+        return stBaseinfoOrganizationModel.getOrganization(villageCode);
+    }
 }

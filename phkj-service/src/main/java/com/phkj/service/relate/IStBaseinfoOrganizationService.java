@@ -41,4 +41,11 @@ public interface IStBaseinfoOrganizationService {
      * @return
      */
     List<String> getRelationOrgations(String villageCode);
+
+    /**
+     * 查询小区code对应的小区名
+     * @param villageCode
+     * @return
+     */
+    StBaseinfoOrganization getOrganization(String villageCode);
 }

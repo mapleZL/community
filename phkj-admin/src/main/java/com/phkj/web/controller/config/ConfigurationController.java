@@ -7,6 +7,8 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.formula.functions.IfFunc;
+import org.omg.CORBA.ULongLongSeqHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,7 @@ import com.phkj.entity.relate.StBaseinfoResidentCar;
 import com.phkj.entity.relate.StBaseinfoResidentinfo;
 import com.phkj.entity.relate.StBaseinfoUnits;
 import com.phkj.service.relate.IStBaseinfoHousesService;
+import com.phkj.service.relate.IStBaseinfoOrganizationService;
 import com.phkj.service.relate.IStBaseinfoParkingLotService;
 import com.phkj.service.relate.IStBaseinfoPersonStockService;
 import com.phkj.service.relate.IStBaseinfoResidentCarService;
@@ -61,6 +64,8 @@ public class ConfigurationController {
     private IStBaseinfoParkingLotService   parkingLotService;
     @Autowired
     private IStBaseinfoHousesService       houseServce;
+    @Autowired
+    private IStBaseinfoOrganizationService organizationService;
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/linkage", method = RequestMethod.GET)
@@ -105,10 +110,10 @@ public class ConfigurationController {
                 returnObj = unitMap.get(relateId);
             } else if (configCode.equals(RedisSychroKeyConfig.CODE_HOUSE_SYN)) {
                 //TODO 此处待优化
-//                Map<Long, Map<Long, List<StBaseinfoHouses>>> houseMap = JSONObject
-//                    .parseObject(jsonString, Map.class);
-//                Map<Long, List<StBaseinfoHouses>> secondMap = houseMap.get(relateId);
-//                returnObj = secondMap.get(unitId);
+                //                Map<Long, Map<Long, List<StBaseinfoHouses>>> houseMap = JSONObject
+                //                    .parseObject(jsonString, Map.class);
+                //                Map<Long, List<StBaseinfoHouses>> secondMap = houseMap.get(relateId);
+                //                returnObj = secondMap.get(unitId);
                 List<StBaseinfoHouses> list = houseServce.getHouseSpriner(relateId, unitId);
                 returnObj = list;
             }
@@ -151,5 +156,22 @@ public class ConfigurationController {
                 "查询居民车位发生错误", false, null);
         }
         return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true, list);
+    }
+
+    @RequestMapping("/getVillageName")
+    public @ResponseBody ResponseUtil getVillageName(@RequestParam("villageCode") String villageCode) {
+        StBaseinfoOrganization stBaseinfoOrganization = null;
+        try {
+            stBaseinfoOrganization = organizationService.getOrganization(villageCode);
+            if (stBaseinfoOrganization != null && StringUtils.isNotBlank(stBaseinfoOrganization.getName())) {
+                return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), null, true, stBaseinfoOrganization.getName());
+            } else {
+                return ResponseUtil.createResp(ResponseStateEnum.STATUS_OK.getCode(), "暂无对应数据", true, null);
+            }
+        } catch (Exception e) {
+            log.error("查询小区名称失败：", e);
+            return ResponseUtil.createResp(ResponseStateEnum.STATUS_SERVER_ERROR.getCode(),
+                "查询小区名称失败", false, null);
+        }
     }
 }

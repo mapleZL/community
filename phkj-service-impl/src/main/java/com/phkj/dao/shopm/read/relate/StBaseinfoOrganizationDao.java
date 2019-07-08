@@ -21,4 +21,6 @@ public interface StBaseinfoOrganizationDao {
     List<StBaseinfoOrganization> getOrganizationByRegion(@Param("region") String region);
 
     List<String> getRelationOrgations(@Param("orgCode") String villageCode);
+
+    StBaseinfoOrganization getOrganization(@Param("orgCode") String villageCode);
 }
