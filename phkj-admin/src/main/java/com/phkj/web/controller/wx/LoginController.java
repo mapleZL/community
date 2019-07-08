@@ -100,6 +100,7 @@ public class LoginController {
                 jsonObject.put("id", admin.getId());
                 jsonObject.put("name", admin.getName());
                 jsonObject.put("idNo", admin.getIdNo());
+                jsonObject.put("villageCode", admin.getVillageCode());
             } else {
                 return ResponseUtil.createResp(ResponseStateEnum.PARAM_EMPTY.getCode(), "用户名或密码错误", false, jsonObject);
             }
