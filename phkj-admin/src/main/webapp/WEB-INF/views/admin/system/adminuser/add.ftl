@@ -1,6 +1,6 @@
 <#assign
 currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
-
+<script src="${(domainUrlUtil.EJS_STATIC_RESOURCES)!}/resources/admin/jslib/js/pinyin.js"></script>
 <script>
 	$(function() {
 		$("#addBtn").click(function() {
@@ -39,6 +39,13 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
 		$("#editWin,window.parent.document").window("close");
 	}
 	
+	function getPinyin() {
+		if ($("#relName").val()) {
+			var p = pinyin.getCommonChars($("#relName").val());
+			$("#name").val(p);
+		}
+	}
+	
 </script>
 <div class="formbox-a">
 	<#if !admin??>
@@ -55,8 +62,18 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
 	
 		<div class="form-contbox">
 			<dl class="dl-group">
-
 				<dd class="dd-group">
+					<div class="fluidbox">
+						<p class="p12 p-item">
+							<label class="lab-item"><font class="red">*</font>姓名: </label>
+							<span id="namespan"> <input
+								class="txt w200 easyui-validatebox" type="text" id="relName"
+								onblur="getPinyin()" name="relName" value="${(admin.relName)!}"
+								data-options="validType:'length[1,20]'"
+								class="txt w400" /> <span class="title_span">填写使用人真实姓名</span>
+							</span>
+						</p>
+					</div>
 					<div class="fluidbox">
 						<p class="p12 p-item">
 							<label class="lab-item"><font class="red">*</font>账号: </label>
@@ -98,17 +115,6 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
 								data-options="validType:'length[1,20]'"
 								class="txt w400" /> <span class="title_span">长度为1-20个字符</span>
 
-							</span>
-						</p>
-					</div>
-					<div class="fluidbox">
-						<p class="p12 p-item">
-							<label class="lab-item"><font class="red">*</font>姓名: </label>
-							<span id="namespan"> <input
-								class="txt w200 easyui-validatebox" type="text" id="relName"
-								name="relName" value="${(admin.relName)!}"
-								data-options="validType:'length[1,20]'"
-								class="txt w400" /> <span class="title_span">填写使用人真实姓名</span>
 							</span>
 						</p>
 					</div>
