@@ -121,7 +121,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/seller/manage"/>
 				<div class="fluidbox">
 					<p class="p4 p-item" >
 						<label class="lab-item">内容类型 :</label> <@cont.select id="type"
-						codeDiv="COM_TYPE" name="q_type" style="width:100px"/>
+						codeDiv="COM_TYPE" name="q_type" style="width:100px" value = "1"/>
 					</p>
 					<p class="p4 p-item" >
 						<label class="lab-item">审核结果 :</label> <@cont.select id="sts"
