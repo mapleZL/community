@@ -1,5 +1,6 @@
 package com.phkj.service.impl.event;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +56,7 @@ public class StAppletHotEventsServiceImpl implements IStAppletHotEventsService {
      public ServiceResult<Integer> saveStAppletHotEvents(StAppletHotEvents stAppletHotEvents) {
      	ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
+            stAppletHotEvents.setCreateTime(new Date());
             result.setResult(stAppletHotEventsModel.saveStAppletHotEvents(stAppletHotEvents));
         } catch (BusinessException e) {
             result.setSuccess(false);
