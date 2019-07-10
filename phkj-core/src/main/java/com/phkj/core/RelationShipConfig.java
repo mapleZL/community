@@ -10,6 +10,7 @@ public class RelationShipConfig {
     public Map<String, String> getRelationMap() {
         relationMap = new HashMap<>();
         relationMap.put("业主", "1");
+        relationMap.put("家属", "2");
         relationMap.put("亲属", "3");
         relationMap.put("租客", "6");
         return relationMap;
