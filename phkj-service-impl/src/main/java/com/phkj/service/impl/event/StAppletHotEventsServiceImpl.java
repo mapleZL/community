@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -20,14 +21,15 @@ import com.phkj.service.event.IStAppletHotEventsService;
 
 @Service(value = "stAppletHotEventsService")
 public class StAppletHotEventsServiceImpl implements IStAppletHotEventsService {
-	private static Logger      log = LogManager.getLogger(StAppletHotEventsServiceImpl.class);
-	
-	@Resource
-	private StAppletHotEventsModel stAppletHotEventsModel;
-    
-     /**
+    private static Logger log = LogManager.getLogger(StAppletHotEventsServiceImpl.class);
+
+    @Resource
+    private StAppletHotEventsModel stAppletHotEventsModel;
+
+    /**
      * 根据id取得st_applet_hot_events对象
-     * @param  stAppletHotEventsId
+     *
+     * @param stAppletHotEventsId
      * @return
      */
     @Override
@@ -38,25 +40,33 @@ public class StAppletHotEventsServiceImpl implements IStAppletHotEventsService {
         } catch (BusinessException e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
-            log.error("[IStAppletHotEventsService][getStAppletHotEventsById]根据id["+stAppletHotEventsId+"]取得st_applet_hot_events对象时出现未知异常：" + e.getMessage());
+            log.error("[IStAppletHotEventsService][getStAppletHotEventsById]根据id[" + stAppletHotEventsId + "]取得st_applet_hot_events对象时出现未知异常：" + e.getMessage());
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
-            log.error("[IStAppletHotEventsService][getStAppletHotEventsById]根据id["+stAppletHotEventsId+"]取得st_applet_hot_events对象时出现未知异常：",
-                e);
+            log.error("[IStAppletHotEventsService][getStAppletHotEventsById]根据id[" + stAppletHotEventsId + "]取得st_applet_hot_events对象时出现未知异常：",
+                    e);
         }
         return result;
     }
-    
+
     /**
      * 保存st_applet_hot_events对象
-     * @param  stAppletHotEvents
+     *
+     * @param stAppletHotEvents
      * @return
      */
-     @Override
-     public ServiceResult<Integer> saveStAppletHotEvents(StAppletHotEvents stAppletHotEvents) {
-     	ServiceResult<Integer> result = new ServiceResult<Integer>();
+    @Override
+    public ServiceResult<Integer> saveStAppletHotEvents(StAppletHotEvents stAppletHotEvents) {
+        ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
             stAppletHotEvents.setCreateTime(new Date());
+            String img = stAppletHotEvents.getImg();
+            if (StringUtils.isNotBlank(img)) {
+                int indexOf = img.lastIndexOf(";");
+                if (indexOf != -1) {
+                    stAppletHotEvents.setImg(img.substring(0, indexOf));
+                }
+            }
             result.setResult(stAppletHotEventsModel.saveStAppletHotEvents(stAppletHotEvents));
         } catch (BusinessException e) {
             result.setSuccess(false);
@@ -65,20 +75,21 @@ public class StAppletHotEventsServiceImpl implements IStAppletHotEventsService {
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[IStAppletHotEventsService][saveStAppletHotEvents]保存st_applet_hot_events对象时出现未知异常：",
-                e);
+                    e);
         }
         return result;
-     }
-     
-     /**
+    }
+
+    /**
      * 更新st_applet_hot_events对象
-     * @param  stAppletHotEvents
+     *
+     * @param stAppletHotEvents
      * @return
      * @see com.phkj.service.StAppletHotEventsService#updateStAppletHotEvents(StAppletHotEvents)
      */
-     @Override
-     public ServiceResult<Integer> updateStAppletHotEvents(StAppletHotEvents stAppletHotEvents) {
-     	ServiceResult<Integer> result = new ServiceResult<Integer>();
+    @Override
+    public ServiceResult<Integer> updateStAppletHotEvents(StAppletHotEvents stAppletHotEvents) {
+        ServiceResult<Integer> result = new ServiceResult<Integer>();
         try {
             result.setResult(stAppletHotEventsModel.updateStAppletHotEvents(stAppletHotEvents));
         } catch (BusinessException e) {
@@ -88,10 +99,10 @@ public class StAppletHotEventsServiceImpl implements IStAppletHotEventsService {
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[IStAppletHotEventsService][updateStAppletHotEvents]更新st_applet_hot_events对象时出现未知异常：",
-                e);
+                    e);
         }
         return result;
-     }
+    }
 
     @Override
     public ServiceResult<List<StAppletHotEvents>> getPageList(PagerInfo pager,
@@ -102,7 +113,7 @@ public class StAppletHotEventsServiceImpl implements IStAppletHotEventsService {
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[IStAppletHotEventsService][getPageList]查询st_applet_hot_events列表时出现未知异常：",
-                e);
+                    e);
         }
         return result;
     }
@@ -117,7 +128,7 @@ public class StAppletHotEventsServiceImpl implements IStAppletHotEventsService {
         } catch (Exception e) {
             result.setError(ConstantsEJS.SERVICE_RESULT_CODE_SYSERROR, ConstantsEJS.SERVICE_RESULT_EXCEPTION_SYSERROR);
             log.error("[IStAppletHotEventsService][getPageList]查询st_applet_hot_events列表时出现未知异常：",
-                e);
+                    e);
         }
         return result;
     }
