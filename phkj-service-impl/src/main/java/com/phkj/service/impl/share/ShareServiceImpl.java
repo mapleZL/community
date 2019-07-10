@@ -46,7 +46,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareInfoMapper.selectByUserId(userId, taskType,villageCode);
+                stAppletShareInfoMapper.selectByUserId(userId, taskType, villageCode);
             }
         });
         // 处理数据
@@ -119,7 +119,11 @@ public class ShareServiceImpl implements ShareService {
     public StAppletShareInfo getShareInfoDetail(String id) {
 
         StAppletShareInfo shareInfo = stAppletShareInfoMapper.selectByPrimaryKey(Long.valueOf(id));
-
+        if (shareInfo.getShareType().equals("2")) { // 如果是物业查询已经预约数据
+            List<StAppletShareApply> applyList = stAppletShareApplyMapper.selectApplyByInfoId(shareInfo.getId());
+            String applyNum = shareInfo.getApplyNum();
+            shareInfo.setApplyNum("可预约人数 : " + applyNum + "已预约人数 : " + String.valueOf(applyList.size()));
+        }
         return shareInfo;
     }
 
@@ -172,7 +176,7 @@ public class ShareServiceImpl implements ShareService {
         }
 
         StAppletShareApply apply = stAppletShareApplyMapper.selectApplyByUserId(userId, shareInfo.getId().toString());
-        if (null != apply){
+        if (null != apply) {
             return "你已经申请过本条共享信息!";
         }
         // 查询申请任务id
@@ -226,7 +230,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareInfoMapper.selectByTaskType(taskType, status,villageCode);
+                stAppletShareInfoMapper.selectByTaskType(taskType, status, villageCode);
             }
         });
         // 处理数据
@@ -273,7 +277,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareInfoMapper.selectComShareInfoList(userId, taskType, status,villageCode);
+                stAppletShareInfoMapper.selectComShareInfoList(userId, taskType, status, villageCode);
             }
         });
 
@@ -293,7 +297,7 @@ public class ShareServiceImpl implements ShareService {
 
         boolean flag = false;
         shareInfo.setSts("1"); //任务状态 0删除 1.正常
-        if (StringUtils.isBlank(shareInfo.getImgUrl())){
+        if (StringUtils.isBlank(shareInfo.getImgUrl())) {
             List<String> list = new ArrayList<>();
             shareInfo.setImgUrl(list.toString());
         }
@@ -345,7 +349,7 @@ public class ShareServiceImpl implements ShareService {
         PageInfo<Object> pageInfo = PageHelper.startPage(pageNumber, size).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                stAppletShareApplyMapper.selectMeApplyInfoList(status, userId,villageCode);
+                stAppletShareApplyMapper.selectMeApplyInfoList(status, userId, villageCode);
             }
         });
 

@@ -86,6 +86,7 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
         map.put("eventSourceName", stAppletEnviron.getCreateUserName());
         map.put("orgCode", stAppletEnviron.getVillageCode());
         map.put("topOrgCode", "");
+        map.put("environmentId", stAppletEnviron.getId().toString());
         map.put("fileIds", stAppletEnviron.getImgUrl());
         // 使用httpClient发送请求发送到物业管理系统
         CloseableHttpClient build = HttpClientBuilder.create().build();
@@ -338,6 +339,32 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
         stAppletEnvironment.setExamineId(adminUser.getId().toString());
         stAppletEnvironment.setExamineName(adminUser.getName());
         int i = stAppletEnvironmentWriteMapper.updateByPrimaryKey(stAppletEnvironment);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * @param id
+     * @param userName
+     * @param userId
+     * @return
+     */
+    @Override
+    public boolean wechatExamined(String id, String userName, String userId) {
+
+        StAppletEnvironment environment = stAppletEnvironmentReadMapper.selectByPrimaryKey(Long.valueOf(id));
+        if (environment == null) {
+            return false;
+        }
+
+        environment.setExamineId(userId);
+        environment.setExamineName(userName);
+        environment.setStatus("2");
+        environment.setModifyTime(new Date());
+        int i = stAppletEnvironmentWriteMapper.updateByPrimaryKeySelective(environment);
         if (i > 0) {
             return true;
         }
