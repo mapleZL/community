@@ -56,9 +56,14 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
 
         // 查询超时时间
         List<StAppletOverTime> stAppletOverTimes = timeReadMapper.selectAllOverTime("1", stAppletEnviron.getVillageCode());
-        StAppletOverTime stAppletOverTime = stAppletOverTimes.get(0);
+        if (stAppletOverTimes != null && stAppletOverTimes.size() > 0) {
+            StAppletOverTime stAppletOverTime = stAppletOverTimes.get(0);
+            stAppletEnviron.setOverTime(getOverTime(new Date(), stAppletOverTime.getOverTime()));
+        } else {
+            stAppletEnviron.setOverTime(getOverTime(new Date(), "24"));  //默认24小时
+        }
+
         // 开始处理数据
-        stAppletEnviron.setOverTime(getOverTime(new Date(), stAppletOverTime.getOverTime()));
         stAppletEnviron.setSts("1");
         stAppletEnviron.setStatus("0");
         stAppletEnviron.setCreateTime(new Date());
