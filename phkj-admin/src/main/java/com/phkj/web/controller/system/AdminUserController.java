@@ -19,6 +19,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -225,13 +226,8 @@ public class AdminUserController extends BaseController {
     // 调用外部接口
     private void callPhAction(String idNo) {
         CloseableHttpClient build = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://112.17.164.97:8856/applet/user/wechat/saveWechatUser");
-        Map<String, String> map = new HashMap<>();
-        map.put("idNumber", idNo);
-        //TODO 目前写死物业人员，物业：property；街道：street
-        map.put("roleType", "property");
-        StringEntity stringEntity = new StringEntity(JSON.toJSONString(map), "UTF-8");
-        httpPost.setEntity(stringEntity);
+        HttpPost httpPost = new HttpPost("http://112.17.164.97:8856/applet/user/wechat/saveWechatUser?roleType=property&idNumber=" + idNo);
+        // 目前写死物业人员，物业：property；街道：street
         httpPost.setHeader("Content-Type", "application/json;charset=utf8");
         // 响应模型
         CloseableHttpResponse response = null;
@@ -240,8 +236,9 @@ public class AdminUserController extends BaseController {
             response = build.execute(httpPost);
             // 从响应模型中获取响应实体
             HttpEntity responseEntity = response.getEntity();
+            log.info("返回json:" + EntityUtils.toString(responseEntity));
             if (responseEntity != null) {
-                if (!(response.getStatusLine().toString().contains("200"))) {
+                if ((response.getStatusLine().toString().contains("200"))) {
                     log.info("调用成功！创建物业人员身份证号：" + idNo);
                 }
             } else {
