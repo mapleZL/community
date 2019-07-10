@@ -188,7 +188,8 @@
     t.content,
     t.create_time AS createTime,
     t.sts,
-    t.img_url AS imgUrl
+    t.img_url AS imgUrl ,
+    t.share_type as shareType
     FROM
     st_applet_share_info t
     WHERE

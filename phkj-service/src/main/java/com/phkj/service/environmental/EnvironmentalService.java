@@ -22,4 +22,6 @@ public interface EnvironmentalService {
     boolean delete(String id, SystemAdmin adminUser);
 
     boolean update(String id, SystemAdmin adminUser, String type);
+
+    boolean wechatExamined(String id, String userName, String userId);
 }

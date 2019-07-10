@@ -35,7 +35,7 @@
     delete from st_applet_environment
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.phkj.entity.environmental.StAppletEnvironment">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.phkj.entity.environmental.StAppletEnvironment">
     insert into st_applet_environment (id, classify, title, 
       content, img_url, telephone, 
       create_user_id, create_user_name, create_time, 

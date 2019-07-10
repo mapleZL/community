@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.Response;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +57,7 @@ public class EnvironmentalController {
         String type = request.getParameter("type");
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         try {
-            if (environmentalService.update(id, adminUser,type)) {
+            if (environmentalService.update(id, adminUser, type)) {
                 responseUtil.setSuccess(true);
             }
         } catch (Exception e) {
@@ -149,10 +150,10 @@ public class EnvironmentalController {
      */
     @ResponseBody
     @RequestMapping("/getMeEnvironList")
-    public ResponseUtil getMeEnvironList(String userId, Integer pageNum, Integer pageSize,String villageCode) {
+    public ResponseUtil getMeEnvironList(String userId, Integer pageNum, Integer pageSize, String villageCode) {
         ResponseUtil responseUtil = new ResponseUtil();
         try {
-            Map<String, Object> returnMap = environmentalService.getAll(userId, pageNum, pageSize,villageCode);
+            Map<String, Object> returnMap = environmentalService.getAll(userId, pageNum, pageSize, villageCode);
             responseUtil.setSuccess(true);
             responseUtil.setData(returnMap);
         } catch (Exception e) {
@@ -202,6 +203,21 @@ public class EnvironmentalController {
         return responseUtil;
     }
 
+    @ResponseBody
+    @RequestMapping("/wechat/examined")
+    public ResponseUtil wechatExamined(String id, String userName, String userId) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            if (environmentalService.wechatExamined(id, userName, userId)) {
+                responseUtil.setSuccess(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("评论失败!" + e);
+        }
+        return responseUtil;
+    }
+
 
     public boolean checkParam(StAppletEnvironment stAppletEnvironment) {
         if (StringUtils.isBlank(stAppletEnvironment.getTitle())) {
@@ -212,4 +228,6 @@ public class EnvironmentalController {
         }
         return true;
     }
+
+
 }
