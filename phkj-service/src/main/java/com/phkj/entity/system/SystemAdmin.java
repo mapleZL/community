@@ -40,6 +40,7 @@ public class SystemAdmin implements Serializable {
     private String            roleName;
     private String            relName;                                 //用户真实姓名
     private String            idNo;                                    //身份证号
+    private String            check;                                   //是否需要校验物业信息
 
     public String getRoleName() {
         return roleName;
@@ -193,4 +194,11 @@ public class SystemAdmin implements Serializable {
         this.idNo = idNo;
     }
 
+    public String getCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
+    }
 }

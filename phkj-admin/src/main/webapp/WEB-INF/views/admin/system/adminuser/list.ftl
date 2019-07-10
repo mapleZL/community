@@ -15,7 +15,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
 		$('#btn_add').click(function(){
 	 		$("#editWin").window({
 				width : 600,
-				height : 290,
+				height : 350,
 				href : "${currentBaseUrl}/add",
 				title : "新增管理员",
 				modal : true,
@@ -34,7 +34,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
 			}
 	 		$("#editWin").window({
 				width : 600,
-				height : 323,
+				height : 450,
 				href : "${currentBaseUrl}/edit?id="+selected.id,
 				title : "修改管理员信息",
 				modal : true,

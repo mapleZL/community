@@ -182,9 +182,11 @@ public class AdminUserController extends BaseController {
         try {
             pw = response.getWriter();
             // 校验用户是否需已经存在
-            if (!checkAdminUser(admin)) {
-                pw.print("该创建用户尚未查询到登记信息，请检查！");
-                return;
+            if (admin.getCheck().equals("1")) {
+                if (!checkAdminUser(admin)) {
+                    pw.print("该创建用户尚未查询到登记信息，请检查！");
+                    return;
+                }
             }
             
             // 绑定登录用户的小区code
@@ -209,7 +211,9 @@ public class AdminUserController extends BaseController {
                 }
             }
             // 访问仆汇接口，生成对应物业账号
-            callPhAction(admin.getIdNo());
+            if (admin.getCheck().equals("1")) {
+                callPhAction(admin.getIdNo());
+            }
             msg = serviceResult.getMessage();
         } catch (Exception e) {
             e.printStackTrace();

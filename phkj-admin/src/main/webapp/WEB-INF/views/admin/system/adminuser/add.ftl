@@ -140,7 +140,13 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/adminuser"/>
 							</select>
 						</p>
 					</div>
-
+					<div class="fluidbox">
+						<p class="p12 p-item">
+							<label class="lab-item"><font class="red">*</font>认证: </label>
+							<input type="radio" name="check" value="1"/>是
+							<input type="radio" name="check" value="2" checked/>否
+						</p>
+					</div>
 					<div class="fluidbox">
 						<p class="p12 p-item">
 							<label class="lab-item"><font class="red">*</font>状态: </label>
