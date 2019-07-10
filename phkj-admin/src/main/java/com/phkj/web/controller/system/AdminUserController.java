@@ -221,7 +221,7 @@ public class AdminUserController extends BaseController {
     // 调用外部接口
     private void callPhAction(String idNo) {
         CloseableHttpClient build = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://112.17.164.97:8856/applet/event/current/mobile/environment/save");
+        HttpPost httpPost = new HttpPost("http://112.17.164.97:8856/applet/user/wechat/saveWechatUser");
         Map<String, String> map = new HashMap<>();
         map.put("idNumber", idNo);
         //TODO 目前写死物业人员，物业：property；街道：street
