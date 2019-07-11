@@ -25,7 +25,7 @@
 				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
-	 		$.messager.confirm('确认', '确定使用该维修人员', function(r){
+	 		$.messager.confirm('确认', '该条数据审核不通过', function(r){
 				if (r){
 					$.messager.progress({text:"提交中..."});
 					$.ajax({

@@ -68,7 +68,7 @@
 				return;
 			}
 			// 判断是否是已经审核通过的数据
-			if(selected.status == 4){
+			if(selected.status == 5){
 				$.messager.alert('提示','该条申请已处理,请不要重复操作。');
 				return;
 			}
