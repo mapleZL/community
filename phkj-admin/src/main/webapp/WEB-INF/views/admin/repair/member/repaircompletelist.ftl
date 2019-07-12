@@ -156,7 +156,7 @@
 						,pagination:true
 						,pageSize:'${pageSize}'
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/repairList?q_sts=1'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/repairList?q_sts=5'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
@@ -178,12 +178,12 @@
 	</table>
 
 	<div id="gridTools">
-		<@shiro.hasPermission name="/admin/property/repair/delivery">
-		<a id="btn_accept" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">确认接收</a>
-		</@shiro.hasPermission>
-		<@shiro.hasPermission name="/admin/property/repair/nopass">
-		<a id="btn_sure" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">确认完成</a>
-		</@shiro.hasPermission>
+		<#--<@shiro.hasPermission name="/admin/property/repair/delivery">-->
+		<#--<a id="btn_accept" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">确认接收</a>-->
+		<#--</@shiro.hasPermission>-->
+		<#--<@shiro.hasPermission name="/admin/property/repair/nopass">-->
+		<#--<a id="btn_sure" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-saved" plain="true">确认完成</a>-->
+		<#--</@shiro.hasPermission>-->
 		<a id="btn-gridSearch" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
 	</div>
 	

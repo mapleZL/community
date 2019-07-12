@@ -72,6 +72,12 @@ public class StAppletRepairController extends BaseController {
         return "admin/repair/member/repairundolist";
     }
 
+    @RequestMapping(value = "/complete", method = { RequestMethod.GET })
+    public String getCompleteList(Map<String, Object> dataMap) throws Exception {
+        dataMap.put("pageSize", ConstantsEJS.DEFAULT_PAGE_SIZE);
+        return "admin/repair/member/repaircompletelist";
+    }
+
     /**
      * create by: zl
      * description: 添加物业报修

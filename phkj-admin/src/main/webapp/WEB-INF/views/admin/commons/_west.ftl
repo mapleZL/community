@@ -102,6 +102,9 @@
 		<@shiro.hasPermission name="/admin/property/repair/undo">
 		<a href="javascript:void(0);" onclick="addTab('待确认报修', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/undo')">待确认报修</a>
 		</@shiro.hasPermission>
+		<@shiro.hasPermission name="/admin/property/repair/complete">
+		<a href="javascript:void(0);" onclick="addTab('已完成报修', '${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/complete')">已完成报修</a>
+		</@shiro.hasPermission>
 	</div>
 	</@shiro.hasPermission>
 	
