@@ -153,7 +153,7 @@ public class VisitorServiceImpl implements VisitorService {
         paramMap.put("imgUrl", url);
         // 发送请求
         CloseableHttpClient build = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://112.17.164.97:8856/applet/visitorempower/getVisitorCipher");
+        HttpPost httpPost = new HttpPost("http://114.55.170.236:8801/applet/visitorempower/getVisitorCipher");
         StringEntity stringEntity = new StringEntity(JSON.toJSONString(paramMap), "UTF-8");
         httpPost.setEntity(stringEntity);
         httpPost.setHeader("Content-Type", "application/json;charset=utf8");

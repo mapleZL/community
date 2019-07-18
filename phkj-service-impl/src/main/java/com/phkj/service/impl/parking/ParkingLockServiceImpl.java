@@ -75,7 +75,7 @@ public class ParkingLockServiceImpl implements ParkingLockService {
         map.put("params", "");
         //开始处理请求
         CloseableHttpClient build = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://112.17.164.97:8856/applet/mobile/operation/parkinglock/poleDown");
+        HttpPost httpPost = new HttpPost("http://114.55.170.236:8801/applet/mobile/operation/parkinglock/poleDown");
         StringEntity stringEntity = new StringEntity(JSON.toJSONString(map), "UTF-8");
         httpPost.setEntity(stringEntity);
         httpPost.setHeader("Content-Type", "application/json;charset=utf8");
@@ -161,7 +161,7 @@ public class ParkingLockServiceImpl implements ParkingLockService {
         map.put("params", "");
         //开始处理请求
         CloseableHttpClient build = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://112.17.164.97:8856/applet/mobile/operation/parkinglock/queryStatus");
+        HttpPost httpPost = new HttpPost("http://114.55.170.236:8801/applet/mobile/operation/parkinglock/queryStatus");
         StringEntity stringEntity = new StringEntity(JSON.toJSONString(map), "UTF-8");
         httpPost.setEntity(stringEntity);
         httpPost.setHeader("Content-Type", "application/json;charset=utf8");

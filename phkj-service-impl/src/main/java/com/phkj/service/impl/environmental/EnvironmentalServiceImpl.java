@@ -90,7 +90,7 @@ public class EnvironmentalServiceImpl implements EnvironmentalService {
         map.put("fileIds", stAppletEnviron.getImgUrl());
         // 使用httpClient发送请求发送到物业管理系统
         CloseableHttpClient build = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://112.17.164.97:8856/applet/event/current/mobile/environment/save");
+        HttpPost httpPost = new HttpPost("http://114.55.170.236:8801/applet/event/current/mobile/environment/save");
         StringEntity stringEntity = new StringEntity(JSON.toJSONString(map), "UTF-8");
         httpPost.setEntity(stringEntity);
         httpPost.setHeader("Content-Type", "application/json;charset=utf8");
