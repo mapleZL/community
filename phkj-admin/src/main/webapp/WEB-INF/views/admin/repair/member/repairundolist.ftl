@@ -156,7 +156,7 @@
 						,pagination:true
 						,pageSize:'${pageSize}'
 						,fit:true
-    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/repairList?q_sts=1'
+    					,url:'${domainUrlUtil.EJS_URL_RESOURCES}/admin/property/repair/repairList'
     					,queryParams:queryParamsHandler()
     					,onLoadSuccess:dataGridLoadSuccess
     					,method:'get'">
