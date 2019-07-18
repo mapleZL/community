@@ -18,4 +18,6 @@ public interface VisitorService {
     boolean delete(String id, SystemAdmin adminUser);
 
     PageInfo<StBaseinfoParkingLotOrder> getAllVisParkinigLot(String page, String rows, String sts, String type, SystemAdmin adminUser);
+
+    Map<String,Object> getMeVisit(String userId, String pageNum, String pageSize);
 }

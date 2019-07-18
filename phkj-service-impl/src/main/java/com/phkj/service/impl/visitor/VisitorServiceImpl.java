@@ -59,10 +59,26 @@ public class VisitorServiceImpl implements VisitorService {
                 Integer.valueOf(rows)).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
-                parkingLotOrderDao.getAll(sts, type,adminUser.getVillageCode());
+                parkingLotOrderDao.getAll(sts, type, adminUser.getVillageCode());
             }
         });
         return pageInfo;
+    }
+
+    @Override
+    public Map<String, Object> getMeVisit(String userId, String pageNum, String pageSize) {
+
+        PageInfo<StAppletVisitor> pageInfo = PageHelper.startPage(Integer.valueOf(pageNum), Integer.valueOf(pageSize)).
+                doSelectPageInfo(new ISelect() {
+                    @Override
+                    public void doSelect() {
+                        stAppletReadVisitDao.getVisitorByUserId(userId);
+                    }
+                });
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("total",pageInfo.getTotal());
+        returnMap.put("list",pageInfo.getList());
+        return returnMap;
     }
 
 

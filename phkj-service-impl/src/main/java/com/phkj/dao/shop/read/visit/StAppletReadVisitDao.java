@@ -23,4 +23,6 @@ public interface StAppletReadVisitDao {
     List<StAppletVisitor> getAllVisitor(@Param("sts") String sts, @Param("type") String type,@Param("villageCode") String villageCode);
 
     List<StAppletVisitor> selectByUserId(@Param("userId") String createUserId);
+
+    List<StAppletVisitor> getVisitorByUserId(String userId);
 }

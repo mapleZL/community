@@ -246,6 +246,7 @@
                 <th field="startTime" width="70" align="center">开始时间</th>
                 <th field="endTime" width="90" align="center">到期时间</th>
                 <th field="sts" width="70" align="center">状态</th>
+                <th field="remarks" width="70" align="center">备注</th>
                 <th field="createTime" width="90" align="center">申请时间</th>
                 <th field="createUserName" width="70" align="center">申请人</th>
                 <th field="examineName" width="70" align="center">审核人</th>

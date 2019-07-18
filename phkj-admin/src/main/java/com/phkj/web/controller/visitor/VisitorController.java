@@ -51,7 +51,7 @@ public class VisitorController {
         SystemAdmin adminUser = WebAdminSession.getAdminUser(request);
         String id = request.getParameter("id");
         WebAdminSession.getAdminUser(request);
-        if (visitorService.delete(id,adminUser)) {
+        if (visitorService.delete(id, adminUser)) {
             responseUtil.setSuccess(true);
         }
         return responseUtil;
@@ -125,5 +125,21 @@ public class VisitorController {
         return responseUtil;
     }
 
-
+    @ResponseBody
+    @RequestMapping("/getMeVisit")
+    public ResponseUtil getMeVisit(HttpServletRequest request) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        try {
+            String userId = request.getParameter("userId");
+            String pageNum = request.getParameter("pageNum");
+            String pageSize = request.getParameter("pageSize");
+            Map<String, Object> returnMap = visitorService.getMeVisit(userId, pageNum, pageSize);
+            responseUtil.setSuccess(true);
+            responseUtil.setData(returnMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("查询失败!" + e);
+        }
+        return responseUtil;
+    }
 }

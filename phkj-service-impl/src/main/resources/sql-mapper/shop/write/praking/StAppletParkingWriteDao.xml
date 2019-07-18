@@ -19,6 +19,7 @@
     <result column="village_code" jdbcType="VARCHAR" property="villageCode" />
     <result column="examine_id" jdbcType="VARCHAR" property="examineId" />
     <result column="examine_name" jdbcType="VARCHAR" property="examineName" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
   <sql id="Base_Column_List">
     id, car_num, price, start_time, end_time, telephone, praking_num, sts, create_time, 
@@ -40,13 +41,13 @@
       start_time, end_time, telephone, 
       praking_num, sts, create_time, 
       create_user_id, create_user_name, modify_time, 
-      modify_user_id, modify_user_name, village_code
+      modify_user_id, modify_user_name, village_code,remarks
       )
     values (#{id,jdbcType=BIGINT}, #{carNum,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
       #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{telephone,jdbcType=VARCHAR}, 
       #{prakingNum,jdbcType=VARCHAR}, #{sts,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUserId,jdbcType=VARCHAR}, #{createUserName,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{modifyUserId,jdbcType=VARCHAR}, #{modifyUserName,jdbcType=VARCHAR}, #{villageCode,jdbcType=VARCHAR}
+      #{modifyUserId,jdbcType=VARCHAR}, #{modifyUserName,jdbcType=VARCHAR}, #{villageCode,jdbcType=VARCHAR}, #{remarks}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.phkj.entity.praking.StAppletParking">

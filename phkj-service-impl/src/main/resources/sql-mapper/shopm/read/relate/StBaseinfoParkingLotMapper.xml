@@ -60,7 +60,7 @@
         FROM
             st_baseinfo_parking_lot bl
             INNER JOIN st_baseinfo_parking_lot_order po ON bl.id = po.parking_lot_id
-            AND po.wechat_user_id = #{userId} and po.org_code =#{orgCode} and po.status  = 'Y' AND po.sts = 'Y'  UNION
+            AND po.wechat_user_id = #{userId} and po.org_code like CONCAT(#{orgCode},'%') and po.status  = 'Y' AND po.sts = 'Y'  UNION
         SELECT
             bl.id,
             bl.org_code,
@@ -79,7 +79,7 @@
         WHERE
             bl.parking_status = 'N'
             AND bl.sts = 'Y'
-            AND bl.org_code = #{orgCode}
+            AND bl.org_code like CONCAT(#{orgCode},'%')
             AND bl.id NOT IN ( SELECT parking_lot_id FROM st_baseinfo_parking_lot_order WHERE `status` = 'Y' AND sts = 'Y' )
             AND bl.type IN ( 'B', 'E' )
             ) new_temp
@@ -94,7 +94,8 @@
         WHERE
             parking_status = 'N'
             AND sts = 'Y'
-            and org_code = #{orgCode}
+            and type in('B', 'E')
+            and org_code like CONCAT(#{orgCode},'%')
             AND id NOT IN ( SELECT parking_lot_id FROM st_baseinfo_parking_lot_order WHERE `status` = 'Y' AND sts = 'Y' )
 	</select>
 
