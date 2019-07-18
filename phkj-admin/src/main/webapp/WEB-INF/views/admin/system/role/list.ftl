@@ -74,6 +74,9 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/role"/>
 			$("#roleCode").attr('disabled',true);
 			$("#rolesName").validatebox({});
 			$("#roleCode").validatebox({});
+			/* $(".selector").val(selected.villageCode); */
+			$("#villageCode").combobox('setValue', selected.villageCode);
+			$("#repairCode").combobox('setValue', selected.repairCode);
 			$("#content").val(selected.content);
 			$("#addRole").window({
 				width : 600,
@@ -197,6 +200,8 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/role"/>
 				<th field="rolesName" width="120" align="center">角色名称</th>
 				<th field="content" width="120" align="center">角色描述</th>
 				<th field="createTime" width="90" align="center">创建时间</th>
+				<th field="villageCode" width="0" >归属小区</th>
+				<th field="repairCode" width="0" >归属小区</th>
 			</tr>
 		</thead>
 	</table>
@@ -254,7 +259,7 @@ currentBaseUrl="${domainUrlUtil.EJS_URL_RESOURCES}/admin/system/role"/>
 									<label class="lab-item"><font class="red">*</font>角色归属小区:
 									</label>
 									<#if residentia??>
-		                            	<select name="villageCode" id="villageCode" level="0" class="w210 easyui-combobox">
+		                            	<select name="villageCode" id="villageCode" level="0" class="w210 easyui-combobox selector">
 		                            	<option>请选择</option>
 				                     	<#list residentia as orgaion>
 											<option value="${(orgaion.orgCode)!}">${(orgaion.name)!}</option>
