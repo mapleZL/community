@@ -47,7 +47,7 @@
         <version-commons-io>2.4</version-commons-io>
         <version-beanutils>1.9.2</version-beanutils>
 
-        <version-junit>4.10</version-junit>
+        <version-junit>4.13.1</version-junit>
 
         <version-fastjson>1.2.6</version-fastjson>
         <version-gson>2.2.2</version-gson>
