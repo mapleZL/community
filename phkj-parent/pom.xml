@@ -23,7 +23,7 @@
         <version-maven-surefire-plugin>2.14.1</version-maven-surefire-plugin>
 
 
-        <version-mybatis>3.2.7</version-mybatis>
+        <version-mybatis>3.5.6</version-mybatis>
         <version-mysql-connector>5.1.24</version-mysql-connector>
         <version-druid>1.0.14</version-druid>
         <version-mybatis-spring>1.2.0</version-mybatis-spring>
