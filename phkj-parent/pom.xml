@@ -44,7 +44,7 @@
         <version-slf4j>1.7.2</version-slf4j>
 
         <version-commons-fileupload>1.2.2</version-commons-fileupload>
-        <version-commons-io>2.4</version-commons-io>
+        <version-commons-io>2.7</version-commons-io>
         <version-beanutils>1.9.2</version-beanutils>
 
         <version-junit>4.10</version-junit>
