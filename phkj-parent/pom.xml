@@ -24,7 +24,7 @@
 
 
         <version-mybatis>3.2.7</version-mybatis>
-        <version-mysql-connector>5.1.24</version-mysql-connector>
+        <version-mysql-connector>8.0.28</version-mysql-connector>
         <version-druid>1.0.14</version-druid>
         <version-mybatis-spring>1.2.0</version-mybatis-spring>
 
